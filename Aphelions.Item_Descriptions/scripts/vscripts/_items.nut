@@ -20,9 +20,13 @@ const car_LONG_DESC =          "The C.A.R. (Combat Advanced Round) submachine gu
 const g2_LONG_DESC =           "The G2A4 is a semi-automatic rifle that uses 6.19x97mm LEC cartridges. Though it was phased out in favor of the R-101C for infantry, it remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
 const sniper_LONG_DESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one-shot, one-kill' for most human-sized targets. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
 
+const lmg_SHORT_DESC =      "Light machine gun"
+const MEGA1_SHORT_DESC =    "Bolt-action sniper rifle"
 const MEGA1_LONG_DESC =     "The VSR-1 'Valkyrie' is a bolt-action sniper rifle, favored by veterans of the Titan Wars. Despite its age, its light weight, reliability, and 11.62mm rounds make it more than suitable for eliminating fast-moving targets."
 const MEGA2_SHORT_DESC =    "Sawn-off shotgun"
 const MEGA2_LONG_DESC =     "The TWIN-B is a 12-gauge break-action shotgun. Originally used by colonists for game hunting, the barrel has been sawed down for easier concealment - making it highly illegal to own in most IMC districts."
+
+const r97_SCATTER_LONG_DESC = "This mod increases the R-97's high rate of fire even further, at the expense of accuracy."
 
 // Secondary DESCRIPTIONS
 const semipistol_LONG_DESC =   "The Hammond P2011 is a semi-auto 11.43x23mm handgun. It is the standard-issue sidearm for IMC infantry. What it lacks in damage, it makes up for with accuracy and minimal recoil - a jack of all trades, master of none."
@@ -53,7 +57,7 @@ const mp_ability_heal_DESCv2 =    "While IMC grunts rely on low-grade sansufenta
 const mp_ability_sonar_DESCv2 =   "Active Radar Pulse emits a burst of low-frequency radio waves, allowing you to see enemies through walls for about 7 seconds. However, due to scattering latency, you will only see single frames, not full motion."
 
 // TITAN WEAPON DESCRIPTIONS
-const titan_40mm_LONG_DESC =      "The 40mm Cannon is a semi-automatic weapon that fires explosive rounds of depleted uranium. Formerly used by APCs, Brockhaurd Manufacturing has since repurposed it for Titan combat."
+const titan_40mm_LONG_DESC =      "The 40mm Cannon is a semi-automatic weapon that fires highly explosive rounds of depleted uranium. Used by APCs, Brockhaurd Manufacturing has since repurposed it for Titan combat."
 const xo16_LONG_DESC =            "The XO-16 Chaingun is a fully automatic, belt-fed machine gun that fires 35mm rounds with high precision. At mid-to-long range, it is very effective against both Pilots and Titans."
 const quad_rocket_LONG_DESC =     "The Quad Rocket launches a tight cluster of four rockets at once. When zoomed in, the rockets will fire in a slow-moving spiral that expands outward, denying territory to the enemy."
 const arc_cannon_LONG_DESC =      "The Arc Cannon fires a bolt of electricity at 5 terajoules that will arc across nearby targets. It can be fired instantly, or it can be charged over time for an increase in firepower."
@@ -448,7 +452,7 @@ function InitItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_spectre_kills", 			1, 		"mp_weapon_lmg",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 16, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_pilot_kills", 				1, 		"mp_weapon_lmg",			"slammer",						"#MOD_SLAMMER_NAME",			"#MOD_SLAMMER_DESC",				"#MOD_SLAMMER_LONGDESC",				10, 0, 0, 0, 0, 		"../ui/menu/items/mod_icons/slammer", 				"../ui/menu/items/mod_icons/slammer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_spectre_kills", 			1, 		"mp_weapon_r97",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 10, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_pilot_kills", 				1, 		"mp_weapon_r97",			"scatterfire",					"#MOD_SCATTERFIRE_NAME",		"#MOD_SCATTERFIRE_DESC",			"#MOD_SCATTERFIRE_LONGDESC",			0, -15, 0, 10, 0, 		"../ui/menu/items/mod_icons/scatterfire", 			"../ui/menu/items/mod_icons/scatterfire" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_pilot_kills", 				1, 		"mp_weapon_r97",			"scatterfire",					"#MOD_SCATTERFIRE_NAME",		"#MOD_SCATTERFIRE_DESC",			r97_SCATTER_LONG_DESC,			        0, -15, 0, 10, 0, 		"../ui/menu/items/mod_icons/scatterfire", 			"../ui/menu/items/mod_icons/scatterfire" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_kills", 					1, 		"mp_weapon_r97",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, -5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_rspn101_spectre_kills", 		1, 		"mp_weapon_rspn101",		"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 6, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 								null, 	"mp_weapon_rspn101",		"recoil_compensator",			"#MOD_RECOIL_COMPENSATOR_NAME",	MOD_RECOIL_COMPENSATOR_LONGDESCv2,	MOD_RECOIL_COMPENSATOR_LONGDESCv2,		0, 5, 0, 0, 0, 			"../ui/menu/items/mod_icons/recoil_compensator",	"../ui/menu/items/mod_icons/recoil_compensator",	HideFromMenus )
@@ -826,7 +830,7 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_kills", 				1, 		"mp_weapon_wingman",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-10, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_pilot_kills", 			1, 		"mp_weapon_wingman",		"explosive_rounds",				"#MOD_EXPLOSIVE_ROUNDS_NAME",	"#MOD_EXPLOSIVE_ROUNDS_DESC",		MOD_EXPLOSIVE_ROUNDS_DESCv2,			15, 0, 0, -5, 0, 		"../ui/menu/items/mod_icons/rapid_fire_missiles", 	"../ui/menu/items/mod_icons/rapid_fire_missiles" )
 
-	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_crits", 					1, 		"mp_weapon_smr",			"tank_buster",					"#MOD_TANK_BUSTER_NAME",		"#MOD_TANK_BUSTER_DESC",			MOD_TANK_BUSTER_DESCv2,				20, 0, 0, -35, -13, 			"../ui/menu/items/mod_icons/slammer",				"../ui/menu/items/mod_icons/slammer" )
+	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_crits", 					1, 		"mp_weapon_smr",			"tank_buster",					"#MOD_TANK_BUSTER_NAME",		"#MOD_TANK_BUSTER_DESC",			MOD_TANK_BUSTER_DESCv2,				25, 0, 0, -30, -13, 			"../ui/menu/items/mod_icons/slammer",				"../ui/menu/items/mod_icons/slammer" )
 	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_titan_kills", 				1, 		"mp_weapon_smr",			"stabilized_warhead",			"#MOD_STABILIZED_WARHEAD_NAME",	"#MOD_STABILIZED_WARHEAD_DESC",		MOD_STABILIZED_WARHEAD_DESCv2,			0, 15, 0, -10, 0, 			"../ui/menu/items/mod_icons/rapid_fire_missiles",	"../ui/menu/items/mod_icons/rapid_fire_missiles" )
 
 	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_DISABLED,	0, 	"ch_archer_titan_kills", 			1, 		"mp_weapon_rocket_launcher","guided_missile",				"#MOD_GUIDED_MISSILE_NAME",		"#MOD_GUIDED_MISSILE_DESC",			"#MOD_GUIDED_MISSILE_DESC",				0, 0, 0, 0, 0, 			"../ui/menu/items/mod_icons/rapid_fire_missiles",	"../ui/menu/items/mod_icons/rapid_fire_missiles", HideFromMenus )
@@ -878,6 +882,7 @@ function CreateR1DeltaItems()
 
 	// Edited these in-game TFO weapon descriptions to be more complete
 	// Valkyrie Edits
+	itemData["mp_weapon_mega1"].desc = MEGA1_SHORT_DESC
 	itemData["mp_weapon_mega1"].longdesc = MEGA1_LONG_DESC
 	itemData["mp_weapon_mega1"].statDamage = 97
 	itemData["mp_weapon_mega1"].statAccuracy = 75
@@ -905,6 +910,7 @@ function CreateR1DeltaItems()
 	itemData["mp_weapon_shotgun"].longdesc = shotgun_LONG_DESC
 	itemData["mp_weapon_r97"].longdesc = r97_LONG_DESC
 	itemData["mp_weapon_dmr"].longdesc = dmr_LONG_DESC
+	itemData["mp_weapon_lmg"].desc = lmg_SHORT_DESC
 	itemData["mp_weapon_lmg"].longdesc = lmg_LONG_DESC
 	itemData["mp_weapon_hemlok"].longdesc = hemlok_LONG_DESC
 	itemData["mp_weapon_car"].longdesc = car_LONG_DESC
