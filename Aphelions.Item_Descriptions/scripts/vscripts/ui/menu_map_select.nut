@@ -153,8 +153,8 @@ function MapButton_Focused( button )
 
 		// --- CUSTOM MAP DESCRIPTION OVERRIDES ---
 		local customDescriptions = {
-			mp_mia = "A group of IMC and Militia forces make their last stand on the outskirts of Demeter. Neither were informed that the operation has failed and that rescue isn't coming...",
-			mp_nest2 = "IMC operatives must infiltrate one of their own facilities to destroy critical information related to Project TYPHON.",
+			mp_mia = "A group of IMC and Militia forces make their last stand on the outskirts of Demeter. Neither were informed that the operation has already failed and that rescue isn't coming...",
+			mp_nest2 = "Following a massive data breach, IMC operatives must infiltrate one of their own facilities to destroy critical information related to Project TYPHON.",
 			mp_fracture = "Years of aggressive fuel extraction have taken their toll on this former colony for the privileged in the Yuma System. It has since been abandoned, with entire continents turned upside down.",
 			mp_nexus = "IMC forces move in to pacify a backwater agricultural outpost suspected of harboring Militia personnel. Unbeknownst to them, this planet is the Frontier Militia's base of operations.",
 			mp_overlook = "At a converted IMC prisoner waystation, the Militia attempt a daring prisoner rescue. Intel suggests that a HVT is being held in maximum security, possibly an IMC whistleblower.",
