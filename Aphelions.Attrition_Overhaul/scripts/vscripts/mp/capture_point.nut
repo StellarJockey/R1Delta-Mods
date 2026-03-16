@@ -304,9 +304,25 @@ function CapturePoint_Update( hardpoint )
 // terminate old CappingWait thread if any
 	hardpoint.Signal( CP_END_CAPPING_WAIT_SIGNAL )
 	hardpoint.Signal( "CapturePointUpdate" )
+	
+	local imcPower = ( hardpoint.GetHardpointPlayerCount( TEAM_IMC ) * CAPTURE_POINT_PLAYER_CAP_POWER ) + ( hardpoint.GetHardpointAICount( TEAM_IMC ) * CAPTURE_POINT_PLAYER_CAP_POWER )
+	local milPower = ( hardpoint.GetHardpointPlayerCount( TEAM_MILITIA ) * CAPTURE_POINT_PLAYER_CAP_POWER ) + ( hardpoint.GetHardpointAICount( TEAM_MILITIA ) * CAPTURE_POINT_PLAYER_CAP_POWER )
 
-	local imcPower = ( hardpoint.GetHardpointPlayerCount( TEAM_IMC ) * CAPTURE_POINT_PLAYER_CAP_POWER ) + ( hardpoint.GetHardpointAICount( TEAM_IMC ) * CAPTURE_POINT_AI_CAP_POWER )
-	local milPower = ( hardpoint.GetHardpointPlayerCount( TEAM_MILITIA ) * CAPTURE_POINT_PLAYER_CAP_POWER ) + ( hardpoint.GetHardpointAICount( TEAM_MILITIA ) * CAPTURE_POINT_AI_CAP_POWER )
+	// --- CUSTOM ENEMY CAPTURE SPEED BUFF ---
+	local players = GetPlayerArray()
+	if ( players.len() > 0 )
+	{
+		local playerTeam = players[0].GetTeam()
+		
+		// If the player is Militia, double the IMC's capture power
+		if ( playerTeam == TEAM_MILITIA )
+			imcPower *= 2.5
+			
+		// If the player is IMC, double the Militia's capture power
+		else if ( playerTeam == TEAM_IMC )
+			milPower *= 2.5 
+	}
+	// ---------------------------------------
 
 	// Initialize a fresh table to guarantee the keys exist
 	local powerTable = {

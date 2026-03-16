@@ -2017,8 +2017,8 @@ function ShouldRunEvac()
         // Check if WINNING team is empty (happens when you lose solo)
         if ( GetPlayerArrayOfTeam( winningTeam ).len() == 0 )
         {
-            // Proceed if we are in Campaign OR Attrition
-            if ( playlist != "campaign_carousel" && playlist != "at" )
+            // Proceed if we are in Campaign OR Attrition OR Hardpoint
+            if ( playlist != "campaign_carousel" && playlist != "at" && playlist != "cp"  )
                 return false
         }
 
