@@ -67,18 +67,8 @@ function main()
 	RegisterSignal( "OnLostTarget" )
 	RegisterSignal( "BubbleShieldStatusUpdate" )
 
-	level.max_npc_per_side <- 0
-	level.max_npc_per_side_small <- 0
-
-	if ( GameRules.GetGameMode() == TITAN_BRAWL )
-	{
-
-	}
-	else
-	{
-		level.max_npc_per_side <- 28
-		level.max_npc_per_side_small <- 21
-	}
+	level.max_npc_per_side <- 28
+	level.max_npc_per_side_small <- 21
 
 	level.occupiedAISlots <- {}
 	level.occupiedAISlots[TEAM_IMC] <- 0
