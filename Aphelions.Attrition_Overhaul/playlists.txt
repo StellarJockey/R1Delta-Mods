@@ -2631,7 +2631,7 @@
 			"cmdlineMapLoad"	"0"
 			"max teams"	"2"
 			"visible"	"1"
-			"TDM_scorelimit"	"50"
+			"TDM_scorelimit"	"30"
 			"TDM_timelimit"	"15"
 			"CP_scorelimit"	"400"
 			"CP_timelimit"	"15"
