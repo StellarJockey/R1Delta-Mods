@@ -30,13 +30,13 @@ TITANS PER TEAM
  	function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 
 The limits will be inside the function. By default, your team will cap at 2 npc Titans. Enemy team will cap at 5.
+(Numbers will be 5 and 6 for Titan Brawl)
 
 
 TITAN SPAWN TIMER
 * Go into \scripts\vscripts\mp\_ai_game_modes
 * ctrl + f to find:
-	// Titan spawn delay in seconds
-	wait RandomFloat( 20, 90 )
+	wait RandomFloat( 20, 90 )  // Titan spawn delay in seconds
 
 This makes it so that Titans don't immediately spawn when the game starts or when they are killed. Default value is anywhere from 20-90 seconds.
 

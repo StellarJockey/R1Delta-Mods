@@ -2723,7 +2723,7 @@
 
 			"SCV_scorelimit"	"50"
 			"SCV_timelimit"		"15"
-			"TTDM_scorelimit"	"65"
+			"TTDM_scorelimit"	"30"
 			"TTDM_timelimit"	"12"
 			"TMFD_scorelimit"	"10"
 			"TMFD_timelimit"	"10"

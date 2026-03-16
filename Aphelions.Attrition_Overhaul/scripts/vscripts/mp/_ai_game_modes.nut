@@ -67,8 +67,18 @@ function main()
 	RegisterSignal( "OnLostTarget" )
 	RegisterSignal( "BubbleShieldStatusUpdate" )
 
-	level.max_npc_per_side <- 28
-	level.max_npc_per_side_small <- 21
+	level.max_npc_per_side <- 0
+	level.max_npc_per_side_small <- 0
+
+	if ( GameRules.GetGameMode() == TITAN_BRAWL )
+	{
+
+	}
+	else
+	{
+		level.max_npc_per_side <- 28
+		level.max_npc_per_side_small <- 21
+	}
 
 	level.occupiedAISlots <- {}
 	level.occupiedAISlots[TEAM_IMC] <- 0
@@ -90,6 +100,9 @@ function main()
 	local npcPerSide = level.max_npc_per_side
 	switch( GameRules.GetGameMode() )
 	{
+		case TITAN_BRAWL:
+			npcPerSide = 0
+			break
 		case TEAM_DEATHMATCH:
 			level.npcRespawnWait = 5
 			break
@@ -1705,14 +1718,14 @@ function TeamDeathmatchSpawnNPCsThink()
     if ( !( "modifyAISlots" in level ) )
         level.modifyAISlots <- { [TEAM_IMC] = 0, [TEAM_MILITIA] = 0 }
 
-    if ( !Flag( "Disable_IMC" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH ) )
+    if ( !Flag( "Disable_IMC" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == TITAN_BRAWL ) )
     {
         thread SpawnPilotWithTitans( TEAM_IMC )
         thread SuicideSpectreWaveThink( TEAM_IMC )
 		thread CloakDroneWaveThink( TEAM_IMC )
     }
 
-    if ( !Flag( "Disable_MILITIA" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH ) )
+    if ( !Flag( "Disable_MILITIA" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == TITAN_BRAWL ) )
     {
         thread SpawnPilotWithTitans( TEAM_MILITIA )
         thread SuicideSpectreWaveThink( TEAM_MILITIA )
@@ -1930,8 +1943,14 @@ function CloakDroneWaveThink( team )
 
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
-    // Titan spawn delay in seconds
-    wait RandomFloat( 20, 90 )
+    if ( GameRules.GetGameMode() == TITAN_BRAWL )
+	{
+		wait 1.0  // Titans spawn instantly in Titan Brawl
+	}
+	else
+	{
+		wait RandomFloat( 20, 90 )   // Titan spawn delay in seconds 
+	}
 
     if ( !IsNPCSpawningEnabled( team ) )
         return
@@ -1999,11 +2018,25 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
     local limit = 0
     if ( team == playerTeam )
     {
-        limit = 2 // Friendly team limit
+        if ( GameRules.GetGameMode() == TITAN_BRAWL )
+		{
+			limit = 5
+		}
+		else
+		{
+			limit = 2 // Friendly team limit for Attrition and Campaign
+		}
     }
     else
-    {
-        limit = 5 // Enemy team limit
+	{
+        if ( GameRules.GetGameMode() == TITAN_BRAWL ) 
+		{
+			limit = 6
+		}
+		else
+		{
+        limit = 5 // Enemy team limit for Attrition and Campaign
+		}
     }
 
     return file.spawnedtitans[team] < limit
