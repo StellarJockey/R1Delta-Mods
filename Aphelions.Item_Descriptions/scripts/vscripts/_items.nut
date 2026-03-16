@@ -31,7 +31,7 @@ const r97_SCATTER_LONG_DESC = "This mod increases the R-97's high rate of fire e
 // Secondary DESCRIPTIONS
 const semipistol_LONG_DESC =   "The Hammond P2011 is a semi-auto 11.43x23mm handgun. It is the standard-issue sidearm for IMC infantry. What it lacks in damage, it makes up for with accuracy and minimal recoil - a jack of all trades, master of none."
 const autopistol_LONG_DESC =   "The Lastimosa Armory RE-45 is a fully automatic .45 caliber pistol. While it suffers at longer ranges, its high rate of fire can save your life at close range. It also offers a wide selection of mod options."
-const wingman_LONG_DESC =      "The B3 Wingman is a high-caliber .50 AE revolver that provides excellent range and precision. Due to its high stopping power and low fire rate, it is known as a 'pocket sniper' to veterans of the Frontier."
+const wingman_LONG_DESC =      "The B3 Wingman is a high-caliber .50 AE revolver that provides excellent range and precision. Due to its high stopping power and low fire rate, it is known as the 'pocket sniper' to veterans of the Frontier."
 
 const MOD_EXPLOSIVE_ROUNDS_DESCv2 =         "Explosive agents have been smuggled into your Wingman's rounds. Shots will deal additional damage around the point of impact."
 const MOD_STARBURST_AUTOPISTOL_LONGDESCv2 = "Based on the Hemlok mod of the same name, this changes the RE-45's firing mode to a five-round burst."
@@ -49,15 +49,15 @@ const MOD_STABILIZED_WARHEAD_DESCv2 =       "This mod allows micro-missiles to f
 
 // Ordnance DESCRIPTIONS
 const mp_weapon_grenade_emp_DESCv2 =  "Arc Grenades release an electrostatic discharge that will temporarily scramble the vision of Pilots and Titans. While they inflict less kinetic damage than a Frag Grenade, they will wreak havoc on Titan shields."
-const mp_weapon_satchel_DESCv2 =      "Satchel Charges are an adhesive-polymer explosive that will stick to any surface and are detonated manually, causing massive damage to minions, Titan armor - and you, if you aren't careful."
+const mp_weapon_satchel_DESCv2 =      "Satchel Charges are an adhesive-polymer explosive that will stick to any surface and are detonated manually, causing massive damage to enemies, Titan armor - and you, if you aren't careful."
 
 // Tactical DESCRIPTIONS
-const mp_ability_cloak_DESCv2 =   "The Cloaking system uses a refractive mesh to bend light around the Pilot. You will become completely invisible to minions and (mostly) invisible to Titans for 9 seconds. However, your general outline is still visible to other Pilots, as are your jump jets."
-const mp_ability_heal_DESCv2 =    "While IMC grunts rely on low-grade sansufentanyl to suppress wounds, Pilot Stim is a cocktail of synthetic phenethylamines. Upon injection, it will temporarily increase your movement speed by 35% and double your health regeneration."
+const mp_ability_cloak_DESCv2 =   "The Cloaking system uses a refractive mesh to bend light around the Pilot. You will become completely invisible to minions and Titans for 9 seconds. However, your general outline is still visible to other Pilots, as are your jump jets."
+const mp_ability_heal_DESCv2 =    "While grunts rely on low-grade sansufentanyl to suppress wounds, Pilot Stim is a cocktail of synthetic phenethylamines. Upon injection, it will increase your movement speed by 35% and double your health regeneration for 5 seconds."
 const mp_ability_sonar_DESCv2 =   "Active Radar Pulse emits a burst of low-frequency radio waves, allowing you to see enemies through walls for about 7 seconds. However, due to scattering latency, you will only see single frames, not full motion."
 
 // TITAN WEAPON DESCRIPTIONS
-const titan_40mm_LONG_DESC =      "The 40mm Cannon is a semi-automatic weapon that fires highly explosive rounds of depleted uranium. Used by APCs, Brockhaurd Manufacturing has since repurposed it for Titan combat."
+const titan_40mm_LONG_DESC =      "The 40mm Cannon is a semi-automatic weapon that fires highly explosive rounds of depleted uranium. Originally used by APCs, Brockhaurd Manufacturing has repurposed it for Titan combat."
 const xo16_LONG_DESC =            "The XO-16 Chaingun is a fully automatic, belt-fed machine gun that fires 35mm rounds with high precision. At mid-to-long range, it is very effective against both Pilots and Titans."
 const quad_rocket_LONG_DESC =     "The Quad Rocket launches a tight cluster of four rockets at once. When zoomed in, the rockets will fire in a slow-moving spiral that expands outward, denying territory to the enemy."
 const arc_cannon_LONG_DESC =      "The Arc Cannon fires a bolt of electricity at 5 terajoules that will arc across nearby targets. It can be fired instantly, or it can be charged over time for an increase in firepower."
@@ -68,7 +68,7 @@ const MEGA3_SHORT_DESC =    "Arc-powered minigun"
 const MEGA3_LONG_DESC =     "The AG-8 Thunderbolt is a minigun that fires arc rounds at a steady RPM after a brief wind-up. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
 
 const vortex_LONG_DESC =    "The Vortex Shield captures incoming projectiles and fires them back at the enemy upon release. It can only reflect ballistics and projectile weapons, though it will still protect you against most forms of damage."
-const mega4_LONG_DESC =     "The Charge Cannon is a shoulder-mounted laser. Unlike other tactical abilities, this one is built for pure offense. The damage output will increase the longer you charge the weapon."
+const mega4_LONG_DESC =     "The Charge Cannon is a shoulder-mounted laser that deals high damage. Unlike other tactical abilities, this one is built for pure offense. The damage output will increase the longer you charge the weapon."
 
 const MOD_RAPID_FIRE_MISSILES_DESCv2 =      "This mod converts the weapon into a fully-automatic, singular rocket launcher with a high rate of fire, at the expense of reduced damage per rocket."
 const MOD_AFTERBURNERS_LONGDESCv2 =         "This mod makes alt-fired rockets travel much faster, but will use twice as much ammo."
