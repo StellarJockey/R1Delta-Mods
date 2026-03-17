@@ -1993,7 +1993,7 @@ function DynamicHardpointReassignment( guy, initialHardpoint )
 
 	while ( true )
 	{
-		wait 5.0 
+		wait 1.0 
 
 		if ( !IsValid( currentTarget ) )
 			continue

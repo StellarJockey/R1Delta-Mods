@@ -301,26 +301,48 @@ function CapturePoint_Update( hardpoint )
 	if ( !hardpoint.s.cappable )
 		return
 
-// terminate old CappingWait thread if any
+	// terminate old CappingWait thread if any
 	hardpoint.Signal( CP_END_CAPPING_WAIT_SIGNAL )
 	hardpoint.Signal( "CapturePointUpdate" )
 	
-	local imcPower = ( hardpoint.GetHardpointPlayerCount( TEAM_IMC ) * CAPTURE_POINT_PLAYER_CAP_POWER ) + ( hardpoint.GetHardpointAICount( TEAM_IMC ) * CAPTURE_POINT_PLAYER_CAP_POWER )
-	local milPower = ( hardpoint.GetHardpointPlayerCount( TEAM_MILITIA ) * CAPTURE_POINT_PLAYER_CAP_POWER ) + ( hardpoint.GetHardpointAICount( TEAM_MILITIA ) * CAPTURE_POINT_PLAYER_CAP_POWER )
+	// Get counts for players and AI on each team
+	local imcPlayers = hardpoint.GetHardpointPlayerCount( TEAM_IMC )
+	local imcAI = hardpoint.GetHardpointAICount( TEAM_IMC )
+	local milPlayers = hardpoint.GetHardpointPlayerCount( TEAM_MILITIA )
+	local milAI = hardpoint.GetHardpointAICount( TEAM_MILITIA )
 
-	// --- CUSTOM ENEMY CAPTURE SPEED BUFF ---
+	local imcPower = 0.0
+	local milPower = 0.0
+
 	local players = GetPlayerArray()
 	if ( players.len() > 0 )
 	{
 		local playerTeam = players[0].GetTeam()
 		
-		// If the player is Militia, double the IMC's capture power
 		if ( playerTeam == TEAM_MILITIA )
-			imcPower *= 2.5
+		{
+			// PLAYER IS MILITIA: 
+			// Enemy (IMC) grunts get 2.5x buff
+			imcPower = ( imcPlayers + imcAI ) * CAPTURE_POINT_PLAYER_CAP_POWER * 2.5
 			
-		// If the player is IMC, double the Militia's capture power
+			// Friendly (Militia) player remains 1.0x, but grunts are cut to 0.5x
+			milPower = ( milPlayers * CAPTURE_POINT_PLAYER_CAP_POWER ) + ( milAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5 )
+		}
 		else if ( playerTeam == TEAM_IMC )
-			milPower *= 2.5 
+		{
+			// PLAYER IS IMC: 
+			// Enemy (Militia) grunts get 2.5x buff
+			milPower = ( milPlayers + milAI ) * CAPTURE_POINT_PLAYER_CAP_POWER * 2.5
+			
+			// Friendly (IMC) player remains 1.0x, but grunts are cut to 0.5x
+			imcPower = ( imcPlayers * CAPTURE_POINT_PLAYER_CAP_POWER ) + ( imcAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5 )
+		}
+	}
+	else
+	{
+		// Fallback for neutral/unassigned state
+		imcPower = ( imcPlayers + imcAI ) * CAPTURE_POINT_PLAYER_CAP_POWER
+		milPower = ( milPlayers + milAI ) * CAPTURE_POINT_PLAYER_CAP_POWER
 	}
 	// ---------------------------------------
 
