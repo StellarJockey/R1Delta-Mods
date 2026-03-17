@@ -59,6 +59,7 @@ function main()
 function EntitiesDidLoad()
 {	SetupAssaultPointKeyValues() 
 	thread SetupTeamDeathmatchNPCs()
+	AI_HardpointCommander_Init()
 	
 	// don't do the rest if we couldn't init (testmaps)
 	level.hardpointModeInitialized = InitializeHardpointsForCapturePoint()
@@ -314,10 +315,18 @@ function CapturePoint_Update( hardpoint )
 	local milAI = hardpoint.GetHardpointAICount( TEAM_MILITIA )
 	local milTitans = hardpoint.GetHardpointPlayerTitanCount( TEAM_MILITIA )
 
-	if ( imcTitans > 0 )
-		milAI = 0
-	if ( milTitans > 0 )
-		imcAI = 0
+	local touchingEnts = hardpoint.s.trigger.GetTouchingEntities()
+	foreach ( ent in touchingEnts )
+	{
+		// IsTitan() is a native entity function in the engine
+		if ( ent.IsNPC() && ent.IsTitan() ) 
+		{
+			if ( ent.GetTeam() == TEAM_IMC )
+				imcTitans++
+			else if ( ent.GetTeam() == TEAM_MILITIA )
+				milTitans++
+		}
+	}
 
 	local imcPower = 0.0
 	local milPower = 0.0
@@ -351,38 +360,61 @@ function CapturePoint_Update( hardpoint )
 		imcPower = ( imcPlayers + imcAI ) * CAPTURE_POINT_PLAYER_CAP_POWER
 		milPower = ( milPlayers + milAI ) * CAPTURE_POINT_PLAYER_CAP_POWER
 	}
-	// ---------------------------------------
 
 	// Initialize a fresh table to guarantee the keys exist
-	local powerTable = {
+	local powerTable = 
+	{
 		strongerTeam = TEAM_UNASSIGNED,
 		power = 0.0,
 		contested = false
 	}
 
-	if ( imcPower > milPower )
+	local imcPresence = ( imcPlayers + imcAI ) > 0
+	local milPresence = ( milPlayers + milAI ) > 0
+
+	if ( imcTitans > 0 && milTitans == 0 )
+	{
+		// IMC Titan overrides all Militia presence (players and minions)
+		powerTable.strongerTeam = TEAM_IMC
+		powerTable.power = imcPower
+		powerTable.contested = false
+	}
+	else if ( milTitans > 0 && imcTitans == 0 )
+	{
+		// Militia Titan overrides all IMC presence (players and minions)
+		powerTable.strongerTeam = TEAM_MILITIA
+		powerTable.power = milPower
+		powerTable.contested = false
+	}
+	else if ( imcPresence && milPresence )
+	{
+		// Both teams are on the point without an overriding Titan, force a contested state
+		powerTable.strongerTeam = TEAM_UNASSIGNED
+		powerTable.power = 0.0
+		powerTable.contested = true
+	}
+	else if ( imcPower > milPower )
 	{
 		powerTable.strongerTeam = TEAM_IMC
 		powerTable.power = imcPower - milPower
-		powerTable.contested = ( milPower > 0 )
+		powerTable.contested = false
 	}
 	else if ( milPower > imcPower )
 	{
 		powerTable.strongerTeam = TEAM_MILITIA
 		powerTable.power = milPower - imcPower
-		powerTable.contested = ( imcPower > 0 )
+		powerTable.contested = false
 	}
 	else
 	{
 		powerTable.strongerTeam = TEAM_UNASSIGNED
 		powerTable.power = 0.0
-		powerTable.contested = ( imcPower > 0 && milPower > 0 )
+		powerTable.contested = false
 	}
 
 	// Respect the speed cap set in _settings.nut
 	if ( powerTable.power > CAPTURE_POINT_MAX_CAP_POWER )
 		powerTable.power = CAPTURE_POINT_MAX_CAP_POWER
-	// ---------------------------------------------------------
 
 	local baseCaptureTime = level.hardpointCaptureTime
 
@@ -1894,5 +1926,38 @@ function CPMatchProgressDialogue( team )
 		level.cpMatchProgressDialog[ team ][ alias ] = true
 		PlayConversationToTeam( alias, team )
 	}
+}
 
+
+function AI_HardpointCommander_Init()
+{
+	// Tell the game to run 'OnMinionSpawned' whenever these classes are created
+	AddSpawnCallback( "npc_soldier", OnMinionSpawned )
+	AddSpawnCallback( "npc_spectre", OnMinionSpawned )
+}
+
+function OnMinionSpawned( npc )
+{
+	// Attach a custom objective thread to this specific minion
+	thread MinionObjectiveThink( npc )
+}
+
+function MinionObjectiveThink( npc )
+{
+	// Ensure this thread immediately stops running if the minion dies or is deleted
+	npc.EndSignal( "OnDeath" )
+	npc.EndSignal( "OnDestroy" )
+
+	while ( GetGameState() <= eGameState.Playing )
+	{
+		// Check if the minion is just standing around
+		if ( npc.GetNPCState() != "combat" && !npc.GetGoalEnt() )
+		{
+			// Pick a random hardpoint and tell them to attack it
+			local randomPoint = level.hardpoints[ RandomInt( level.hardpoints.len() ) ]
+			NPCsAssaultHardpoint( [ npc ], randomPoint )
+		}
+		
+		wait 5.0 // Wait 5 seconds before checking this specific minion's state again
+	}
 }
