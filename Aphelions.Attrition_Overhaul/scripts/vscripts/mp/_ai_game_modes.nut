@@ -1907,8 +1907,8 @@ function CloakDroneWaveThink( team )
 
     while ( IsNPCSpawningEnabled() )
     {
-        // Wait between 30 to 90 seconds between drone waves
-        wait RandomFloat( 30.0, 90.0 )
+        // Wait between 30 to 120 seconds between drone waves
+        wait RandomFloat( 30.0, 120.0 )
 
         // Find valid spawn points for the wave using existing drop pod points
         local spawnPoints = SpawnPoints_GetDropPodStart( team ) 
@@ -1916,7 +1916,7 @@ function CloakDroneWaveThink( team )
 			spawnPoints = SpawnPoints_GetDropPod()
         
         // Define how many drones you want per wave
-        local dronesToSpawn = RandomIntRange( 0, 3 )
+        local dronesToSpawn = RandomIntRange( 0, 2 )
 
 		for ( local i = 0; i < dronesToSpawn; i++ )
 		{
