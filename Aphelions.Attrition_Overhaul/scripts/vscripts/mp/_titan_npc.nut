@@ -435,16 +435,16 @@ function NPCTitanGuardModeInit( npcTitan )
 {
 	local point = CreateEntity( "assault_assaultpoint" )
 
-	point.kv.allowdiversionradius = 1500  // Increases wander range significantly
-	point.kv.allowdiversion = 1           // Enables wandering/diversion
+	point.kv.allowdiversionradius = 200
+	point.kv.allowdiversion = 0
 	point.kv.faceAssaultPointAngles = 1
-	point.kv.assaulttolerance = 500
-	point.kv.nevertimeout = 0
-	point.kv.strict = 0
+	point.kv.assaulttolerance = 120
+	point.kv.nevertimeout = 1
+	point.kv.strict = 1
 	point.kv.forcecrouch = 0
 	point.kv.spawnflags = 0
-	point.kv.clearoncontact = 1
-	point.kv.assaulttimeout = 0
+	point.kv.clearoncontact = 0
+	point.kv.assaulttimeout = 3.0
 	point.kv.arrivaltolerance = 350
 
 	npcTitan.s.guardModePoint = point
