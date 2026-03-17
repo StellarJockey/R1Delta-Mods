@@ -194,7 +194,8 @@ function main()
 	SpawnPoints_SetRatingMultipliers_Friendly( TD_AI, 0.5, 0.25, 0.0 )
 
 	// DRONES
-	if ( GameRules.GetGameMode() != "coop" ) 
+	local mode = GameRules.GetGameMode()
+	if ( mode != "coop" && mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING )
 	{
 		level.cloakedDronesManagedEntArrayID <- CreateScriptManagedEntArray()
 		level.cloakedDroneClaimedSquadList <- {}
@@ -1708,19 +1709,31 @@ function TeamDeathmatchSpawnNPCsThink()
     if ( !( "modifyAISlots" in level ) )
         level.modifyAISlots <- { [TEAM_IMC] = 0, [TEAM_MILITIA] = 0 }
 
-    if ( !Flag( "Disable_IMC" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == TITAN_BRAWL ) )
-    {
-        thread SpawnPilotWithTitans( TEAM_IMC )
-        thread SuicideSpectreWaveThink( TEAM_IMC )
-		thread CloakDroneWaveThink( TEAM_IMC )
-    }
+	// TITAN SPAWNING
+	if ( !Flag( "Disable_IMC" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == TITAN_BRAWL || mode == LAST_TITAN_STANDING ) )
+	{
+		thread SpawnPilotWithTitans( TEAM_IMC )
+	}
 
-    if ( !Flag( "Disable_MILITIA" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == TITAN_BRAWL ) )
-    {
-        thread SpawnPilotWithTitans( TEAM_MILITIA )
-        thread SuicideSpectreWaveThink( TEAM_MILITIA )
-		thread CloakDroneWaveThink( TEAM_MILITIA )
-    }
+	if ( !Flag( "Disable_MILITIA" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == TITAN_BRAWL || mode == LAST_TITAN_STANDING ) ) 
+	{
+		thread SpawnPilotWithTitans( TEAM_MILITIA )
+	}
+
+	// WAVE SPAWNING (Suicide spectres and cloak drones won't spawn in Titan-based modes)
+	if ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH )
+	{
+		if ( !Flag( "Disable_IMC" ) )
+		{
+			thread SuicideSpectreWaveThink( TEAM_IMC )
+			thread CloakDroneWaveThink( TEAM_IMC )
+		}
+		if ( !Flag( "Disable_MILITIA" ) )
+		{
+			thread SuicideSpectreWaveThink( TEAM_MILITIA )
+			thread CloakDroneWaveThink( TEAM_MILITIA )
+		}
+	}
     
     while ( IsNPCSpawningEnabled() )
     {
@@ -1933,9 +1946,9 @@ function CloakDroneWaveThink( team )
 
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
-    if ( GameRules.GetGameMode() == TITAN_BRAWL )
+    if ( GameRules.GetGameMode() == TITAN_BRAWL || GameRules.GetGameMode() == LAST_TITAN_STANDING )
 	{
-		wait 1.0  // Titans spawn instantly in Titan Brawl
+		wait 0.0  // Titans spawn instantly in Titan Brawl and LTS
 	}
 	else
 	{
@@ -1952,45 +1965,59 @@ function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 
 function SpawnPilotWithTitans( team )
 {
-    local waittime = "0." + team.tostring()
-    waittime = waittime.tointeger()
-    wait waittime
+	local waittime = 10.0
+	
+	if ( GameRules.GetGameMode() == TITAN_BRAWL || GameRules.GetGameMode() == LAST_TITAN_STANDING )
+	{
+		waittime = 0.0
+	}
+
+	wait waittime
     
-    while( true )
-    {
-        if ( !IsNPCSpawningEnabled() || SpawnPoints_GetTitan().len() <= 0 )
-            return
+	while( true )
+	{
+		if ( !IsNPCSpawningEnabled() || SpawnPoints_GetTitan().len() <= 0 )
+			return
 
-        local shouldSpawnPilotWithTitan = ShouldSpawnPilotWithTitan( team )
-        local spawnpoints = SpawnPoints_GetTitan()
-        local SpawnPoints = []
+		local shouldSpawnPilotWithTitan = ShouldSpawnPilotWithTitan( team )
         
-        foreach( spawnpoint in spawnpoints )
-        {
-            if ( IsValid( spawnpoints ) && IsSpawnpointValidDrop( spawnpoint, team ) )
-                SpawnPoints.append( spawnpoint )
-        }
-
-        if ( SpawnPoints.len() <= 0 )
-        {
-            thread SpawnPilotWithTitans( team )
-            return
-        }
-        
-        local spawnPoint = Random( SpawnPoints )
-
-        if ( shouldSpawnPilotWithTitan )
-        {
-            thread Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
+		if ( shouldSpawnPilotWithTitan )
+		{
+			local spawnpoints = SpawnPoints_GetTitan()
+			local SpawnPoints = []
             
-            if ( team in file.spawnedtitans )
-                file.spawnedtitans[team] <- file.spawnedtitans[team] + 1
-            else
-                file.spawnedtitans[team] <- 1
-        }
+			foreach( spawnpoint in spawnpoints )
+			{
+				if ( IsValid( spawnpoint ) && IsSpawnpointValidDrop( spawnpoint, team ) )
+					SpawnPoints.append( spawnpoint )
+			}
+
+			if ( SpawnPoints.len() <= 0 )
+			{
+				thread SpawnPilotWithTitans( team )
+				return
+			}
+            
+			local spawnPoint = Random( SpawnPoints )
+
+			thread Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
+            
+			if ( team in file.spawnedtitans )
+				file.spawnedtitans[team] <- file.spawnedtitans[team] + 1
+			else
+				file.spawnedtitans[team] <- 1
+		}
         
-        wait level.npcRespawnWait
-    }
+		// Use a near-instant polling rate for Brawl/LTS, and the default wait for everything else
+		if ( GameRules.GetGameMode() == TITAN_BRAWL || GameRules.GetGameMode() == LAST_TITAN_STANDING )
+		{
+			wait 0.5
+		}
+		else
+		{
+			wait level.npcRespawnWait
+		}
+	}
 }
 
 function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
@@ -2006,28 +2033,18 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
     
     // Titan NPC spawn limit
     local limit = 0
-    if ( team == playerTeam )
-    {
-        if ( GameRules.GetGameMode() == TITAN_BRAWL )
-		{
-			limit = 5
-		}
-		else
-		{
-			limit = 2 // Friendly team limit for Attrition and Campaign
-		}
-    }
-    else
+	switch ( GameRules.GetGameMode() )
 	{
-        if ( GameRules.GetGameMode() == TITAN_BRAWL ) 
-		{
-			limit = 6
-		}
-		else
-		{
-        limit = 5 // Enemy team limit for Attrition and Campaign
-		}
-    }
+		case TITAN_BRAWL:
+		case LAST_TITAN_STANDING:
+			limit = ( team == playerTeam ) ? 5 : 6   // 5 for your team, 6 for enemy team
+			break
+			
+		default:
+			// Attrition, Hardpoint, Campaign, 
+			limit = ( team == playerTeam ) ? 2 : 5   // 2 for your team, 5 for enemy team
+			break
+	}
 
     return file.spawnedtitans[team] < limit
 }
