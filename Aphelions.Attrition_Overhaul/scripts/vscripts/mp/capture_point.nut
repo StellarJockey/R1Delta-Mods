@@ -308,12 +308,19 @@ function CapturePoint_Update( hardpoint )
 	// Get counts for players and AI on each team
 	local imcPlayers = hardpoint.GetHardpointPlayerCount( TEAM_IMC )
 	local imcAI = hardpoint.GetHardpointAICount( TEAM_IMC )
+	local imcTitans = hardpoint.GetHardpointPlayerTitanCount( TEAM_IMC )
+
 	local milPlayers = hardpoint.GetHardpointPlayerCount( TEAM_MILITIA )
 	local milAI = hardpoint.GetHardpointAICount( TEAM_MILITIA )
+	local milTitans = hardpoint.GetHardpointPlayerTitanCount( TEAM_MILITIA )
+
+	if ( imcTitans > 0 )
+		milAI = 0
+	if ( milTitans > 0 )
+		imcAI = 0
 
 	local imcPower = 0.0
 	local milPower = 0.0
-
 	local players = GetPlayerArray()
 	if ( players.len() > 0 )
 	{
@@ -1408,8 +1415,12 @@ function SpawnCapturePointSquad( team, numFreeSlots )
 	else
 	{
 		// CP mode is still using hardpoints to define the capture area
-		foreach( index, hardpoint in level.hardpoints )
+		local shuffledPoints = clone level.hardpoints
+		ArrayRandomize( shuffledPoints )
+
+		foreach( hardpoint in shuffledPoints )
 		{
+			local index = GetHardpointIndex( hardpoint ) // Get the proper index since we shuffled
 			local hardpointState = hardpoint.GetHardpointState()
 
 			// AGGRESSIVE CODE

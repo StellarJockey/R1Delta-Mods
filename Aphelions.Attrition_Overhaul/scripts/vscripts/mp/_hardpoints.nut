@@ -1260,7 +1260,7 @@ function RunToSlot( guy, terminal, hardpoint, state )
 		local angles = result.angles
 
 		guy.CrouchCombat( false )	// resets in the end thread
-		SetAssaultPointValues( guy.s.assaultPoint, 512, 16, 0, 1 )
+		SetAssaultPointValues( guy.s.assaultPoint, 0, 16, 0, 1 )
 		waitthread GotoOriginCP( guy, origin, angles )
 	}
 	else
@@ -1447,7 +1447,7 @@ function ConvergeAtTerminal( guy, hardpoint )
 
 	local origin = assaultPoint.GetOrigin()
 	local angles = assaultPoint.GetAngles()
-	SetAssaultPointValues( guy.s.assaultPoint, 512, 128, 1, 1 )
+	SetAssaultPointValues( guy.s.assaultPoint, 0, 128, 1, 1 )
 	waitthread GotoOriginCP( guy, origin, angles )
 
 	// delay the change of state a bit to make it look more natural
