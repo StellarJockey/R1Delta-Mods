@@ -1,0 +1,9 @@
+"AddonInfo"
+{
+	"addontitle"			"Aphelion's Instant Takeoff Evac"
+	"addonDescription"		"Dropship will leave as soon as all living players are onboard"
+	"addonversion"			"1.0.0"
+	"addonauthor"			"Aphelion"
+
+	"addonContent_Script"	"1"
+}
