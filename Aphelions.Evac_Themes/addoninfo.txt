@@ -1,0 +1,9 @@
+"AddonInfo"
+{
+	"addontitle"			"Aphelion's Evac Themes"
+	"addonDescription"		"Adds in both the TF|1 and TF|2 epilogue music"
+	"addonversion"			"1.0.0"
+	"addonauthor"			"Aphelion"
+
+	"addonContent_Script"	"1"
+}
