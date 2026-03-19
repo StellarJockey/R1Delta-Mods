@@ -2268,12 +2268,40 @@
 
 }
 
-"TF2_Epilogue_Win"
+"TF2_Epilogue_Win_IMC"
 {
-    "wave" "music/tf2_epilogue_win.wav"
+	"rndwave"
+	{
+		"wave" "music/tf1_epilogue_win_imc.flac"
+		"wave" "music/tf2_epilogue_win_imc_1.flac"
+	}
 }
 
-"TF2_Epilogue_Loss"
+"TF2_Epilogue_Win_Militia"
 {
-    "wave" "music/tf2_epilogue_loss.wav"
+	"rndwave"
+	{
+		"wave" "music/tf1_epilogue_win_militia.flac"
+		"wave" "music/tf2_epilogue_win_militia_1.flac"
+		"wave" "music/tf2_epilogue_win_militia_2.flac"
+	}
+}
+
+"TF2_Epilogue_Loss_IMC"
+{
+	"rndwave"
+	{
+		"wave" "music/tf1_epilogue_loss_imc.flac"
+		"wave" "music/tf2_epilogue_loss_imc.flac"
+	}
+}
+
+"TF2_Epilogue_Loss_Militia"
+{
+	"rndwave"
+	{
+		"wave" "music/tf1_epilogue_loss_militia_1.flac"
+		"wave" "music/tf2_epilogue_loss_militia_1.flac"
+		"wave" "music/tf2_epilogue_loss_militia_2.flac"
+	}
 }
