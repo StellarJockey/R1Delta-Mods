@@ -13,6 +13,7 @@ function main()
 		Globalize( CreateLevelWinnerDeterminedMusicEvent )
 
 		GM_AddPreMatchFunc( CreateLevelIntroMusicEvent )
+
 	}
 
 }
@@ -39,7 +40,29 @@ function PlayCurrentTeamMusicEventsOnPlayer( player )
 	if (  musicEvent.len() == 0 ) //No current music event
 		return
 
-	Remote.CallFunction_NonReplay( player, "ServerCallback_PlayTeamMusicEvent", musicEvent.musicPieceID, musicEvent.timeMusicStarted, musicEvent.shouldSeek )
+	local soundAlias = GetMusicSoundAlias( team, musicEvent.musicPieceID )
+	Remote.CallFunction_NonReplay( player, "ServerCallback_PlayTeamMusicEvent", soundAlias, musicEvent.timeMusicStarted, musicEvent.shouldSeek )
+}
+
+function GetMusicSoundAlias( team, musicPieceID )
+{
+	if ( musicPieceID == eMusicPieceID.LEVEL_WIN )
+	{
+		if ( team == TEAM_IMC )
+			return "LEVEL_WIN_IMC"
+		else if ( team == TEAM_MILITIA )
+			return "LEVEL_WIN_MILITIA"
+	}
+	else if ( musicPieceID == eMusicPieceID.LEVEL_LOSS )
+	{
+		if ( team == TEAM_IMC )
+			return "LEVEL_LOSS_IMC"
+		else if ( team == TEAM_MILITIA )
+			return "LEVEL_LOSS_MILITIA"
+	}
+	
+	// Default fallback or handle other music piece IDs
+	return ""
 }
 
 function CreateLevelIntroMusicEvent()
@@ -51,7 +74,7 @@ function CreateLevelIntroMusicEvent()
 
 function CreateLevelWinnerDeterminedMusicEvent()
 {
-	//printt( "Creating CreateLevelWinnerDeterminedMusicEvent - Evac_Themes Override" )
+	//printt( "Creating CreateLevelWinnerDeterminedMusicEvent" )
 
 	local winningTeam = GetWinningTeam()
 
@@ -59,17 +82,8 @@ function CreateLevelWinnerDeterminedMusicEvent()
 	{
 		local losingTeam = GetOtherTeam(winningTeam)
 		printt( "Winning team: " + winningTeam + ", losing team: " + losingTeam )
-		
-		if ( winningTeam == TEAM_IMC )
-		{
-			CreateTeamMusicEvent( TEAM_IMC, eMusicPieceID.TF2_EPILOGUE_WIN_IMC, Time() )
-			CreateTeamMusicEvent( TEAM_MILITIA, eMusicPieceID.TF2_EPILOGUE_LOSS_MILITIA, Time() )
-		}
-		else // TEAM_MILITIA
-		{
-			CreateTeamMusicEvent( TEAM_MILITIA, eMusicPieceID.TF2_EPILOGUE_WIN_MILITIA, Time() )
-			CreateTeamMusicEvent( TEAM_IMC, eMusicPieceID.TF2_EPILOGUE_LOSS_IMC, Time() )
-		}
+		CreateTeamMusicEvent( winningTeam, eMusicPieceID.LEVEL_WIN, Time() )
+		CreateTeamMusicEvent( losingTeam, eMusicPieceID.LEVEL_LOSS, Time() )
 	}
 	else
 	{
