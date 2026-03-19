@@ -1,0 +1,9 @@
+"AddonInfo"
+{
+	"addontitle"			"Aphelion's Frontier Overhaul"
+	"addonDescription"		"Solo games With Titans and more lethal AI"
+	"addonversion"			"1.0.0"
+	"addonauthor"			"ASillyNeko, Frann, and Aphelion"
+
+	"addonContent_Script"	"1"
+}

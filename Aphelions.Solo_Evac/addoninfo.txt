@@ -1,9 +1,0 @@
-"AddonInfo"
-{
-	"addontitle"			"Aphelion's Solo Evac"
-	"addonDescription"		"Enables evacuations for Campaign and Attrition during solo matches"
-	"addonversion"			"1.0.0"
-	"addonauthor"			"Aphelion"
-
-	"addonContent_Script"	"1"
-}

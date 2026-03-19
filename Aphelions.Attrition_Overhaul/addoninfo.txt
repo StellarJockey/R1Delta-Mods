@@ -1,9 +1,0 @@
-"AddonInfo"
-{
-	"addontitle"			"Aphelion's Attrition Overhaul"
-	"addonDescription"		"Attrition With Titans, FD enemies, and deadlier AI"
-	"addonversion"			"1.0.0"
-	"addonauthor"			"ASillyNeko (expanded on by Frann and Aphelion)"
-
-	"addonContent_Script"	"1"
-}
