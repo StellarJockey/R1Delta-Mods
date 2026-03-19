@@ -2300,7 +2300,7 @@
 {
 	"rndwave"
 	{
-		"wave" "music/tf1_epilogue_loss_militia_1.flac"
+		"wave" "music/tf1_epilogue_loss_militia.flac"
 		"wave" "music/tf2_epilogue_loss_militia_1.flac"
 		"wave" "music/tf2_epilogue_loss_militia_2.flac"
 	}
