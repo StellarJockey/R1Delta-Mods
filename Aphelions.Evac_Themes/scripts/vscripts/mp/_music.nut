@@ -13,7 +13,6 @@ function main()
 		Globalize( CreateLevelWinnerDeterminedMusicEvent )
 
 		GM_AddPreMatchFunc( CreateLevelIntroMusicEvent )
-
 	}
 
 }
@@ -30,18 +29,6 @@ function CreateTeamMusicEvent( team, musicPieceID, timeMusicStarted, shouldSeek 
 	musicEvent.shouldSeek <- shouldSeek
 
 	level.musicEvents[ team ] = musicEvent
-}
-
-function PlayCurrentTeamMusicEventsOnPlayer( player )
-{
-	//printt( "PlayCurrentTeamMusicEventsOnPlayer" )
-	local team = player.GetTeam()
-	local musicEvent = level.musicEvents[ team ]
-	if (  musicEvent.len() == 0 ) //No current music event
-		return
-
-	local soundAlias = GetMusicSoundAlias( team, musicEvent.musicPieceID )
-	Remote.CallFunction_NonReplay( player, "ServerCallback_PlayTeamMusicEvent", soundAlias, musicEvent.timeMusicStarted, musicEvent.shouldSeek )
 }
 
 function GetMusicSoundAlias( team, musicPieceID )
@@ -63,6 +50,18 @@ function GetMusicSoundAlias( team, musicPieceID )
 	
 	// Default fallback or handle other music piece IDs
 	return ""
+}
+
+function PlayCurrentTeamMusicEventsOnPlayer( player )
+{
+	//printt( "PlayCurrentTeamMusicEventsOnPlayer" )
+	local team = player.GetTeam()
+	local musicEvent = level.musicEvents[ team ]
+	if (  musicEvent.len() == 0 ) //No current music event
+		return
+
+	local soundAlias = GetMusicSoundAlias( team, musicEvent.musicPieceID )
+	Remote.CallFunction_NonReplay( player, "ServerCallback_PlayTeamMusicEvent", soundAlias, musicEvent.timeMusicStarted, musicEvent.shouldSeek )
 }
 
 function CreateLevelIntroMusicEvent()
