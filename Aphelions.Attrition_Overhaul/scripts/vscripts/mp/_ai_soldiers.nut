@@ -693,11 +693,12 @@ function GetGruntModel( team, captain = false )
 ]
 
 ::SPECTRE_WEAPON_POOL <- [
-	"mp_weapon_rspn101",
-    "mp_weapon_car",
 	"mp_weapon_r97",
+	"mp_weapon_r97",
+	"mp_weapon_rspn101",
+	"mp_weapon_car",
 	"mp_weapon_hemlok",
-	"mp_weapon_g2",
+	// "mp_weapon_mega9",
 ]
 
 function GetGruntWeapon( team ) 

@@ -1881,8 +1881,8 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
 function SuicideSpectreWaveThink( team )
 {
-    // Wait until the 3.5-minute mark before starting waves
-    wait 210.0 
+    // Wait until the 4-minute mark before starting waves
+    wait 240.0 
 
     while ( IsNPCSpawningEnabled() )
     {
@@ -1915,8 +1915,8 @@ function SuicideSpectreWaveThink( team )
 
 function CloakDroneWaveThink( team )
 {
-    // Wait until the 3-minute mark before starting waves
-    wait 180.0 
+    // Wait until the 3.5-minute mark before starting waves
+    wait 210.0 
 
     while ( IsNPCSpawningEnabled() )
     {
