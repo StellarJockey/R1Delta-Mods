@@ -1,0 +1,9 @@
+"AddonInfo"
+{
+	"addontitle"			"Aphelion's Extra Music"
+	"addonDescription"		"Adds new intro/evac themes"
+	"addonversion"			"1.0.0"
+	"addonauthor"			"Aphelion"
+
+	"addonContent_Script"	"1"
+}
