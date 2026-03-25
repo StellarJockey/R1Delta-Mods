@@ -25,7 +25,6 @@ function ContentScaledY( val )
 const LOBBY_BACKGROUND_DEFAULT = "../ui/menu/common/menu_background_neutral"
 const LOBBY_BACKGROUND_IMC = "../ui/menu/common/menu_background_imc"
 const LOBBY_BACKGROUND_MILITIA = "../ui/menu/common/menu_background_militia"
-
 const LOBBY_BACKGROUND_DEFAULT_LEGACY = "../ui/menu/common/menu_background_neutral_legacy"
 
 s_lobbyBackgrounds <- [
@@ -51,7 +50,7 @@ function GetMatchLobbyBackground()
 
 function GetDefaultLobbyBackground()
 {
-	return LOBBY_BACKGROUND_MILITIA
+	return LOBBY_BACKGROUND_DEFAULT_LEGACY
 }
 
 function UpdateMatchLobbyBackgroundSelection( type )

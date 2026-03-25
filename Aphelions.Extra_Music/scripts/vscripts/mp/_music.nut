@@ -47,6 +47,15 @@ function CreateLevelIntroMusicEvent()
     CreateTeamMusicEvent( TEAM_IMC, eMusicPieceID.LEVEL_INTRO, Time() )
     CreateTeamMusicEvent( TEAM_MILITIA, eMusicPieceID.LEVEL_INTRO, Time() )
 
+    if ( GameRules.GetGameMode() == COOPERATIVE )
+        return
+        
+    if ( GetCurrentPlaylistName() == "campaign_carousel" )
+        return
+
+    if ( GetMapName() == "mp_wargames" || GetMapName() == "mp_box" )
+        return
+
     local imcLongPool = [
         "Music_IMC_Intro_Long_1",
         "Music_IMC_Intro_Long_2",
