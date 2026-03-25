@@ -540,8 +540,8 @@
 			"2"		"R,1.0"
 			"2"		"RS,0.5"			
 		}		
-	"wave" 			"music\campaign\angelcity\tf_ac_epilogue_lose_temptrack.wav"
 	"wave"			"music\Epilogue\TF_Master_EpilogueLose_MCOR1_STMIX_174_BPM.wav"
+	"wave" 			"music\campaign\fracture\tf_master_fr_intro_mcor_stmix_130_bpm.wav"
 	}
 }
 

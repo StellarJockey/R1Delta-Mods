@@ -483,49 +483,6 @@
 "Music_ClassicMP_MCOR_Opening" {
 
 	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_Militia"
-	"volume"		"0"
-	"radius"		"0"
-	"flags"			"music"
-
-	"rndwave"
-	{
-			"channels"
-		{
-			"1"		"L,1.0"
-			"1"		"LS,0.5"
-			"2"		"R,1.0"
-			"2"		"RS,0.5"
-		}
-	"wave"				"music\ClassicMP\Music_ClassicMP_MilitiaIntro_2ch_v1_01.wav"
-	
-	}
-}
-
-"Music_Militia_Intro_Standard" {
-
-	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_Militia"
-	"volume"		"1.7"
-	"radius"		"0"
-	"flags"			"music"
-
-	"rndwave"
-	{
-			"channels"
-		{
-			"1"		"L,1.0"
-			"1"		"LS,0.5"
-			"2"		"R,1.0"
-			"2"		"RS,0.5"
-		}
-	"wave"				"music\ClassicMP\Music_ClassicMP_MilitiaIntro_2ch_v1_01.wav"
-	
-	}
-}
-
-
-"Music_Militia_Intro_Long_1" {
-
-	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_Militia"
 	"volume"		"2.0"
 	"radius"		"0"
 	"flags"			"music"
@@ -539,27 +496,9 @@
 			"2"		"R,1.0"
 			"2"		"RS,0.5"
 		}
+	"wave"				"music\ClassicMP\Music_ClassicMP_MilitiaIntro_2ch_v1_01.wav"
+
 	"wave"				"music/action/imc/tf_master_mediumtitanaction_imc_alt_stmix_80_bpm.wav"
-	
-	}
-}
-
-"Music_Militia_Intro_Long_2" {
-
-	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_Militia"
-	"volume"		"2.1"
-	"radius"		"0"
-	"flags"			"music"
-
-	"rndwave"
-	{
-			"channels"
-		{
-			"1"		"L,1.0"
-			"1"		"LS,0.5"
-			"2"		"R,1.0"
-			"2"		"RS,0.5"
-		}
 	"wave"				"music\action\militia\tf_master_mediumtitanaction_mcor2_stmix_98_bpm.wav"
 	
 	}
@@ -570,48 +509,6 @@
 "Music_ClassicMP_IMC_Opening" {
 
 	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_IMC"
-	"volume"		"0"
-	"radius"		"0"
-	"flags"			"music"
-
-	"rndwave"
-	{
-			"channels"
-		{
-			"1"		"L,1.0"
-			"1"		"LS,0.5"
-			"2"		"R,1.0"
-			"2"		"RS,0.5"
-		}
-	"wave"			"music\ClassicMP\Music_ClassicMP_IMCIntro_2ch_v1_01.wav"
-	
-	}
-}
-
-"Music_IMC_Intro_Standard" {
-
-	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_IMC"
-	"volume"		"1.7"
-	"radius"		"0"
-	"flags"			"music"
-
-	"rndwave"
-	{
-			"channels"
-		{
-			"1"		"L,1.0"
-			"1"		"LS,0.5"
-			"2"		"R,1.0"
-			"2"		"RS,0.5"
-		}
-	"wave"			"music\ClassicMP\Music_ClassicMP_IMCIntro_2ch_v1_01.wav"
-	
-	}
-}
-
-"Music_IMC_Intro_Long_1" {
-
-	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_IMC"
 	"volume"		"2.0"
 	"radius"		"0"
 	"flags"			"music"
@@ -625,26 +522,9 @@
 			"2"		"R,1.0"
 			"2"		"RS,0.5"
 		}
+	"wave"			"music\ClassicMP\Music_ClassicMP_IMCIntro_2ch_v1_01.wav"
+	
 	"wave"      "music\campaign\corporate\tf_master_co_intro_imc_stmix_95_bpm.wav"
-	}
-}
-
-"Music_IMC_Intro_Long_2" {
-
-	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_IMC"
-	"volume"		"1.5"
-	"radius"		"0"
-	"flags"			"music"
-
-	"rndwave"
-	{
-			"channels"
-		{
-			"1"		"L,1.0"
-			"1"		"LS,0.5"
-			"2"		"R,1.0"
-			"2"		"RS,0.5"
-		}
 	"wave"      "music\campaign\angelcity\tf_angelcity_imc_intro_v4_140_110_bpmtest.wav"
 	}
 }
