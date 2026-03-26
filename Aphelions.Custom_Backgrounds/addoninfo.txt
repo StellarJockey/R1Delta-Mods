@@ -1,0 +1,9 @@
+"AddonInfo"
+{
+	"addontitle"			"Aphelion's Custom Backgrounds"
+	"addonDescription"		"Adds new background art for the main lobby"
+	"addonversion"			"1.0.0"
+	"addonauthor"			"Aphelion"
+
+	"addonContent_Script"	"1"
+}
