@@ -1,4 +1,4 @@
-This mod adds new background art for the in-game lobby
+This mod adds new background art for the in-game lobby. Most of these were done by the amazing Tu Bui, the concept artist who worked on TF|1 and TF|2.
 
 HOW TO APPLY:
 There is currently no in-game way to swap out backgrounds, so you'll have to do it manually. I could only get this to work by hijacking a pre-existing .vtf file.
