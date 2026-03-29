@@ -1798,6 +1798,10 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
 	local shouldSpawnSpectre = ShouldSpawnSpectre( team )
 
+	// Prevent Spectres and Sniper Spectres from spawning in Refueling Raid
+	if ( GetMapName() == "mp_fracture" && GetCurrentPlaylistName() == "campaign_carousel" )
+		shouldSpawnSpectre = false
+
 	local squadIndex = TryGetSmallestValidSquad( team, shouldSpawnSpectre )
 	if ( squadIndex == null )
 		return
@@ -1881,6 +1885,11 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
 function SuicideSpectreWaveThink( team )
 {
+
+	// Prevent Suicide Spectres from spawning in Refueling Raid
+	if ( GetMapName() == "mp_fracture" && GetCurrentPlaylistName() == "campaign_carousel" )
+		return
+
     // Wait until the 4-minute mark before starting waves
     wait 240.0 
 
