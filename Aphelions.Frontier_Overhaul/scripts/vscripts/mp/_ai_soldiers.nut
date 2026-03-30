@@ -618,7 +618,7 @@ function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapo
 {
     local captain = true
     
-    local heavyWeapons = [ "mp_weapon_rspn101", "mp_weapon_lmg", "mp_weapon_hemlok" ]
+    local heavyWeapons = [ "mp_weapon_rspn101", "mp_weapon_lmg", "mp_weapon_hemlok", "mp_weapon_g2", ]
     weapon = heavyWeapons[ RandomInt( heavyWeapons.len() ) ]
 
     local guy = SpawnGrunt( team, squadName, origin, angles, alert, weapon, hidden, captain )
@@ -630,6 +630,74 @@ function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapo
 
     return guy
 }
+
+function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
+{
+    local pilotWeapons = [
+		"mp_weapon_rspn101",
+		"mp_weapon_shotgun",
+		"mp_weapon_dmr",
+		"mp_weapon_r97",
+		"mp_weapon_hemlok",
+		"mp_weapon_g2",
+		"mp_weapon_mega2",
+		"mp_weapon_car",
+		"mp_weapon_mega1",
+		"mp_weapon_lmg",
+		"mp_weapon_sniper",
+	]
+
+    if ( weapon == null )
+        weapon = pilotWeapons[ RandomInt( pilotWeapons.len() ) ]
+
+    local guy = SpawnGrunt( team, squadName, origin, angles, alert, weapon, hidden, false )
+
+    local pilotmodels = []
+    local title = ""
+
+    if ( team == TEAM_MILITIA ) {
+        pilotmodels = [
+            "models/Humans/mcor_pilot/male_br/mcor_pilot_male_br.mdl",
+            "models/Humans/mcor_pilot/male_cq/mcor_pilot_male_cq.mdl",
+            "models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl"
+        ]
+        
+        local militiaNames = [
+            "Jackson", "Rodriguez", "Williams", "Wilson", "Moore", "Anderson", "White", "Lewis", "Clark", "Walker",
+            "Baker", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hanes", "Stokes",
+            "Bohr", "Allen", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr",
+            "Barnes", "Hernandez", "Greene"
+        ]
+        title = "Pilot " + Random( militiaNames )
+        
+    } else {
+        pilotmodels = [
+            "models/Humans/imc_pilot/male_br/imc_pilot_male_br.mdl",
+            "models/humans/imc_pilot/male_cq/imc_pilot_male_cq.mdl",
+            "models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
+        ]
+        
+        local imcCodeNames = [
+            "Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo",
+            "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform",
+            "Victor", "Whiskey", "Xray", "Yankee", "Zulu", "Steel", "Raven", "Falcon", "Silver", "Roach",
+            "Io", "Ganymede", "Callisto", "Europa"
+        ]
+        title = "Pilot " + Random( imcCodeNames )
+    }
+    
+    guy.SetModel( Random( pilotmodels ) )
+    guy.SetTitle( title ) 
+
+    guy.kv.health = 200
+    guy.kv.max_health = 200
+    guy.kv.AccuracyMultiplier = 150
+    guy.kv.WeaponProficiency = 100
+	guy.SetMoveSpeedScale( 1.25 )
+
+    return guy
+}
+Globalize( SpawnPilotInfantry )
 
 function SpawnGruntPropDynamic( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {
@@ -687,7 +755,6 @@ function GetGruntModel( team, captain = false )
 	"mp_weapon_rspn101",
     "mp_weapon_rspn101",
     "mp_weapon_hemlok",
-    "mp_weapon_g2",
     "mp_weapon_lmg",
     "mp_weapon_shotgun",
 ]
@@ -698,7 +765,6 @@ function GetGruntModel( team, captain = false )
 	"mp_weapon_rspn101",
 	"mp_weapon_car",
 	"mp_weapon_hemlok",
-	// "mp_weapon_mega9",
 ]
 
 function GetGruntWeapon( team ) 
@@ -797,7 +863,7 @@ function UpdateAILethality( soldier, enemy )
 	local accuracyMultiplier = soldier.IsSpectre() ? AI_SPECTRE_ACCURACY : AI_SOLDIER_ACCURACY
 	local weaponProficiency = soldier.IsSpectre() ? AI_SPECTRE_PROFICIENCY : AI_SOLDIER_PROFICIENCY
 	local accuracyMultiplierSniper = 1000
-	local weaponProficiencySniper = 4
+	local weaponProficiencySniper = 100
 
 	if ( enemy && enemy.IsPlayer() && !enemy.IsTitan() )
 	{
@@ -1054,11 +1120,11 @@ Globalize( NPCSpawnFuncWrapper )
 
 
 // Added 'isArray = false' to the parameter list
-function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, angles, isArray = false ) 
+function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, angles, isArray = false )
 {
 	Assert( type( spawnFunc ) == "function" )
-
 	local guy
+
 	// Check for Bubble Shield first
 	if ( ShouldSpawnBubbleShield( count, index ) )
 	{
@@ -1067,6 +1133,12 @@ function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, a
 		else
 			guy = SpawnBubbleShieldGrunt( team, squadName, origin, angles )
 	}
+	// NEW: 10% Chance for an NPC Pilot inside Grunt Pods
+	else if ( spawnFunc.getinfos().name == "SpawnGrunt" && RandomFloat( 0.0, 1.0 ) <= 0.10 )
+	{
+		guy = SpawnPilotInfantry( team, squadName, origin, angles )
+	}
+	// Existing Captain Logic
 	else if ( ShouldSpawnCaptain( count, index, spawnFunc, isArray ) && spawnFunc.getinfos().name == "SpawnGrunt" )
 	{
 		guy = SpawnGruntCaptain( team, squadName, origin, angles )
