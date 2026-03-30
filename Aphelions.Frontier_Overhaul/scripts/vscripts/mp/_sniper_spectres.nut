@@ -49,7 +49,7 @@ function MakeSniperSpectre( sniper )
 	sniper.GiveWeapon( weapon, [ "scope_6x" ] )
 	sniper.s.atWeapon <- "mp_weapon_defender"
 	sniper.s.useRPGPreference = RPG_USE_ALWAYS
-	sniper.kv.AccuracyMultiplier = 4
+	sniper.kv.AccuracyMultiplier = 100
 	sniper.kv.WeaponProficiency = 4
 	sniper.SetEngagementDistVsWeak( 0, 8000 )
 	sniper.SetEngagementDistVsStrong( 0, 8000 )
