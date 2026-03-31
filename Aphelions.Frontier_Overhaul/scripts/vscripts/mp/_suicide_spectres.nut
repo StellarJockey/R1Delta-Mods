@@ -3,7 +3,7 @@ const SPECTRE_TRIGGER_EXPLODE_DIST = 200
 const SPECTRE_EXPLOSION_RADIUSFALLOFFMAX = 400
 const SPECTRE_EXPLOSION_RADIUSFULLDMG = 300
 const SPECTRE_EXPLOSION_TITANDMG = 1500
-const SPECTRE_EXPLOSION_PILOTDMG = 150
+const SPECTRE_EXPLOSION_PILOTDMG = 200
 
 enum eSuicideState
 {
@@ -21,7 +21,7 @@ const SFX_SPECTRE_EXPLODE 			= "corporate_spectre_death_explode"
 const SFX_SPECTRE_NEUTRALIZED 		= "corporate_spectre_neutralized"
 const SFX_SPECTRE_NEUTRALIZED_SPARKS = "marvin_weld"
 
-const SUICIDE_FAST_MOVESPEED = 1.5
+const SUICIDE_FAST_MOVESPEED = 1.35
 
 const CHAIN_EXPLOSION_INTERVALMIN 		= 0.1
 const CHAIN_EXPLOSION_INTERVALMAX 		= 0.22
@@ -258,7 +258,7 @@ function SuicideWalk( spectre )
 
 function SuicideSprint( spectre )
 {
-	spectre.SetMoveSpeedScale( 1.0 )
+	spectre.SetMoveSpeedScale( 1.25 )
 	spectre.PreferSprint( true )
 	spectre.ClearMoveAnim()
 }
@@ -504,6 +504,59 @@ function SpectreExplode( spectre, results )
 	else
 		spectre.Kill() // spectre is fake prop_dynamic
 }
+
+function SpectreExplosionDamage( spectre, results = null )
+{
+	local pos = spectre.GetOrigin()
+	local spectreTeam = spectre.GetTeam()
+	local enemyTeam = GetOtherTeam( spectreTeam )
+
+	local TitanDmg 	 		= spectre.s.suicideBehavior.explodeTitanDmg
+	local PilotDmg 	 		= spectre.s.suicideBehavior.explodePilotDmg
+	local RadiusFalloffMax 	= spectre.s.suicideBehavior.explodeRadiusFalloffMax
+	local RadiusFullDamage 	= spectre.s.suicideBehavior.explodeRadiusFullDamage
+
+	local attacker = spectre
+	if ( results && results.activator )
+		attacker = results.activator
+
+	// Manually apply damage to only enemy team entities
+	local allEnts = GetEntArrayInRadius( pos, RadiusFalloffMax )
+	
+	foreach( ent in allEnts )
+	{
+		if ( !IsAlive( ent ) )
+			continue
+		
+		// TEAM CHECK: Only damage enemies
+		if ( ent.GetTeam() != enemyTeam )
+			continue
+		
+		if ( !IsPlayer( ent ) && !IsNPC( ent ) )
+			continue
+		
+		local distance = Distance( pos, ent.GetOrigin() )
+		local damage = 0
+		
+		if ( ent.IsTitan() )
+			damage = TitanDmg
+		else
+			damage = PilotDmg
+		
+		// Apply falloff
+		if ( distance > RadiusFullDamage )
+		{
+			local falloffFraction = ( RadiusFalloffMax - distance ) / ( RadiusFalloffMax - RadiusFullDamage )
+			falloffFraction = clamp( falloffFraction, 0.0, 1.0 )
+			damage = damage * falloffFraction
+		}
+		
+		ent.TakeDamage( damage, attacker, attacker, { damageSourceId = eDamageSourceId.suicideSpectreAoE } )
+	}
+}
+
+
+
 
 function SpectreExplosionDamage( spectre, results = null )
 {
