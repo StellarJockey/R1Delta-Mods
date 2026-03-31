@@ -1894,8 +1894,8 @@ function SuicideSpectreWaveThink( team )
 
     while ( IsNPCSpawningEnabled() )
     {
-        // Wait between 45 to 120 seconds between waves
-        wait RandomFloat( 45.0, 120.0 )
+        // Wait between 60 to 120 seconds between waves
+        wait RandomFloat( 60.0, 120.0 )
 
         // Find valid spawn points for the wave
         local spawnPoints = SpawnPoints_GetDropPod()
