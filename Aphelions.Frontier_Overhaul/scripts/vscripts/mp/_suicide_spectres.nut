@@ -258,7 +258,7 @@ function SuicideWalk( spectre )
 
 function SuicideSprint( spectre )
 {
-	spectre.SetMoveSpeedScale( 1.25 )
+	spectre.SetMoveSpeedScale( 1.15 )
 	spectre.PreferSprint( true )
 	spectre.ClearMoveAnim()
 }
