@@ -488,9 +488,7 @@ function SetupLevelAICount()
 		case "mp_wargames":
 		case "mp_sandtrap":
 		case "mp_harmony_mines":
-		case "mp_switchback":
 		case "mp_haven":
-		case "mp_nest":
 		case "mp_nest2":
 		case "mp_mia":
 			// leave at 12
@@ -503,6 +501,7 @@ function SetupLevelAICount()
 		case "mp_relic":
 		case "mp_overlook":
 		case "mp_smugglers_cove":
+		case "mp_switchback":
 		case "mp_zone_18":
 		case "mp_backwater":
 		case "mp_box":
@@ -1895,8 +1894,8 @@ function SuicideSpectreWaveThink( team )
 
     while ( IsNPCSpawningEnabled() )
     {
-        // Wait between 30 to 150 seconds between waves
-        wait RandomFloat( 30.0, 150.0 )
+        // Wait between 45 to 120 seconds between waves
+        wait RandomFloat( 45.0, 120.0 )
 
         // Find valid spawn points for the wave
         local spawnPoints = SpawnPoints_GetDropPod()
