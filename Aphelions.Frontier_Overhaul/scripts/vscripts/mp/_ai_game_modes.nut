@@ -1852,7 +1852,7 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
     if ( shouldSpawnSpectre )
     {
-        if ( allowSnipers && roll < 0.40 ) // (40% chance)
+        if ( allowSnipers && roll < 0.30 ) // (30% chance)
         {
              npcArray = Spawn_TrackedDropPodSquad( "npc_spectre", team, squadSize, spawnPoint, squadName, false, SpawnSniperSpectre )
         }
@@ -1895,8 +1895,8 @@ function SuicideSpectreWaveThink( team )
 
     while ( IsNPCSpawningEnabled() )
     {
-        // Wait between 30 to 120 seconds between waves
-        wait RandomFloat( 30.0, 120.0 )
+        // Wait between 30 to 150 seconds between waves
+        wait RandomFloat( 30.0, 150.0 )
 
         // Find valid spawn points for the wave
         local spawnPoints = SpawnPoints_GetDropPod()
@@ -1956,18 +1956,20 @@ function CloakDroneWaveThink( team )
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
     if ( GameRules.GetGameMode() == TITAN_BRAWL || GameRules.GetGameMode() == LAST_TITAN_STANDING )
-	{
-		wait 0.0  // Titans spawn instantly in Titan Brawl and LTS
-	}
-	else
-	{
-		wait RandomFloat( 20, 90 )   // Titan spawn delay in seconds 
-	}
+    {
+        wait 0.0  // Titans spawn instantly in Titan Brawl and LTS
+    }
+
+    else
+    {
+        wait RandomFloat( 20, 90 )   // Titan spawn delay in seconds 
+    } 
 
     if ( !IsNPCSpawningEnabled( team ) )
         return
     if ( !IsSpawnpointValidDrop( spawnPoint, team ) )
         return
+        
     Spawn_TrackedPilotWithTitan( team, spawnPoint )
 }
 
