@@ -56,7 +56,7 @@ SNIPER SPECTRE SPAWNS
 * ctrl + f to find:
 	if ( shouldSpawnSpectre )
     		{
-        	if ( allowSnipers && roll < 0.40 ) // (40% chance)
+        	if ( allowSnipers && roll < 0.30 ) // (30% chance)
 
 
 SUICIDE SPECTRE WAVES
