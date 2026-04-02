@@ -1894,8 +1894,8 @@ function SuicideSpectreWaveThink( team )
 
     while ( IsNPCSpawningEnabled() )
     {
-        // Wait between 60 to 120 seconds between waves
-        wait RandomFloat( 60.0, 120.0 )
+        // Wait between 1 to 3 min between waves
+        wait RandomFloat( 60.0, 180.0 )
 
         // Find valid spawn points for the wave
         local spawnPoints = SpawnPoints_GetDropPod()
@@ -1928,8 +1928,8 @@ function CloakDroneWaveThink( team )
 
     while ( IsNPCSpawningEnabled() )
     {
-        // Wait between 30 to 120 seconds between drone waves
-        wait RandomFloat( 30.0, 120.0 )
+        // Wait between 1 to 2.5 min between drone waves
+        wait RandomFloat( 60.0, 150.0 )
 
         // Find valid spawn points for the wave using existing drop pod points
         local spawnPoints = SpawnPoints_GetDropPodStart( team ) 
