@@ -24,8 +24,8 @@ const RPG_USE_ALWAYS = 2
 
 const STANDARDGOALRADIUS = 100
 
-const AI_SPECTRE_ACCURACY = 100
-const AI_SOLDIER_ACCURACY = 20
+const AI_SPECTRE_ACCURACY = 50
+const AI_SOLDIER_ACCURACY = 15
 const AI_SPECTRE_PROFICIENCY = 4
 const AI_SOLDIER_PROFICIENCY = 4
 
@@ -623,8 +623,8 @@ function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapo
 
     local guy = SpawnGrunt( team, squadName, origin, angles, alert, weapon, hidden, captain )
 
-    guy.kv.health = 300
-    guy.kv.max_health = 300
+    guy.kv.health = 250
+    guy.kv.max_health = 250
     guy.kv.AccuracyMultiplier = 50
     guy.kv.WeaponProficiency = 4
 
@@ -864,8 +864,9 @@ function UpdateAILethality( soldier, enemy )
 {
 	local accuracyMultiplier = soldier.IsSpectre() ? AI_SPECTRE_ACCURACY : AI_SOLDIER_ACCURACY
 	local weaponProficiency = soldier.IsSpectre() ? AI_SPECTRE_PROFICIENCY : AI_SOLDIER_PROFICIENCY
-	local accuracyMultiplierSniper = 1000
-	local weaponProficiencySniper = 100
+	
+	local accuracyMultiplierSniper = 100
+	local weaponProficiencySniper = 4
 
 	if ( enemy && enemy.IsPlayer() && !enemy.IsTitan() )
 	{
