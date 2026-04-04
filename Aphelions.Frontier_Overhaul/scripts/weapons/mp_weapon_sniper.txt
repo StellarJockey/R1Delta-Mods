@@ -50,6 +50,7 @@ WeaponData
 	"sound_dryfire"									"rifle_dryfire"
 	"sound_trigger_pull"							"rifle_dryfire"
 	"sound_trigger_release"							"rifle_dryfire"
+	"fire_sound_1_npc"								"SR_Valkyrie.Fire_NPC"
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
