@@ -29,7 +29,7 @@ WeaponData
 
 	// Effects
 	"tracer_effect"   								"weapon_tracers_sniper"
-	//"tracer_effect_first_person"  				"weapon_tracers_sniper"
+	"tracer_effect_first_person"  					"weapon_tracers_sniper"
 	"impact_effect_table" 							"titan_bullet"
 	//"projectile_trail_effect_0" 						"garand_trail_smoke"
 	"projectile_do_predict_impact_effects"			"0"
@@ -49,6 +49,8 @@ WeaponData
 
 	//Sounds
 	"sound_dryfire"									"rifle_dryfire"
+	"sound_trigger_pull"							"rifle_dryfire"
+	"sound_trigger_release"							"rifle_dryfire"
 	"fire_sound_1"									"DMR_Rifle.Single"
 	"fire_sound_1_npc"								"DMR_Rifle.Single_NPC"
 
@@ -131,7 +133,7 @@ WeaponData
 	"spread_air_hip"	   							"10"
 	"spread_air_ads"   								".15"
 
-	"spread_npc"  									"1"
+	"spread_npc"  									"0.2"
 
 	// View Kick
 	"viewkick_spring" 								"semisniper"
@@ -177,6 +179,15 @@ WeaponData
 	"bob_pitch"   									"0.75"
 	"bob_yaw" 										"1"
 	"bob_roll"										"-0.75"
+
+	// Bob_Zoomed
+	//"bob_cycle_time_zoomed"  						"0.45"
+	//"bob_vert_dist_zoomed"   						"0.01"
+	//"bob_horz_dist_zoomed"   						"0.01"
+	//"bob_max_speed_zoomed"   						"150"
+	//"bob_pitch_zoomed"   							"0.002"
+	//"bob_yaw_zoomed" 								"-.002"
+	//"bob_roll_zoomed"								".002"
 
 	// View Drift
 	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
@@ -232,6 +243,21 @@ WeaponData
 	"sway_turn_right_rotate_yaw"  					"1"
 	"sway_turn_up_rotate_pitch"   					"1"
 	"sway_turn_down_rotate_pitch" 					"-1"
+
+	// Zoomed Sway
+	"sway_rotate_attach_zoomed"						"SWAY_ROTATE_ZOOMED"
+	"sway_rotate_attach_blend_time_zoomed"			"0.2"
+	"sway_rotate_gain_zoomed"						"12"
+
+	"sway_min_yaw_zoomed"							"-0.03"
+	"sway_max_yaw_zoomed"							"0.03"
+	"sway_turn_left_rotate_yaw_zoomed"				"-0.085"
+	"sway_turn_right_rotate_yaw_zoomed"				"0.085"
+
+	"sway_min_pitch_zoomed"  						"-0.01"
+	"sway_max_pitch_zoomed"  						"0.01"
+	"sway_turn_up_rotate_pitch_zoomed"				"0.09"
+	"sway_turn_down_rotate_pitch_zoomed"			"-0.09"
 
 	// NPC
 	"proficiency_poor_spreadscale"					"7.0"
@@ -358,6 +384,7 @@ WeaponData
 
 			//"rumble"  								"4"
 			"tracer_effect"   							"weapon_tracers_pistol"
+			"tracer_effect_first_person"   				"weapon_tracers_pistol"
 			"minimap_reveal_distance"					"1"
 
 			"fx_muzzle_flash_view"						"wpn_muzzleflash_pistol_sup_FP"
