@@ -200,6 +200,7 @@ WeaponData
 	"sway_turn_right_rotate_yaw"  					"1"
 	"sway_turn_up_rotate_pitch"   					"1"
 	"sway_turn_down_rotate_pitch" 					"-1"
+	"sway_enable_zoomed"							"0"
 
 	// NPC
 	"proficiency_poor_spreadscale"					"5.0"
@@ -415,46 +416,15 @@ WeaponData
 		}
 		MortarShots
 		{
-			DefaultElementBehavior
-			{
-				"fade_while_sprinting"	"1"
-				"fade_while_reloading"	"1"
-			}
+			"inherit_data_from"				"BaseWeapon"
+
 			Element0
 			{
-				"type"						"static"
 				"material"					"hud/crosshairs/titan_40mm_mortar_mod"
-				"size_x"					"180"
-				"size_y"					"90"
 			}
 			Element1
 			{
-				"type"						"static"
 				"material"					"hud/crosshairs/titan_40mm_mortar_mod_shadow"
-				"size_x"					"180"
-				"size_y"					"90"
-			}
-			Element2
-			{
-				"type"						"spread"
-				"material"					"hud/crosshairs/b3wingman_arc"
-				"rotation"					"180"
-				"size_x"					"11"
-				"size_y"					"11"
-				"spread_initial_angle"		"45"
-				"spread_max_icons"			"4"
-				"spread_initial_offset"		"8"
-			}
-			Element3
-			{
-				"type"						"spread"
-				"material"					"hud/crosshairs/b3wingman_arc_shadow"
-				"rotation"					"180"
-				"size_x"					"11"
-				"size_y"					"11"
-				"spread_initial_angle"		"45"
-				"spread_max_icons"			"4"
-				"spread_initial_offset"		"8"
 			}
 		}
 		Burn_Card
@@ -465,35 +435,6 @@ WeaponData
 			{
 				"default_color"			"246 134 40 255"
 			}
-		}
-	}
-
-	TextureData
-	{
-		"crosshair"
-		{
-			"file"									"vgui/hud/crosshairs/titan_40mm_sides"
-			"x"   									"0"
-			"y"   									"0"
-			"width"   								"256"
-			"height"  								"128"
-		}
-		"crosshair_zoom"
-		{
-			"file"									"vgui/hud/crosshairs/titan_40mm_sides"
-			"x"   									"0"
-			"y"   									"0"
-			"width"   								"256"
-			"height"  								"128"
-		}
-
-		"autoaim"
-		{
-			"file"									"sprites/crosshairs"
-			"x"   									"0"
-			"y"   									"48"
-			"width"   								"24"
-			"height"  								"24"
 		}
 	}
 }

@@ -27,6 +27,7 @@ WeaponData
 
 	// Effects
 	"tracer_effect"   								"weapon_tracers_pistol"
+	"tracer_effect_first_person"   					"weapon_tracers_pistol"
 	"impact_effect_table" 							"inc_bullet"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_rifle_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rifle"
@@ -43,9 +44,11 @@ WeaponData
 
 
 	//Sounds
+	"sound_dryfire"									"assault_rifle_dryfire"
+	"sound_trigger_pull"							"assault_rifle_dryfire"
+	"sound_trigger_release"							"assault_rifle_dryfire"
 	"fire_sound_1_player_1p"						"Weapon_bulletCasings.Bounce"
 	"fire_sound_1_player_3p"						"Weapon_bulletCasings.Bounce"
-	"sound_dryfire"									"assault_rifle_dryfire"
 	"looping_sounds"								"1"
 	
 	// Network
@@ -166,6 +169,15 @@ WeaponData
 	"bob_pitch"   									"0.75"
 	"bob_yaw" 										"1"
 	"bob_roll"										"-0.75"
+
+	// Bob_Zoomed
+	"bob_cycle_time_zoomed"  						"0.45"
+	"bob_vert_dist_zoomed"   						"0.01"
+	"bob_horz_dist_zoomed"   						"0.01"
+	"bob_max_speed_zoomed"   						"150"
+	//"bob_pitch_zoomed"   							"0.002"
+	//"bob_yaw_zoomed" 								"-.002"
+	//"bob_roll_zoomed"								".002"
 
 	// View Drift
 	"viewdrift_hipfire_stand_scale_pitch" 			"0.7"

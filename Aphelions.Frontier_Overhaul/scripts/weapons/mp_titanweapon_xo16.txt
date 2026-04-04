@@ -229,6 +229,7 @@ WeaponData
 	"sway_turn_right_rotate_yaw"  					"1"
 	"sway_turn_up_rotate_pitch"   					"1"
 	"sway_turn_down_rotate_pitch" 					"-1"
+	"sway_enable_zoomed"							"0"
 
 	// NPC
 	"proficiency_poor_spreadscale"					"6.0"
@@ -338,7 +339,7 @@ WeaponData
        			"rest_time_between_bursts_min"    		"0.4"
        			"rest_time_between_bursts_max"  		"0.4"
 
-			"viewkick_pitch_hardScale"						"1.65"
+			"viewkick_pitch_hardScale"		"1.65"
 			"viewkick_pitch_base" 							"-0.1"
 			"viewkick_pitch_random"   						"0.25"
 			"viewkick_yaw_base"   							"0.1"
@@ -353,7 +354,7 @@ WeaponData
 			"spread_air_hip"  								"5.5"
 			"spread_air_ads"  								"0.3"
 
-			"fire_mode"   								"semi-auto"
+			"fire_mode"   									"semi-auto"
 
 			"fire_sound_1"									"Weapon_XO16.Single"
 		}
@@ -380,7 +381,7 @@ WeaponData
 		}
 	}
 
-CrosshairData
+	CrosshairData
 	{
 		BaseWeapon
 		{
@@ -438,34 +439,6 @@ CrosshairData
 			{
 				"default_color"			"243 134 40 255"
 			}
-		}
-	}
-
-	TextureData
-	{
-		"crosshair"
-		{
-			"file"									"vgui/hud/crosshairs/titan_xo16"
-			"x"   									"0"
-			"y"   									"0"
-			"width"   								"96"
-			"height"  								"96"
-		}
-		"crosshair_zoom"
-		{
-			"file"									"vgui/hud/crosshairs/titan_xo16"
-			"x"   									"0"
-			"y"   									"0"
-			"width"   								"96"
-			"height"  								"96"
-		}
-		"autoaim"
-		{
-			"file"									"sprites/crosshairs"
-			"x"   									"0"
-			"y"   									"48"
-			"width"   								"24"
-			"height"  								"24"
 		}
 	}
 }

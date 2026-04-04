@@ -1,42 +1,42 @@
 WeaponData
 {
 	// General
-	"printname"   									"#WPN_WINGMAN"
-	"shortprintname"								"#WPN_WINGMAN_SHORT"
-	"description" 									"#WPN_WINGMAN_DESC"
-	"longdesc" 										"#WPN_WINGMAN_LONGDESC"
+	"printname"   									"#WPN_P2011"
+	"shortprintname"								"#WPN_P2011_SHORT"
+	"description" 									"#WPN_P2011_DESC"
+	"longdesc" 										"#WPN_P2011_LONGDESC"
 	"weaponClass" 									"human"
+	"body_type"										"close_quarters"
 	"fire_mode"   									"semi-auto"
-	"server_vscript"  								"weapons/mp_weapon_wingman"
-	"client_vscript"  								"weapons/mp_weapon_wingman"
+	"server_vscript"  								"weapons/mp_weapon_semipistol"
+	"client_vscript"  								"weapons/mp_weapon_semipistol"
 	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
 	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
-	"sidearm"										"0"
 	"fast_swap_to"									"1"
 	"minimap_reveal_distance"						"32000"
 
-	"hud_icon"										"HUD/dpad_wingman"
+	"hud_icon"										"HUD/dpad_P2011"
 
 	// Menu Stats
-	"stat_damage" 									"50"
-	"stat_range"  									"70"
-	"stat_accuracy"   								"65"
-	"stat_rof"										"30"
+	"stat_damage" 									"35"
+	"stat_range"  									"50"
+	"stat_accuracy"   								"55"
+	"stat_rof"										"55"
 
 	// Models
-	"viewmodel"   									"models/weapons/b3wing/ptpov_b3wing.mdl"
-	"playermodel" 									"models/weapons/b3wing/w_b3wing.mdl"
+	"viewmodel"   									"models/weapons/p2011/ptpov_p2011.mdl"
+	"playermodel" 									"models/weapons/p2011/w_p2011.mdl"
 	"anim_prefix" 									"pistol"
+	"activitymodifier"								"pistol"
 
 	// Effects
-	"tracer_effect"   								"weapon_tracers"
-	"tracer_effect_first_person"   					"weapon_tracers"
+	"tracer_effect"   								"weapon_tracers_pistol"
+	"tracer_effect_first_person"  					"weapon_tracers_pistol"
 	"impact_effect_table" 							"inc_bullet"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_rifle_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rifle"
 	"vortex_absorb_sound"							"Vortex_Shield_AbsorbBulletSmall"
 	"adjust_to_gun_barrel"							"1"
-
 
 	"fx_shell_eject_view"							"wpn_shelleject_pistol_FP"
 	"fx_shell_eject_world"							"wpn_shelleject_pistol"
@@ -46,52 +46,54 @@ WeaponData
 	"fx_muzzle_flash_world"							"wpn_muzzleflash_pistol"
 	"fx_muzzle_flash_attach"						"muzzle_flash"
 
+	
 	//Sounds
 	"sound_dryfire"									"pistol_dryfire"
 	"sound_trigger_pull"							"pistol_dryfire"
 	"sound_trigger_release"							"pistol_dryfire"
-//	"fire_sound_1_player_1p"						"Weapon_bulletCasings.Bounce"
-//	"fire_sound_1_player_3p"						"Weapon_bulletCasings.Bounce"
-	"fire_sound_1"									"player_B3_fire"
+	"fire_sound_1_player_1p"						"Weapon_bulletCasings.Bounce"
+	"fire_sound_1_player_3p"						"Weapon_bulletCasings.Bounce"
+	"fire_sound_2"									"Weapon_P2011_Fire"
 
 	// Network
 	"net_optimize"		                            "1"
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
-	"damage_near_distance"							"1200"  // match to search distance and red crosshair range
-	"damage_far_distance" 							"3000"
-	"damage_near_value"   							"135"
-	"damage_far_value"								"100"
-	"damage_near_value_titanarmor"					"50"
+	"damage_near_distance"							"1050"  // match to search distance and red crosshair range
+	"damage_far_distance" 							"1500"
+	"damage_near_value"   							"60"
+	"damage_far_value"								"45"
+	"damage_near_value_titanarmor"					"30"
 	"damage_far_value_titanarmor" 					"10"
-	"damage_rodeo" 									"350"
+	"damage_rodeo" 									"190"
 
 	// Damage - When Used by NPCs
-	"npc_damage_near_distance"						"1000"
-	"npc_damage_far_distance" 						"1200"
-	"npc_damage_near_value"   						"20"
-	"npc_damage_far_value"							"16"
+	"npc_damage_near_distance"						"800"
+	"npc_damage_far_distance" 						"1000"
+	"npc_damage_near_value"   						"25"
+	"npc_damage_far_value"							"20"
+	"npc_damage_near_value_titanarmor"				"0"
+	"npc_damage_far_value_titanarmor" 				"0"
 
+	"explosionradius" 								"250"
 	"critical_hit_damage_scale"						"2.0"
 	"critical_hit"									"1"
 
 	// Ammo
-	"ammo_stockpile_max"							"160"
-	"ammo_clip_size"   								"6"
-	"ammo_default_total"							"160"
+	"ammo_stockpile_max"							"180"
+	"ammo_clip_size"   								"12"
+	"ammo_default_total"							"180"
 
 	// Behavior
-	"fire_rate"   									"2.6"
+	"fire_rate"   									"8"
 	"zoom_time_in"									"0.25"
 	"zoom_time_out"   								"0.2"
 	"zoom_fov"										"55"
-	"reload_time" 									"2.1"
-	"reload_time_late1" 							"1.75"
-	"reload_time_late2" 							"0.60"
-	"reloadempty_time"								"2.1"
-	"reloadempty_time_late1"						"1.75"
-	"reloadempty_time_late2"						"0.65"
+	"reload_time" 									"1.25"
+	"reload_time_late1"								"1"
+	"reloadempty_time"								"1.25"
+	"reloadempty_time_late1"						"1"
 	"holster_time"									"0.3"
 	"deploy_time" 									"0.4"
 	"lower_time"  									"0.2"
@@ -111,41 +113,65 @@ WeaponData
 	"aimassist_disable_hipfire_titansonly"			"1"
 	"aimassist_disable_ads_titansonly"				"1"
 	"move_speed_modifier" 							"1.00"//Bug with move speed > 1.0, temporary work around.
+	"is_sidearm"  							    	"1"
 
-	"impulse_force"   								"3000"
+	// Spread
+	"spread_stand_hip" 								"2.5"
+	"spread_stand_hip_run" 							"3.5"
+	"spread_stand_hip_sprint"						"4.5"
+	"spread_crouch_hip"								"2"
+	"spread_air_hip"	   							"6.5"
+	"spread_stand_ads"  							"0.2"
+	"spread_crouch_ads"  							"0.2"
+	"spread_air_ads"   								"0.2"
+
+	"spread_kick_on_fire_stand_hip"					"0.4"
+	"spread_kick_on_fire_crouch_hip"				"0.4"
+	"spread_kick_on_fire_air_hip"					"0.4"
+	"spread_kick_on_fire_stand_ads"					".15"
+	"spread_kick_on_fire_crouch_ads"				".15"
+	"spread_kick_on_fire_air_ads"					".2"
+
+	"spread_max_kick_stand_hip"						"3.5"
+	"spread_max_kick_crouch_hip"					"3.0"
+	"spread_max_kick_air_hip"						"4.5"
+	"spread_max_kick_stand_ads"						"0.0"
+	"spread_max_kick_crouch_ads"					"0.0"
+	"spread_max_kick_air_ads"						"0.0"
+
+	"spread_decay_rate"   							"12.0"
+	"spread_decay_delay"  							".17"
+
+	"spread_npc"  									"2"
+
 	// View Kick
-	"viewkick_spring" 								"magnum"
+	"viewkick_spring" 								"pistol"
 
-	"viewkick_pitch_base" 							"-2.5"
-	"viewkick_pitch_random"   						"1"
-	"viewkick_pitch_softScale"						"0.4"
-	"viewkick_pitch_hardScale"						"2.0"
+	"viewkick_pitch_base" 							"-0.85"
+	"viewkick_pitch_random"   						"-0.5"
+	"viewkick_pitch_softScale"						"1.0"
+	"viewkick_pitch_hardScale"						"0.9"
 
-	"viewkick_yaw_base"   							"-0.5"
-	"viewkick_yaw_random" 							"-1.0"
-	"viewkick_yaw_softScale"  						"0.5"
-	"viewkick_yaw_hardScale"  						"1.5"
+	"viewkick_yaw_base"   							"0.1"
+	"viewkick_yaw_random" 							"0.8"
+	"viewkick_yaw_softScale"  						"1.0"
+	"viewkick_yaw_hardScale"  						"0.9"
 
-	"viewkick_roll_base"  							"0"
+	"viewkick_roll_base"  							"0.0"
 	"viewkick_roll_randomMin" 						"0.2"
 	"viewkick_roll_randomMax" 						"0.4"
 	"viewkick_roll_softScale" 						"0.2"
-	"viewkick_roll_hardScale" 						"2.25"
+	"viewkick_roll_hardScale" 						"1.4"
 
-	"viewkick_hipfire_weaponFraction" 				"0.25"
-	"viewkick_hipfire_weaponFraction_vmScale" 		"0.0"
-	"viewkick_ads_weaponFraction" 					"0.35"
-	"viewkick_ads_weaponFraction_vmScale" 			"0.0"
+	"viewkick_hipfire_weaponFraction" 				"0.0"
+	"viewkick_hipfire_weaponFraction_vmScale" 		"0.5"
+	"viewkick_ads_weaponFraction" 					"0.0"
+	"viewkick_ads_weaponFraction_vmScale" 			"0.5"
 
-	"viewkick_perm_pitch_base"				 		"0.0"
-	"viewkick_perm_pitch_random"   					"1.0"
+	"viewkick_perm_pitch_base"				 		"0.1"
+	"viewkick_perm_pitch_random"   					"0.8"
 	"viewkick_perm_yaw_base"   						"0.1"
-	"viewkick_perm_yaw_random" 						"1.0"
-
-	//
-	"viewmodel_shake_forward"						"0.5"
-	"viewmodel_shake_up"							"0.2"
-	"viewmodel_shake_right"							"0.0"
+	"viewkick_perm_yaw_random" 						"0.4"
 
 	// Bob
 	"bob_cycle_time"  								"0.45"
@@ -178,14 +204,14 @@ WeaponData
 	"viewdrift_ads_stand_scale_pitch" 				"0.3"
 	"viewdrift_ads_crouch_scale_pitch"				"0.3"
 	"viewdrift_ads_air_scale_pitch"   				"0.3"
-	"viewdrift_ads_stand_scale_yaw"   				"0.25"
-	"viewdrift_ads_crouch_scale_yaw"  				"0.25"
-	"viewdrift_ads_air_scale_yaw" 					"0.25"
-	"viewdrift_ads_speed_pitch"   					"0.7"
-	"viewdrift_ads_speed_yaw" 						"0.9"
+	"viewdrift_ads_stand_scale_yaw"   				"0.2"
+	"viewdrift_ads_crouch_scale_yaw"  				"0.2"
+	"viewdrift_ads_air_scale_yaw" 					"0.2"
+	"viewdrift_ads_speed_pitch"   					"0.6"
+	"viewdrift_ads_speed_yaw" 						"1.22"
 
 	// Rumble
-	"fire_rumble"									"pilot_singleshot_strong_fire"
+	"fire_rumble"									"pilot_singleshot_weak_fire"
 
 	// Sway
 	"sway_rotate_attach"  							"SWAY_ROTATE"
@@ -225,15 +251,15 @@ WeaponData
 	"sway_rotate_attach_blend_time_zoomed"			"0.2"
 	"sway_rotate_gain_zoomed"						"12"
 
-	"sway_min_yaw_zoomed"							"-0.073"
-	"sway_max_yaw_zoomed"							"0.073"
-	"sway_turn_left_rotate_yaw_zoomed"				"-0.0785"
-	"sway_turn_right_rotate_yaw_zoomed"				"0.0785"
+	"sway_min_yaw_zoomed"							"-0.053"
+	"sway_max_yaw_zoomed"							"0.053"
+	"sway_turn_left_rotate_yaw_zoomed"				"-0.0585"
+	"sway_turn_right_rotate_yaw_zoomed"				"0.0585"
 
-	"sway_min_pitch_zoomed"  						"-0.071"
-	"sway_max_pitch_zoomed"  						"0.071"
-	"sway_turn_up_rotate_pitch_zoomed"				"0.079"
-	"sway_turn_down_rotate_pitch_zoomed"			"-0.079"
+	"sway_min_pitch_zoomed"  						"-0.051"
+	"sway_max_pitch_zoomed"  						"0.051"
+	"sway_turn_up_rotate_pitch_zoomed"				"0.059"
+	"sway_turn_down_rotate_pitch_zoomed"			"-0.059"
 
 	// NPC
 	"proficiency_poor_spreadscale"					"7.0"
@@ -251,54 +277,29 @@ WeaponData
 	"npc_max_range"   								"8000"
 	"npc_min_range_secondary" 						"0"
 	"npc_max_range_secondary" 						"2500"
-	"npc_min_burst"   								"1"
-	"npc_max_burst"   								"3"
-
-	// Spread
-	"spread_stand_hip" 								"1.0"
-	"spread_stand_hip_run" 							"3.0"
-	"spread_stand_hip_sprint"						"4.0"
-	"spread_crouch_hip"								"0.5"
-	"spread_air_hip"	   							"6.0"
-	"spread_stand_ads"  							"0.15"
-	"spread_crouch_ads"  							"0.1"
-	"spread_air_ads"   								"0.25"
-
-	"spread_kick_on_fire_stand_hip"					"2.5"
-	"spread_kick_on_fire_crouch_hip"				"2.0"
-	"spread_kick_on_fire_air_hip"					"3.0"
-	"spread_kick_on_fire_stand_ads"					".025"
-	"spread_kick_on_fire_crouch_ads"				".015"
-	"spread_kick_on_fire_air_ads"					".05"
-
-	"spread_max_kick_stand_hip"						"4.5"
-	"spread_max_kick_crouch_hip"					"3.0"
-	"spread_max_kick_air_hip"						"4.5"
-	"spread_max_kick_stand_ads"						"0.0"
-	"spread_max_kick_crouch_ads"					"0.0"
-	"spread_max_kick_air_ads"						"0.0"
-
-	"spread_decay_rate"   							"11.0"
-	"spread_decay_delay"  							".21"
-
-	"spread_npc"  									"2"
+	"npc_min_burst"   								"2"
+	"npc_max_burst"   								"5"
+	"rest_time_between_bursts_min"					"0.2"
+	"rest_time_between_bursts_max"					"0.3"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
 	"sprintcycle_time"								"0.55"
-	"deployfirst_time"								"1.25"
 	"is_anti_titan"  							    "0"
-	"is_sidearm"  							    	"1"
-	"activitymodifier"								"pistol"
+
+	// Crosshair
+	"red_crosshair_range" 							"1050"
 
 	// Bodygroups:
 	"bodygroup1_name"	"suppressor_cyl_sm"
 	"bodygroup1_set"	"0"
+
 	"bodygroup2_name"	"suppressor_sq_sm"
 	"bodygroup2_set"	"0"
-    "bodygroup3_name"	"sight_hcog"
-	"bodygroup3_set"	"0"
 
-    "clip_bodygroup"						"b3wing_magazine"
+	"bodygroup3_name"	"sight_on"
+	"bodygroup3_set"	"1"
+
+    "clip_bodygroup"						"p2011_magazine"
     "clip_bodygroup_index_shown"			"0"
     "clip_bodygroup_index_hidden"			"1"
     "clip_bodygroup_show_for_milestone_0"	"1"
@@ -315,77 +316,69 @@ WeaponData
 			"reloadempty_time"							"*0.7"
 			"reloadempty_time_late1"					"*0.7"
 		}
-		explosive_rounds
+		extended_ammo
 		{
-			//Explosive Rounds
-			//"damage_type" 								"burn"
-			"ammo_stockpile_max"							"80"
-			"ammo_clip_size"   								"6"
-			"ammo_default_total"							"80"
-			"damage_near_value"   							"0"
-			"damage_far_value"								"0"
-
-			"fire_rate"   									"2.5"
-			"tracer_effect"   								"weapon_tracers_xo16"
-			"tracer_effect_first_person"  					"weapon_tracers_xo16"
-			"impact_effect_table" 							"exp_wingman_explosive_rounds"
-
-			"explosion_inner_radius"  						"50"
-			"explosionradius" 								"100"
-			"explosion_damage"								"50"
-			"explosion_damage_heavy_armor"					"50"
+			"ammo_stockpile_max"							"150"
+			"ammo_clip_size"   								"15"
+			"ammo_default_total"							"150"
 		}
 		silencer
 		{
-			"fire_sound_1"						"player_B3_fireSuppressed"
-			"damage_near_value"   				"90"
-			"damage_far_value"					"70"
-			"bodygroup2_set"					"1"
+			"fire_sound_2"									"Weapon_P2011_FireSuppressed"
+			"damage_near_value"   							"50"
+			"damage_far_value"								"50"
+			"bodygroup1_set"					"1"
 
 			//"rumble"  						"4"
 			"tracer_effect"   					"weapon_tracers_pistol"
-			"tracer_effect_first_person"   		"weapon_tracers_pistol"
 			"minimap_reveal_distance"			"1"
 
 			"fx_muzzle_flash_view"				"wpn_muzzleflash_pistol_sup_FP"
 			"fx_muzzle_flash_world"				"wpn_muzzleflash_pistol_sup"
-			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_sq"
+			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_cyl"
 		}
 		slammer
 		{
 			"damage_rodeo" 									"*1.5"
 		}
-		hcog
+		match_trigger
 		{
-			"bodygroup3_set"	"1"
-			"zoom_fov"	"45"
+			"fire_rate"   									"12"
+			"viewkick_pitch_base" 							"-1.2"
+			"viewkick_pitch_random"   						"-0.6"
+			"viewkick_pitch_hardScale"						"1.2"
+
+			"viewkick_yaw_base"   							"0.25"
+			"viewkick_yaw_random" 							"1.2"
 		}
+
 		pas_run_and_gun
 		{
 			"primary_fire_does_not_block_sprint"			"1"
 			"crosshair_force_sprint_fade_disabled"          "1"
 		}
-		burn_mod_wingman
+		burn_mod_semipistol
 		{
-			"crosshair_index"								"1" //Matching weaponHUDColor .s variable in wingman.nut
-			"fire_rate"   									"12"
-			"viewkick_pitch_base" 							"*0.5"
-			"viewkick_pitch_random"   						"*1.6"
+			"crosshair_index"				"1"
+			"fire_rate"   					"12"
+			"burst_fire_count"				"3"
+			"burst_fire_delay"				"0.28"
 
-			"viewkick_yaw_base"   							"*0.6"
-			"viewkick_yaw_random" 							"*1.4"
-
-			"reload_time" 									"*1.2"
-			"reload_time_late1" 							"*1.2"
-			"reload_time_late2" 							"*1.2"
-			"is_burn_mod"		"1"
+			"viewkick_pitch_hardScale"		"1.2"
+			"viewkick_pitch_base" 			"-0.4"
+			"viewkick_pitch_random"   		"-0.25"
+			"viewkick_yaw_base"   			"0.15"
+			"viewkick_yaw_random" 			"0.5"
+			"fire_mode"   					"semi-auto"
+			"damage_near_value"   			"60"
+			"is_burn_mod"					"1"
+			"fire_sound_2"					""
+			"burst_fire_sound_start"		"Weapon_P2011_Fire_FirstShot"
+			"burst_fire_sound_middle"		"Weapon_P2011_Fire_SecondShot"
+			"burst_fire_sound_end"			"Weapon_P2011_Fire_SecondShot"
 		}
+
 	}
-
-
-
-	// Crosshair
-	"red_crosshair_range" 							"1500"
 
 	CrosshairData
 	{
@@ -393,50 +386,27 @@ WeaponData
 		{
 			DefaultElementBehavior
 			{
+				"rotation"					"90"
+				"size_x"					"44"
+				"size_y"					"44"
+				"fade_into_zooming_end"		"0.5"
+				"fade_out_of_zooming_begin"	"0.2"
+				"scale_ads"					"0.5"
 				"fade_while_reloading"		"1"
-				"fade_while_zooming"		"1"
 				"fade_while_sprinting"		"1"
-				"draw_while_zooming"		"1"
 				"draw_while_ads"			"0"
-				"fade_into_zooming_end"		"0.3"
-				"fade_out_of_zooming_begin"	"0.5"
-				"fade_out_zooming_end"		"0.5"
+				"draw_while_hip"			"1"
+				"fade_while_zooming"		"1"
 			}
 			Element0
 			{
-				"type"						"static"
-				"material"					"hud/crosshairs/b3wingman"
-				"size_x"					"28"
-				"size_y"					"28"
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus"
 			}
 			Element1
 			{
-				"type"						"static"
-				"material"					"hud/crosshairs/b3wingman_shadow"
-				"size_x"					"28"
-				"size_y"					"28"
-			}
-			Element2
-			{
 				"type"						"spread"
-				"material"					"hud/crosshairs/b3wingman_arc"
-				"rotation"					"180"
-				"spread_initial_angle"		"45"
-				"spread_max_icons"			"4"
-				"size_x"					"12"
-				"size_y"					"12"
-				"spread_initial_offset"		"6.5"
-			}
-			Element3
-			{
-				"type"						"spread"
-				"material"					"hud/crosshairs/b3wingman_arc_shadow"
-				"rotation"					"180"
-				"spread_initial_angle"		"45"
-				"spread_max_icons"			"4"
-				"size_x"					"12"
-				"size_y"					"12"
-				"spread_initial_offset"		"6.5"
+				"material"					"hud/crosshairs/standard_plus_shadow"
 			}
 		}
 		Burn_Mod //Match BaseWeapon + default color change until override setting.

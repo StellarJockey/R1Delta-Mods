@@ -46,13 +46,15 @@ WeaponData
 	"vortex_drain"									".2"
 	"adjust_to_gun_barrel"							"1"
 
-	"sound_dryfire"									"spring_dryfire"
-
 	"critical_hit"									"0"
 
 	"fx_muzzle_flash_view"							"P_wpn_muzzleflash_law_fp"
 	"fx_muzzle_flash_world"							"P_wpn_muzzleflash_law"
 	"fx_muzzle_flash_attach"						"muzzle_flash"
+
+	// Sounds
+	"sound_dryfire"									"Weapon_Archer.Dryfire"
+	"sound_trigger_pull"							"Weapon_Archer.Dryfire"
 
 	// Damage - When Used by Players
 	"damage_type" 									"burn"
@@ -154,6 +156,15 @@ WeaponData
 	"bob_pitch"   									"0.75"
 	"bob_yaw" 										"0.5"
 	"bob_roll"										"-0.75"
+
+	// Bob_Zoomed
+	"bob_cycle_time_zoomed"  						"0.45"
+	"bob_vert_dist_zoomed"   						"0.01"
+	"bob_horz_dist_zoomed"   						"0.01"
+	"bob_max_speed_zoomed"   						"150"
+	//"bob_pitch_zoomed"   							"0.002"
+	//"bob_yaw_zoomed" 								"-.002"
+	//"bob_roll_zoomed"								".002"
 
 	// View Drift
 	"viewdrift_ads_stand_scale_pitch" 				"0.1"

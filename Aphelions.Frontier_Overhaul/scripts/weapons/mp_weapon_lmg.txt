@@ -26,13 +26,13 @@ WeaponData
 	"anim_prefix" 									"SMG2"
 
 	// Effects
+	"tracer_effect"   								"weapon_tracers"
+	"tracer_effect_first_person"   					"weapon_tracers"
+	"impact_effect_table" 							"inc_bullet"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_rifle_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rifle"
 	"vortex_absorb_sound"							"Vortex_Shield_AbsorbBulletSmall"
 	"adjust_to_gun_barrel"							"1"
-
-	"sound_dryfire"									"hemlok_dryfire"
-	"sound_trigger_pull"							"Weapon_hemlok.Trigger"
 
 	"fx_shell_eject_view"							"wpn_shelleject_rifle_assault_FP"
 	"fx_shell_eject_world"							"wpn_shelleject_rifle_assault"
@@ -42,13 +42,15 @@ WeaponData
 	"fx_muzzle_flash_world"							"wpn_muzzleflash_lmg"
 	"fx_muzzle_flash_attach"						"muzzle_flash"
 
-	"looping_sounds"								"1"
-
 	//Sounds
+	"sound_dryfire"									"hemlok_dryfire"
+	"sound_trigger_pull"							"Weapon_hemlok.Trigger"
+	"sound_trigger_release"							"Weapon_hemlok.Trigger"
 	"fire_sound_1_player_1p"						"LMG_shell"
 	"fire_sound_1_player_3p"						"LMG_shell"
 	"fire_sound_2"									"Weapon_LMG_SecondShot1"
 	"fire_sound_2_npc"								"Weapon_LMG_SecondShot1"
+	"looping_sounds"								"1"
 
 	// Network
 	"net_optimize"		                            "1"
@@ -204,6 +206,15 @@ WeaponData
 	"bob_yaw" 										"1"
 	"bob_roll"										"-0.75"
 
+	// Bob_Zoomed
+	"bob_cycle_time_zoomed"  						"0.45"
+	"bob_vert_dist_zoomed"   						"0.01"
+	"bob_horz_dist_zoomed"   						"0.01"
+	"bob_max_speed_zoomed"   						"150"
+	//"bob_pitch_zoomed"   							"0.002"
+	//"bob_yaw_zoomed" 								"-.002"
+	//"bob_roll_zoomed"								".002"
+
 	// View Drift
 	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
 	"viewdrift_hipfire_crouch_scale_pitch"			"0.275"
@@ -334,7 +345,6 @@ WeaponData
 
 	Mods
 	{
-
 		iron_sights
 		{
 		}

@@ -47,6 +47,7 @@ WeaponData
 	"npc_damage_near_value_titanarmor"					"3000"
 	"npc_damage_far_value_titanarmor" 					"130"
 
+
 	"critical_hit"									"0"
 
 	// Ammo
@@ -152,6 +153,7 @@ WeaponData
 	"sway_turn_right_rotate_yaw"  					"1"
 	"sway_turn_up_rotate_pitch"   					"1"
 	"sway_turn_down_rotate_pitch" 					"-1"
+	"sway_enable_zoomed"							"0"
 
 	// NPC
 	"proficiency_poor_spreadscale"					"5.0"
@@ -276,85 +278,28 @@ WeaponData
 		}
 		CapacitorWeapon
 		{
-			DefaultElementBehavior
-			{
-				"fade_while_sprinting"	"1"
-				"fade_while_reloading"	"1"
-				"stationary"			"1"
-			}
-			Element0
-			{
-				"type"						"static"
-				"material"					"/hud/crosshairs/arc_cannon_charge"
-				"size_x"					"80"
-				"size_y"					"80"
-				"scale_ads"					"1.5"
-			}
-			Element1
-			{
-				"type"						"static"
-				"material"					"/hud/crosshairs/arc_cannon_shadow_horizontal"
-				"size_x"					"80"
-				"size_y"					"80"
-				"scale_ads"					"1.5"
-			}
+			"inherit_data_from"				"BaseWeapon"
+
 			Element2
 			{
-				"type"						"static"
-				"material"					"hud/crosshairs/titan_shotgun_circle_single"
 				"size_x"					"24"
 				"size_y"					"24"
 				"scale_ads"					"2.2"
 			}
 			Element3
 			{
-				"type"						"static"
-				"material"					"hud/crosshairs/titan_shotgun_circle_single_shadow"
 				"size_x"					"24"
 				"size_y"					"24"
 				"scale_ads"					"2.2"
 			}
 		}
-		Burn_Card_Mod
+		BurnCardMod //Match BaseWeapon + default color change until override setting.
 		{
+			"inherit_data_from"				"BaseWeapon"
+
 			DefaultElementBehavior
 			{
-				"fade_while_sprinting"	"1"
-				"fade_while_reloading"	"1"
-				"stationary"			"1"
-				"default_color"			"246 134 40 255"
-			}
-			Element0
-			{
-				"type"						"static"
-				"material"					"/hud/crosshairs/arc_cannon_charge"
-				"size_x"					"80"
-				"size_y"					"80"
-				"scale_ads"					"1.5"
-			}
-			Element1
-			{
-				"type"						"static"
-				"material"					"/hud/crosshairs/arc_cannon_shadow_horizontal"
-				"size_x"					"80"
-				"size_y"					"80"
-				"scale_ads"					"1.5"
-			}
-			Element2
-			{
-				"type"						"static"
-				"material"					"hud/crosshairs/titan_shotgun_circle_single"
-				"size_x"					"16"
-				"size_y"					"16"
-				"scale_ads"					"2.2"
-			}
-			Element3
-			{
-				"type"						"static"
-				"material"					"hud/crosshairs/titan_shotgun_circle_single_shadow"
-				"size_x"					"16"
-				"size_y"					"16"
-				"scale_ads"					"2.2"
+				"default_color"				"246 134 40 255"
 			}
 		}
 	}

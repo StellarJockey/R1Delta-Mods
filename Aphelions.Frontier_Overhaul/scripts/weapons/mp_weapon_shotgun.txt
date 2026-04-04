@@ -27,14 +27,17 @@ WeaponData
 
 	// Effects
 	"tracer_effect"   								"weapon_tracers_shotgun"
+	"tracer_effect_first_person"   					"weapon_tracers_shotgun"
 	"impact_effect_table" 							"inc_bullet"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_shotgun_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_shotgun"
 	"vortex_absorb_sound"							"Vortex_Shield_AbsorbBulletSmall"
 	"adjust_to_gun_barrel"							"1"
 
+	// Sounds
 	"sound_dryfire"									"shotgun_dryfire"
-
+	"sound_trigger_pull"							"shotgun_dryfire"
+	"sound_trigger_release"							"shotgun_dryfire"
 	"fx_shell_eject_view"							"wpn_shelleject_shotshell_FP"
 	"fx_shell_eject_world"							"wpn_shelleject_shotshell"
 	"fx_shell_eject_attach"							"shell"
@@ -42,6 +45,10 @@ WeaponData
 	"fx_muzzle_flash_view"							"mflash_shotgun_fp_FULL"
 	"fx_muzzle_flash_world"							"mflash_shotgun_FULL"
 	"fx_muzzle_flash_attach"						"muzzle_flash"
+
+	//Sounds
+	"fire_sound_1_player_1p"						"Weapon_shellCasings.Bounce"
+	"fire_sound_1_player_3p"						"Weapon_shellCasings.Bounce"
 
 	// Damage - When Used by Players
 	"damage_type" 									"buckshot"
@@ -162,6 +169,15 @@ WeaponData
 	"bob_pitch"   									"0.75"
 	"bob_yaw" 										"0.5"
 	"bob_roll"										"-0.75"
+
+	// Bob_Zoomed
+	"bob_cycle_time_zoomed"  						"0.45"
+	"bob_vert_dist_zoomed"   						"0.01"
+	"bob_horz_dist_zoomed"   						"0.01"
+	"bob_max_speed_zoomed"   						"150"
+	//"bob_pitch_zoomed"   							"0.002"
+	//"bob_yaw_zoomed" 								"-.002"
+	//"bob_roll_zoomed"								".002"
 
 	// View Drift
 	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
@@ -389,12 +405,13 @@ WeaponData
 				"size_x"					"36"
 				"size_y"					"36"
 				"rotation"					"180"
-				"fade_into_zooming_end"		"0.1"
-				"fade_out_of_zooming_begin"	"0.1"
+				//"fade_into_zooming_end"		"0.1"
+				//"fade_out_of_zooming_begin"	"0.1"
 				"fade_while_sprinting"		"1"
 				"fade_while_reloading"		"1"
 				"fade_while_zooming"		"1"
 				"draw_while_ads"			"0"
+				"draw_while_hip"			"1"
 			}
 			Element0
 			{
@@ -413,51 +430,12 @@ WeaponData
 		}
 		BurnCardMod //Match BaseWeapon + default color change until override setting.
 		{
+			"inherit_data_from"				"BaseWeapon"
+
 			DefaultElementBehavior
 			{
-				"size_x"					"36"
-				"size_y"					"36"
-				"rotation"					"180"
-				"fade_into_zooming_end"		"0.1"
-				"fade_out_of_zooming_begin"	"0.1"
-				"fade_while_sprinting"		"1"
-				"fade_while_reloading"		"1"
-				"fade_while_zooming"		"1"
-				"draw_while_ads"			"0"
 				"default_color"				"246 134 40 255"
 			}
-			Element0
-			{
-				"type"						"spread"
-				"material"					"hud/crosshairs/crosshair_pilot_shotgun_outer_ring_arc"
-				"spread_initial_angle"		"45"
-				"spread_initial_offset"		"-3"
-			}
-			Element1
-			{
-				"type"						"spread"
-				"material"					"hud/crosshairs/crosshair_pilot_shotgun_outer_ring_arc_shadow"
-				"spread_initial_angle"		"45"
-				"spread_initial_offset"		"-3"
-			}
-		}
-	}
-
-	TextureData
-	{
-		"crosshair"
-		{
-			"file"									"vgui/hud/crosshairs/crosshair_pilot_shotgun_outer_ring_arc"
-			"x"   									"0"
-			"y"   									"0"
-			"width"   								"72"
-			"height"  								"72"
-		}
-		"crosshair_zoom"
-		{
-		}
-		"autoaim"
-		{
 		}
 	}
 }

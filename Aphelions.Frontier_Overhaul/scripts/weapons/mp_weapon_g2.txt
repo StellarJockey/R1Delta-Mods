@@ -27,14 +27,12 @@ WeaponData
 
 	// Effects
 	"tracer_effect"   								"weapon_tracers"
+	"tracer_effect_first_person"   					"weapon_tracers"
+	"impact_effect_table" 							"inc_bullet"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_rifle_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rifle"
 	"vortex_absorb_sound"							"Vortex_Shield_AbsorbBulletSmall"
 	"adjust_to_gun_barrel"							"1"
-
-	"sound_dryfire"									"assault_rifle_dryfire"
-	"sound_trigger_pull"							"assault_rifle_dryfire"
-	"sound_trigger_release"							"assault_rifle_dryfire"
 
 	"fx_shell_eject_view"							"wpn_shelleject_rifle_assault_FP"
 	"fx_shell_eject_world"							"wpn_shelleject_rifle_assault"
@@ -45,6 +43,9 @@ WeaponData
 	"fx_muzzle_flash_attach"						"muzzle_flash"
 
 	//Sounds
+	"sound_dryfire"									"assault_rifle_dryfire"
+	"sound_trigger_pull"							"assault_rifle_dryfire"
+	"sound_trigger_release"							"assault_rifle_dryfire"
 	"fire_sound_1_player_1p"						"Weapon_G2A4_Fire"
 	"fire_sound_1_player_3p"						"Weapon_G2A4_Fire"
 	"fire_sound_1_npc"								"Weapon_G2A4_Fire"
@@ -207,6 +208,15 @@ WeaponData
 	"bob_yaw" 										"1"
 	"bob_roll"										"-0.75"
 
+	// Bob_Zoomed
+	"bob_cycle_time_zoomed"  						"0.45"
+	"bob_vert_dist_zoomed"   						"0.01"
+	"bob_horz_dist_zoomed"   						"0.01"
+	"bob_max_speed_zoomed"   						"150"
+	//"bob_pitch_zoomed"   							"0.002"
+	//"bob_yaw_zoomed" 								"-.002"
+	//"bob_roll_zoomed"								".002"
+
 	// View Drift
 	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
 	"viewdrift_hipfire_crouch_scale_pitch"			"0.275"
@@ -297,7 +307,7 @@ WeaponData
 	"npc_max_burst"   								"1"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
-	"deployfirst_time"								"0.8"
+	"deployfirst_time"								"1.25" //0.8
 	"sprintcycle_time"								"0.55"
 	"is_anti_titan"  							    "0"
 	// Crosshair
@@ -325,7 +335,6 @@ WeaponData
     "clip_bodygroup_show_for_milestone_2"	"1"
     "clip_bodygroup_show_for_milestone_3"	"1"
 
-//	Mods
 	Mods
 	{
 		holosight
@@ -380,6 +389,7 @@ WeaponData
 
 			//"rumble"  						"4"
 			"tracer_effect"   					"weapon_tracers_pistol"
+			"tracer_effect_first_person"   		"weapon_tracers_pistol"
 			"minimap_reveal_distance"			"1"
 
 			"fx_muzzle_flash_view"				"wpn_muzzleflash_pistol_sup_FP"
@@ -445,31 +455,11 @@ WeaponData
 		}
 		Burn_Mod //Match BaseWeapon + default color change until override setting.
 		{
+			"inherit_data_from"				"BaseWeapon"
+
 			DefaultElementBehavior
 			{
-				"rotation"					"90"
-				"size_x"					"44"
-				"size_y"					"44"
-				"fade_into_zooming_end"		"0.5"
-				"fade_out_of_zooming_begin"	"0.20"
-				"scale_ads"					"0.5"
-				"fade_while_sprinting"		"1"
-				"fade_while_reloading"		"1"
-				"draw_while_ads"			"0"
-				"draw_while_hip"			"1"
-				"fade_while_zooming"		"1"
 				"default_color"				"246 134 40 255"
-			}
-			Element0
-			{
-				"type"						"spread"
-				"material"					"hud/crosshairs/standard_plus"
-
-			}
-			Element1
-			{
-				"type"						"spread"
-				"material"					"hud/crosshairs/standard_plus_shadow"
 			}
 		}
 	}

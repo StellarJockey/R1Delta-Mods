@@ -27,6 +27,8 @@ WeaponData
 
 	// Effects
 	"tracer_effect"   								"weapon_tracers"
+	"tracer_effect_first_person"   					"weapon_tracers"
+	"impact_effect_table" 							"inc_bullet"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_rifle_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rifle"
 	"vortex_absorb_sound"							"Vortex_Shield_AbsorbBulletSmall"
@@ -43,7 +45,7 @@ WeaponData
 	//Sounds
 	"sound_dryfire"									"assault_rifle_dryfire"
 	"sound_trigger_pull"							"assault_rifle_dryfire"
-//	"sound_trigger_release"							"assault_rifle_dryfire"
+	"sound_trigger_release"							"assault_rifle_dryfire"
 	"fire_sound_1_player_1p"						"Weapon_bulletCasings.Bounce"
 	"fire_sound_1_player_3p"						"Weapon_bulletCasings.Bounce"
 	"fire_sound_2"									"Weapon_R1SMG1.SecondShot1"
@@ -211,6 +213,15 @@ WeaponData
 	"bob_pitch"   									"0.75"
 	"bob_yaw" 										"1"
 	"bob_roll"										"-0.75"
+
+	// Bob_Zoomed
+	"bob_cycle_time_zoomed"  						"0.45"
+	"bob_vert_dist_zoomed"   						"0.01"
+	"bob_horz_dist_zoomed"   						"0.01"
+	"bob_max_speed_zoomed"   						"150"
+	//"bob_pitch_zoomed"   							"0.002"
+	//"bob_yaw_zoomed" 								"-.002"
+	//"bob_roll_zoomed"								".002"
 
 	// View Drift
 	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
@@ -384,7 +395,7 @@ WeaponData
 		single_shot
 		{
 			//SINGLE SHOT
-			"description" 					"Semi-Automatic Variant"
+			//"description" 					"Semi-Automatic Variant"
 
 			"fire_mode"   					"semi-auto"
 			"ammo_clip_size"				"12"
@@ -398,7 +409,7 @@ WeaponData
 		burst
 		{
 			//BURST_FIRE
-			"description" 					"Burstfire Variant"
+			//"description" 					"Burstfire Variant"
 
 			"fire_mode"   					"semi-auto"
 			"burst_fire_count"				"3"
@@ -431,6 +442,7 @@ WeaponData
 			"damage_far_value"					"34"
 			//"rumble"  						"4"
 			"tracer_effect"   					"weapon_tracers_pistol"
+			"tracer_effect_first_person"   		"weapon_tracers_pistol"
 			"minimap_reveal_distance"			"1"
 			"fire_sound_2"						""
 			"fx_muzzle_flash_view"				"wpn_muzzleflash_pistol_sup_FP"

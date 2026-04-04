@@ -4,7 +4,7 @@ WeaponData
 	"printname"   									"#WPN_TWINB_SHOTGUN"
 	"shortprintname"								"#WPN_TWINB_SHOTGUN_SHORT"
 	"description" 									"#WPN_TWINB_SHOTGUN_DESC"
-	"longdesc" 									"#WPN_TWINB_SHOTGUN_LONGDESC"
+	"longdesc" 										"#WPN_TWINB_SHOTGUN_LONGDESC"
 	"weaponClass" 									"human"
 	"body_type"										"close_quarters"
 	"fire_mode"   									"semi-auto"
@@ -15,9 +15,9 @@ WeaponData
 	"minimap_reveal_distance"						"32000"
 
 	// Menu Stats
-	"stat_damage" 									"90"
-	"stat_range"  									"15"
-	"stat_accuracy"   								"18"
+	"stat_damage" 									"50"
+	"stat_range"  									"70"
+	"stat_accuracy"   								"65"
 	"stat_rof"										"30"
 
 	// Models
@@ -64,12 +64,12 @@ WeaponData
 	"damage_rodeo" 									"700"
 
 	// Damage - When Used by NPCs
-	"npc_damage_near_distance"						"100"
-	"npc_damage_far_distance" 						"1200"
-	"npc_damage_near_value"   						"40"
-	"npc_damage_far_value"							"20"
-	"npc_damage_near_value_titanarmor"				"40"
-	"npc_damage_far_value_titanarmor" 				"0"
+	"npc_damage_near_distance"						"300"
+	"npc_damage_far_distance" 						"700"
+	"npc_damage_near_value"   						"220"
+	"npc_damage_far_value"							"25"
+	"npc_damage_near_value_titanarmor"				"130"
+	"npc_damage_far_value_titanarmor" 				"10"
 
 	"impulse_force"   								"800"
 
@@ -167,6 +167,15 @@ WeaponData
 	"bob_pitch"   									"0.75"
 	"bob_yaw" 										"0.5"
 	"bob_roll"										"-0.75"
+
+	// Bob_Zoomed
+	"bob_cycle_time_zoomed"  						"0.45"
+	"bob_vert_dist_zoomed"   						"0.01"
+	"bob_horz_dist_zoomed"   						"0.01"
+	"bob_max_speed_zoomed"   						"150"
+	//"bob_pitch_zoomed"   							"0.002"
+	//"bob_yaw_zoomed" 								"-.002"
+	//"bob_roll_zoomed"								".002"
 
 	// View Drift
 	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
