@@ -491,7 +491,6 @@ function SetupLevelAICount()
 		case "mp_haven":
 		case "mp_nest2":
 		case "mp_mia":
-			// leave at 12
 			break
 
 		case "mp_angel_city":
@@ -504,12 +503,17 @@ function SetupLevelAICount()
 		case "mp_switchback":
 		case "mp_zone_18":
 		case "mp_backwater":
-		case "mp_box":
 			aiCount = level.max_npc_per_side_small
 			break
 
-			//aiCount = 6
-			//break
+		case "mp_box":
+			aiCount = 12
+			break
+
+		case "mp_npe":
+			aiCount = 16
+			break
+
 	}
 
 	SetLevelAICount( aiCount, TEAM_MILITIA )
@@ -675,8 +679,6 @@ Globalize( SpawnPilotAI )
 function Spawn_TrackedSpectre( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {
 	local spectre = SpawnSpectre( team, squadName, origin, angles, alert, weapon, hidden )
-
-
 
 	Assert( IsAlive( spectre ) )
 
@@ -1818,8 +1820,6 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 	{
 		spawnPointArray = SpawnPoints_GetDropPodStart( team )
 
-		//Assert( /*level.isTestmap ||*/ spawnPointArray.len(), "level didn't have any info_spawnpoint_droppod_start for team " + team )
-
 		if ( !spawnPointArray.len() )
 		{
 			spawnPointArray = SpawnPoints_GetDropPod()
@@ -1834,10 +1834,8 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 	//! 스폰포인트가 없으면 스킵
 	if(spawnPointArray.len() < 1)
 	{
-		//printl("_ai_game_modes.nut : 스폰 포인트가 없음")
 		return
 	}
-	// if something got this far and we don't have any spawnpoints then something is wrong.
 	Assert( spawnPointArray.len() )
 
 	local spawnPoint = GetFrontlineSpawnPoint( spawnPointArray, team, squadIndex, shouldSpawnSpectre, useStartSpawn )
@@ -1846,7 +1844,7 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
 	/////////////////////////////
 	local npcArray
-    local allowSnipers = GameTime.PlayingTime() > 60     // 1 min
+    local allowSnipers = GameTime.PlayingTime() > 60.0     // 1 min
     local roll = RandomFloat( 0, 1 ) 
 
     if ( shouldSpawnSpectre )
@@ -2055,6 +2053,12 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 			limit = ( team == playerTeam ) ? 2 : 5   // 2 for your team, 5 for enemy team
 			break
 	}
+
+	local mapName = GetMapName()
+	if ( mapName == "mp_npe" )
+	{
+		limit = ( team == playerTeam ) ? 1 : 3
+	}		
 
     return file.spawnedtitans[team] < limit
 }
