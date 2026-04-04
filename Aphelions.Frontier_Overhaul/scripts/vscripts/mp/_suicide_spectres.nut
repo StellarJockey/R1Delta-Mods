@@ -112,8 +112,8 @@ function MakeSuicideSpectre( spectre )
 	spectre.s.suicideBehavior.allowNeutralize <- true
 	spectre.s.state <- eSuicideState.SPECTRE_STATE_SEARCHING
 
-	spectre.SetMaxHealth( 1600 )
-	spectre.SetHealth( 1600 )
+	spectre.SetMaxHealth( 1200 )
+	spectre.SetHealth( 1200 )
 	spectre.SetAimAssistAllowed( false )
 	spectre.SetAllowMelee( false )
 	spectre.AllowSuicideAttack( true )
