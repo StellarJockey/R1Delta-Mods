@@ -26,12 +26,12 @@ To me, 28 feels about right for most maps, but you can raise or lower it to what
 ADJUST ENEMY AI
 * Go into \scripts\vscripts\mp\_ai_soldiers
 * You will see:
- 	const AI_SPECTRE_ACCURACY = 100
- 	const AI_SOLDIER_ACCURACY = 20
+ 	const AI_SPECTRE_ACCURACY = 50
+ 	const AI_SOLDIER_ACCURACY = 15
  	const AI_SPECTRE_PROFICIENCY = 4
  	const AI_SOLDIER_PROFICIENCY = 4
 
-Default values were 1, 0.6, 2, and 2 originally. 
+Original base-game values were 1, 0.6, 2, and 2.
 
 
 AI TITANS PER TEAM
