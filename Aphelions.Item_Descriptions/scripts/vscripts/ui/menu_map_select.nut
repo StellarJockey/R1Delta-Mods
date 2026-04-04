@@ -135,6 +135,10 @@ function MapButton_Focused( button )
 	local nextMapName = menu.GetChild( "NextMapName" )
 	local nextMapDesc = menu.GetChild( "NextMapDesc" )
 
+	// White text for readability
+	nextMapName.SetColor( 255, 255, 255 )
+	nextMapDesc.SetColor( 255, 255, 255 )
+
 	local mapsArray = GetPrivateMatchMaps()
 	local mapName = mapsArray[buttonID]
 
@@ -145,7 +149,7 @@ function MapButton_Focused( button )
 		mapImage = "../ui/menu/lobby/lobby_image_" + mapName
 
 	nextMapImage.SetImage( mapImage )
-	nextMapImage.SetColor( 160, 160, 160 )
+	nextMapImage.SetColor( 150, 150, 150 )
 	if (GetModeNameForEnum(level.ui.privatematch_mode) == "campaign_carousel") {
 		nextMapName.SetText( GetCampaignMapDisplayName( mapName ) )
 		nextMapDesc.SetText( "#" + mapName + "_CAMPAIGN_MENU_DESC" )
