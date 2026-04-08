@@ -1831,6 +1831,7 @@ function RandomizeMinionWeapon( npc )
 
     GiveMinionWeapon( npc, weapon )
 }
+Globalize( RandomizeMinionWeapon )
 
 function GiveMinionWeapon( npc, weapon )
 {
@@ -1899,14 +1900,14 @@ function SimulateGrenadeThink(npc, onlyRooftopCombat, targetGrunts) {
 	npc.EndSignal("OnDeath")
 	npc.EndSignal("Stop_SimulateGrenadeThink")
 
+	AddAnimEvent(npc, "grenade_throw", NPCGrenadeThrow)
+
 	OnThreadEnd(
 		function(): (npc) {
-			if (IsAlive(npc))
+			if (IsAlive(npc) && "serverAnimEvents" in npc.s && "grenade_throw" in npc.s.serverAnimEvents)
 				DeleteAnimEvent(npc, "grenade_throw", NPCGrenadeThrow)
 		}
 	)
-
-	AddAnimEvent(npc, "grenade_throw", NPCGrenadeThrow)
 
 	if ( !npc.GetOffhandWeapon( 0 ) ) 
 		if (RandomInt(100) < 50)
