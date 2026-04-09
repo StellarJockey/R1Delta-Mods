@@ -625,6 +625,29 @@ function PlayIntroMusicWhenDone( lengthOfMusic )
 	local introAlias = level.currentMusicPlaying
 	local player = GetLocalClientPlayer()
 
+	
+	// Skip the custom 25-second timeout for campaign and coop
+	if ( GetCurrentPlaylistName() == "campaign_carousel" || GameRules.GetGameMode() == "coop" )
+	{
+		wait lengthOfMusic
+		if ( level.currentMusicPlaying == introAlias )
+		{
+			level.currentMusicPlaying = null
+			level.currentClassMusicType = null
+		}
+		
+		SetForcedMusicOnly( false )
+
+		while ( GetGameState() < eGameState.Playing )
+		{
+			wait 1.0
+		}
+
+		level.lastTimeActionMusicPlayed = 0
+		thread PlayActionMusic()
+		return
+	}
+
 	local playTime = 20.0
 	local fadeTime = 5.0
 
