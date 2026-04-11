@@ -5905,6 +5905,9 @@ function SetWeaponSkinForTeam( weapon, team )
 
 function ChangeWeaponSkin( entity, team )
 {
+	local name = entity.IsPlayer() ? entity.GetPlayerName() : entity.GetName()
+	printt( "ChangeWeaponSkin: Setting team skins for entity: " + name )
+
 	if ( HasSoul( entity ) )
 	{
 		local soul = entity.GetTitanSoul()
@@ -5922,8 +5925,15 @@ function ChangeWeaponSkin( entity, team )
 			//printt( "Setting team for shoulder turret" )
 			SetSkinForTeam( shouldTurret, team )
 		}
+
+		local chargeCannon = soul.chargeCannon.model
+		if ( IsValid( chargeCannon ) )
+		{
+			//printt( "Setting team for shoulder turret" )
+			SetSkinForTeam( chargeCannon, team )
+		}
 	}
-/*
+
 	local weaponsArray = entity.GetMainWeapons()
 	weaponsArray.extend( entity.GetOffhandWeapons() )
 
@@ -5931,9 +5941,23 @@ function ChangeWeaponSkin( entity, team )
 	{
 		if ( weapon )
 		{
-			//printt( "Setting team for weapon models" )
 			SetWeaponSkinForTeam( weapon, team )
 		}
 	}
-*/
+}
+
+function AddCallback_OnWeaponAttack( callbackFunc )
+{
+    Assert( "onWeaponAttackCallbacks" in level )
+	Assert( type( this ) == "table", "AddCallback_OnWeaponAttack can only be added on a table. " + type( this ) )
+
+	local name = FunctionToString( callbackFunc )
+    Assert( !( name in level.onWeaponAttackCallbacks ), "Already added " + name + " with AddCallback_OnPlayerRespawned" )
+
+	local callbackInfo = {}
+	callbackInfo.name <- name
+	callbackInfo.func <- callbackFunc
+	callbackInfo.scope <- this
+
+	level.onWeaponAttackCallbacks[name] <- callbackInfo
 }
