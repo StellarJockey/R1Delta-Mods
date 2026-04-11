@@ -40,7 +40,7 @@ AI TITANS PER TEAM
  	function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 
 The limits will be inside the function. By default, your team will cap at 2 npc Titans. Enemy team will cap at 5.
-(Numbers will be 5 and 6 for Titan Brawl)
+(Numbers will be 3 and 6 for Titan Brawl)
 
 
 AI TITAN SPAWN TIMER

@@ -2045,7 +2045,7 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 	{
 		case TITAN_BRAWL:
 		case LAST_TITAN_STANDING:
-			limit = ( team == playerTeam ) ? 5 : 6   // 5 for your team, 6 for enemy team
+			limit = ( team == playerTeam ) ? 3 : 6   // 3 for your team, 6 for enemy team
 			break
 			
 		default:
