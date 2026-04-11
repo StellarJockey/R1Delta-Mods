@@ -693,7 +693,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
     guy.kv.max_health = 200
     guy.kv.AccuracyMultiplier = 150
     guy.kv.WeaponProficiency = 100
-	guy.SetMoveSpeedScale( 1.25 )
+	guy.SetMoveSpeedScale( 1.15 )
 	guy.PreferSprint( true )
 	guy.SetHearingSensitivity( 10 )
 
