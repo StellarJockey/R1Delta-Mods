@@ -4009,16 +4009,9 @@ function SpawnCloakDrone( team, origin, angles )
     if ( players.len() == 0 )
         return false // If no player is in yet, don't spawn
 
-    local playerTeam = players[0].GetTeam()
-    if ( team == playerTeam )
-    {
-        cloakedDrone.Minimap_SetDefaultMaterial( "vgui/HUD/threathud_friendly_soldier" )
-    }
-    else
-    {
-        cloakedDrone.Minimap_SetDefaultMaterial( "vgui/hud/cloak_drone_minimap_orange" )
-    }
-
+	cloakedDrone.Minimap_SetDefaultMaterial( "vgui/hud/cloak_drone_minimap" )
+	cloakedDrone.Minimap_SetEnemyMaterial( "vgui/hud/cloak_drone_minimap_orange" )
+	cloakedDrone.Minimap_SetFriendlyMaterial( "vgui/hud/cloak_drone_minimap" )
     cloakedDrone.Minimap_SetAlignUpright( true )
     cloakedDrone.Minimap_AlwaysShow( TEAM_IMC, null )
     cloakedDrone.Minimap_AlwaysShow( TEAM_MILITIA, null )
