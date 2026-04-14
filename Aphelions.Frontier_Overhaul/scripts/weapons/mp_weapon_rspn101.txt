@@ -151,7 +151,7 @@ WeaponData
 	"spread_decay_delay"  							"0.1"
 	"spread_decay_rate"   							"4"
 
-	"spread_npc"  									"2"
+	"spread_npc"  									"1"
 
 	// View Kick
 	"viewkick_spring" 								"rspn101"
