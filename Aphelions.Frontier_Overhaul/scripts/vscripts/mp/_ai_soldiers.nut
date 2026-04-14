@@ -640,7 +640,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 		"mp_weapon_r97",
 		"mp_weapon_hemlok",
 		"mp_weapon_g2",
-		"mp_weapon_mega2",
+		// "mp_weapon_mega2",
 		"mp_weapon_car",
 		"mp_weapon_mega1",
 		"mp_weapon_lmg",
@@ -693,6 +693,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
     guy.kv.max_health = 200
     guy.kv.AccuracyMultiplier = 150
     guy.kv.WeaponProficiency = 100
+	guy.kv.useRPGPreference = RPG_USE_ALWAYS
 	guy.SetMoveSpeedScale( 1.15 )
 	guy.PreferSprint( true )
 	guy.SetHearingSensitivity( 10 )
