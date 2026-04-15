@@ -686,14 +686,39 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
         title = "Pilot " + Random( imcCodeNames )
     }
     
-    guy.SetModel( Random( pilotmodels ) )
-    guy.SetTitle( title ) 
+	// Determine the correct model based on the weapon equipped
+    local modelIndex = 0
+    switch ( weapon )
+    {
+        case "mp_weapon_rspn101":
+        case "mp_weapon_car":
+        case "mp_weapon_lmg":
+        case "mp_weapon_hemlok":
+            modelIndex = 0 // br
+            break
+            
+        case "mp_weapon_shotgun":
+        case "mp_weapon_r97":
+        case "mp_weapon_smart_pistol":
+            modelIndex = 1 // cq
+            break
+            
+        case "mp_weapon_dmr":
+        case "mp_weapon_sniper":
+        case "mp_weapon_g2":
+        case "mp_weapon_mega1":
+            modelIndex = 2 // dm
+            break
+    }
+
+    guy.SetModel( pilotmodels[ modelIndex ] )
+    guy.SetTitle( title )
 
     guy.kv.health = 200
     guy.kv.max_health = 200
     guy.kv.AccuracyMultiplier = 150
     guy.kv.WeaponProficiency = 100
-	guy.kv.useRPGPreference = RPG_USE_ALWAYS
+	guy.s.useRPGPreference = RPG_USE_ALWAYS
 	guy.SetMoveSpeedScale( 1.15 )
 	guy.PreferSprint( true )
 	guy.SetHearingSensitivity( 10 )
