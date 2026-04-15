@@ -17,7 +17,7 @@ const dmr_LONG_DESC =          "The D-101 Longbow is a semi-automatic sniper rif
 const lmg_LONG_DESC =          "The M600 Spitfire is a light machine gun made by Siwhan Industries. It fires heavy 7.62mm rounds at 540 RPM. The recoil is strong at first, but will stabilize as the weapon fires. As such, the manufacturers recommend a sustained fire."
 const hemlok_LONG_DESC =       "The M1A3 Hemlok is an assault rifle that fires 7.62mm rounds in three-round bursts. Prior to being acquired by Wonyeon Defense, TW Ordnance managed to deliver one last trifecta of accuracy, damage, and fire rate."
 const car_LONG_DESC =          "The C.A.R. (Combat Advanced Round) submachine gun fires 6.19mm rounds at 846 RPM. This more powerful round provides greater damage and accuracy at range, at the cost of overall fire rate and capacity."
-const g2_LONG_DESC =           "The G2A4 is a semi-automatic rifle that uses 6.19x97mm LEC cartridges. Though it was phased out in favor of the R-101C for infantry, it remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
+const g2_LONG_DESC =           "The G2A4 is a semi-automatic rifle that uses 6.19x97mm LEC cartridges. While it was phased out in favor of the R-101C for infantry, it remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
 const sniper_LONG_DESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one-shot, one-kill' for most human-sized targets. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
 
 const lmg_SHORT_DESC =      "Light machine gun"
@@ -38,10 +38,10 @@ const MOD_STARBURST_AUTOPISTOL_LONGDESCv2 = "Based on the Hemlok mod of the same
 const MOD_RECOIL_COMPENSATOR_LONGDESCv2 =   "The compensator modifies the weapon's gas system to reduce recoil when firing, improving shot-to-shot accuracy."
 
 // AT weapon DESCRIPTIONS
-const rocket_launcher_LONG_DESC = "The SAM-9 Archer is a powerful rocket launcher made by Brockhaurd Manufacturing. Aiming the weapon will activate the targeting window and begin the lock-on. The targeting reticle must be fully locked before it can fire."
+const rocket_launcher_LONG_DESC = "The Archer Heavy Rocket is a powerful rocket launcher made by Brockhaurd Manufacturing. Aiming the weapon will activate the targeting window and begin the lock-on. The targeting reticle must be fully locked before it can fire."
 const smr_LONG_DESC =             "The Sidewinder AT-SMR is a rapid-fire micro-missile launcher. Due to its spread, it is most effective against larger targets. The missiles are tipped with shaped-charges, yielding a small area of effect on detonation."
 const mgl_LONG_DESC =             "The Mag Launcher fires magnetic grenades with a strong neodymium casing. When fired, the grenades will be attracted to nearby metallic enemies, such as Titans and Spectres, and will detonate on contact."
-const defender_LONG_DESC =        "The X1-5 Charge Rifle fires a directed energy beam to inflict massive damage to enemy armor. For years, its existence was classified by Wonyeon Defense. Holding down the trigger charges the weapon. The weapon will only fire once it is fully charged."
+const defender_LONG_DESC =        "The Charge Rifle fires a directed energy beam to inflict massive damage to enemy armor. For years, its existence was classified by Wonyeon Defense. Holding down the trigger charges the weapon. The weapon will only fire once it is fully charged."
 
 const MOD_LONG_FUSE_DESCv2 =                "This mod increases the amount of time before grenades explode, allowing more time for enemies to get close and trigger the explosion."
 const MOD_TANK_BUSTER_DESCv2 =              "This mod delivers slow firing, slightly weaker missiles that will burrow into the impact site. After a short delay, they will explode, inflicting massive damage to enemy armor."
@@ -839,7 +839,7 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_mgl_titan_kills", 				1, 		"mp_weapon_mgl",			"long_fuse",					"#MOD_LONG_FUSE_NAME",			"#MOD_LONG_FUSE_DESC",				MOD_LONG_FUSE_DESCv2,					0, 0, 0, 0, 0, 			"../ui/menu/items/mod_icons/mine_field",			"../ui/menu/items/mod_icons/mine_field" )
 
 	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega1", 				"../ui/menu/items/weapon_valkyrie" )
-	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega2", 				"../ui/menu/items/weapon_twinbshotgun" )
+	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega2", 				"../ui/menu/items/weapon_twinbshotgun" )
 	// CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_DISABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_r97" )  
 
 
@@ -855,9 +855,9 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_pilot_kills", 			0, 		"mp_weapon_mega1",			"stabilizer",					"#MOD_STABILIZER_NAME",			"#MOD_STABILIZER_DESC",				"#MOD_STABILIZER_LONGDESC",				0, 6, 0, 0, 0, 			"../ui/menu/items/mod_icons/stabilizer", 			"../ui/menu/items/mod_icons/stabilizer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega1",			"burn_mod_valkyrie", 				"#BC_VALKYRIE_M2",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_twinb_pilot_kills",			1, 		"mp_weapon_mega2",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/spread_increase_sg", 	"../ui/menu/items/mod_icons/spread_increase_sg" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_twinb_kills", 				1, 		"mp_weapon_mega2",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega2",			"burn_mod_twinb", 			"#BC_TWINB_SHOTGUN_M2",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_pilot_kills",			1, 		"mp_weapon_mega2",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/spread_increase_sg", 	"../ui/menu/items/mod_icons/spread_increase_sg" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_kills", 				1, 		"mp_weapon_mega2",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega2",			"burn_mod_twinb", 			"#BC_TWINB_SHOTGUN_M2",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 10, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo", HideFromMenus )
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, -5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer", HideFromMenus )
@@ -909,9 +909,9 @@ function CreateR1DeltaItems()
 	// Titan Minigun Edits
 	itemData["mp_weapon_mega3"].desc = MEGA3_SHORT_DESC
 	itemData["mp_weapon_mega3"].longdesc = MEGA3_LONG_DESC
-	itemData["mp_weapon_mega3"].statDamage = 50
+	itemData["mp_weapon_mega3"].statDamage = 65
 	itemData["mp_weapon_mega3"].statRange = 65
-	itemData["mp_weapon_mega3"].statAccuracy = 55
+	itemData["mp_weapon_mega3"].statAccuracy = 75
 	itemData["mp_weapon_mega3"].statFireRate = 80
 
 	// CUSTOM R1 DESCRIPTIONS
