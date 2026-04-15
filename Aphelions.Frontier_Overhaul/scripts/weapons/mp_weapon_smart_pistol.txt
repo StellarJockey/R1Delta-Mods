@@ -61,10 +61,10 @@ WeaponData
 	// Damage - When Used by NPCs
 	"npc_damage_near_distance"						"800"
 	"npc_damage_far_distance" 						"1000"
-	"npc_damage_near_value"   						"40"
-	"npc_damage_far_value"							"40"
-	"npc_damage_near_value_titanarmor"				"0"
-	"npc_damage_far_value_titanarmor" 				"0"
+	"npc_damage_near_value"   						"67"
+	"npc_damage_far_value"							"67"
+	"npc_damage_near_value_titanarmor"				"40"
+	"npc_damage_far_value_titanarmor" 				"10"
 
 	"explosionradius" 								"250"
 	"critical_hit_damage_scale"						"2.0"
@@ -114,7 +114,7 @@ WeaponData
 	"spread_air_hip"	   							"10"
 	"spread_air_ads"   								"1"
 
-	"spread_npc"  									"2"
+	"spread_npc"  									"0.0"
 
 	"spread_kick_on_fire_stand_hip"						".2"
 	"spread_kick_on_fire_stand_ads"						".2"
@@ -269,7 +269,7 @@ WeaponData
 	"npc_min_burst"   								"2"
 	"npc_max_burst"   								"5"
 	"rest_time_between_bursts_min"					"0.2"
-	"rest_time_between_bursts_max"					"0.3"
+	"rest_time_between_bursts_max"					"1.0"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
 	"sprintcycle_time"								"0.55"

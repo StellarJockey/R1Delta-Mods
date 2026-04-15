@@ -640,11 +640,11 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 		"mp_weapon_r97",
 		"mp_weapon_hemlok",
 		"mp_weapon_g2",
-		// "mp_weapon_mega2",
 		"mp_weapon_car",
 		"mp_weapon_mega1",
 		"mp_weapon_lmg",
 		"mp_weapon_sniper",
+		"mp_weapon_smart_pistol",
 	]
 
     if ( weapon == null )
