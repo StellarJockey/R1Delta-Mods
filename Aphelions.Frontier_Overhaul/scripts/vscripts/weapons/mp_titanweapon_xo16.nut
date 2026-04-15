@@ -12,7 +12,7 @@ function OnWeaponActivate( weapon, player = null )
 			if ( self.HasMod( "burst" ) )
 			{
 				self.s.burstFireCount <- self.GetWeaponModSetting("burst_fire_count")
-				self.SetWeaponPrimaryClipCount( 56 )
+				self.SetWeaponPrimaryClipCount( 56 )  // DELETE WHEN UPDATE IS LIVE
 			}
 		}
 	}

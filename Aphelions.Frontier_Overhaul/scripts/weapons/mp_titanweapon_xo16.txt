@@ -335,9 +335,9 @@ WeaponData
 			"ammo_clip_size"   				"56"
 
 			"npc_min_burst"      		  		"8"
-       			"npc_max_burst"     		  		"8"
-       			"rest_time_between_bursts_min"    		"0.4"
-       			"rest_time_between_bursts_max"  		"0.4"
+       		"npc_max_burst"     		  		"8"
+       		"rest_time_between_bursts_min"    		"0.4"
+       		"rest_time_between_bursts_max"  		"0.4"
 
 			"viewkick_pitch_hardScale"		"1.65"
 			"viewkick_pitch_base" 							"-0.1"

@@ -278,7 +278,7 @@ WeaponData
 
 	"npc_min_burst"									"1"
 	"npc_max_burst"									"1"
-	"rest_time_between_bursts_min"					"2.0"
+	"rest_time_between_bursts_min"					"1.0"
 	"rest_time_between_bursts_max"					"3.0"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
