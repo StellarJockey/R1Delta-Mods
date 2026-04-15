@@ -3,8 +3,10 @@ WeaponData
 	// General
 	"printname"										"Burrell SMG"
 	"shortprintname"								"Burrell SMG"
-	"description"									"Burst-fire energy SMG"
-	"longdesc"										"The T-6 Burrell SMG is the precursor to the modern R-101 series. It fires 8.19mm rounds with an energized casing, favored by Spectre units."
+	"description"									"Burst-fire SMG"
+	"longdesc"										"T-6 Burrell is a placeholder name for a placeholder gun that isn't finished. Those who attempt to use it outside of this mod will be sent to a labor camp in the Yuma system."
+
+	// "longdesc"									"The T-6 Burrell SMG is the precursor to the modern R-101 series. It fires 8.19mm rounds with an energized casing, favored by Spectre units."
 
 	"weaponClass"									"human"
 	"body_type"										"close_quarters"
@@ -22,15 +24,15 @@ WeaponData
 	"stat_rof"		        						"38"
 
 	// Models
-	"viewmodel"							"models/weapons/rspn101_carbine/ptpov_rspn101_carbine.mdl"
+	"viewmodel"								"models/weapons/rspn101_carbine/ptpov_rspn101_carbine.mdl"
 	"playermodel"							"models/weapons/rspn101_carbine/w_rspn101_carbine.mdl"
 
 	"anim_prefix"									"smg2"
 
 	// Effects
-	"tracer_effect"   							"weapon_tracers_pistol"
+	"tracer_effect"   								"weapon_tracers_pistol"
 	"tracer_effect_first_person"  					"weapon_tracers_pistol"
-	"impact_effect_table"							"titan_bullet_elec"
+	"impact_effect_table" 							"inc_bullet"
 
 	"vortex_absorb_effect"							"wpn_vortex_projectile_20mm_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_20mm"
@@ -83,11 +85,13 @@ WeaponData
 
 	// Ammo
 	"ammo_stockpile_max"							"450"
-	"ammo_clip_size"								"30"
+	"ammo_clip_size"								"24"
 	"ammo_default_total"							"450"
 
 	// Behavior
 	"fire_rate"										"22.0"
+	//"burst_fire_count"								"3"
+	//"burst_fire_delay"								"0.25"
 	"zoom_time_in"									"0.2"
 	"zoom_time_out"									"0.1"
 	"zoom_fov"										"55"
@@ -261,12 +265,14 @@ WeaponData
 	"proficiency_perfect_spreadscale"				"1.0"
 	"proficiency_perfect_bias"						"1.0"
 
+	"rest_time_between_bursts_min"					"1.0"
+	"rest_time_between_bursts_max"					"1.0"
 	"npc_min_range"									"0"
 	"npc_max_range"									"1200"
 	"npc_min_range_secondary"						"0"
 	"npc_max_range_secondary"						"2000"
-	"npc_min_burst"									"2"
-	"npc_max_burst"									"5"
+	"npc_min_burst"									"3"
+	"npc_max_burst"									"3"
 
 	// Crosshair
 	"red_crosshair_range"							"800"
