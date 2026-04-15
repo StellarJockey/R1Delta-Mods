@@ -10,7 +10,7 @@ This mod currently includes:
 >Works for Attrition, Hardpoint, Campaign, and Titan Brawl
 >Evac sequence will trigger if you lose a game (and will take off as soon as you get in!)
 >In the campaign, the evac will run regardless of if you win or lose, since the cutscene triggers depend on it
->The rework for the Thunderbolt Titan minigun, a full-auto test mod for the WYS-0404, and a rework for the XO-16 burst and SMR tank buster mods
+>The rework for the Thunderbolt Titan minigun, a full-auto test mod for the WYS-0404
 
 If you want to experiment (or plan on using this mod for a server), here are some settings you can change:
 
@@ -67,5 +67,8 @@ function SuicideSpectreWaveThink( team )
     	// Wait until the 4-minute mark before starting waves
     	wait 240.0 
 
+
+Note: This mod comes with several other mods built-in. This includes:
+Nacho's One-Handed Wallrunning and Weapon Script Fixes
 
 Good luck, have fun!
