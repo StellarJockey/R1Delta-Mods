@@ -55,7 +55,7 @@ WeaponData
 	"damage_type" 									"buckshot"
 	"damage_near_distance"							"300"
 	"damage_far_distance" 							"700"
-	"damage_near_value"   							"130"
+	"damage_near_value"   							"220" // "130"
 	"damage_far_value"								"35"
 	"damage_falloff_type"							"inverse"
 	"damage_inverse_distance"						"130"
@@ -66,7 +66,7 @@ WeaponData
 	// Damage - When Used by NPCs
 	"npc_damage_near_distance"						"300"
 	"npc_damage_far_distance" 						"700"
-	"npc_damage_near_value"   						"130"
+	"npc_damage_near_value"   						"220" // "130"
 	"npc_damage_far_value"							"35"
 	"npc_damage_near_value_titanarmor"				"130"
 	"npc_damage_far_value_titanarmor" 				"10"
@@ -82,7 +82,7 @@ WeaponData
 	"ammo_default_total"							"30"
 
 	// Behavior
-	"fire_rate"   									"2.2"
+	"fire_rate"   									"2.5" // "2.2"
 	"zoom_time_in"									"0.2"
 	"zoom_time_out"   								"0.2"
 	"zoom_fov"										"55"
