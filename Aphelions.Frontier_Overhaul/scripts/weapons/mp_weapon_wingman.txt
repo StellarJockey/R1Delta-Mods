@@ -18,7 +18,7 @@ WeaponData
 	"hud_icon"										"HUD/dpad_wingman"
 
 	// Menu Stats
-	"stat_damage" 									"50"
+	"stat_damage" 									"65"
 	"stat_range"  									"70"
 	"stat_accuracy"   								"65"
 	"stat_rof"										"30"
@@ -61,8 +61,8 @@ WeaponData
 	"damage_type" 									"bullet"
 	"damage_near_distance"							"1200"  // match to search distance and red crosshair range
 	"damage_far_distance" 							"3000"
-	"damage_near_value"   							"135"
-	"damage_far_value"								"100"
+	"damage_near_value"   							"160" // "135"
+	"damage_far_value"								"110" // "100"
 	"damage_near_value_titanarmor"					"50"
 	"damage_far_value_titanarmor" 					"10"
 	"damage_rodeo" 									"350"
@@ -338,8 +338,8 @@ WeaponData
 		silencer
 		{
 			"fire_sound_1"						"player_B3_fireSuppressed"
-			"damage_near_value"   				"90"
-			"damage_far_value"					"70"
+			"damage_near_value"   				"115" // "90"
+			"damage_far_value"					"90"  // "70"
 			"bodygroup2_set"					"1"
 
 			//"rumble"  						"4"
