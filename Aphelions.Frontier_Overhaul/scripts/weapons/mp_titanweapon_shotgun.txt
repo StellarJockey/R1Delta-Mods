@@ -301,7 +301,7 @@ WeaponData
 
 		"auto_converter"
 		{
-			"fire_rate"                                       "3"
+			"fire_rate"                                       "3.3"
     		"burst_fire_count"			                	  "1"
 			"burst_fire_delay"				                  "0.3"
 
