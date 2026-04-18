@@ -61,8 +61,8 @@ WeaponData
 	"damage_type" 									"bullet"
 	"damage_near_distance"							"1200"  // match to search distance and red crosshair range
 	"damage_far_distance" 							"3000"
-	"damage_near_value"   							"160" // "135"
-	"damage_far_value"								"110" // "100"
+	"damage_near_value"   							"135"
+	"damage_far_value"								"100"
 	"damage_near_value_titanarmor"					"50"
 	"damage_far_value_titanarmor" 					"10"
 	"damage_rodeo" 									"350"
