@@ -3,11 +3,11 @@ WeaponData
 	// General
 	"printname"   									"#WPN_SHOTGUN"
 	"shortprintname"								"#WPN_SHOTGUN_SHORT"
-	"description" 									"Automatic shotgun" // "#WPN_SHOTGUN_DESC"
+	"description" 									"#WPN_SHOTGUN_DESC" // "Automatic shotgun"
 	"longdesc"										"#WPN_SHOTGUN_LONGDESC"
 	"weaponClass" 									"human"
 	"body_type"										"close_quarters"
-	"fire_mode"   									"auto" // "semi-auto"
+	"fire_mode"   									"semi-auto" // "auto"
 	"server_vscript"  								"weapons/mp_weapon_shotgun"
 	"client_vscript"  								"weapons/mp_weapon_shotgun"
 	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
@@ -18,7 +18,7 @@ WeaponData
 	"stat_damage" 									"98"
 	"stat_range"  									"15"
 	"stat_accuracy"   								"15"
-	"stat_rof"										"30" // "20"
+	"stat_rof"										"20"
 
 	// Models
 	"viewmodel"   									"models/weapons/w1128/ptpov_w1128.mdl"
@@ -52,7 +52,7 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"buckshot"
-	"damage_near_distance"							"270"
+	"damage_near_distance"							"330" // "270"
 	"damage_far_distance" 							"850"
 	"damage_near_value"   							"285"
 	"damage_far_value"								"30"
@@ -81,7 +81,7 @@ WeaponData
 	"ammo_default_total"							"60"
 
 	// Behavior
-	"fire_rate"   									"2.2" // "1.72"
+	"fire_rate"   									"1.72"
 	"zoom_time_in"									"0.2"
 	"zoom_time_out"   								"0.2"
 	"zoom_fov"										"55"
@@ -326,6 +326,12 @@ WeaponData
 			"ammo_stockpile_max"						"90"
 			"ammo_clip_size"   							"9"
 			"ammo_default_total"						"90"
+		}
+		"auto_converter"
+		{
+			"fire_rate"                                       "2.2"
+			"ammo_clip_size"   					"7"
+			"fire_mode"                         "auto"
 		}
 		recoil_compensator
 		{

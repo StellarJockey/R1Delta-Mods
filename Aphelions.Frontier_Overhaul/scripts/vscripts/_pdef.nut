@@ -230,6 +230,7 @@ function InitPersistence()
 	    burn_mod_valkyrie = 55
 	    burn_mod_twinb = 56
 		hydraulic_launcher = 57
+		auto_converter = 58
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -274,7 +275,7 @@ function InitPersistence()
 	    burn_mod_titan_shotgun = 27
 	    burn_mod_thunderbolt = 28
 	    burn_mod_charge_cannon = 29
-		auto_converter = 30
+		semi_converter = 30
     }
 
     AddPersistenceEnum("titanMod", titanMod)
@@ -628,9 +629,10 @@ function InitPersistence()
 		mp_weapon_mega4_burn_mod_charge_cannon = 122,
 		mp_titanweapon_triple_threat_hydraulic_launcher = 123,
 		
-		mp_titanweapon_shotgun_auto_converter = 124,
+		mp_titanweapon_shotgun_semi_converter = 124,
 		mp_weapon_mega3_extended_ammo = 125,
-		
+		mp_weapon_shotgun_auto_converter = 126,
+
 		// mp_weapon_mega9_extended_ammo = 126,
 		// mp_weapon_mega9_silencer = 127,
 		
