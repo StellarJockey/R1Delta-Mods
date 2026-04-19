@@ -149,7 +149,7 @@ function MapButton_Focused( button )
 		mapImage = "../ui/menu/lobby/lobby_image_" + mapName
 
 	nextMapImage.SetImage( mapImage )
-	nextMapImage.SetColor( 160, 160, 160 )
+	nextMapImage.SetColor( 165, 165, 165 )
 	if (GetModeNameForEnum(level.ui.privatematch_mode) == "campaign_carousel") {
 		nextMapName.SetText( GetCampaignMapDisplayName( mapName ) )
 		nextMapDesc.SetText( "#" + mapName + "_CAMPAIGN_MENU_DESC" )
