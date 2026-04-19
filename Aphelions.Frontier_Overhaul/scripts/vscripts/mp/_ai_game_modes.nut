@@ -905,7 +905,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 		mp_titanweapon_arc_cannon      = [ null, "capacitor", "burn_mod_titan_arc_cannon", ],  
 		mp_titanweapon_rocket_launcher = [ "rapid_fire_missiles", "extended_ammo", ],   // "burn_mod_titan_rocket_launcher"
 		mp_titanweapon_triple_threat   = [ "mine_field", "extended_ammo", ],            // "burn_mod_titan_triple_threat"
-		mp_titanweapon_shotgun         = [ "extended_ammo", "auto_converter", ],
+		mp_titanweapon_shotgun         = [ "extended_ammo", "semi_converter", ],
 	}
 
 	local primaryWeapon = titanDataTable.primary
@@ -925,6 +925,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
     titan.TakeOffhandWeapon( 0 )
     titan.TakeOffhandWeapon( 1 )
 	titan.SetLookDist( 120000 )
+	// titan.PreferSprint( true )
 	titan.kv.faceEnemyWhileMovingDistSq = 1024 * 1024
 	
 	AttritionGiveTitanRandomTacticalAbility( titan )
