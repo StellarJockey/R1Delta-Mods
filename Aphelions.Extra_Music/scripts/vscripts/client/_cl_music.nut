@@ -627,7 +627,7 @@ function PlayIntroMusicWhenDone( lengthOfMusic )
 
 	
 	// Skip the custom 25-second timeout for campaign and coop
-	if ( GetCurrentPlaylistName() == "campaign_carousel" || GameRules.GetGameMode() == "coop" )
+	if ( GetCurrentPlaylistName() == "campaign_carousel" || GameRules.GetGameMode() == "coop" || GameRules.GetGameMode() == "lts" )
 	{
 		wait lengthOfMusic
 		if ( level.currentMusicPlaying == introAlias )
