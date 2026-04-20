@@ -44,6 +44,7 @@ function MakeSniperSpectre( sniper )
 
 	local weapon = SNIPER_WEAPON_POOL[ RandomInt( SNIPER_WEAPON_POOL.len() ) ]
 	
+	sniper.kv.AccuracyMultiplier = 4
 	sniper.kv.additionalequipment = weapon
 	sniper.TakeActiveWeapon()	
 	sniper.GiveWeapon( weapon, [ "scope_6x" ] )

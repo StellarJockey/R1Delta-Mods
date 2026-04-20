@@ -798,7 +798,7 @@ function CreateR1DeltaItems()
 
 	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega1", 				"../ui/menu/items/weapon_valkyrie" )
 	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega2", 				"../ui/menu/items/weapon_twinbshotgun" )
-	// CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_r97" ) 
+	// CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_rspn101" ) 
 
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		null, 						null, 	"mp_weapon_mega1",		"scope_6x",		"#MOD_SCOPE_6X_NAME",		"#MOD_SCOPE_6X_DESC",		"#MOD_SCOPE_6X_LONGDESC",				"../ui/menu/items/attachment_icons/scope_6x", 			"../ui/menu/items/attachment_icons/scope_6x" )
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_grunt_kills", 	0, 		"mp_weapon_mega1",		"aog",			"#MOD_AOG_NAME",			"#MOD_AOG_DESC",			"#MOD_AOG_LONGDESC",					"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/aog" )

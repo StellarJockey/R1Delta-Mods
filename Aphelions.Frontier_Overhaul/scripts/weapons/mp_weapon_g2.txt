@@ -147,7 +147,7 @@ WeaponData
 	"spread_max_kick_air_hip" 						"8.0"
 	"spread_max_kick_air_ads" 						"0.0"
 
-	"spread_npc"  									"1"
+	"spread_npc"  									"2"
 
 	"spread_decay_rate"   							"3"
 	"spread_decay_delay"  							"0.1"

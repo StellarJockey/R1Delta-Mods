@@ -26,8 +26,8 @@ To me, 28 feels about right for most maps, but you can raise or lower it to what
 ADJUST ENEMY AI
 * Go into \scripts\vscripts\mp\_ai_soldiers
 * You will see:
- 	const AI_SPECTRE_ACCURACY = 50
- 	const AI_SOLDIER_ACCURACY = 15
+ 	const AI_SPECTRE_ACCURACY = 4
+ 	const AI_SOLDIER_ACCURACY = 3
  	const AI_SPECTRE_PROFICIENCY = 4
  	const AI_SOLDIER_PROFICIENCY = 4
 

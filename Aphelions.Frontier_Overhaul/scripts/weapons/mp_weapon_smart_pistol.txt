@@ -114,7 +114,7 @@ WeaponData
 	"spread_air_hip"	   							"10"
 	"spread_air_ads"   								"1"
 
-	"spread_npc"  									"0.0"
+	"spread_npc"  									"0.2"
 
 	"spread_kick_on_fire_stand_hip"						".2"
 	"spread_kick_on_fire_stand_ads"						".2"
