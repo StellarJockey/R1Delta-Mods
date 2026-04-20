@@ -837,7 +837,7 @@ function CreateR1DeltaItems()
 	////////////////////
 	//TITAN MOD DATA
 	////////////////////
-	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_triple_threat_pilot_kills",		 	1, 		"mp_titanweapon_triple_threat",		"hydraulic_launcher",		"#MOD_HYDRAULIC_LAUNCHER_NAME",			"#MOD_HYDRAULIC_LAUNCHER_DESC",			MOD_HYDRAULIC_LAUNCHER_LONGDESC,			0, 0, 5, -10, 0, 		"../ui/menu/items/mod_icons/instant_shot", 		"../ui/menu/items/mod_icons/instant_shot" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_triple_threat_pilot_kills",		 	1, 		"mp_titanweapon_triple_threat",		"hydraulic_launcher",		"#MOD_HYDRAULIC_LAUNCHER_NAME",			"#MOD_HYDRAULIC_LAUNCHER_DESC",			MOD_HYDRAULIC_LAUNCHER_LONGDESC,			0, 0, 7, -5, 0, 		"../ui/menu/items/mod_icons/instant_shot", 		"../ui/menu/items/mod_icons/instant_shot" )
 	
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_kills", 					1, 		"mp_titanweapon_shotgun",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 

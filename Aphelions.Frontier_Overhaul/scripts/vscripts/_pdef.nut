@@ -229,8 +229,7 @@ function InitPersistence()
 	    explosive_rounds = 54
 	    burn_mod_valkyrie = 55
 	    burn_mod_twinb = 56
-		hydraulic_launcher = 57
-		auto_converter = 58
+		auto_converter = 57
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -275,7 +274,8 @@ function InitPersistence()
 	    burn_mod_titan_shotgun = 27
 	    burn_mod_thunderbolt = 28
 	    burn_mod_charge_cannon = 29
-		semi_converter = 30
+		hydraulic_launcher = 30
+		semi_converter = 31
     }
 
     AddPersistenceEnum("titanMod", titanMod)
