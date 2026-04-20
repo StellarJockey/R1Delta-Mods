@@ -329,9 +329,11 @@ WeaponData
 		}
 		"auto_converter"
 		{
-			"fire_rate"                                       "2.2"
-			"ammo_clip_size"   					"7"
+			"fire_rate"                         "2.2"
 			"fire_mode"                         "auto"
+			"ammo_stockpile_max"				"70"
+			"ammo_clip_size"   					"7"
+			"ammo_default_total"				"70"
 		}
 		recoil_compensator
 		{
