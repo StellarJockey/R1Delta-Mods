@@ -45,7 +45,7 @@ WeaponData
 	"sound_trigger_release"							"rifle_dryfire"
 	"fire_sound_1_player_1p"						"SR_Valkyrie.Fire"
 	"fire_sound_1_player_3p"						"SR_Valkyrie.Fire"
-	"fire_sound_1_npc"								"SR_Valkyrie.Fire_NPC"
+	"fire_sound_1_npc"								"SR_Valkyrie.Fire"
 
 	"fx_shell_eject_view"							"wpn_shelleject_rifle_large_FP"
 	"fx_shell_eject_world"							"wpn_shelleject_rifle_large"
@@ -77,7 +77,6 @@ WeaponData
 	"red_crosshair_range" 							"4000"
 
 	// Damage - When Used by NPCs
-	// Damage - When Used by NPCs
 	"npc_damage_near_distance"						"2000"
 	"npc_damage_far_distance" 						"3500"
 	"npc_damage_near_value"   						"150"
@@ -88,9 +87,9 @@ WeaponData
 	"impulse_force"   								"10"
 
 	// Ammo
-	"ammo_stockpile_max"							"42" // 60
+	"ammo_stockpile_max"							"66" // 60
 	"ammo_clip_size"   								"6"
-	"ammo_default_total"							"42" // 60
+	"ammo_default_total"							"66" // 60
 
 	// Behavior
 	"fire_rate"   									"2"
