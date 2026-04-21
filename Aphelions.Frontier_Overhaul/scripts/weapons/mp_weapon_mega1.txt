@@ -59,8 +59,8 @@ WeaponData
 	"damage_type" 									"bullet"
 	"damage_near_distance"							"2000"
 	"damage_far_distance" 							"4500"
-	"damage_near_value"   							"150"
-	"damage_far_value"								"150"
+	"damage_near_value"   							"160"
+	"damage_far_value"								"160"
 	"damage_near_value_titanarmor"					"200"
 	"damage_far_value_titanarmor" 					"200"
 	"damage_rodeo" 									"1000" // 500
@@ -79,8 +79,8 @@ WeaponData
 	// Damage - When Used by NPCs
 	"npc_damage_near_distance"						"2000"
 	"npc_damage_far_distance" 						"3500"
-	"npc_damage_near_value"   						"150"
-	"npc_damage_far_value"							"150"
+	"npc_damage_near_value"   						"160"
+	"npc_damage_far_value"							"160"
 	"npc_damage_near_value_titanarmor"				"200"
 	"npc_damage_far_value_titanarmor" 				"200"
 
