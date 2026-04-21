@@ -428,13 +428,13 @@ WeaponData
 			"viewkick_perm_yaw_random" 						"*0.8"
 		}
 
-		lmg
+		auto_converter
 		{
 			"damage_near_value"   			"50"
 			"damage_far_value"				"35"
 
 			"fire_mode"   					"auto"
-			"fire_rate"						"8"
+			"fire_rate"						"11"
 			"burst_fire_count"				"0"
 			"burst_fire_delay"				"0"
 
@@ -459,6 +459,11 @@ WeaponData
 			"viewkick_perm_yaw_random"						"0"
 
 			"viewkick_perm_yaw_random_innerexclude"			"0.2"
+			
+			"loopingsounds
+			"fire_sound_2"									"Weapon_CBR101.SecondShot1"
+			"fire_sound_2_npc"								"Weapon_CBR101.SecondShot1_NPC"
+			"looping_sounds"								"1"
 		}
 		burn_mod_hemlok
 		{

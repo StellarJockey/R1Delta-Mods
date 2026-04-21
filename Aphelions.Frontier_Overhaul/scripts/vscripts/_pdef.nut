@@ -631,11 +631,14 @@ function InitPersistence()
 		
 		mp_titanweapon_shotgun_semi_converter = 124,
 		mp_weapon_mega3_extended_ammo = 125,
+		
 		mp_weapon_shotgun_auto_converter = 126,
+		
+		// mp_weapon_g2_auto_converter = 127,
+		// mp_weapon_hemlok_auto_converter = 128,
 
 		// mp_weapon_mega9_extended_ammo = 126,
 		// mp_weapon_mega9_silencer = 127,
-		
 		// mp_weapon_mega9_iron_sights = 128,
 		// mp_weapon_mega9_hcog = 129,
 		

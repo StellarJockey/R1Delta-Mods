@@ -379,6 +379,18 @@ WeaponData
 			"ammo_clip_size"   					"18"
 			"ammo_default_total"				"180"
 		}
+		"auto_converter"
+		{
+			"fire_rate"                         "9"
+			"fire_mode"                         "auto"
+			"fire_sound_1_player_1p"            "Weapon_bulletCasings.Bounce"
+			"fire_sound_1_player_3p"            "Weapon_bulletCasings.Bounce"
+			"looping_sounds"                    "1"
+			
+			"ammo_stockpile_max"                "240"
+			"ammo_clip_size"                    "24"
+			"ammo_default_total"                "240"
+		}
 		silencer
 		{
 			"fire_sound_1_player_1p"				"Weapon_G2A4_FireSuppressed"
