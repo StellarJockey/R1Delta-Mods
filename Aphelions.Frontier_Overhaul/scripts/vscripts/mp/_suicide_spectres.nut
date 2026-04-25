@@ -732,9 +732,16 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.switchback_trap:
 		case eDamageSourceId.titanEmpField:
 		case eDamageSourceId.mp_weapon_defender:
+		
 		case eDamageSourceId.mp_weapon_mega3:
+		case eDamageSourceId.mp_titanweapon_shotgun:
+		case eDamageSourceId.mp_titanweapon_40mm:
+		case eDamageSourceId.mp_titanweapon_xo16:
+		case eDamageSourceId.mp_titanweapon_rocket_launcher:
+		case eDamageSourceId.mp_titanweapon_sniper:
+		case eDamageSourceId.mp_titanweapon_triple_threat:
 		case eDamageSourceId.mp_weapon_mega4:
-		case eModSourceId.burn_mod_titan_xo16:
+		// case eModSourceId.burn_mod_titan_xo16:
 			thread SpectreNeutralize( spectre, results )
 			return
 	}
