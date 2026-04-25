@@ -6,14 +6,14 @@ const DEV_DISABLED = 0
 
 const MOD_ICON_NONE = "../ui/menu/items/mod_icons/none"
 
-////////////////////// CUSTOM DESCRIPTIONS ////////////////////////
+////////////////////// CUSTOM DESCRIPTIONS //////////////////////////
 
 // Primary DESCRIPTIONS
-const smart_pistol_LONG_DESC = "The Smart Pistol will automatically lock onto hostile targets within a short range. Using AI-guided 9x89mm rounds, bullets will curve mid-air to hit any and all marked targets. Aiming down sights allows the user to temporarily disable the lock-on feature."
-const rspn101_LONG_DESC =      "The R-101C is a fully automatic, compact assault rifle manufactured by Lastimosa Armory. It fires 8.19mm rounds at 810 RPM. It is commonly used throughout the Frontier due to its versatility."
+const smart_pistol_LONG_DESC = "The Smart Pistol will automatically lock onto hostile targets within a short range. Using 9mm-AI smart rounds, bullets will curve mid-air to hit any and all marked targets. Aiming down sights allows the user to temporarily disable the lock-on feature."
+const rspn101_LONG_DESC =      "The R-101C is a fully automatic, compact assault rifle manufactured by Lastimosa Armory. It fires 6.19mm rounds at 810 RPM. It is commonly used throughout the Frontier due to its versatility."
 const shotgun_LONG_DESC =      "The EVA-8 is a semi-automatic shotgun developed by Wonyeon Defense. Originally designed for extra-vehicular activity, it fires 12-gauge rounds and excels in close-quarters combat - even in low-gravity environments."
 const r97_LONG_DESC =          "The R-97 is a compact submachine gun that dispenses 5.8x42mm rounds at 1,080 RPM. Due to its extremely high rate of fire and minimal recoil, it is ideal for rush maneuvers in tight corridors."
-const dmr_LONG_DESC =          "The D-101 Longbow is a semi-automatic sniper rifle. It is a long-range variant of the R-101 platform and fires high-velocity rounds. This means the shooter can fire multiple shots in quick succession without having to lead their targets."
+const dmr_LONG_DESC =          "The D-101 Longbow is a semi-automatic sniper rifle. It is a long-range variant of the R-101 platform and fires high-velocity 6.19mm rounds. This means the shooter can fire multiple shots in quick succession without having to lead their targets."
 const lmg_LONG_DESC =          "The M600 Spitfire is a light machine gun made by Siwhan Industries. It fires heavy 7.62mm rounds at 540 RPM. The recoil is strong at first, but will stabilize as the weapon fires. As such, the manufacturers recommend a sustained fire."
 const hemlok_LONG_DESC =       "The M1A1 Hemlok is an assault rifle that fires 7.62mm rounds in three-round bursts. Prior to being acquired by Wonyeon Defense, TW Ordnance managed to deliver one last trifecta of accuracy, damage, and fire rate."
 const car_LONG_DESC =          "The C.A.R. (Combat Advanced Round) submachine gun fires 6.19mm rounds at 846 RPM. This more powerful round provides greater damage and accuracy at range, though at the cost of overall fire rate and capacity."
@@ -22,7 +22,7 @@ const sniper_LONG_DESC =       "The Kraber-AP is a bolt-action sniper that fires
 
 const lmg_SHORT_DESC =      "Light machine gun"
 const MEGA1_SHORT_DESC =    "Bolt-action sniper rifle"
-const MEGA1_LONG_DESC =     "The VSR-1 'Valkyrie' is a bolt-action sniper that fires 11.62mm rounds. It is favored by veterans of the Titan Wars. Despite its age, its light weight and reliability make it more than suitable for eliminating fast-moving targets."
+const MEGA1_LONG_DESC =     "The VSR-1 'Valkyrie' is a bolt-action sniper that fires .338 Norma rounds. It is favored by veterans of the Titan Wars. Despite its age, its light weight and reliability make it more than suitable for eliminating fast-moving targets."
 const MEGA2_SHORT_DESC =    "Sawn-off shotgun"
 const MEGA2_LONG_DESC =     "The TWIN-B is a 12-gauge break-action shotgun. Originally used by colonists for game hunting, the barrel has been sawed down for easier concealment - making it highly illegal to own in most IMC districts."
 
@@ -31,13 +31,13 @@ const r97_SCATTER_LONG_DESC = "This mod increases the R-97's high rate of fire e
 // Secondary DESCRIPTIONS
 const semipistol_LONG_DESC =   "The Hammond P2011 is a semi-auto 11.43x23mm handgun. It is the standard-issue sidearm for IMC infantry. What it lacks in damage, it makes up for with accuracy and minimal recoil - a jack of all trades, master of none."
 const autopistol_LONG_DESC =   "The Lastimosa Armory RE-45 is a fully automatic .45 caliber pistol. While it suffers at longer ranges, its high rate of fire can save your life at close range. It also offers a wide selection of mod options."
-const wingman_LONG_DESC =      "The B3 Wingman is a high-caliber .50 AE revolver that provides excellent range and precision. Due to its high stopping power and low fire rate, it is known as the 'pocket sniper' to veterans of the Frontier."
+const wingman_LONG_DESC =      "The B3 Wingman is a high-caliber revolver that fires .45 Long Colt rounds. Due to its precision and high stopping power, it is known as the 'pocket sniper' to veterans of the Frontier."
 
 const MOD_EXPLOSIVE_ROUNDS_DESCv2 =         "Explosive agents have been smuggled into your Wingman's rounds. Shots will deal additional damage around the point of impact."
 const MOD_STARBURST_AUTOPISTOL_LONGDESCv2 = "Based on the Hemlok mod of the same name, this changes the RE-45's firing mode to a five-round burst."
 const MOD_RECOIL_COMPENSATOR_LONGDESCv2 =   "The compensator modifies the weapon's gas system to reduce recoil when firing, improving shot-to-shot accuracy."
 
-// AT weapon DESCRIPTIONS
+// AT Weapon DESCRIPTIONS
 const rocket_launcher_LONG_DESC = "The Archer Heavy Rocket is a powerful rocket launcher made by Brockhaurd Manufacturing. Aiming the weapon will activate the targeting window and begin the lock-on. The targeting reticle must be fully locked before it can fire."
 const smr_LONG_DESC =             "The Sidewinder AT-SMR is a rapid-fire micro-missile launcher. Due to its spread, it is most effective against larger targets. The missiles are tipped with shaped-charges, yielding a small area of effect on detonation."
 const mgl_LONG_DESC =             "The Mag Launcher fires magnetic grenades with a strong neodymium casing. When fired, the grenades will be attracted to nearby metallic enemies, such as Titans and Spectres, and will detonate on contact."
@@ -53,7 +53,7 @@ const mp_weapon_satchel_DESCv2 =      "Satchel Charges are an adhesive-polymer e
 
 // Tactical DESCRIPTIONS
 const mp_ability_cloak_DESCv2 =   "The Cloaking system uses a refractive mesh to bend light around the Pilot. You will become completely invisible to minions and Titans for 9 seconds. However, your general outline is still visible to other Pilots, as are your jump jets."
-const mp_ability_heal_DESCv2 =    "While grunts rely on low-grade sansufentanyl to suppress wounds, Pilot Stim is a cocktail of synthetic phenethylamines. Upon injection, it will increase your movement speed by 35% and double your health regeneration for 5 seconds."
+const mp_ability_heal_DESCv2 =    "While grunts rely on low-grade sansufentanyl to suppress wounds, Pilot Stim is a cocktail of synthetic phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
 const mp_ability_sonar_DESCv2 =   "Active Radar Pulse emits a burst of low-frequency radio waves, allowing you to see enemies through walls for about 7 seconds. However, due to scattering latency, you will only see single frames, not full motion."
 
 // TITAN WEAPON DESCRIPTIONS
@@ -885,7 +885,7 @@ function CreateR1DeltaItems()
 	
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_kills", 					1, 		"mp_titanweapon_shotgun",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
-	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Semi Converter",			"Semi-automatic weapon fire",			MOD_SEMI_CONVERTER_LONGDESC,			5, -5, 0, -7, -3, 		"../ui/menu/items/mod_icons/high_capacity_drum",	 		"../ui/menu/items/mod_icons/high_capacity_drum" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Semi Converter",			"Semi-automatic weapon fire",			MOD_SEMI_CONVERTER_LONGDESC,			5, -5, 0, -7, 0, 		"../ui/menu/items/mod_icons/high_capacity_drum",	 		"../ui/menu/items/mod_icons/high_capacity_drum" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
