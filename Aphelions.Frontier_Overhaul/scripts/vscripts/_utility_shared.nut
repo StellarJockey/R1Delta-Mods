@@ -2018,7 +2018,7 @@ function ShouldRunEvac()
         if ( GetPlayerArrayOfTeam( winningTeam ).len() == 0 )
         {
             // Proceed if we are in Campaign OR Attrition OR Hardpoint
-            if ( playlist != "campaign_carousel" && playlist != "at" && playlist != "cp"  )
+            if ( playlist != "campaign_carousel" && playlist != "at" && playlist != "cp" && playlist != "ctf" )
                 return false
         }
 

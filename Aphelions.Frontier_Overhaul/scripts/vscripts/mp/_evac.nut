@@ -1102,7 +1102,7 @@ function EvacShipMain( health = EVAC_DROPSHIP_HEALTH, shield = EVAC_DROPSHIP_SHI
 	while ( Time() < departureTime )
 	{
 		local playlist = GetCurrentPlaylistName()
-		if ( playlist == "campaign_carousel" || playlist == "at" || playlist == "cp" ) 
+		if ( playlist == "campaign_carousel" || playlist == "at" || playlist == "cp" || playlist == "ctf" )
 		{
 			if ( level.playersOnDropship.len() > 0 && level.playersOnDropship.len() >= GetNumberOfEvacPlayersAlive() )
 			{
@@ -1644,7 +1644,7 @@ function EvacModeShouldEnd()
 
 	if ( pursuitPlayers.len() == 0 && GameRules.GetGameMode() != COOPERATIVE )
 		{
-			if ( playlist != "campaign_carousel" && playlist != "at" && playlist != "cp" )
+			if ( playlist != "campaign_carousel" && playlist != "at" && playlist != "cp" && playlist != "ctf" )
 				return true
 		}
 
@@ -1660,7 +1660,7 @@ function EvacModeShouldEnd()
 			return false
 
 		// For everything else EXCEPT Attrition and Hardpoint, end the evac immediately
-		if ( playlist != "at" && playlist != "cp" )
+		if ( playlist != "at" && playlist != "cp" && playlist != "ctf" )
 			return true
 
 		// For Attrition, only end if the player is truly eliminated (no more respawns)
