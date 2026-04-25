@@ -45,7 +45,7 @@ WeaponData
 	"sound_trigger_release"							"rifle_dryfire"
 	"fire_sound_1_player_1p"						"SR_Valkyrie.Fire"
 	"fire_sound_1_player_3p"						"SR_Valkyrie.Fire"
-	"fire_sound_1_npc"								"SR_Valkyrie.Fire"
+	"fire_sound_1_npc"								"SR_Valkyrie.Fire_NPC"
 
 	"fx_shell_eject_view"							"wpn_shelleject_rifle_large_FP"
 	"fx_shell_eject_world"							"wpn_shelleject_rifle_large"
