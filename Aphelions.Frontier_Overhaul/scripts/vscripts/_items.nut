@@ -843,7 +843,7 @@ function CreateR1DeltaItems()
 	
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_kills", 					1, 		"mp_titanweapon_shotgun",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
-	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Semi Converter",			"Semi-automatic weapon fire",			MOD_SEMI_CONVERTER_LONGDESC,			5, -5, 0, -7, -3, 		"../ui/menu/items/mod_icons/high_capacity_drum",	 		"../ui/menu/items/mod_icons/high_capacity_drum" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Semi Converter",			"Semi-automatic weapon fire",			MOD_SEMI_CONVERTER_LONGDESC,			5, -5, 0, -7, 0, 		"../ui/menu/items/mod_icons/high_capacity_drum",	 		"../ui/menu/items/mod_icons/high_capacity_drum" )
 	
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 

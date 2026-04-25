@@ -63,7 +63,7 @@ WeaponData
     "damage_falloff_type"                            "inverse"
     "damage_inverse_distance"                        "350"
     "damage_near_value_titanarmor"                   "1000"
-    "damage_far_value_titanarmor"                    "250" //"550"
+    "damage_far_value_titanarmor"                    "200" //"550"
     
 
     "impulse_force"                                   "5000" //"15000"
@@ -74,7 +74,7 @@ WeaponData
     "npc_damage_far_distance"                         "2000" //"1200"
     "npc_damage_near_value"                           "180"
     "npc_damage_far_value"                            "60"
-    "npc_damage_near_value_titanarmor"                "250" //"1050" //basically have to neuter them because they deal a SHIT ton of damage
+    "npc_damage_near_value_titanarmor"                "200" //"1050" //basically have to neuter them because they deal a SHIT ton of damage
     "npc_damage_far_value_titanarmor"                 "100" //"400"
 
 
@@ -301,11 +301,11 @@ WeaponData
 
 		"semi_converter"
 		{
-            "critical_hit_damage_scale"                     "1.5"
+            "critical_hit_damage_scale"                     "1.0"
             
             "fire_rate"                                       "0.8"
-            "fire_mode"                                       "semi-auto"
-            "ammo_clip_size"   								  "6"
+            // "fire_mode"                                       "semi-auto"
+
     		"burst_fire_count"			                	  "1"
 			"burst_fire_delay"				                  "0"
             "impact_effect_table"                             "titan_sniper"
