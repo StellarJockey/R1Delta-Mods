@@ -7,7 +7,7 @@ This mod currently includes:
 >Sniper spectres, suicide spectres, and cloak drones that spawn in the mid-late game
 >Sniper spectres will only de-cloak when they have line of sight on an enemy
 >Suicide spectres are now extremely tanky, but any form of electric/arc damage will insta-kill them
->Works for Attrition, Hardpoint, Campaign, and Titan Brawl
+>Works for Attrition, Hardpoint, Campaign, CTF, and Titan Brawl
 >Evac sequence will trigger if you lose a game (and will take off as soon as you get in!)
 >In the campaign, the evac will run regardless of if you win or lose, since the cutscene triggers depend on it
 >The rework for the Thunderbolt Titan minigun, a semi-auto test mod for the WYS-0404
