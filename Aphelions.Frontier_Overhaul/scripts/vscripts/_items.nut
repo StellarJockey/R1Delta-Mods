@@ -25,7 +25,7 @@ const MOD_STABILIZED_WARHEAD_DESCv2 =       "This mod allows micro-missiles to f
 
 // Titan weapon descriptions
 const MEGA3_SHORT_DESC =    "Arc-powered minigun"
-const MEGA3_LONG_DESC =     "The AG-8 Thunderbolt is a minigun that fires arc rounds at a steady RPM after a brief wind-up. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
+const MEGA3_LONG_DESC =     "The AG-8 Thunderbolt is a Titan minigun that fires rounds at a steady RPM after a brief wind-up. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
 
 const MOD_RAPID_FIRE_MISSILES_DESCv2 =      "This mod converts the weapon into a fully-automatic, singular rocket launcher with a high rate of fire, at the expense of reduced damage per rocket."
 const MOD_AFTERBURNERS_LONGDESCv2 =         "This mod makes alt-fired rockets travel much faster, but will use twice as much ammo."

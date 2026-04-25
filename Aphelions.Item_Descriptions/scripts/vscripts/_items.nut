@@ -53,8 +53,8 @@ const mp_weapon_satchel_DESCv2 =      "Satchel Charges are an adhesive-polymer e
 
 // Tactical DESCRIPTIONS
 const mp_ability_cloak_DESCv2 =   "The Cloaking system uses a refractive mesh to bend light around the Pilot. You will become completely invisible to minions and Titans for 9 seconds. However, your general outline is still visible to other Pilots, as are your jump jets."
-const mp_ability_heal_DESCv2 =    "While grunts rely on low-grade sansufentanyl to suppress wounds, Pilot Stim is a cocktail of synthetic phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
-const mp_ability_sonar_DESCv2 =   "Active Radar Pulse emits a burst of low-frequency radio waves, allowing you to see enemies through walls for about 7 seconds. However, due to scattering latency, you will only see single frames, not full motion."
+const mp_ability_heal_DESCv2 =    "The SE-505 'Stim' compound is a blend of synthetic phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
+const mp_ability_sonar_DESCv2 =   "Active Radar Pulse emits a burst of low-frequency radio waves, allowing you to see enemies through walls for 7.5 seconds. However, due to scattering latency, you will only see single frames, not full motion."
 
 // TITAN WEAPON DESCRIPTIONS
 const titan_40mm_LONG_DESC =      "The 40mm Cannon is a semi-automatic weapon that fires highly explosive rounds of depleted uranium. Originally used by APCs, Brockhaurd Manufacturing has repurposed it for Titan combat."
@@ -65,7 +65,7 @@ const titan_shotgun_LONG_DESC =   "The WYS-0404 Shotgun is the predecessor to th
 const titan_sniper_LONG_DESC =    "The PR-01 Plasma Railgun is a sniper weapon that fires hypersonic tungsten. When zoomed, the weapon's power will charge up over several stages. The weapon may be fired at any stage, even zero."
 
 const MEGA3_SHORT_DESC =    "Arc-powered minigun"
-const MEGA3_LONG_DESC =     "The AG-8 Thunderbolt is a minigun that fires arc rounds at a steady RPM after a brief wind-up. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
+const MEGA3_LONG_DESC =     "The AG-8 Thunderbolt is a Titan minigun that fires rounds at a steady RPM after a brief wind-up. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
 
 const vortex_LONG_DESC =    "The Vortex Shield captures incoming projectiles and fires them back at the enemy upon release. It can only reflect ballistics and projectile weapons, though it will still protect you against most forms of damage."
 const mega4_LONG_DESC =     "The Charge Cannon is a shoulder-mounted laser that deals high damage. Unlike other tactical abilities, this one is built for pure offense. The damage output will increase the longer you charge the weapon."
