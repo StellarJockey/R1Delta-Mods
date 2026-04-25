@@ -5,7 +5,7 @@
 	"$vertexcolor" "1"
 	//"$vertexalpha" "1"
 
-	"$surfaceprop" "metal"
+	"$surfaceprop" "weapon"
 	"$basetexture" "models\weapons\twinBshotgun\twinBshotgun_col"
 	"$bumpmap" "models\weapons\twinBshotgun\twinBshotgun_nml"
 	"$envmap" "env_cubemap"
