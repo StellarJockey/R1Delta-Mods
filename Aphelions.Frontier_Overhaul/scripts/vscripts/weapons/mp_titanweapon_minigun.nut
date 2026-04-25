@@ -142,7 +142,7 @@ function ClientMinigunLogic( weapon, owner )
 function OnWeaponPrimaryAttack( attackParams )
 {
     self.s.lastFireTime = Time()
-    self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageTypes.Electric | DF_STOPS_TITAN_REGEN )
+    self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageTypes.Bullet | DF_STOPS_TITAN_REGEN ) // Electric
 
     if ( self.GetWeaponPrimaryClipCount() <= 1 )
     {
