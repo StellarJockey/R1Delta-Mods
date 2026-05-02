@@ -42,6 +42,7 @@ function MakeSniperSpectre( sniper )
 	sniper.Minimap_SetZOrder( 10 )
 	sniper.SetSubclass( eSubClass.sniperSpectre )
 
+	sniper.s.recentDamageHistory <- []
 	local weapon = SNIPER_WEAPON_POOL[ RandomInt( SNIPER_WEAPON_POOL.len() ) ]
 	
 	sniper.kv.AccuracyMultiplier = 4
@@ -53,9 +54,15 @@ function MakeSniperSpectre( sniper )
 
 	sniper.Signal( "Stop_SimulateGrenadeThink" )
 	sniper.TakeOffhandWeapon( 0 )
-	// Removed StayPut so they can walk around the frontline
 	sniper.AllowSpectreTraverse( true )
 
+	if ( GameRules.GetGameMode() == COOPERATIVE )
+	{
+		sniper.s.sniperNode <- null
+		sniper.s.assaultPoint <- CreateAssaultPoint()
+		thread Sniper_FreeSniperNodeOnDeath( sniper )
+		thread Sniper_MoveToNewLocation( sniper )
+	}
 	// Start the custom cloak behavior loop
 	thread Sniper_CloakThink( sniper )
 }
@@ -192,10 +199,13 @@ function DebugDrawSniperSpot( pos, radii, r, g, b, time, yaw = null, pos2 = null
 
 \************************************************************************************************/
 //HACK -> this should probably move into code
+//HACK -> this should probably move into code
 function Sniper_MoveToNewLocation( sniper )
 {
 	sniper.EndSignal( "OnDeath" )
 	sniper.EndSignal( "OnDestroy" )
+
+	WaitSignal( level, "TD_SniperLocationsInit" )  // <-- CHANGED null to level
 
 	delaythread( 2 ) SniperCloak( sniper )
 
