@@ -24,7 +24,7 @@ function main()
 	AddClientCommandCallback( "SetPlaylistAnnouncementSeen", ClientCommand_SetPlaylistAnnouncementSeen ) //
 	AddClientCommandCallback("BCActivateCard", ClientCommand_ActivateBurnCard )
 	AddClientCommandCallback("BCDeActivateCard", ClientCommand_DeActivateCard )
-AddClientCommandCallback("OpenBurnCardMenu", ClientCommand_OpenBurnCardMenu )
+	AddClientCommandCallback("OpenBurnCardMenu", ClientCommand_OpenBurnCardMenu )
 	//if ( GetDeveloperLevel() > 0 )
 	{
 		AddClientCommandCallback( "ToggleBubbleShield", ClientCommand_ToggleBubbleShield )

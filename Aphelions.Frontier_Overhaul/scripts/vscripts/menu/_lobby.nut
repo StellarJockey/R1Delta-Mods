@@ -1799,10 +1799,13 @@ function ClientCommand_PrivateMatchLaunch( player, ... )
 {
     if ( !IsPrivateMatch() )
         return false
+
     if ( GetLobbyType() != "game" )
         return false
+
     if ( GetMapName() != "mp_lobby")
         return false
+
     if ( GetPartyLeader( player ) != player )
     {
         printt( "Player", player.GetPlayerName(), "tried to 'PrivateMatchLaunch', but is a party follower." )
@@ -1820,12 +1823,6 @@ function ClientCommand_PrivateMatchLaunch( player, ... )
         return true
 
     local players = GetPlayerArray()
-	// Save the lobby team choice to persistence before changing maps
-    foreach ( p in players )
-    {
-        p.SetPersistentVar( "campaignTeam", p.GetTeam() )
-    }
-
     // Force everyone to Militia in Cooperative mode, regardless of autobalance setting
     if ( modeName == "COOPERATIVE" )
     {
@@ -1835,6 +1832,13 @@ function ClientCommand_PrivateMatchLaunch( player, ... )
                 p.SetTeam( TEAM_MILITIA )
         }
     }
+
+	// Save the lobby team choice to persistence before changing maps
+    foreach ( p in players )
+    {
+        p.SetPersistentVar( "campaignTeam", p.GetTeam() )
+    }
+
 	/*
     // Add autobalancing logic here, just before marking teams as balanced
     else if ( GetConVarBool( "delta_autoBalanceTeams" ) && players.len() > 1 )

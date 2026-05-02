@@ -2796,11 +2796,15 @@ function CodeCallback_OnClientConnectionStarted( player )
 	SetPlayerToDefaultViewPoint( player )
 
 	if ( !IsLobby() )
-    {
-        local savedTeam = player.GetPersistentVar( "campaignTeam" )
-        if ( savedTeam == TEAM_IMC || savedTeam == TEAM_MILITIA )
+	{
+        // Prevent the saved lobby team from overriding the Cooperative Militia team force
+        if ( GameRules.GetGameMode() != COOPERATIVE )
         {
-            player.SetTeam( savedTeam )
+            local savedTeam = player.GetPersistentVar( "campaignTeam" )
+            if ( savedTeam == TEAM_IMC || savedTeam == TEAM_MILITIA )
+            {
+                player.SetTeam( savedTeam )
+            }
         }
     }
 }
