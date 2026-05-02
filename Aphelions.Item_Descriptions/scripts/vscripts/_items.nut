@@ -9,16 +9,16 @@ const MOD_ICON_NONE = "../ui/menu/items/mod_icons/none"
 ////////////////////// CUSTOM DESCRIPTIONS //////////////////////////
 
 // Primary DESCRIPTIONS
-const smart_pistol_LONG_DESC = "The Smart Pistol will automatically lock onto hostile targets within a short range. Using 9mm-AI smart rounds, bullets will curve mid-air to hit any and all marked targets. Aiming down sights allows the user to temporarily disable the lock-on feature."
-const rspn101_LONG_DESC =      "The R-101C is a fully automatic, compact assault rifle manufactured by Lastimosa Armory. It fires 6.19mm rounds at 810 RPM. It is commonly used throughout the Frontier due to its versatility."
+const smart_pistol_LONG_DESC = "The Smart Pistol will automatically lock onto hostile targets within a short range. Using AI-guided 9.89mm rounds, bullets will curve mid-air to hit any and all marked targets. Aiming down sights allows the user to temporarily disable the lock-on feature."
+const rspn101_LONG_DESC =      "The R-101C is a fully automatic, compact assault rifle manufactured by Lastimosa Armory. It fires 8.19mm rounds at 810 RPM. It is commonly used throughout the Frontier due to its versatility."
 const shotgun_LONG_DESC =      "The EVA-8 is a semi-automatic shotgun developed by Wonyeon Defense. Originally designed for extra-vehicular activity, it fires 12-gauge rounds and excels in close-quarters combat - even in low-gravity environments."
 const r97_LONG_DESC =          "The R-97 is a compact submachine gun that dispenses 5.8x42mm rounds at 1,080 RPM. Due to its extremely high rate of fire and minimal recoil, it is ideal for rush maneuvers in tight corridors."
 const dmr_LONG_DESC =          "The D-101 Longbow is a semi-automatic sniper rifle. It is a long-range variant of the R-101 platform and fires high-velocity 6.19mm rounds. This means the shooter can fire multiple shots in quick succession without having to lead their targets."
 const lmg_LONG_DESC =          "The M600 Spitfire is a light machine gun made by Siwhan Industries. It fires heavy 7.62mm rounds at 540 RPM. The recoil is strong at first, but will stabilize as the weapon fires. As such, the manufacturers recommend a sustained fire."
 const hemlok_LONG_DESC =       "The M1A1 Hemlok is an assault rifle that fires 7.62mm rounds in three-round bursts. Prior to being acquired by Wonyeon Defense, TW Ordnance managed to deliver one last trifecta of accuracy, damage, and fire rate."
 const car_LONG_DESC =          "The C.A.R. (Combat Advanced Round) submachine gun fires 6.19mm rounds at 846 RPM. This more powerful round provides greater damage and accuracy at range, though at the cost of overall fire rate and capacity."
-const g2_LONG_DESC =           "The G2A4 is a semi-automatic rifle that uses 6.19x97mm LEC cartridges. While it was phased out in favor of the R-101C for infantry, it still remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
-const sniper_LONG_DESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one-shot, one-kill' for most human-sized targets. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
+const g2_LONG_DESC =           "The G2A4 is a semi-automatic rifle that uses 6.19x97mm LEC rounds. While it was phased out in favor of the R-101C for infantry, it still remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
+const sniper_LONG_DESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one-shot, one-kill' for any human-sized target. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
 
 const lmg_SHORT_DESC =      "Light machine gun"
 const MEGA1_SHORT_DESC =    "Bolt-action sniper rifle"
@@ -40,7 +40,7 @@ const MOD_RECOIL_COMPENSATOR_LONGDESCv2 =   "The compensator modifies the weapon
 // AT Weapon DESCRIPTIONS
 const rocket_launcher_LONG_DESC = "The Archer Heavy Rocket is a powerful rocket launcher made by Brockhaurd Manufacturing. Aiming the weapon will activate the targeting window and begin the lock-on. The targeting reticle must be fully locked before it can fire."
 const smr_LONG_DESC =             "The Sidewinder AT-SMR is a rapid-fire micro-missile launcher. Due to its spread, it is most effective against larger targets. The missiles are tipped with shaped-charges, yielding a small area of effect on detonation."
-const mgl_LONG_DESC =             "The Mag Launcher fires magnetic grenades with a strong neodymium casing. When fired, the grenades will be attracted to nearby metallic enemies, such as Titans and Spectres, and will detonate on contact."
+const mgl_LONG_DESC =             "The Mag Launcher fires magnetic 40mm grenades with a strong neodymium casing. When fired, the grenades will be attracted to nearby metallic enemies, such as Titans and Spectres, and will detonate on contact."
 const defender_LONG_DESC =        "The Charge Rifle fires a directed energy beam to inflict massive damage to enemy armor. For years, its existence was classified by Wonyeon Defense. Holding down the trigger charges the weapon. The weapon will only fire once it is fully charged."
 
 const MOD_LONG_FUSE_DESCv2 =                "This mod increases the amount of time before grenades explode, allowing more time for enemies to get close and trigger the explosion."
@@ -49,17 +49,17 @@ const MOD_STABILIZED_WARHEAD_DESCv2 =       "This mod allows micro-missiles to f
 
 // Ordnance DESCRIPTIONS
 const mp_weapon_grenade_emp_DESCv2 =  "Arc Grenades release an electrostatic discharge that will temporarily scramble the vision of Pilots and Titans. While they inflict less kinetic damage than a Frag Grenade, they will wreak havoc on Titan shields."
-const mp_weapon_satchel_DESCv2 =      "Satchel Charges are an adhesive-polymer explosive that will stick to any surface and are detonated manually, causing massive damage to enemies, Titan armor - and you, if you aren't careful."
+const mp_weapon_satchel_DESCv2 =      "Satchel Charges are an adhesive-polymer explosive that will stick to any surface. They are detonated manually, causing massive damage to enemies, Titan armor - and you, if you aren't careful."
 
 // Tactical DESCRIPTIONS
 const mp_ability_cloak_DESCv2 =   "The Cloaking system uses a refractive mesh to bend light around the Pilot. You will become completely invisible to minions and Titans for 9 seconds. However, your general outline is still visible to other Pilots, as are your jump jets."
-const mp_ability_heal_DESCv2 =    "The SE-505 'Stim' compound is a blend of synthetic phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
+const mp_ability_heal_DESCv2 =    "The SE-505 'Stim' compound is a cocktail of synthetic phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
 const mp_ability_sonar_DESCv2 =   "Active Radar Pulse emits a burst of low-frequency radio waves, allowing you to see enemies through walls for 7.5 seconds. However, due to scattering latency, you will only see single frames, not full motion."
 
 // TITAN WEAPON DESCRIPTIONS
 const titan_40mm_LONG_DESC =      "The 40mm Cannon is a semi-automatic weapon that fires highly explosive rounds of depleted uranium. Originally used by APCs, Brockhaurd Manufacturing has repurposed it for Titan combat."
-const xo16_LONG_DESC =            "The XO-16 Chaingun is a fully automatic, belt-fed machine gun that fires 35mm rounds with high precision. At mid-to-long range, it is very effective against both Pilots and Titans."
-const quad_rocket_LONG_DESC =     "The Quad Rocket launches a tight cluster of four rockets at once. When zoomed in, the rockets will fire in a slow-moving spiral that expands outward, denying territory to the enemy."
+const xo16_LONG_DESC =            "The XOTBR-16 Chaingun is a fully automatic, belt-fed machine gun that fires 35mm rounds with high precision. At mid-to-long range, it is very effective against both Pilots and Titans."
+const quad_rocket_LONG_DESC =     "The Quad Rocket launches a tight cluster of four 60mm rockets at once. When zoomed in, the rockets will fire in a slow-moving spiral that expands outward, denying territory to the enemy."
 const arc_cannon_LONG_DESC =      "The Arc Cannon fires a bolt of electricity at 5 terajoules that will arc across nearby targets. It can be fired instantly, or it can be charged over time for an increase in firepower."
 const titan_shotgun_LONG_DESC =   "The WYS-0404 Shotgun is the predecessor to the Plasma Railgun, making it one of the earliest known Titan weapons. It fires in three-round bursts for devastating CQB firepower."
 const titan_sniper_LONG_DESC =    "The PR-01 Plasma Railgun is a sniper weapon that fires hypersonic tungsten. When zoomed, the weapon's power will charge up over several stages. The weapon may be fired at any stage, even zero."
@@ -832,7 +832,7 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_kills", 				1, 		"mp_weapon_wingman",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-10, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_pilot_kills", 			1, 		"mp_weapon_wingman",		"explosive_rounds",				"#MOD_EXPLOSIVE_ROUNDS_NAME",	"#MOD_EXPLOSIVE_ROUNDS_DESC",		MOD_EXPLOSIVE_ROUNDS_DESCv2,			15, 0, 0, -2, 0, 		"../ui/menu/items/mod_icons/rapid_fire_missiles", 	"../ui/menu/items/mod_icons/rapid_fire_missiles" )
 
-	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_crits", 					1, 		"mp_weapon_smr",			"tank_buster",					"#MOD_TANK_BUSTER_NAME",		"#MOD_TANK_BUSTER_DESC",			MOD_TANK_BUSTER_DESCv2,				25, 0, 0, -30, -11, 			"../ui/menu/items/mod_icons/slammer",				"../ui/menu/items/mod_icons/slammer" )
+	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_crits", 					1, 		"mp_weapon_smr",			"tank_buster",					"#MOD_TANK_BUSTER_NAME",		"#MOD_TANK_BUSTER_DESC",			MOD_TANK_BUSTER_DESCv2,				25, 0, 0, -30, -13, 			"../ui/menu/items/mod_icons/slammer",				"../ui/menu/items/mod_icons/slammer" )
 	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_titan_kills", 				1, 		"mp_weapon_smr",			"stabilized_warhead",			"#MOD_STABILIZED_WARHEAD_NAME",	"#MOD_STABILIZED_WARHEAD_DESC",		MOD_STABILIZED_WARHEAD_DESCv2,			0, 15, 0, -10, 0, 			"../ui/menu/items/mod_icons/rapid_fire_missiles",	"../ui/menu/items/mod_icons/rapid_fire_missiles" )
 
 	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_DISABLED,	0, 	"ch_archer_titan_kills", 			1, 		"mp_weapon_rocket_launcher","guided_missile",				"#MOD_GUIDED_MISSILE_NAME",		"#MOD_GUIDED_MISSILE_DESC",			"#MOD_GUIDED_MISSILE_DESC",				0, 0, 0, 0, 0, 			"../ui/menu/items/mod_icons/rapid_fire_missiles",	"../ui/menu/items/mod_icons/rapid_fire_missiles", HideFromMenus )
