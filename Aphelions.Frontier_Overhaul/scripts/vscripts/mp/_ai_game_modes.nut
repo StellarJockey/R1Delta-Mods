@@ -227,7 +227,7 @@ function main()
 
 	// DRONES
 	local mode = GameRules.GetGameMode()
-	if ( mode != "coop" && mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING )
+	if ( mode != COOPERATIVE && mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING )
 	{
 		level.cloakedDronesManagedEntArrayID <- CreateScriptManagedEntArray()
 		level.cloakedDroneClaimedSquadList <- {}
@@ -1743,12 +1743,28 @@ function TeamDeathmatchSpawnNPCsThink()
         level.modifyAISlots <- { [TEAM_IMC] = 0, [TEAM_MILITIA] = 0 }
 
 	// TITAN SPAWNING
-	if ( !Flag( "Disable_IMC" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == TITAN_BRAWL || mode == LAST_TITAN_STANDING || mode == CAPTURE_THE_FLAG ) )
+	function IsTitanMode( mode )
+	{
+		switch( mode )
+		{
+			case ATTRITION:
+			case CAPTURE_POINT:
+			case TEAM_DEATHMATCH:
+			case TITAN_BRAWL:
+			case LAST_TITAN_STANDING:
+			case CAPTURE_THE_FLAG:
+			case COOPERATIVE:
+				return true
+		}
+		return false
+	}
+
+	if ( !Flag("Disable_IMC") && IsTitanMode(mode) )
 	{
 		thread SpawnPilotWithTitans( TEAM_IMC )
 	}
 
-	if ( !Flag( "Disable_MILITIA" ) && ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == TITAN_BRAWL || mode == LAST_TITAN_STANDING || mode == CAPTURE_THE_FLAG ) ) 
+	if ( !Flag( "Disable_MILITIA" ) && IsTitanMode(mode) ) 
 	{
 		thread SpawnPilotWithTitans( TEAM_MILITIA )
 	}
@@ -1881,7 +1897,7 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
     if ( shouldSpawnSpectre )
     {
-        if ( allowSnipers && roll < 0.30 ) // (30% chance)
+        if ( allowSnipers && roll < 0.25 ) // (25% chance)
         {
              npcArray = Spawn_TrackedDropPodSquad( "npc_spectre", team, squadSize, spawnPoint, squadName, false, SpawnSniperSpectre )
         }
@@ -1994,7 +2010,8 @@ function CloakDroneWaveThink( team )
 
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
-    if ( GameRules.GetGameMode() == TITAN_BRAWL || GameRules.GetGameMode() == LAST_TITAN_STANDING )
+	local mode = GameRules.GetGameMode()
+    if ( mode == TITAN_BRAWL || mode == LAST_TITAN_STANDING )
     {
         wait 0.0  // Titans spawn instantly in Titan Brawl and LTS
     }
@@ -2089,7 +2106,10 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 		case LAST_TITAN_STANDING:
 			limit = ( team == playerTeam ) ? 3 : 6   // 3 for your team, 6 for enemy team
 			break
-			
+
+		case COOPERATIVE:
+			limit = ( team == playerTeam ) ? 3 : 0   // 3 for your team
+			 
 		default:
 			// Attrition, Hardpoint, Campaign, 
 			limit = ( team == playerTeam ) ? 2 : 5   // 2 for your team, 5 for enemy team
@@ -4302,6 +4322,7 @@ function CTFAwardFakeCapture( team, grunt )
 	// x=-1 means horizontally centered, y is vertical anchor (0 top, 1 bottom).
 	// Friendly = bright green, enemy = red, both prominently placed.
 	
+	/*
 	foreach ( player in GetPlayerArray() )
 	{
 		if ( !IsValid( player ) )
@@ -4326,6 +4347,8 @@ function CTFAwardFakeCapture( team, grunt )
 
 		SendHudMessage( player, msg, -1, 0.3, r, g, b, 255, 0.2, 4.0, 0.5 )
 	}
+	*/
+
 	// Play the proper "flag captured" announcer lines. The dialogue system registers
 	// friendly_captured_flag / enemy_captured_flag for each team -- playing one per team
 	// makes each player hear the appropriate side (their team's friendly line, or the
