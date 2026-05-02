@@ -235,6 +235,11 @@ function main()
 		Globalize( SpawnCloakDrone )
 		RegisterSignal( "DroneCleanup" )
 	}
+
+	if ( mode == COOPERATIVE )
+	{
+		thread Coop_SpawnTitansAfterDelay()
+	}
 }
 
 function Coop_OnPlayerOrNPCKilled( entity, attacker, damageInfo )
@@ -914,6 +919,9 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 
 	wait 2.5
 	local titan = CreateNPCTitanFromSettings( settings, team, spawnOrigin, spawnAngles )
+	
+	if ( !("nukeTitanDamagesOtherTitans" in titan.s) )
+		titan.s.nukeTitanDamagesOtherTitans <- true
 
 	// 10% chance to become a Nuke Titan
 	if ( RandomFloat( 0.0, 1.0 ) <= 0.1 )
@@ -1897,7 +1905,7 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
     if ( shouldSpawnSpectre )
     {
-        if ( allowSnipers && roll < 0.25 ) // (25% chance)
+        if ( allowSnipers && roll < 0.30 ) // (30% chance)
         {
              npcArray = Spawn_TrackedDropPodSquad( "npc_spectre", team, squadSize, spawnPoint, squadName, false, SpawnSniperSpectre )
         }
@@ -2124,6 +2132,16 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 
     return file.spawnedtitans[team] < limit
 }
+
+function Coop_SpawnTitansAfterDelay()
+{
+	// Wait 90 in-game seconds
+	wait 90.0
+	
+	// Start spawning Titans for friendly team (TEAM_MILITIA in Coop)
+	thread SpawnPilotWithTitans( TEAM_MILITIA )
+}
+
 
 function GetIndexSmallestSquad( team )
 {
