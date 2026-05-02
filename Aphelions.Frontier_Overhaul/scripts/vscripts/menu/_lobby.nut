@@ -612,6 +612,8 @@ function MatchmakingServerLobbyLogic()
                         foreach ( p in players )
                             p.SetTeam( TEAM_MILITIA )
                     }
+
+					/*
                     else
                     {
                         local imcPlayers = []
@@ -628,6 +630,7 @@ function MatchmakingServerLobbyLogic()
                         local totalPlayers = players.len()
                         local targetPerTeam = ceil(totalPlayers / 2.0)
 
+						/*
                         if ( imcPlayers.len() > militiaPlayers.len() )
                         {
                             local playersToMove = imcPlayers.len() - targetPerTeam
@@ -647,7 +650,7 @@ function MatchmakingServerLobbyLogic()
                             }
                         }
                     }
-
+					*/
 
                     MarkTeamsAsBalanced_On()
                     needSkillBalance = false
@@ -1811,6 +1814,12 @@ function ClientCommand_PrivateMatchLaunch( player, ... )
         return true
 
     local players = GetPlayerArray()
+	// Save the lobby team choice to persistence before changing maps
+    foreach ( p in players )
+    {
+        p.SetPersistentVar( "campaignTeam", p.GetTeam() )
+    }
+
     // Force everyone to Militia in Cooperative mode, regardless of autobalance setting
     if ( modeName == "COOPERATIVE" )
     {
@@ -1820,17 +1829,10 @@ function ClientCommand_PrivateMatchLaunch( player, ... )
                 p.SetTeam( TEAM_MILITIA )
         }
     }
+	/*
     // Add autobalancing logic here, just before marking teams as balanced
-    else if ( GetConVarBool( "delta_autoBalanceTeams" ) )
+    else if ( GetConVarBool( "delta_autoBalanceTeams" ) && players.len() > 1 )
     {
-        //if ( modeName == "COOPERATIVE" ) // Original coop check moved above
-        //{
-        //    // In cooperative, put everyone on TEAM_MILITIA
-        //    foreach ( p in players )
-        //        p.SetTeam( TEAM_MILITIA )
-        //}
-        //else
-        //{
             local imcPlayers = []
             local militiaPlayers = []
 
@@ -1866,8 +1868,8 @@ function ClientCommand_PrivateMatchLaunch( player, ... )
                         militiaPlayers[i].TrueTeamSwitch()
                 }
             }
-        //}
     }
+	*/
 
     file.nextLaunchCommandValid = Time() + 0.25
 

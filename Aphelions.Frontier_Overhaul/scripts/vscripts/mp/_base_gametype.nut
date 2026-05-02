@@ -68,7 +68,7 @@ function main()
 
 		AddCallback_GameStateEnter( eGameState.Playing, GameStart_AutoBalanceCooldown )
 
-		MarkTeamsAsBalanced_Off()
+		MarkTeamsAsBalanced_On()
 
 		level.altTitanBuildTimer <- GetCurrentPlaylistVarInt( "alt_titan_build_timer", 0 ) ? true : false
 
@@ -2303,12 +2303,15 @@ function CodeCallback_OnPlayerRespawned( player )
 			NotifyClientsOfTeamChange( player, GetOtherTeam(TEAM_MILITIA), TEAM_MILITIA ) // Notify clients about the team change
 		}
 	}
+	
+	/*
 	// Standard autobalance for other modes
 	else if ( GetConVarBool( "delta_autoBalanceTeams" ) )
 	{
 		AutoBalancePlayer( player )
 	}
 	// --- End Autobalance on Respawn ---
+	*/
 }
 
 // TODO: dont use this yet, its still missing a lot of checks for if the player is still alive and doing something
@@ -2476,6 +2479,9 @@ function ShouldAutoBalancePlayer( player, forceSwitch )
 		return false
 
 	if ( GetGameState() >= eGameState.Epilogue )
+		return false
+
+	if ( GetPlayerArray().len() == 1 )
 		return false
 
 	if ( GameRules.GetGameMode() == COOPERATIVE )
@@ -2759,6 +2765,15 @@ function CodeCallback_OnClientConnectionStarted( player )
 	if ( GameRules.GetGameMode() == COOPERATIVE )
 	{
 		player.SetTeam( TEAM_MILITIA )
+	}
+	else
+	{
+		// Read the team we saved in the lobby and force the engine to use it
+		local savedTeam = player.GetPersistentVar( "campaignTeam" )
+		if ( savedTeam == TEAM_IMC || savedTeam == TEAM_MILITIA )
+		{
+			player.SetTeam( savedTeam )
+		}
 	}
 
 	// Added via AddCallback_OnClientConnecting
