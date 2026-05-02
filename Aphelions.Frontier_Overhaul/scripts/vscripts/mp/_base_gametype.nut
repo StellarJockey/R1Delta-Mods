@@ -2481,7 +2481,7 @@ function ShouldAutoBalancePlayer( player, forceSwitch )
 	if ( GetGameState() >= eGameState.Epilogue )
 		return false
 
-	if ( GetPlayerArray().len() == 1 )
+	if ( IsPrivateMatch() && GetPlayerArray().len() == 1 )
 		return false
 
 	if ( GameRules.GetGameMode() == COOPERATIVE )
@@ -2794,6 +2794,15 @@ function CodeCallback_OnClientConnectionStarted( player )
 	thread TrackLastFullHealthTime( player )
 
 	SetPlayerToDefaultViewPoint( player )
+
+	if ( !IsLobby() )
+    {
+        local savedTeam = player.GetPersistentVar( "campaignTeam" )
+        if ( savedTeam == TEAM_IMC || savedTeam == TEAM_MILITIA )
+        {
+            player.SetTeam( savedTeam )
+        }
+    }
 }
 
 
@@ -2872,168 +2881,174 @@ function OnPlayerCloseClassMenu( player )
 // playerconnected
 function CodeCallback_OnClientConnectionCompleted( player )
 {
-	// 이미 종료되는 매치인 경우 다시 연결 끊는다.
-	if( GetGameState() >= eGameState.Postmatch)
-	{
-		//player.ForceLeaveMatch_Native()
-		return
-	}
+    // 이미 종료되는 매치인 경우 다시 연결 끊는다.
+    if( GetGameState() >= eGameState.Postmatch)
+    {
+        //player.ForceLeaveMatch_Native()
+        return
+    }
 
-	player.connectTime = Time()
-	player.hasConnected = true
+    player.connectTime = Time()
+    player.hasConnected = true
 
     if ( GetGameState() <= eGameState.WaitingForPlayers )
-		MuteSFX( player, 0.0 )
-	MuteAll( player, 0.0 )
-	UnMuteAll( player )
+        MuteSFX( player, 0.0 )
+    MuteAll( player, 0.0 )
+    UnMuteAll( player )
 
-	MeleeInit( player )
-	ZiplineInit( player )
-	player.s.lastFastTime <- 0
+    MeleeInit( player )
+    ZiplineInit( player )
+    player.s.lastFastTime <- 0
 
-	InitPassives( player )
+    InitPassives( player )
 
-	if ( !player.IsBot() && !IsTrainingLevel() )
-	{
-		// LoadOut Setting
-		// UpdateLoadouts( player )
-		local pilotIndex = player.GetPersistentVar("pilotSpawnLoadout.index")
-		local pilotIsCustom = player.GetPersistentVar("pilotSpawnLoadout.isCustom")
+    if ( !player.IsBot() && !IsTrainingLevel() )
+    {
+        // LoadOut Setting
+        // UpdateLoadouts( player )
+        local pilotIndex = player.GetPersistentVar("pilotSpawnLoadout.index")
+        local pilotIsCustom = player.GetPersistentVar("pilotSpawnLoadout.isCustom")
 
-		local titanIndex = player.GetPersistentVar("titanSpawnLoadout.index")
-		local titanIsCustom = player.GetPersistentVar("titanSpawnLoadout.isCustom")
+        local titanIndex = player.GetPersistentVar("titanSpawnLoadout.index")
+        local titanIsCustom = player.GetPersistentVar("titanSpawnLoadout.isCustom")
 
-		SetPilotLoadout( player, pilotIsCustom, pilotIndex )
-		SetTitanLoadout( player, titanIsCustom, titanIndex )
+        SetPilotLoadout( player, pilotIsCustom, pilotIndex )
+        SetTitanLoadout( player, titanIsCustom, titanIndex )
 
-	}
-	else
-	{
-		SetBotTitanLoadout( player )
-		SetBotPilotLoadout( player )
-	}
+    }
+    else
+    {
+        SetBotTitanLoadout( player )
+        SetBotPilotLoadout( player )
+    }
 
-	UpdateMinimapStatus( player )
-	UpdateMinimapStatusToOtherPlayers( player )
+    UpdateMinimapStatus( player )
+    UpdateMinimapStatusToOtherPlayers( player )
 
-	player.s.activeSatchels		<- []
-	player.s.activeProximityMines 	<- []
-	player.s.activeLaserMines	<- []
-	player.s.activeTripleThreatMines	<- []
+    player.s.activeSatchels        <- []
+    player.s.activeProximityMines   <- []
+    player.s.activeLaserMines   <- []
+    player.s.activeTripleThreatMines    <- []
 
-	// 타이탄 빌드룰 초기화
-	InitTitanBuildRule( player )
-	ResetTitanBuildCompleteCondition( player )
+    // 타이탄 빌드룰 초기화
+    InitTitanBuildRule( player )
+    ResetTitanBuildCompleteCondition( player )
 
-	if( GetGameState() == eGameState.Playing )
-	{
-		StartTitanBuildProgress( player )
-	}
+    if( GetGameState() == eGameState.Playing )
+    {
+        StartTitanBuildProgress( player )
+    }
 
-	if ( Flag( "CinematicIntro" ) && GetGameState() <= eGameState.Prematch )
-	{
-		thread TryAddPlayerToCinematic( player )
-	}
-	else
-	{
-		if ( player.IsBot() )
-		{
-			local pilotBot = GetPilotBotFlag();
-			if ( !pilotBot )
-			{
-				player.playerClassData["titan"].playerSetFile = botSettings
+    if ( Flag( "CinematicIntro" ) && GetGameState() <= eGameState.Prematch )
+    {
+        thread TryAddPlayerToCinematic( player )
+    }
+    else
+    {
+        if ( player.IsBot() )
+        {
+            local pilotBot = GetPilotBotFlag();
+            if ( !pilotBot )
+            {
+                player.playerClassData["titan"].playerSetFile = botSettings
 
-				if ( !botSettings )
-				{
-					/*local rInt = RandomInt( Native_GetTitanCount() )
-					local titanName = Native_GetTitanName(rInt)
-					player.playerClassData["titan"].playerSetFile = titanName
-					*/
+                if ( !botSettings )
+                {
+                    /*local rInt = RandomInt( Native_GetTitanCount() )
+                    local titanName = Native_GetTitanName(rInt)
+                    player.playerClassData["titan"].playerSetFile = titanName
+                    */
 
-					local rInt = RandomInt( 3 )
+                    local rInt = RandomInt( 3 )
 
-					if ( rInt == 0 )
-						player.playerClassData["titan"].playerSetFile = "titan_ogre"
-					else if ( rInt == 1 )
-						player.playerClassData["titan"].playerSetFile = "titan_atlas"
-					else if ( rInt == 2 )
-						player.playerClassData["titan"].playerSetFile = "titan_stryder"
-					// else
-						// player.playerClassData["titan"].playerSetFile = "titan_slammer"
+                    if ( rInt == 0 )
+                        player.playerClassData["titan"].playerSetFile = "titan_ogre"
+                    else if ( rInt == 1 )
+                        player.playerClassData["titan"].playerSetFile = "titan_atlas"
+                    else if ( rInt == 2 )
+                        player.playerClassData["titan"].playerSetFile = "titan_stryder"
+                    // else
+                        // player.playerClassData["titan"].playerSetFile = "titan_slammer"
 
-				}
-			}
+                }
+            }
 
-			// Added via AddCallback_OnClientConnected
-			foreach ( callbackInfo in level.onClientConnectedCallbacks )
-			{
-				callbackInfo.func.acall( [callbackInfo.scope, player] )
-			}
+            // Added via AddCallback_OnClientConnected
+            foreach ( callbackInfo in level.onClientConnectedCallbacks )
+            {
+                callbackInfo.func.acall( [callbackInfo.scope, player] )
+            }
 
-			// below here is NOT BOT ONLY, but only randomly. Should fix to be consistent for bots.
-			MinimapPlayerConnected( player )
+            // below here is NOT BOT ONLY, but only randomly. Should fix to be consistent for bots.
+            MinimapPlayerConnected( player )
 
-			DecideRespawnPlayer( player )
+            DecideRespawnPlayer( player )
 
-			local botCaller = GetPlayerArray()[0]
-			local spot = GetTitanReplacementPoint(botCaller)
-			local origin = spot.origin
-			local dir =  botCaller.GetOrigin() - origin
-			local angles = dir.GetAngles()//Vector(0,0,0)
+            local botCaller = GetPlayerArray()[0]
+            local spot = GetTitanReplacementPoint(botCaller)
+            local origin = spot.origin
+            local dir =  botCaller.GetOrigin() - origin
+            local angles = dir.GetAngles()//Vector(0,0,0)
 
-			player.SetOrigin( origin )
-			player.SetAngles( angles )
-			return
-		}
+            player.SetOrigin( origin )
+            player.SetAngles( angles )
+            return
+        }
 
-		if ( ShouldPlayerBeEliminated( player ) )
-			SetPlayerEliminated( player )
-		else if ( GetGameState() == eGameState.SwitchingSides )
-			SetPlayerEliminated( player )
-	}
+        if ( ShouldPlayerBeEliminated( player ) )
+            SetPlayerEliminated( player )
+        else if ( GetGameState() == eGameState.SwitchingSides )
+            SetPlayerEliminated( player )
+    }
 
-	// below here is NOT BOT ONLY, but only randomly. Should fix to be consistent for bots.
-	MinimapPlayerConnected( player )
+    // below here is NOT BOT ONLY, but only randomly. Should fix to be consistent for bots.
+    MinimapPlayerConnected( player )
 
-	InitLeeching( player )
+    InitLeeching( player )
 
-	CheckForEmptyTeamVictory()
+    CheckForEmptyTeamVictory()
 
-	NotifyClientsOfConnection( player, 1 )
+    NotifyClientsOfConnection( player, 1 )
 
-	DebugSendClientFrontline( player )
+    DebugSendClientFrontline( player )
 
-	PlayCurrentTeamMusicEventsOnPlayer( player )
-	SetCurrentTeamObjectiveForPlayer( player )
-	InitPersistentData( player )
-	InitPlayerStats( player )
-	InitPlayerChallenges( player )
-	UpdatePlayerDecalUnlocks( player, false )
-	ValidateCustomLoadouts( player )
-	SaveDateLoggedIn( player )
-	FinishClientScriptInitialization( player )
+    PlayCurrentTeamMusicEventsOnPlayer( player )
+    SetCurrentTeamObjectiveForPlayer( player )
+    InitPersistentData( player )
+    InitPlayerStats( player )
+    InitPlayerChallenges( player )
+    UpdatePlayerDecalUnlocks( player, false )
+    ValidateCustomLoadouts( player )
+    SaveDateLoggedIn( player )
+    FinishClientScriptInitialization( player )
 
-	if ( ShouldPlayerHaveLossProtection( player ) )
-	{
-		player.s.hasMatchLossProtection = true
-		Remote.CallFunction_NonReplay( player, "ServerCallback_GiveMatchLossProtection" )
-	}
+    if ( ShouldPlayerHaveLossProtection( player ) )
+    {
+        player.s.hasMatchLossProtection = true
+        Remote.CallFunction_NonReplay( player, "ServerCallback_GiveMatchLossProtection" )
+    }
 
-	UpdateBadRepPresent()
+    UpdateBadRepPresent()
 
-	// Added via AddCallback_OnClientConnected
-	foreach ( callbackInfo in level.onClientConnectedCallbacks )
-	{
-		callbackInfo.func.acall( [callbackInfo.scope, player] )
-	}
+    // Added via AddCallback_OnClientConnected
+    foreach ( callbackInfo in level.onClientConnectedCallbacks )
+    {
+        callbackInfo.func.acall( [callbackInfo.scope, player] )
+    }
 
-	if ( Flag( "CinematicIntro" ) && GetGameState() <= eGameState.Prematch )
-		return
+    if ( Flag( "CinematicIntro" ) && GetGameState() <= eGameState.Prematch )
+        return
 
-	if ( GetGameState() == eGameState.Playing || GetGameState() == eGameState.Prematch || GetGameState() == eGameState.SuddenDeath )
-		DecideRespawnPlayer( player )
-	else if ( Flag( "CinematicEnding" ) )
-		DecideRespawnPlayer( player )
+    // Skip respawn if this is a solo private match in prematch
+    if ( IsPrivateMatch() && GetPlayerArray().len() == 1 && GetGameState() == eGameState.Prematch )
+    {
+        return
+    }
+
+    if ( GetGameState() == eGameState.Playing || GetGameState() == eGameState.Prematch || GetGameState() == eGameState.SuddenDeath )
+        DecideRespawnPlayer( player )
+    else if ( Flag( "CinematicEnding" ) )
+        DecideRespawnPlayer( player )
 }
 
 function ShouldPlayerHaveLossProtection( player )
