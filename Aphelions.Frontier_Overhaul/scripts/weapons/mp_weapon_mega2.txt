@@ -53,9 +53,9 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"buckshot"
-	"damage_near_distance"							"300"
-	"damage_far_distance" 							"700"
-	"damage_near_value"   							"220"
+	"damage_near_distance"							"330"
+	"damage_far_distance" 							"800"
+	"damage_near_value"   							"250"
 	"damage_far_value"								"35"
 	"damage_falloff_type"							"inverse"
 	"damage_inverse_distance"						"130"
