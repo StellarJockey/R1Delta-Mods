@@ -44,6 +44,8 @@ function main()
 	Globalize( Coop_OnPlayerOrNPCKilled )
 	Globalize( SquadAssaultFrontline )
 	Globalize( SquadAssault )
+	Globalize( SquadHardpointRunThink )
+	Globalize( GetHardpointObjectiveForTeam )
 	Globalize( SquadFlagRunThink )
 	Globalize( GetCTFFlagOriginForTeam )
 	Globalize( GetCTFObjectiveForTeam )
@@ -97,6 +99,9 @@ function main()
 	{
 		RegisterSignal( "SquadFlagRunThink_squad_imc" + i )
 		RegisterSignal( "SquadFlagRunThink_squad_militia" + i )
+
+		RegisterSignal( "SquadHardpointRunThink_squad_imc" + i )
+		RegisterSignal( "SquadHardpointRunThink_squad_militia" + i )
 	}
 
 	level.max_npc_per_side <- 28
