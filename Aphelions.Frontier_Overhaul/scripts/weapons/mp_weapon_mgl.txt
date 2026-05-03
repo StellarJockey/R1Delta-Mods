@@ -279,6 +279,12 @@ WeaponData
 			"explosion_damage_heavy_armor"					"100++"
 			"fire_rate"   									"2.5"
 		}
+		extended_ammo
+		{
+			"ammo_stockpile_max"				"126"
+			"ammo_clip_size"   					"7"
+			"ammo_default_total"				"126"
+		}
 		pas_fast_reload
 		{
 			"reload_time"								"*0.7"
