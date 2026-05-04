@@ -1,9 +1,9 @@
 "AddonInfo"
 {
 	"addontitle"			"Aphelion's Frontier Overhaul"
-	"addonDescription"		"Solo games with more Titans, AI, and enemy variety"
+	"addonDescription"		"Single-player modpack that inclues AI Titans and greater AI lethality"
 	"addonversion"			"1.0.0"
-	"addonauthor"			"ASillyNeko, Frann, Nachos, StoneCold, and Aphelion"
+	"addonauthor"			"Aphelion"
 
 	"addonContent_Script"	"1"
 }

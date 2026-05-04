@@ -3,72 +3,132 @@
 This is a modified version of Extended Attrition. This is meant to be a more hardcore solo experience, like playing the TF|2 campaign on Master difficulty. NPCs are now an actual threat that will kill you if you aren't careful! You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
 This mod currently includes:
->Spectre rodeos and grenade-tossing minions
->Sniper spectres, suicide spectres, and cloak drones that spawn in the mid-late game
->Sniper spectres will only de-cloak when they have line of sight on an enemy
->Suicide spectres are now extremely tanky, but any form of electric/arc damage will insta-kill them
->Works for Attrition, Hardpoint, Campaign, CTF, Frontier Defense, and Titan Brawl
->Evac sequence will trigger if you lose a game (and will take off as soon as you get in!)
->In the campaign, the evac will run regardless of if you win or lose, since the cutscene triggers depend on it
->The rework for the Thunderbolt Titan minigun, a semi-auto test mod for the WYS-0404
-
-If you want to experiment (or plan on using this mod for a server), here are some settings you can change:
-
-MAX NUMBER OF NPCS
-* Go into \scripts\vscripts\mp\_ai_game_modes
-* ctrl + f to find:
- 	level.max_npc_per_side       <- 28
-	level.max_npc_per_side_small <- 21
-
-To me, 28 feels about right for most maps, but you can raise or lower it to whatever you feel like. 21 is for smaller maps that feel overcrowded with lots of minions.
+	* Spectre rodeos and grenade-tossing minions
+	* Sniper spectres, suicide spectres, and cloak drones that spawn in the mid-late game
+	* Works for Attrition, Hardpoint, Campaign, CTF, Frontier Defense, and Titan Brawl
+	* A rework for the Thunderbolt Titan minigun
+	* Comes bundled with several other mods!
 
 
-ADJUST ENEMY AI
-* Go into \scripts\vscripts\mp\_ai_soldiers
-* You will see:
- 	const AI_SPECTRE_ACCURACY = 4
- 	const AI_SOLDIER_ACCURACY = 3
- 	const AI_SPECTRE_PROFICIENCY = 4
- 	const AI_SOLDIER_PROFICIENCY = 4
-
-Original base-game values were 1, 0.6, 2, and 2.
+///// DOES THIS WORK FOR THE CAMPAIGN? /////
+	Yes. With this mod, TF1's "campaign" is now fully playable offline.
 
 
-AI TITANS PER TEAM
-* Go into \scripts\vscripts\mp\_ai_game_modes
-* ctrl + f to find:
- 	function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
-
-The limits will be inside the function. By default, your team will cap at 2 npc Titans. Enemy team will cap at 5.
-(Numbers will be 3 and 6 for Titan Brawl)
-
-
-AI TITAN SPAWN TIMER
-* Go into \scripts\vscripts\mp\_ai_game_modes
-* ctrl + f to find:
-	wait RandomFloat( 20, 90 )  // Titan spawn delay in seconds
-
-This makes it so that Titans don't immediately spawn when the game starts or when they are killed. Default value is anywhere from 20-90 seconds.
+///// WHAT OTHER MODS DOES THIS INCLUDE? /////
+	* Nacho's One-Handed Wallrun
+	* Nacho's Weapon Script Fixes
+	* ASillyNeko's Extended Attrition
+	* Aphelion's Instant Takeoff Evac
+	* Aphelion's Item Descriptions
+	This is basically one giant modpack for R1Delta
 
 
-SNIPER SPECTRE SPAWNS
-* Go into \scripts\vscripts\mp\_ai_game_modes
-* ctrl + f to find:
-	if ( shouldSpawnSpectre )
-    		{
-        	if ( allowSnipers && roll < 0.30 ) // (30% chance)
+///// HOW DO THE NPC PILOTS WORK? /////
+	Currently, they are just re-skined grunts. They have maxxed accuracy, increased movement speed, and can use any Pilot primary.
+	They have a chance to spawn along grunts in drop pods (à la Battle of Demeter)
+	Since they're just grunt model-swaps, they will only grant 1 point when killed in Attrition.
+	They have the same health as a human player (200) but are nowhere near as intelligent.
+	Grunts also only have male voice lines, so only male Pilot models are used.
+	I'm hoping to *eventully* get some to spawn in the dropship with you for the intro.
+	Wall-running seems to be almost impossible to implement.
+	...Almost. Maybe someday.
 
 
-SUICIDE SPECTRE WAVES
-* Go into \scripts\vscripts\mp\_ai_game_modes
-* ctrl + f to find:
-function SuicideSpectreWaveThink( team )
-{
-    	// Wait until the 4-minute mark before starting waves
-    	wait 240.0 
+///// HOW DOES THE EVAC WORK? /////
+In Attrition, CTF, and Hardpoint:
+	* If you win, there is no evac, since there are no enemy players to hunt.
+	* If you lose, evac will trigger same as in MP. It will also take off as soon as you get in.
+
+In Campaign:
+	* The evac will trigger regardless of if you win or lose, since the epilogue dialogue/cutscenes require it to run.
 
 
-Note: This mod comes with several other mods built-in. This includes:
-Nacho's One-Handed Wallrunning and Weapon Script Fixes
+///// WHAT ABOUT FRONTIER DEFENSE? /////
+	Haha... yeah no this turns FD into nightmare-difficulty.
+	But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone.
+	But it is still quite difficult. So be ready.
+
+
+///// HOW DO THE OBJECTIVE-BASED MODES WORK? /////
+Hardpoint Domination:
+	Grunts will (kind of) push the objective. It's a bit finicky. The AI is still a work in progress.
+	As a player, you will cap points slightly faster than in the base game.
+	Enemy grunts will capture points faster than your grunts. You must clear a point of all enemies before capturing can begin.
+	A single Titan is enough to override any grunts/player, if it gets inside the capture zone.
+
+Capture the Flag:
+	Gonna be honest, this one is still quite janky...
+	But basically, if a grunt gets close to an enemy flag, it will automatically capture it.
+	Grunts are *supposed* to have attacker/defender AI, but like Hardpoint, it can be kind of inconsistent.
+	I'll work to iron it out in the future.
+
+
+///// WHAT WEAPONS HAVE BEEN CHANGED? /////
+EVA-8 Shotgun:
+	* Run-n-Gun kit now applies
+	* Full auto mod (fire rate is slower than the Burn Card version)
+	* Slightly buffed the range
+	* Range is slightly nerfed for npcs (getting shotgun-sniped was annoying)
+B3 Wingman:
+	* Does enough damage to one-shot grunts, like a proper hand cannon
+	* Explosive round mod does a tiny bit more non-explosive damage
+Valkyrie:
+	* Slight damage buff to one-shot grunts
+	* Added the dark mode skin, since its base model is low-poly and is not very detailed or interesting
+	* Upscaled the loadout preview image
+Mag Launcher:
+	* Added an extended mag mod
+TWIN-B:
+	* Does enough damage to one-shot grunt captains at close range
+	* Upscaled the loadout preview image
+WYS-0404:
+	* Does more damage and has a slightly higher fire rate
+	* Added a single-shot mod that does massive damage
+	* Upscaled the loadout preview image
+AG-8 THUNDERBOLT:
+	* Ammo is no longer infinite, will passively regenerate when not firing
+	* Gun will "overheat" if ammo depletes, locking you out of firing until all ammo has regenerated
+	* Bullets will no longer sap enemy shields
+	* 50% movement speed penalty is applied when firing
+	* Added the dark mode skin, since its base skin is too colorful and plastic looking
+	* Upscaled the loadout preview image
+	
+	All npcs will do full player-scaled damage with their weapons.
+	These FO-exclusive mods will not carry over into regular MP matches, so don't worry about that.
+	Just don't use the Thunderbolt in MP. It hasn't been fixed in base R1 yet.
+
+
+///// WHAT ENEMIES DOES THIS ADD? /////
+	Grunts, Grunt Captains, Spectres, Spectre variants, npc "Pilots", npc Titans, and Cloak Drones
+	This is basically a fusion of regular MP and Frontier Defense
+
+
+///// HOW DO THE SPECTRE VARIANTS WORK? /////
+SNIPER SPECTRES:
+	* There is a small chance for a regular spectre squad to spawn as a sniper spectre squad
+	* They can spawn with any sniper weapon
+	* They will always be cloaked and will only de-cloak when they have line of sight on an enemy to shoot
+
+SUICIDE SPECTRES:
+	* Random chance to spawn in their own dedicated waves mid-late game
+	* They have several Pilots' worth of health, so that grunts don't drop them immediately
+	* They do increased damage to both Pilots and Titans
+	* They have increased sprint speed compared to the base game
+	* They will die without exploding if they take enough damage
+	* Any human-sized npc/Pilot melee will instant-kill them without blowing up
+	* Getting hit with any kind of electrical damage will instant-kill them without blowing up
+	* Getting hit with any kind of laser damage will blow them up
+	* Getting stepped on by a Titan or hit by a Titan weapon will blow them up
+
+
+///// CAN I USE THIS MOD FOR A SERVER? /////
+	Yes... but honestly, I would advise against it.
+	The main threat in a MP match is the other players. The AI is just there for set dressing.
+	But in this mod, the AI is the main threat. And you have to shift your play-style accordingly.
+	It would be like trying to merge Halo 2 on Legendary into the regular MP sessions.
+	The two styles of gameplay will clash heavily and the end result is just not very fun.
+
+
+Mod authors: ASillyNeko, Frann, Nachos, StoneCold, and Aphelion
 
 Good luck, have fun!
