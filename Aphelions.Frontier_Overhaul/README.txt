@@ -20,18 +20,13 @@ This mod currently includes:
 	* ASillyNeko's Extended Attrition
 	* Aphelion's Instant Takeoff Evac
 	* Aphelion's Item Descriptions
-	This is basically one giant modpack for R1Delta
+	These come included because, taken seperately, they cause scripting conflicts with FO. They've been integrated, meaning this also serves as one giant modpack for R1Delta.
 
 
 ///// HOW DO THE NPC PILOTS WORK? /////
-	Currently, they are just re-skined grunts. They have maxxed accuracy, increased movement speed, and can use any Pilot primary.
-	They have a chance to spawn along grunts in drop pods (à la Battle of Demeter)
-	Since they're just grunt model-swaps, they will only grant 1 point when killed in Attrition.
-	They have the same health as a human player (200) but are nowhere near as intelligent.
-	Grunts also only have male voice lines, so only male Pilot models are used.
-	I'm hoping to *eventully* get some to spawn in the dropship with you for the intro.
-	Wall-running seems to be almost impossible to implement.
-	...Almost. Maybe someday.
+	Currently, they are just re-skined grunts.
+	They have maxxed accuracy, increased movement speed, and can use any Pilot primary.	They have a chance to spawn along grunts in drop pods (à la Battle of Demeter).	Since they're just grunt model-swaps, they will only grant 1 point when killed in Attrition. They have the same health as a human player (200) but are nowhere near as intelligent. Grunts also only have male voice lines, so only male Pilot models are used.
+	I'm hoping to *eventully* get some to spawn in the dropship with you for the intro.	Wall-running seems to be almost impossible to implement. ...Almost. Maybe someday.
 
 
 ///// HOW DOES THE EVAC WORK? /////
@@ -44,23 +39,17 @@ In Campaign:
 
 
 ///// WHAT ABOUT FRONTIER DEFENSE? /////
-	Haha... yeah no this turns FD into nightmare-difficulty.
-	But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone.
-	But it is still quite difficult. So be ready.
+	Haha... yeah no this turns FD into nightmare-difficulty. But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone. But it is still quite difficult. So be ready.
 
 
 ///// HOW DO THE OBJECTIVE-BASED MODES WORK? /////
 Hardpoint Domination:
 	Grunts will (kind of) push the objective. It's a bit finicky. The AI is still a work in progress.
-	As a player, you will cap points slightly faster than in the base game.
-	Enemy grunts will capture points faster than your grunts. You must clear a point of all enemies before capturing can begin.
-	A single Titan is enough to override any grunts/player, if it gets inside the capture zone.
+	As a player, you will cap points slightly faster than in the base game.	Enemy grunts will capture points faster than your grunts. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any grunts/player, if it gets inside the capture zone.
 
 Capture the Flag:
 	Gonna be honest, this one is still quite janky...
-	But basically, if a grunt gets close to an enemy flag, it will automatically capture it.
-	Grunts are *supposed* to have attacker/defender AI, but like Hardpoint, it can be kind of inconsistent.
-	I'll work to iron it out in the future.
+	But basically, if a grunt gets close to an enemy flag, it will automatically capture it. Grunts are *supposed* to have attacker/defender AI, but like Hardpoint, it can be kind of inconsistent. I'll work to iron it out in the future.
 
 
 ///// WHAT WEAPONS HAVE BEEN CHANGED? /////
@@ -99,8 +88,7 @@ AG-8 THUNDERBOLT:
 
 
 ///// WHAT ENEMIES DOES THIS ADD? /////
-	Grunts, Grunt Captains, Spectres, Spectre variants, npc "Pilots", npc Titans, and Cloak Drones
-	This is basically a fusion of regular MP and Frontier Defense
+	Grunts, Grunt Captains, Spectres, Spectre variants, npc "Pilots", npc Titans, and Cloak Drones. This is basically a fusion of regular MP and Frontier Defense.
 
 
 ///// HOW DO THE SPECTRE VARIANTS WORK? /////
@@ -123,10 +111,7 @@ SUICIDE SPECTRES:
 
 ///// CAN I USE THIS MOD FOR A SERVER? /////
 	Yes... but honestly, I would advise against it.
-	The main threat in a MP match is the other players. The AI is just there for set dressing.
-	But in this mod, the AI is the main threat. And you have to shift your play-style accordingly.
-	It would be like trying to merge Halo 2 on Legendary into the regular MP sessions.
-	The two styles of gameplay will clash heavily and the end result is just not very fun.
+	The main threat in a MP match is the other players. The AI is just there for set dressing. But in this mod, the AI is the main threat. And you have to shift your play-style accordingly. It would be like trying to merge Halo 2 on Legendary into the regular MP sessions. The two styles of gameplay will clash heavily and the end result is just not very fun.
 
 
 Mod authors: ASillyNeko, Frann, Nachos, StoneCold, and Aphelion
