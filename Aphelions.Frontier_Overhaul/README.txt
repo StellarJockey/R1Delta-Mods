@@ -5,7 +5,7 @@ This is a modified version of Extended Attrition. This is meant to be a more har
 This mod currently includes:
 	* Spectre rodeos and grenade-tossing minions
 	* Sniper spectres, suicide spectres, and cloak drones that spawn in the mid-late game
-	* Works for Attrition, Hardpoint, Campaign, CTF, Frontier Defense, and Titan Brawl
+	* Works for Attrition, Hardpoint, CTF, Frontier Defense, and Titan Brawl
 	* A rework for the Thunderbolt Titan minigun
 	* Comes bundled with several other mods!
 
@@ -20,13 +20,12 @@ This mod currently includes:
 	* ASillyNeko's Extended Attrition
 	* Aphelion's Instant Takeoff Evac
 	* Aphelion's Item Descriptions
-	These come included because, taken seperately, they cause scripting conflicts with FO. They've been integrated, meaning this also serves as one giant modpack for R1Delta.
+	
+These come included because, taken separately, they cause scripting conflicts with FO. They've since been integrated, meaning this also serves as an unofficial modpack for R1Delta.
 
 
 ///// HOW DO THE NPC PILOTS WORK? /////
-	Currently, they are just re-skined grunts.
-	They have maxxed accuracy, increased movement speed, and can use any Pilot primary.	They have a chance to spawn along grunts in drop pods (à la Battle of Demeter).	Since they're just grunt model-swaps, they will only grant 1 point when killed in Attrition. They have the same health as a human player (200) but are nowhere near as intelligent. Grunts also only have male voice lines, so only male Pilot models are used.
-	I'm hoping to *eventully* get some to spawn in the dropship with you for the intro.	Wall-running seems to be almost impossible to implement. ...Almost. Maybe someday.
+	Currently, they are just re-skinned grunts. They have maxed accuracy, increased movement speed, and can use any Pilot primary. They have a chance to spawn along grunts in drop pods (à la Battle of Demeter). Since they're just grunt model-swaps, they will only grant 1 point when killed in Attrition. They have the same health as a human player (200) but are nowhere near as intelligent. Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro.	Wall-running seems to be near-impossible to implement… at the present moment, anyways.
 
 
 ///// HOW DOES THE EVAC WORK? /////
@@ -35,27 +34,25 @@ In Attrition, CTF, and Hardpoint:
 	* If you lose, evac will trigger same as in MP. It will also take off as soon as you get in.
 
 In Campaign:
-	* The evac will trigger regardless of if you win or lose, since the epilogue dialogue/cutscenes require it to run.
+	* The evac will trigger regardless of if you win or lose, since the epilogue cutscenes/dialogue require it to run.
 
 
 ///// WHAT ABOUT FRONTIER DEFENSE? /////
-	Haha... yeah no this turns FD into nightmare-difficulty. But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone. But it is still quite difficult. So be ready.
+	Haha... yeah no, this turns FD into nightmare-difficulty. But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone. But it is still quite difficult. So be ready.
 
 
 ///// HOW DO THE OBJECTIVE-BASED MODES WORK? /////
 Hardpoint Domination:
-	Grunts will (kind of) push the objective. It's a bit finicky. The AI is still a work in progress.
-	As a player, you will cap points slightly faster than in the base game.	Enemy grunts will capture points faster than your grunts. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any grunts/player, if it gets inside the capture zone.
+	Grunts will (kind of) push the objective. It's a bit finicky. The AI is still a work-in-progress. As a player, you will cap points slightly faster than in the base game. Enemy grunts will capture points faster than your grunts. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any grunts/player, if it gets inside the capture zone.
 
 Capture the Flag:
-	Gonna be honest, this one is still quite janky...
-	But basically, if a grunt gets close to an enemy flag, it will automatically capture it. Grunts are *supposed* to have attacker/defender AI, but like Hardpoint, it can be kind of inconsistent. I'll work to iron it out in the future.
+	Gonna be honest, this one is still quite janky... But basically, if a grunt gets close to an enemy flag, it will automatically capture it. Grunts are *supposed* to have attacker/defender AI, but like Hardpoint, it can be kind of inconsistent. I'll be ironing it out in the future.
 
 
 ///// WHAT WEAPONS HAVE BEEN CHANGED? /////
 EVA-8 Shotgun:
 	* Run-n-Gun kit now applies
-	* Full auto mod (fire rate is slower than the Burn Card version)
+	* Full-auto mod (fire rate is slower than the Burn Card version)
 	* Slightly buffed the range
 	* Range is slightly nerfed for npcs (getting shotgun-sniped was annoying)
 B3 Wingman:
@@ -82,8 +79,7 @@ AG-8 THUNDERBOLT:
 	* Added the dark mode skin, since its base skin is too colorful and plastic looking
 	* Upscaled the loadout preview image
 	
-	All npcs will do full player-scaled damage with their weapons.
-	These FO-exclusive mods will not carry over into regular MP matches, so don't worry about that.
+	All npcs weapons will do the same damage as player weapons. These FO-exclusive weapon mods will not carry over into regular MP matches, so don't worry about that.
 	Just don't use the Thunderbolt in MP. It hasn't been fixed in base R1 yet.
 
 
@@ -93,25 +89,16 @@ AG-8 THUNDERBOLT:
 
 ///// HOW DO THE SPECTRE VARIANTS WORK? /////
 SNIPER SPECTRES:
-	* There is a small chance for a regular spectre squad to spawn as a sniper spectre squad
-	* They can spawn with any sniper weapon
-	* They will always be cloaked and will only de-cloak when they have line of sight on an enemy to shoot
+There is a rare chance for a regular spectre squad to spawn as a sniper spectre squad. They can spawn with any of the three sniper weapons. They will always be cloaked and will only de-cloak when they have line of sight on an enemy to shoot
 
 SUICIDE SPECTRES:
-	* Random chance to spawn in their own dedicated waves mid-late game
-	* They have several Pilots' worth of health, so that grunts don't drop them immediately
-	* They do increased damage to both Pilots and Titans
-	* They have increased sprint speed compared to the base game
-	* They will die without exploding if they take enough damage
-	* Any human-sized npc/Pilot melee will instant-kill them without blowing up
-	* Getting hit with any kind of electrical damage will instant-kill them without blowing up
-	* Getting hit with any kind of laser damage will blow them up
-	* Getting stepped on by a Titan or hit by a Titan weapon will blow them up
+	There is a random chance for them to spawn in their own dedicated waves mid-late game. They have several Pilots' worth of health so that grunts don't drop them immediately. They will die without exploding if they take enough damage. They also do increased damage to both Pilots and Titans and have increased sprint speed compared to the base game.
+	* Any grunt/spectre/Pilot melee will instant-kill them without blowing up, as will getting hit with any kind of electrical damage.
+	* Getting stepped on by a Titan or hit by a Titan weapon will blow them up, as will getting hit with any kind of laser damage.
 
 
 ///// CAN I USE THIS MOD FOR A SERVER? /////
-	Yes... but honestly, I would advise against it.
-	The main threat in a MP match is the other players. The AI is just there for set dressing. But in this mod, the AI is the main threat. And you have to shift your play-style accordingly. It would be like trying to merge Halo 2 on Legendary into the regular MP sessions. The two styles of gameplay will clash heavily and the end result is just not very fun.
+	Yes... but honestly, I would advise against it. The main threat in a MP match is the other players. The AI is just there for set dressing. But in this mod, the AI is the main threat. And you have to shift your playstyle accordingly. It would be like trying to merge Halo 2 on Legendary into the regular MP sessions. The two styles of gameplay will clash heavily, and the end result is just not very fun.
 
 
 Mod authors: ASillyNeko, Frann, Nachos, StoneCold, and Aphelion
