@@ -77,9 +77,13 @@ const MOD_AUTO_CONVERTER_LONGDESC =         "A receiver bypass makes this weapon
 const MOD_SEMI_CONVERTER_LONGDESC =         "The PR-01 receiver makes this weapon semi-automatic, inflicting massive damage at the expense of a reduced firing rate and ammo capacity."
 const MOD_HYDRAULIC_LAUNCHER_LONGDESC =     "This mod allows you to launch grenades further by holding down the trigger before release."
 
-const ATLAS_DESC = "The AE-19 'Atlas' is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
-const STRYDER_DESC = "The L-56 'Stryder' is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
-const OGRE_DESC = "The H-KA02 'Ogre' chassis is a walking tank. Although it is slow and lumbering, it can absorb more damage than any other Titan frame."
+const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
+const STRYDER_DESC = "The Stryder is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
+const OGRE_DESC = "The Ogre chassis is a walking tank. Although it is slow and lumbering, it can absorb more damage than any other Titan frame."
+
+const DMG_CORE_DESC = "All forms of damage output are increased by 40% when active."
+const DASH_CORE_DESC = "Grants infinite dash capacity while active."
+const SHIELD_CORE_DESC = "All incoming damage is reduced by 50% when active."
 
 function main()
 {
@@ -632,9 +636,9 @@ function InitItems()
 	CreateSetFileData( itemType.PILOT_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "pilot_male_dm",		"Male Designated Marksman",		"Male Designated Marksman Description",		"../ui/menu/loadouts/pilot_character_male_designated_marksman_imc",		"../ui/menu/loadouts/pilot_character_male_designated_marksman_militia" )
 	CreateSetFileData( itemType.PILOT_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "pilot_female_dm",	"Female Designated Marksman",	"Female Designated Marksman Description",	"../ui/menu/loadouts/pilot_character_female_designated_marksman_imc",	"../ui/menu/loadouts/pilot_character_female_designated_marksman_militia" )
 
-	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0,	null, 	null, "titan_atlas",		"#CHASSIS_ATLAS_NAME",		ATLAS_DESC,		"../ui/menu/loadouts/titan_chassis_atlas_imc",		"../ui/menu/loadouts/titan_chassis_atlas_mcor", 	"#CHASSIS_ATLAS_CORE_NAME", 	"#CHASSIS_ATLAS_CORE_DESCRIPTION", 		"../ui/menu/items/ability_images/chassis_page_core_atlas",  	85, 90, 76, 2	)
-	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "titan_stryder",		"#CHASSIS_STRYDER_NAME",	STRYDER_DESC,	"../ui/menu/loadouts/titan_chassis_stryder_imc",	"../ui/menu/loadouts/titan_chassis_stryder_mcor", 	"#CHASSIS_STRYDER_CORE_NAME",	"#CHASSIS_STRYDER_CORE_DESCRIPTION",	"../ui/menu/items/ability_images/chassis_page_core_stryder", 	100, 100, 57, 3 )
-	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "titan_ogre",			"#CHASSIS_OGRE_NAME",		OGRE_DESC,		"../ui/menu/loadouts/titan_chassis_ogre_imc",		"../ui/menu/loadouts/titan_chassis_ogre_mcor",		"#CHASSIS_OGRE_CORE_NAME",		"#CHASSIS_OGRE_CORE_DESCRIPTION", 		"../ui/menu/items/ability_images/chassis_page_core_ogre",  		70, 38, 100, 1 )
+	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0,	null, 	null, "titan_atlas",		"#CHASSIS_ATLAS_NAME",		ATLAS_DESC,		"../ui/menu/loadouts/titan_chassis_atlas_imc",		"../ui/menu/loadouts/titan_chassis_atlas_mcor", 	"#CHASSIS_ATLAS_CORE_NAME", 	DMG_CORE_DESC, 		"../ui/menu/items/ability_images/chassis_page_core_atlas",  	85, 90, 76, 2	)
+	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "titan_stryder",		"#CHASSIS_STRYDER_NAME",	STRYDER_DESC,	"../ui/menu/loadouts/titan_chassis_stryder_imc",	"../ui/menu/loadouts/titan_chassis_stryder_mcor", 	"#CHASSIS_STRYDER_CORE_NAME",	DASH_CORE_DESC,	"../ui/menu/items/ability_images/chassis_page_core_stryder", 	100, 100, 57, 3 )
+	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "titan_ogre",			"#CHASSIS_OGRE_NAME",		OGRE_DESC,		"../ui/menu/loadouts/titan_chassis_ogre_imc",		"../ui/menu/loadouts/titan_chassis_ogre_mcor",		"#CHASSIS_OGRE_CORE_NAME",		SHIELD_CORE_DESC, 		"../ui/menu/items/ability_images/chassis_page_core_ogre",  		70, 38, 100, 1 )
 
 	/////////////////////
 	// TITAN DECAL DATA
