@@ -710,7 +710,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 	// CHECK FOR INSTANT-KILL / INSTANT-NEUTRALIZE DAMAGE TYPES FIRST
 	switch( damageSourceId )
 	{
-		// Instant explosion when stepped on or hit by a Titan weapon
+		// Instant explosion when stepped on, hit by a Titan weapon, or a laser weapon
 		case eDamageSourceId.titan_step:
 		case eDamageSourceId.titan_melee:
 		case eDamageSourceId.mp_titanweapon_shotgun:
@@ -719,10 +719,12 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.mp_titanweapon_rocket_launcher:
 		case eDamageSourceId.mp_titanweapon_sniper:
 		case eDamageSourceId.mp_titanweapon_triple_threat:
+		case eDamageSourceId.mp_weapon_defender:
+		case eDamageSourceId.mp_weapon_mega4:
 			thread SpectreExplode( spectre, results )
 			return
 			
-		// Electrical things or a melee will instantly neutralize them
+		// Electrical things or a melee will neutralize them
 		case eDamageSourceId.mp_weapon_grenade_emp:
 		case eDamageSourceId.mp_weapon_proximity_mine:
 		case eDamageSourceId.mp_titanweapon_arc_cannon:
@@ -737,9 +739,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.bubble_shield:
 		case eDamageSourceId.switchback_trap:
 		case eDamageSourceId.titanEmpField:
-		case eDamageSourceId.mp_weapon_defender:
 		case eDamageSourceId.mp_weapon_mega3:
-		case eDamageSourceId.mp_weapon_mega4:
 		case eModSourceId.burn_mod_titan_xo16:
 			thread SpectreNeutralize( spectre, results )
 			return
