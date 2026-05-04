@@ -364,6 +364,10 @@ WeaponData
 			"burst_fire_count"				"3"
 			"burst_fire_delay"				"0.28"
 
+			"ammo_stockpile_max"							"150"
+			"ammo_clip_size"   								"15"
+			"ammo_default_total"							"150"
+
 			"viewkick_pitch_hardScale"		"1.2"
 			"viewkick_pitch_base" 			"-0.4"
 			"viewkick_pitch_random"   		"-0.25"
