@@ -239,7 +239,7 @@ function CodeCallback_OnClientConnectionCompleted( player )
 	if ( GetLobbyType() == "party" )
 		UpdateCustomMatchMapIfUnavailable()
 
-	if ( GetCurrentPlaylistVarInt( "lobby_campaign_scene", 0 ) == 1 )
+	if ( GetCurrentPlaylistVarInt( "lobby_campaign_scene", 0 ) == 1 || IsPrivateMatch() )
 		thread PlayCampaignLobbyScene( player )
 
 	if ( !GetTrainingHasEverBeenStarted( player ) && IsMatchmakingServer() )
@@ -486,32 +486,24 @@ function PrivateMatchLobbyLogic()
 	mapName = GetMapNameForEnum( level.ui.privatematch_map )
 	modeName = GetModeNameForEnum( level.ui.privatematch_mode )
 
-	for ( ;; )
+for ( ;; )
 	{
 		WaitEndFrame() // allow the thread that is updating file.teamReady to do it's updates
 
-		if ( level.ui.privatematch_starting == ePrivateMatchStartState.STARTING && level.ui && file.teamReady[TEAM_IMC] && file.teamReady[TEAM_MILITIA] && mapName && modeName )
+		if ( level.ui.privatematch_starting == ePrivateMatchStartState.STARTING )
 		{
 			if ( level.ui.gameStartTime == null )
 			{
-                printt("Starting countdown!")
+				printt("Starting countdown!")
 				StartCountDown()
 				RefreshPlayerSkillRatings()
-			}
 
-			timeRemaining = level.ui.gameStartTime - Time()
-
-			if ( timeRemaining <= 10 && timeRemaining > -0.5 )
-			{
-				tickTime = ceil( timeRemaining )
-
-				if ( tickTime != lastTickTime )
+				// --- NEW LOGIC FOR CAMPAIGN LOBBIES ---
+				if ( modeName == "campaign_carousel" )
 				{
-					players = GetPlayerArray()
-					foreach ( player in players )
-						EmitSoundAtPositionOnlyToPlayer( Vector(0, 0, 0), player, PREMATCH_COUNTDOWN_SOUND )
-
-					lastTickTime = tickTime
+					// Override the standard 15-second timer to 65 seconds
+					// This ensures there is enough time for the longest VO briefing to play
+					level.ui.gameStartTime = Time() + 65.0
 				}
 			}
 
@@ -1391,35 +1383,30 @@ function ClearNextMap()
 
 function PlayCampaignLobbyScene( player )
 {
-	Assert( IsValid( player ) )
-	Assert( IsPlayer( player ) )
-
 	player.EndSignal( "Disconnected" )
-
-	while( 1 )
+	for ( ;; )
 	{
 		FlagWait( "CountDownTimerStarted" )
+		
+		local nextMap
+		if ( IsPrivateMatch() )
+			nextMap = GetMapNameForEnum( level.ui.privatematch_map )
+		else
+			nextMap = file.nextMapModeCombo.mapName
 
-		if ( !GetCinematicMode() )
-			return
-
-		local timeCountDown = level.ui.gameStartTime - Time()
-		local delay = timeCountDown - 73 // 63 seconds for lobby VO, 10 seconds for breathing room at the end.
-		if ( delay < 0 )
-			delay = 0
-
-		if ( delay )
-			wait delay // give the lobby some breathing room
-
-		if ( !Flag( "CountDownTimerStarted" ) )
-			continue
-
-		local nextMap = file.nextMapModeCombo.mapName
 		Assert( nextMap )
-
 		local timeLeft = level.ui.gameStartTime - Time()
-		PlayLobbyScene( player, nextMap, timeLeft )
-
+		
+		// Wrap the call in a try/catch so missing intro scenes don't crash the server
+		try 
+		{
+			PlayLobbyScene( player, nextMap, timeLeft )
+		} 
+		catch ( e ) 
+		{
+			printt( "No lobby scene found for map: " + nextMap + ". Skipping." )
+		}
+		
 		FlagWaitClear( "CountDownTimerStarted" )
 	}
 }

@@ -1576,7 +1576,7 @@ function EscapedPlayersObitPrint() //Print Chin[ Evacuated ]
 
 function UpdateObjectives()
 {
-	if ( Flag( "EvacFinished" ) ) //Don't need to further update objectives if dropship has successfully warped out
+	if ( Flag( "EvacFinished" ) ) // Don't need to further update objectives if dropship has successfully warped out
 		return
 
 	local evacTeam = level.evacTeam
@@ -1586,7 +1586,6 @@ function UpdateObjectives()
 	{
 		 SetTeamActiveObjective( evacTeam, "EG_DropshipExtractEvacPlayersKilled" )
 		 SetTeamActiveObjective( pursuitTeam, "EG_StopExtractEvacPlayersKilled" )
-
 	}
 	else if( !IsAlive( level.dropship ) )
 	{
@@ -1594,6 +1593,24 @@ function UpdateObjectives()
 		SetTeamActiveObjective( pursuitTeam, "EG_StopExtractDropshipDestroyed" )
 	}
 
+	// --- NEW LOGIC FOR SOLO PLAYERS ---
+	local players = GetPlayerArray()
+	foreach( player in players )
+	{
+		if ( player.GetTeam() == evacTeam )
+		{
+			// If the player is dead/eliminated, show them the wiped out message
+			if ( GetNumberOfEvacPlayersAlive() == 0 || !IsAlive( player ) )
+			{
+				SetPlayerActiveObjective( player, "EG_DropshipExtractEvacPlayersKilled" )
+			}
+			// If the ship blew up while they were alive
+			else if ( !IsAlive( level.dropship ) )
+			{
+				SetPlayerActiveObjective( player, "EG_DropshipExtractDropshipDestroyed" )
+			}
+		}
+	}
 }
 
 function MonitorPlayers()
@@ -1735,23 +1752,34 @@ function DecideDepartureAnnouncement()
 
 
 
-function UpdateObjectiveDropshipGotAway( dropship, ref, table ) //Don't need any of these parameters, but they are passed in...
+function UpdateObjectiveDropshipGotAway( dropship, ref, table ) 
 {
 	local evacTeam = level.evacTeam
 	local pursuitTeam = GetOtherTeam(level.evacTeam)
 
+	// Original team objectives (Kept intact in case you ever add bots or other players)
 	if ( GetNumberOfPursuitPlayersAlive() != 0 )
 		SetTeamActiveObjective( evacTeam, "EG_DropshipExtractFailedEscape" )
 	if ( GetNumberOfEvacPlayersAlive() != 0 )
 		SetTeamActiveObjective( pursuitTeam, "EG_StopExtractDropshipSuccessfulEscape" )
 
-	//If you actually got away, set the correct objective
-	foreach( pilot, _ in level.playersOnDropship )
+	// --- NEW LOGIC FOR SOLO PLAYERS ---
+	local players = GetPlayerArray()
+	foreach( player in players )
 	{
-		if ( !IsAlive( pilot ) )
-			continue
-
-		SetPlayerActiveObjective(  pilot, "EG_DropshipExtractSuccessfulEscape" )
+		if ( player.GetTeam() == level.evacTeam )
+		{
+			// If you successfully boarded the ship and survived the liftoff
+			if ( IsPlayerOnEvacDropship( player ) && IsAlive( player ) )
+			{
+				SetPlayerActiveObjective( player, "EG_DropshipExtractSuccessfulEscape" )
+			}
+			else
+			{
+				// If you failed to reach the ship in time, or died before it warped
+				SetPlayerActiveObjective( player, "EG_DropshipExtractFailedEscape" )
+			}
+		}
 	}
 }
 

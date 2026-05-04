@@ -1955,7 +1955,7 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 function SuicideSpectreWaveThink( team )
 {
 	// Prevent Suicide Spectres from spawning in Refueling Raid
-	if ( GetMapName() == "mp_fracture" && GetCurrentPlaylistName() == "campaign_carousel" )
+	if ( GetMapName() == "mp_fracture" || GetMapName() == "colony" && GetCurrentPlaylistName() == "campaign_carousel" )
 		return
 
     // Wait until the 4-minute mark before starting waves
@@ -1963,8 +1963,8 @@ function SuicideSpectreWaveThink( team )
 
     while ( IsNPCSpawningEnabled() )
     {
-        // Wait between 1 to 3 min between waves
-        wait RandomFloat( 60.0, 180.0 )
+        // Wait between 1 to 4 min between waves
+        wait RandomFloat( 60.0, 240.0 )
 
         // Find valid spawn points for the wave
         local spawnPoints = SpawnPoints_GetDropPod()
