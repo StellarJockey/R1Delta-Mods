@@ -1910,7 +1910,7 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
     if ( shouldSpawnSpectre )
     {
-        if ( allowSnipers && roll < 0.30 ) // (30% chance)
+        if ( allowSnipers && roll < 0.25 ) // (25% chance)
         {
              npcArray = Spawn_TrackedDropPodSquad( "npc_spectre", team, squadSize, spawnPoint, squadName, false, SpawnSniperSpectre )
         }
