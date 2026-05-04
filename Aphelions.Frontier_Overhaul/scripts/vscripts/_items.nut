@@ -6,33 +6,84 @@ const DEV_DISABLED = 0
 
 const MOD_ICON_NONE = "../ui/menu/items/mod_icons/none"
 
-////////////////////// CUSTOM DESCRIPTIONS ////////////////////////
+////////////////////// CUSTOM DESCRIPTIONS //////////////////////////
 
-// Primary descriptions
-const MEGA1_LONG_DESC =     "The VSR-1 'Valkyrie' is a bolt-action sniper, favored by veterans of the Titan Wars. Despite its age, its light weight and reliability make it more than suitable for eliminating fast-moving targets."
+// Primary DESCRIPTIONS
+const smart_pistol_LONG_DESC = "The Smart Pistol will automatically lock onto hostile targets within a short range. Using AI-guided 9.89mm rounds, bullets will curve mid-air to hit any and all marked targets. Aiming down sights allows the user to temporarily disable the lock-on feature."
+const rspn101_LONG_DESC =      "The R-101C is a fully automatic, compact assault rifle manufactured by Lastimosa Armory. It fires 8.19mm rounds at 810 RPM. It is commonly used throughout the Frontier due to its versatility."
+const shotgun_LONG_DESC =      "The EVA-8 is a semi-automatic shotgun developed by Wonyeon Defense. Originally designed for extra-vehicular activity, it fires 12-gauge rounds and excels in close-quarters combat - even in low-gravity environments."
+const r97_LONG_DESC =          "The R-97 is a compact submachine gun that dispenses 5.8x42mm rounds at 1,080 RPM. Due to its extremely high rate of fire and minimal recoil, it is ideal for rush maneuvers in tight corridors."
+const dmr_LONG_DESC =          "The D-101 Longbow is a semi-automatic sniper rifle. It is a long-range variant of the R-101 platform and fires high-velocity 6.19mm rounds. This means the shooter can fire multiple shots in quick succession without having to lead their targets."
+const lmg_LONG_DESC =          "The M600 Spitfire is a light machine gun made by Siwhan Industries. It fires heavy 7.62mm rounds at 540 RPM. The recoil is strong at first, but will stabilize as the weapon fires. As such, the manufacturers recommend a sustained fire."
+const hemlok_LONG_DESC =       "The M1A1 Hemlok is an assault rifle that fires 7.62mm rounds in three-round bursts. Prior to being acquired by Wonyeon Defense, TW Ordnance managed to deliver one last trifecta of accuracy, damage, and fire rate."
+const car_LONG_DESC =          "The C.A.R. (Combat Advanced Round) submachine gun fires 6.19mm rounds at 846 RPM. This more powerful round provides greater damage and accuracy at range, though at the cost of overall fire rate and capacity."
+const g2_LONG_DESC =           "The G2A4 is a semi-automatic rifle that uses 6.19x97mm LEC rounds. While it was phased out in favor of the R-101C for infantry, it still remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
+const sniper_LONG_DESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one-shot, one-kill' for any human-sized target. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
+
+const lmg_SHORT_DESC =      "Light machine gun"
+const MEGA1_SHORT_DESC =    "Bolt-action sniper rifle"
+const MEGA1_LONG_DESC =     "The VSR-1 'Valkyrie' is a bolt-action sniper that fires .338 Norma rounds. It is favored by veterans of the Titan Wars. Despite its age, its light weight and reliability make it more than suitable for eliminating fast-moving targets."
 const MEGA2_SHORT_DESC =    "Sawn-off shotgun"
-const MEGA2_LONG_DESC =     "The TWIN-B is a break-action shotgun. Originally used by colonists for game hunting, the barrel has been sawed down for easier concealment - making it highly illegal to own in most IMC districts."
+const MEGA2_LONG_DESC =     "The TWIN-B is a 12-gauge break-action shotgun. Originally used by colonists for game hunting, the barrel has been sawed down for easier concealment - making it highly illegal to own in most IMC districts."
 
-// Secondary descriptions
+const r97_SCATTER_LONG_DESC = "This mod increases the R-97's high rate of fire even further, at the expense of accuracy."
+
+// Secondary DESCRIPTIONS
+const semipistol_LONG_DESC =   "The Hammond P2011 is a semi-auto 11.43x23mm handgun. It is the standard-issue sidearm for IMC infantry. What it lacks in damage, it makes up for with accuracy and minimal recoil - a jack of all trades, master of none."
+const autopistol_LONG_DESC =   "The Lastimosa Armory RE-45 is a fully automatic .45 caliber pistol. While it suffers at longer ranges, its high rate of fire can save your life at close range. It also offers a wide selection of mod options."
+const wingman_LONG_DESC =      "The B3 Wingman is a high-caliber revolver that fires .45 Long Colt rounds. Due to its precision and high stopping power, it is known as the 'pocket sniper' to veterans of the Frontier."
+
 const MOD_EXPLOSIVE_ROUNDS_DESCv2 =         "Explosive agents have been smuggled into your Wingman's rounds. Shots will deal additional damage around the point of impact."
 const MOD_STARBURST_AUTOPISTOL_LONGDESCv2 = "Based on the Hemlok mod of the same name, this changes the RE-45's firing mode to a five-round burst."
 const MOD_RECOIL_COMPENSATOR_LONGDESCv2 =   "The compensator modifies the weapon's gas system to reduce recoil when firing, improving shot-to-shot accuracy."
 
-// AT weapon descriptions
+// AT Weapon DESCRIPTIONS
+const rocket_launcher_LONG_DESC = "The Archer Heavy Rocket is a powerful rocket launcher made by Brockhaurd Manufacturing. Aiming the weapon will activate the targeting window and begin the lock-on. The targeting reticle must be fully locked before it can fire."
+const smr_LONG_DESC =             "The Sidewinder AT-SMR is a rapid-fire micro-missile launcher. Due to its spread, it is most effective against larger targets. The missiles are tipped with shaped-charges, yielding a small area of effect on detonation."
+const mgl_LONG_DESC =             "The Mag Launcher fires magnetic 40mm grenades with a strong neodymium casing. When fired, the grenades will be attracted to nearby metallic enemies, such as Titans and Spectres, and will detonate on contact."
+const defender_LONG_DESC =        "The Charge Rifle fires a directed energy beam to inflict massive damage to enemy armor. For years, its existence was classified by Wonyeon Defense. Holding down the trigger charges the weapon. The weapon will only fire once it is fully charged."
+
 const MOD_LONG_FUSE_DESCv2 =                "This mod increases the amount of time before grenades explode, allowing more time for enemies to get close and trigger the explosion."
 const MOD_TANK_BUSTER_DESCv2 =              "This mod delivers slow firing, slightly weaker missiles that will burrow into the impact site. After a short delay, they will explode, inflicting massive damage to enemy armor."
 const MOD_STABILIZED_WARHEAD_DESCv2 =       "This mod allows micro-missiles to fire with increased precision, but at the cost of a slower rate of fire."
 
-// Titan weapon descriptions
+// Ordnance DESCRIPTIONS
+const mp_weapon_grenade_emp_DESCv2 =  "Arc Grenades release an electrostatic discharge that will temporarily scramble the vision of Pilots and Titans. While they inflict less kinetic damage than a Frag Grenade, they will wreak havoc on Titan shields."
+const mp_weapon_satchel_DESCv2 =      "Satchel Charges are an adhesive-polymer explosive that will stick to any surface. They are detonated manually, causing massive damage to enemies, Titan armor - and you, if you aren't careful."
+
+// Tactical DESCRIPTIONS
+const mp_ability_cloak_DESCv2 =   "The Cloaking system uses a refractive mesh to bend light around the Pilot. You will become completely invisible to minions and Titans for 9 seconds. However, your general outline is still visible to other Pilots, as are your jump jets."
+const mp_ability_heal_DESCv2 =    "The SE-505 'Stim' compound is a cocktail of synthetic phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
+const mp_ability_sonar_DESCv2 =   "Active Radar Pulse emits a burst of low-frequency radio waves, allowing you to see enemies through walls for 7.5 seconds. However, due to scattering latency, you will only see single frames, not full motion."
+
+// TITAN WEAPON DESCRIPTIONS
+const titan_40mm_LONG_DESC =      "The 40mm Cannon is a semi-automatic weapon that fires highly explosive rounds of depleted uranium. Originally used by APCs, Brockhaurd Manufacturing has repurposed it for Titan combat."
+const xo16_LONG_DESC =            "The XOTBR-16 Chaingun is a fully automatic, belt-fed machine gun that fires 35mm rounds with high precision. At mid-to-long range, it is very effective against both Pilots and Titans."
+const quad_rocket_LONG_DESC =     "The Quad Rocket launches a tight cluster of four 60mm rockets at once. When zoomed in, the rockets will fire in a slow-moving spiral that expands outward, denying territory to the enemy."
+const arc_cannon_LONG_DESC =      "The Arc Cannon fires a bolt of electricity at 5 terajoules that will arc across nearby targets. It can be fired instantly, or it can be charged over time for an increase in firepower."
+const titan_shotgun_LONG_DESC =   "The WYS-0404 Shotgun is the predecessor to the Plasma Railgun, making it one of the earliest known Titan weapons. It fires in three-round bursts for devastating CQB firepower."
+const titan_sniper_LONG_DESC =    "The PR-01 Plasma Railgun is a sniper weapon that fires hypersonic tungsten. When zoomed, the weapon's power will charge up over several stages. The weapon may be fired at any stage, even zero."
+
 const MEGA3_SHORT_DESC =    "Arc-powered minigun"
 const MEGA3_LONG_DESC =     "The AG-8 Thunderbolt is a Titan minigun that fires rounds at a steady RPM after a brief wind-up. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
 
+const vortex_LONG_DESC =    "The Vortex Shield captures incoming projectiles and fires them back at the enemy upon release. It can only reflect ballistics and projectile weapons, though it will still protect you against most forms of damage."
+const mega4_LONG_DESC =     "The Charge Cannon is a shoulder-mounted laser that deals high damage. Unlike other tactical abilities, this one is built for pure offense. The damage output will increase the longer you charge the weapon."
+
 const MOD_RAPID_FIRE_MISSILES_DESCv2 =      "This mod converts the weapon into a fully-automatic, singular rocket launcher with a high rate of fire, at the expense of reduced damage per rocket."
 const MOD_AFTERBURNERS_LONGDESCv2 =         "This mod makes alt-fired rockets travel much faster, but will use twice as much ammo."
-const MOD_BURST_LONGBURST_LONGDESCv2 =      "This mod makes the weapon fire eight-round bursts, allowing for more controlled and precise damage output."
+const MOD_BURST_LONGBURST_LONGDESCv2 =      "This mod makes the weapon fire in eight-round bursts, allowing for more controlled and precise damage output."
 const MOD_AUTO_CONVERTER_LONGDESC =         "A receiver bypass makes this weapon fully automatic, increasing your rate of fire - at the cost of a higher recoil."
 const MOD_SEMI_CONVERTER_LONGDESC =         "The PR-01 receiver makes this weapon semi-automatic, inflicting massive damage at the expense of a reduced firing rate and ammo capacity."
 const MOD_HYDRAULIC_LAUNCHER_LONGDESC =     "This mod allows you to launch grenades further by holding down the trigger before release."
+
+const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
+const STRYDER_DESC = "The Stryder is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
+const OGRE_DESC = "The Ogre chassis is a walking tank. Although it is slow moving, it can absorb more damage than any other Titan frame."
+
+const DMG_CORE_DESC = "All forms of damage output are increased by 40% while active."
+const DASH_CORE_DESC = "Grants unlimited dash capacity while active."
+const SHIELD_CORE_DESC = "Shield is fully replenished upon activation. All incoming damage is then reduced by 50% while active."
 
 function main()
 {
@@ -47,7 +98,7 @@ function main()
 	Globalize( GetItemName )
 	Globalize( GetItemDescription )
 	Globalize( GetItemLongDescription )
-	Globalize( GetItemAdditionalName )	// Used by Titans for Chassis Core
+	Globalize( GetItemAdditionalName )	//Used by Titans for Chassis Core
 	Globalize( GetItemAdditionalDescription )	//Used by Titans for Chassis Core
 	Globalize( GetItemImage )
 	Globalize( GetItemAltImage )
@@ -411,7 +462,7 @@ function InitItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_spectre_kills", 			1, 		"mp_weapon_lmg",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 16, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_pilot_kills", 				1, 		"mp_weapon_lmg",			"slammer",						"#MOD_SLAMMER_NAME",			"#MOD_SLAMMER_DESC",				"#MOD_SLAMMER_LONGDESC",				10, 0, 0, 0, 0, 		"../ui/menu/items/mod_icons/slammer", 				"../ui/menu/items/mod_icons/slammer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_spectre_kills", 			1, 		"mp_weapon_r97",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 10, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_pilot_kills", 				1, 		"mp_weapon_r97",			"scatterfire",					"#MOD_SCATTERFIRE_NAME",		"#MOD_SCATTERFIRE_DESC",			"#MOD_SCATTERFIRE_LONGDESC",			0, -15, 0, 10, 0, 		"../ui/menu/items/mod_icons/scatterfire", 			"../ui/menu/items/mod_icons/scatterfire" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_pilot_kills", 				1, 		"mp_weapon_r97",			"scatterfire",					"#MOD_SCATTERFIRE_NAME",		"#MOD_SCATTERFIRE_DESC",			r97_SCATTER_LONG_DESC,			        0, -15, 0, 10, 0, 		"../ui/menu/items/mod_icons/scatterfire", 			"../ui/menu/items/mod_icons/scatterfire" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_kills", 					1, 		"mp_weapon_r97",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, -5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_rspn101_spectre_kills", 		1, 		"mp_weapon_rspn101",		"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 6, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 								null, 	"mp_weapon_rspn101",		"recoil_compensator",			"#MOD_RECOIL_COMPENSATOR_NAME",	MOD_RECOIL_COMPENSATOR_LONGDESCv2,	MOD_RECOIL_COMPENSATOR_LONGDESCv2,		0, 5, 0, 0, 0, 			"../ui/menu/items/mod_icons/recoil_compensator",	"../ui/menu/items/mod_icons/recoil_compensator",	HideFromMenus )
@@ -585,9 +636,9 @@ function InitItems()
 	CreateSetFileData( itemType.PILOT_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "pilot_male_dm",		"Male Designated Marksman",		"Male Designated Marksman Description",		"../ui/menu/loadouts/pilot_character_male_designated_marksman_imc",		"../ui/menu/loadouts/pilot_character_male_designated_marksman_militia" )
 	CreateSetFileData( itemType.PILOT_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "pilot_female_dm",	"Female Designated Marksman",	"Female Designated Marksman Description",	"../ui/menu/loadouts/pilot_character_female_designated_marksman_imc",	"../ui/menu/loadouts/pilot_character_female_designated_marksman_militia" )
 
-	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0,	null, 	null, "titan_atlas",		"#CHASSIS_ATLAS_NAME",		"#CHASSIS_ATLAS_DESCRIPTION",	"../ui/menu/loadouts/titan_chassis_atlas_imc",		"../ui/menu/loadouts/titan_chassis_atlas_mcor", 	"#CHASSIS_ATLAS_CORE_NAME", 	"#CHASSIS_ATLAS_CORE_DESCRIPTION", 		"../ui/menu/items/ability_images/chassis_page_core_atlas",  	85, 90, 76, 2	)
-	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "titan_stryder",		"#CHASSIS_STRYDER_NAME",	"#CHASSIS_STRYDER_DESCRIPTION",	"../ui/menu/loadouts/titan_chassis_stryder_imc",	"../ui/menu/loadouts/titan_chassis_stryder_mcor", 	"#CHASSIS_STRYDER_CORE_NAME",	"#CHASSIS_STRYDER_CORE_DESCRIPTION",	"../ui/menu/items/ability_images/chassis_page_core_stryder", 	100, 100, 57, 3 )
-	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "titan_ogre",			"#CHASSIS_OGRE_NAME",		"#CHASSIS_OGRE_DESCRIPTION",	"../ui/menu/loadouts/titan_chassis_ogre_imc",		"../ui/menu/loadouts/titan_chassis_ogre_mcor",		"#CHASSIS_OGRE_CORE_NAME",		"#CHASSIS_OGRE_CORE_DESCRIPTION", 		"../ui/menu/items/ability_images/chassis_page_core_ogre",  		70, 38, 100, 1 )
+	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0,	null, 	null, "titan_atlas",		"#CHASSIS_ATLAS_NAME",		ATLAS_DESC,		"../ui/menu/loadouts/titan_chassis_atlas_imc",		"../ui/menu/loadouts/titan_chassis_atlas_mcor", 	"#CHASSIS_ATLAS_CORE_NAME", 	DMG_CORE_DESC, 		"../ui/menu/items/ability_images/chassis_page_core_atlas",  	85, 90, 76, 2	)
+	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "titan_stryder",		"#CHASSIS_STRYDER_NAME",	STRYDER_DESC,	"../ui/menu/loadouts/titan_chassis_stryder_imc",	"../ui/menu/loadouts/titan_chassis_stryder_mcor", 	"#CHASSIS_STRYDER_CORE_NAME",	DASH_CORE_DESC,	"../ui/menu/items/ability_images/chassis_page_core_stryder", 	100, 100, 57, 3 )
+	CreateSetFileData( itemType.TITAN_SETFILE,		DEV_ENABLED,	0, 	null, 	null, "titan_ogre",			"#CHASSIS_OGRE_NAME",		OGRE_DESC,		"../ui/menu/loadouts/titan_chassis_ogre_imc",		"../ui/menu/loadouts/titan_chassis_ogre_mcor",		"#CHASSIS_OGRE_CORE_NAME",		SHIELD_CORE_DESC, 		"../ui/menu/items/ability_images/chassis_page_core_ogre",  		70, 38, 100, 1 )
 
 	/////////////////////
 	// TITAN DECAL DATA
@@ -787,9 +838,9 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_semipistol_pilot_kills", 		1, 		"mp_weapon_semipistol",		"match_trigger",				"#MOD_MATCH_TRIGGER_NAME",		"#MOD_MATCH_TRIGGER_DESC",			"#MOD_MATCH_TRIGGER_LONGDESC",			0, -8, 0, 10, 0, 		"../ui/menu/items/mod_icons/match_trigger", 		"../ui/menu/items/mod_icons/match_trigger" )
 
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_kills", 				1, 		"mp_weapon_wingman",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-10, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_pilot_kills", 			1, 		"mp_weapon_wingman",		"explosive_rounds",				"#MOD_EXPLOSIVE_ROUNDS_NAME",	"#MOD_EXPLOSIVE_ROUNDS_DESC",		MOD_EXPLOSIVE_ROUNDS_DESCv2,			15, 0, 0, -5, 0, 		"../ui/menu/items/mod_icons/rapid_fire_missiles", 	"../ui/menu/items/mod_icons/rapid_fire_missiles" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_pilot_kills", 			1, 		"mp_weapon_wingman",		"explosive_rounds",				"#MOD_EXPLOSIVE_ROUNDS_NAME",	"#MOD_EXPLOSIVE_ROUNDS_DESC",		MOD_EXPLOSIVE_ROUNDS_DESCv2,			15, 0, 0, -2, 0, 		"../ui/menu/items/mod_icons/rapid_fire_missiles", 	"../ui/menu/items/mod_icons/rapid_fire_missiles" )
 
-	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_crits", 					1, 		"mp_weapon_smr",			"tank_buster",					"#MOD_TANK_BUSTER_NAME",		"#MOD_TANK_BUSTER_DESC",			MOD_TANK_BUSTER_DESCv2,					20, 0, 0, -10, -13, 			"../ui/menu/items/mod_icons/slammer",				"../ui/menu/items/mod_icons/slammer" )
+	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_crits", 					1, 		"mp_weapon_smr",			"tank_buster",					"#MOD_TANK_BUSTER_NAME",		"#MOD_TANK_BUSTER_DESC",			MOD_TANK_BUSTER_DESCv2,					25, 0, 0, -10, -13, 			"../ui/menu/items/mod_icons/slammer",				"../ui/menu/items/mod_icons/slammer" )
 	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_titan_kills", 				1, 		"mp_weapon_smr",			"stabilized_warhead",			"#MOD_STABILIZED_WARHEAD_NAME",	"#MOD_STABILIZED_WARHEAD_DESC",		MOD_STABILIZED_WARHEAD_DESCv2,			0, 15, 0, -10, 0, 			"../ui/menu/items/mod_icons/rapid_fire_missiles",	"../ui/menu/items/mod_icons/rapid_fire_missiles" )
 
 	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_DISABLED,	0, 	"ch_archer_titan_kills", 			1, 		"mp_weapon_rocket_launcher","guided_missile",				"#MOD_GUIDED_MISSILE_NAME",		"#MOD_GUIDED_MISSILE_DESC",			"#MOD_GUIDED_MISSILE_DESC",				0, 0, 0, 0, 0, 			"../ui/menu/items/mod_icons/rapid_fire_missiles",	"../ui/menu/items/mod_icons/rapid_fire_missiles", HideFromMenus )
@@ -799,16 +850,16 @@ function CreateR1DeltaItems()
 
 	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega1", 				"../ui/menu/items/weapon_valkyrie" )
 	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega2", 				"../ui/menu/items/weapon_twinbshotgun" )
-	// CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_rspn101" ) 
+	// CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_DISABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_r97" )  
+
 
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		null, 						null, 	"mp_weapon_mega1",		"scope_6x",		"#MOD_SCOPE_6X_NAME",		"#MOD_SCOPE_6X_DESC",		"#MOD_SCOPE_6X_LONGDESC",				"../ui/menu/items/attachment_icons/scope_6x", 			"../ui/menu/items/attachment_icons/scope_6x" )
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_grunt_kills", 	0, 		"mp_weapon_mega1",		"aog",			"#MOD_AOG_NAME",			"#MOD_AOG_DESC",			"#MOD_AOG_LONGDESC",					"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/aog" )
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_kills", 			1, 		"mp_weapon_mega1",		"scope_4x",		"#MOD_SCOPE_4X_NAME",		"#MOD_SCOPE_4X_DESC",		"#MOD_SCOPE_4X_LONGDESC",				"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/scope_4" )
-
+	
 	// CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_DISABLED,	0, 	null, 					1, 		"mp_weapon_mega9",			"iron_sights",					"#SIGHT_IRON_NAME",				"#SIGHT_IRON_DESC",					"#SIGHT_IRON_LONGDESC",			"../ui/menu/items/attachment_icons/iron_sights", 			"../ui/menu/items/attachment_icons/iron_sights", HideFromMenus )
 	// CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_DISABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"hcog",							"#SIGHT_HCOG_NAME",				"#SIGHT_HCOG_DESC",					"#SIGHT_HCOG_LONGDESC",				"../ui/menu/items/attachment_icons/hcog", 			"../ui/menu/items/attachment_icons/hcog", HideFromMenus )
 	
-
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_spectre_kills", 			0, 		"mp_weapon_mega1",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 2, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_kills", 					0, 		"mp_weapon_mega1",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-10, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_pilot_kills", 			0, 		"mp_weapon_mega1",			"stabilizer",					"#MOD_STABILIZER_NAME",			"#MOD_STABILIZER_DESC",				"#MOD_STABILIZER_LONGDESC",				0, 6, 0, 0, 0, 			"../ui/menu/items/mod_icons/stabilizer", 			"../ui/menu/items/mod_icons/stabilizer" )
@@ -825,7 +876,6 @@ function CreateR1DeltaItems()
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 10, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo", HideFromMenus )
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, -5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer", HideFromMenus )
 	
-
 	////////////////////
 	//TITAN WEAPON DATA
 	////////////////////
@@ -845,7 +895,7 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_kills", 					1, 		"mp_titanweapon_shotgun",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Semi Converter",			"Semi-automatic weapon fire",			MOD_SEMI_CONVERTER_LONGDESC,			5, -5, 0, -7, 0, 		"../ui/menu/items/mod_icons/high_capacity_drum",	 		"../ui/menu/items/mod_icons/high_capacity_drum" )
-	
+
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_titanweapon_shotgun",				"burn_mod_titan_shotgun", 					"#BC_TITAN_SHOTGUN_M2",				"#BC_TITAN_SHOTGUN_M2_FLYOUT_DESC",				"#BC_TITAN_SHOTGUN_M2_FLYOUT_DESC",				0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
@@ -856,6 +906,7 @@ function CreateR1DeltaItems()
 
 	// Edited these in-game TFO weapon descriptions to be more complete
 	// Valkyrie Edits
+	itemData["mp_weapon_mega1"].desc = MEGA1_SHORT_DESC
 	itemData["mp_weapon_mega1"].longdesc = MEGA1_LONG_DESC
 	itemData["mp_weapon_mega1"].statDamage = 97
 	itemData["mp_weapon_mega1"].statAccuracy = 75
@@ -876,6 +927,45 @@ function CreateR1DeltaItems()
 	itemData["mp_weapon_mega3"].statRange = 65
 	itemData["mp_weapon_mega3"].statAccuracy = 75
 	itemData["mp_weapon_mega3"].statFireRate = 80
+
+	// CUSTOM R1 DESCRIPTIONS
+	itemData["mp_weapon_smart_pistol"].longdesc = smart_pistol_LONG_DESC
+	itemData["mp_weapon_rspn101"].longdesc = rspn101_LONG_DESC
+	itemData["mp_weapon_shotgun"].longdesc = shotgun_LONG_DESC
+	itemData["mp_weapon_r97"].longdesc = r97_LONG_DESC
+	itemData["mp_weapon_dmr"].longdesc = dmr_LONG_DESC
+	itemData["mp_weapon_lmg"].desc = lmg_SHORT_DESC
+	itemData["mp_weapon_lmg"].longdesc = lmg_LONG_DESC
+	itemData["mp_weapon_hemlok"].longdesc = hemlok_LONG_DESC
+	itemData["mp_weapon_car"].longdesc = car_LONG_DESC
+	itemData["mp_weapon_g2"].longdesc = g2_LONG_DESC
+	itemData["mp_weapon_sniper"].longdesc = sniper_LONG_DESC
+
+	itemData["mp_weapon_semipistol"].longdesc = semipistol_LONG_DESC
+	itemData["mp_weapon_autopistol"].longdesc = autopistol_LONG_DESC
+	itemData["mp_weapon_wingman"].longdesc = wingman_LONG_DESC
+
+	itemData["mp_weapon_rocket_launcher"].longdesc = rocket_launcher_LONG_DESC
+	itemData["mp_weapon_smr"].longdesc =      smr_LONG_DESC
+	itemData["mp_weapon_mgl"].longdesc =      mgl_LONG_DESC
+	itemData["mp_weapon_defender"].longdesc = defender_LONG_DESC
+
+	itemData["mp_weapon_grenade_emp"].longdesc = mp_weapon_grenade_emp_DESCv2
+	itemData["mp_weapon_satchel"].longdesc =     mp_weapon_satchel_DESCv2
+
+	itemData["mp_ability_cloak"].longdesc =  mp_ability_cloak_DESCv2
+	itemData["mp_ability_heal"].longdesc =   mp_ability_heal_DESCv2
+	itemData["mp_ability_sonar"].longdesc =  mp_ability_sonar_DESCv2
+
+	itemData["mp_titanweapon_xo16"].longdesc =             xo16_LONG_DESC
+	itemData["mp_titanweapon_40mm"].longdesc =             titan_40mm_LONG_DESC
+	itemData["mp_titanweapon_rocket_launcher"].longdesc =  quad_rocket_LONG_DESC
+	itemData["mp_titanweapon_sniper"].longdesc =           titan_sniper_LONG_DESC
+	itemData["mp_titanweapon_shotgun"].longdesc =          titan_shotgun_LONG_DESC
+	itemData["mp_titanweapon_arc_cannon"].longdesc =       arc_cannon_LONG_DESC
+
+	itemData["mp_titanweapon_vortex_shield"].longdesc =  vortex_LONG_DESC
+	itemData["mp_weapon_mega4"].longdesc =  mega4_LONG_DESC
 
 }
 
