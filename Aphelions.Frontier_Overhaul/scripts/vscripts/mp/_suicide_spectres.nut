@@ -719,6 +719,10 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.mp_titanweapon_rocket_launcher:
 		case eDamageSourceId.mp_titanweapon_sniper:
 		case eDamageSourceId.mp_titanweapon_triple_threat:
+		case eDamageSourceId.mp_titanweapon_salvo_rockets:
+		case eDamageSourceId.mp_titanweapon_dumbfire_rockets:
+		case eDamageSourceId.mp_titanweapon_shoulder_rockets:
+		case eDamageSourceId.mp_titanweapon_homing_rockets:
 		case eDamageSourceId.mp_weapon_defender:
 		case eDamageSourceId.mp_weapon_mega4:
 			thread SpectreExplode( spectre, results )
