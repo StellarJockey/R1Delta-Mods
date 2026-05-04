@@ -293,7 +293,7 @@ WeaponData
         // R1Delta nerf, this mod is super good so we limit the ammo and drop the explosion damage
 		tank_buster
 		{
-			"projectile_trail_effect_0" 						"garand_trail"
+			"projectile_trail_effect_0" 					"garand_trail"
 			"explosionradius"								"80"
 			"explosion_inner_radius"						"40"
 			"explosion_damage_heavy_armor"					"300"

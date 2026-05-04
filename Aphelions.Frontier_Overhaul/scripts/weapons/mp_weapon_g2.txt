@@ -73,7 +73,7 @@ WeaponData
 
 	// Damage - When Used by NPCs
 	"rest_time_between_bursts_min"					"0.2"
-	"rest_time_between_bursts_max"					"0.6"
+	"rest_time_between_bursts_max"					"0.5"
 	"npc_damage_near_distance"						"1300"
 	"npc_damage_far_distance" 						"2200"
 	"npc_damage_near_value"   						"80"
@@ -147,7 +147,7 @@ WeaponData
 	"spread_max_kick_air_hip" 						"8.0"
 	"spread_max_kick_air_ads" 						"0.0"
 
-	"spread_npc"  									"2"
+	"spread_npc"  									"1"
 
 	"spread_decay_rate"   							"3"
 	"spread_decay_delay"  							"0.1"
