@@ -79,11 +79,11 @@ const MOD_HYDRAULIC_LAUNCHER_LONGDESC =     "This mod allows you to launch grena
 
 const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
 const STRYDER_DESC = "The Stryder is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
-const OGRE_DESC = "The Ogre chassis is a walking tank. Although it is slow and lumbering, it can absorb more damage than any other Titan frame."
+const OGRE_DESC = "The Ogre chassis is a walking tank. Although it is slow moving, it can absorb more damage than any other Titan frame."
 
-const DMG_CORE_DESC = "All forms of damage output are increased by 40% when active."
-const DASH_CORE_DESC = "Grants infinite dash capacity while active."
-const SHIELD_CORE_DESC = "All incoming damage is reduced by 50% when active."
+const DMG_CORE_DESC = "All forms of damage output are increased by 40% while active."
+const DASH_CORE_DESC = "Grants unlimited dash capacity while active."
+const SHIELD_CORE_DESC = "Shield is fully replenished upon activation. All incoming damage is then reduced by 50% while active."
 
 function main()
 {
