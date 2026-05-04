@@ -1471,8 +1471,8 @@ function SpectreExplosionDamage( spectre )
 	// Do token damage to players
 	//-----------------------------------
 	RadiusDamage( spectre.GetOrigin(),	// origin
-		1500,								// titan damage
-		200,								// pilot damage
+		750,								// titan damage
+		100,								// pilot damage
 		400,								// radiusFalloffMax
 		300,								// radiusFullDamage
 		spectre, 						// owner
