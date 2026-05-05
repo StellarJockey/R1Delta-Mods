@@ -25,7 +25,7 @@ const RPG_USE_ALWAYS = 2
 const STANDARDGOALRADIUS = 100
 
 const AI_SPECTRE_ACCURACY = 4
-const AI_SOLDIER_ACCURACY = 3
+const AI_SOLDIER_ACCURACY = 4
 const AI_SPECTRE_PROFICIENCY = 4
 const AI_SOLDIER_PROFICIENCY = 4
 
@@ -625,7 +625,7 @@ function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapo
 
     guy.kv.health = 250
     guy.kv.max_health = 250
-    guy.kv.AccuracyMultiplier = 3.5
+    guy.kv.AccuracyMultiplier = 4
     guy.kv.WeaponProficiency = 4
 
     return guy

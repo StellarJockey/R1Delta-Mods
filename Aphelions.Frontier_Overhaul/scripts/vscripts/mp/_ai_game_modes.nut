@@ -105,7 +105,7 @@ function main()
 	}
 
 	level.max_npc_per_side <- 28
-	level.max_npc_per_side_small <- 21
+	level.max_npc_per_side_small <- 24
 
 	level.occupiedAISlots <- {}
 	level.occupiedAISlots[TEAM_IMC] <- 0
@@ -1905,12 +1905,12 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
 	/////////////////////////////
 	local npcArray
-    local allowSnipers = GameTime.PlayingTime() > 60.0     // 1 min
+    local allowSnipers = GameTime.PlayingTime() > 120.0     // 2 min
     local roll = RandomFloat( 0, 1 ) 
 
     if ( shouldSpawnSpectre )
     {
-        if ( allowSnipers && roll < 0.25 ) // (25% chance)
+        if ( allowSnipers && roll < 0.30 ) // (30% chance)
         {
              npcArray = Spawn_TrackedDropPodSquad( "npc_spectre", team, squadSize, spawnPoint, squadName, false, SpawnSniperSpectre )
         }
@@ -1963,8 +1963,8 @@ function SuicideSpectreWaveThink( team )
 
     while ( IsNPCSpawningEnabled() )
     {
-        // Wait between 1 to 4 min between waves
-        wait RandomFloat( 60.0, 240.0 )
+        // Wait between 1 to 3.5 min between waves
+        wait RandomFloat( 60.0, 210.0 )
 
         // Find valid spawn points for the wave
         local spawnPoints = SpawnPoints_GetDropPod()
