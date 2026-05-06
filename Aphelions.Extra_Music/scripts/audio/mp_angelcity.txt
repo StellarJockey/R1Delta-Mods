@@ -517,7 +517,7 @@
 		}		
 	"wave"			"music\campaign\endings\music_campaignend_militia_2ch_v1_01.wav"
 	"wave"			"music\Epilogue\TF_Master_E3_EpilogueWin_WithElVln_STMIX_150_BPM.wav"
-	"wave"			"music\campaign\angelcity\tf_ac_epilogue_win_temptrack.wav"
+	"wave"			"music\campaign\angelcity\tf_ac_epilogue_win_temptrack.wav"  // faction agnostic victory theme
 
 	}
 
@@ -585,7 +585,7 @@
 			"2"		"RS,0.5"			
 		}		
 	"wave"			"music\Epilogue\TF_Master_EpilogueLose_IMC2_STMIX_155_BPM.wav"	
-	"wave"			"music\campaign\angelcity\tf_ac_epilogue_lose_temptrack.wav"  // faction neutral loss theme
+	"wave"			"music\campaign\angelcity\tf_ac_epilogue_lose_temptrack.wav"  // faction agnostic loss theme
 	}
 
 }
