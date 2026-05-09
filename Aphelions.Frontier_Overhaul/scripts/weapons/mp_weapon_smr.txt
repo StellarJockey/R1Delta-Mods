@@ -39,7 +39,7 @@ WeaponData
 	// Effects
 	"tracer_effect"   								"weapon_tracers_xo16"
 	"impact_effect_table" 							"exp_smr"
-	"projectile_trail_effect_0" 						"Rocket_Smoke_SMR"
+	"projectile_trail_effect_0" 					"Rocket_Smoke_SMR"
 	"projectile_trail_attachment" 					"exhaust"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_SMR_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_SMR"

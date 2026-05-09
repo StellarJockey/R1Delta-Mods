@@ -312,22 +312,25 @@ WeaponData
 			"smart_ammo_looping_sound_locked"				"titan_missle_lock_tone"
 		}
 
-		titanhammer
+		tank_buster
 		{
 			//Big Kahuna Missile
 			//Pros: Deals more damage.
 			//Cons: Travels much slower.
 			"damage_near_value"   							"350"
 			"damage_far_value"								"350"
-			"damage_near_value_titanarmor"					"3500"
-			"damage_far_value_titanarmor" 					"3500"
-			"explosion_damage"								"*2"
-			"explosion_damage_heavy_armor"					"*2"
+			"damage_near_value_titanarmor"					"3000"
+			"damage_far_value_titanarmor" 					"3000"
+			"explosion_damage"								"350"
+			"explosion_damage_heavy_armor"					"3000"
 			"explosion_inner_radius"  						"250"
 			"explosionradius" 								"400"
-			"impulse_force"   								"25000"
-			"projectile_trail_effect_0" 						"P_Rocket_Smoke_Large_ALT"
-			"impact_effect_table" 							"exp_xlarge"
+			"impulse_force"   								"15000"
+			"projectile_trail_effect_0" 					"P_Rocket_Smoke_Large_ALT"
+			"impact_effect_table" 							"exp_rocket_archer_burn"
+
+			"smart_ammo_targeting_time_min"				"*2.0"
+			"smart_ammo_targeting_time_max"				"*2.0"
 		}
 
 		pas_fast_reload

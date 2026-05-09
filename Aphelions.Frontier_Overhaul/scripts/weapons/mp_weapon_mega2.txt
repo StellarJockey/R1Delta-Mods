@@ -64,9 +64,9 @@ WeaponData
 	"damage_rodeo" 									"700"
 
 	// Damage - When Used by NPCs
-	"npc_damage_near_distance"						"300"
-	"npc_damage_far_distance" 						"700"
-	"npc_damage_near_value"   						"220"
+	"npc_damage_near_distance"						"330"
+	"npc_damage_far_distance" 						"800"
+	"npc_damage_near_value"   						"250"
 	"npc_damage_far_value"							"35"
 	"npc_damage_near_value_titanarmor"				"130"
 	"npc_damage_far_value_titanarmor" 				"10"
@@ -350,6 +350,30 @@ WeaponData
 			"spread_air_ads"   								"10"
 			"damage_near_value"   							"/1.1"
 			"damage_far_value"								"/1.1"
+		}
+		"match_trigger"
+		{
+			"spread_stand_hip" 								"9"
+			"spread_stand_hip_run" 							"9"
+			"spread_stand_hip_sprint"                       "9"
+			"spread_stand_ads"  							"9"
+			"spread_crouch_hip"								"9"
+			"spread_crouch_ads"  							"9"
+			"spread_air_hip"	   							"9"
+			"spread_air_ads"   								"9"
+
+			"viewkick_pitch_base" 				"*1.2"
+			"viewkick_pitch_random" 			"*1.2"
+			"viewkick_yaw_base" 				"*1.2"
+			"viewkick_yaw_random" 				"*1.2"
+			"viewkick_scale_max_hipfire"        "*1.2"
+
+			"ammo_stockpile_max"							"36"
+			"ammo_default_total"							"36"
+
+			"fire_rate"   					"8"
+			"burst_fire_count"				"2"
+			"burst_fire_delay"				"0.35"			
 		}
 		pas_run_and_gun
 		{
