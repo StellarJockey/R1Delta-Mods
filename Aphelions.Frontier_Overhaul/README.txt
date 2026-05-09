@@ -55,6 +55,10 @@ EVA-8 Shotgun:
 	* Full-auto mod (fire rate is slower than the Burn Card version)
 	* Slightly buffed the range
 	* Range is slightly nerfed for npcs (getting shotgun-sniped was annoying)
+Charge Rifle:
+	* Added charge hack mod
+Kraber-AP Sniper:
+	* Added an anti-Titan mod
 B3 Wingman:
 	* Does enough damage to one-shot grunts, like a proper hand cannon
 	* Explosive round mod does a tiny bit more non-explosive damage
@@ -66,6 +70,7 @@ Mag Launcher:
 	* Added an extended mag mod
 TWIN-B:
 	* Does enough damage to one-shot grunt captains at close range
+	* Added double tap mod
 	* Upscaled the loadout preview image
 WYS-0404:
 	* Does more damage and has a slightly higher fire rate
