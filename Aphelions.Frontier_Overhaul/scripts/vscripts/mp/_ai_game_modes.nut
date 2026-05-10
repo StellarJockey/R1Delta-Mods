@@ -130,6 +130,9 @@ function main()
 		case TITAN_BRAWL:
 			npcPerSide = 0
 			break
+		case PILOT_SKIRMISH:
+			npcPerSide = 0
+			break
 		case TEAM_DEATHMATCH:
 			level.npcRespawnWait = 5
 			break
@@ -232,7 +235,7 @@ function main()
 
 	// DRONES
 	local mode = GameRules.GetGameMode()
-	if ( mode != COOPERATIVE && mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING )
+	if ( mode != COOPERATIVE && mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING && mode != PILOT_SKIRMISH )
 	{
 		level.cloakedDronesManagedEntArrayID <- CreateScriptManagedEntArray()
 		level.cloakedDroneClaimedSquadList <- {}
