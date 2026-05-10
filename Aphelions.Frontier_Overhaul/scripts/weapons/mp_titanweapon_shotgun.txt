@@ -58,12 +58,12 @@ WeaponData
     "damage_type"                                    "buckshot"
     "damage_near_distance"                           "150" //"300"
     "damage_far_distance"                            "1500" //"2000"
-    "damage_near_value"                              "250"
+    "damage_near_value"                              "215"
     "damage_far_value"                               "60"
     "damage_falloff_type"                            "inverse"
     "damage_inverse_distance"                        "350"
     "damage_near_value_titanarmor"                   "1000"
-    "damage_far_value_titanarmor"                    "200" //"550"
+    "damage_far_value_titanarmor"                    "250" //"550"
     
 
     "impulse_force"                                   "5000" //"15000"
@@ -72,10 +72,10 @@ WeaponData
     // Damage - When Used by NPCs
     "npc_damage_near_distance"                        "200" //"100"
     "npc_damage_far_distance"                         "2000" //"1200"
-    "npc_damage_near_value"                           "180"
+    "npc_damage_near_value"                           "215"
     "npc_damage_far_value"                            "60"
     "npc_damage_near_value_titanarmor"                "200" //"1050" //basically have to neuter them because they deal a SHIT ton of damage
-    "npc_damage_far_value_titanarmor"                 "100" //"400"
+    "npc_damage_far_value_titanarmor"                 "250" //"400"
 
 
     // Ammo
@@ -84,9 +84,9 @@ WeaponData
     "ammo_default_total"                              "360"
 
     // Behavior
-    "fire_rate"                                       "5.5"
+    "fire_rate"                                       "5.8"
     "burst_fire_count"								  "3"
-	"burst_fire_delay"								  "1.0" //"0.6"
+	"burst_fire_delay"								  "0.9" //"0.6"
     "zoom_time_in"                                    "0.1"
     "zoom_time_out"                                   "0.1"
     "zoom_fov"                                        "50" //"58"
