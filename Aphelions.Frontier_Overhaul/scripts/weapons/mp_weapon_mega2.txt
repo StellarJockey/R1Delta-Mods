@@ -100,7 +100,7 @@ WeaponData
 	"allow_empty_click"   							"1"  
 	"empty_reload_only"   							"0"	 // 탄약 소진 시에만 장전 가능
 	"trigger_snipercam"   							"0"
-	"allow_headshots" 								"0"
+	"allow_headshots" 								"1"
 	"primary_fire_does_not_block_sprint"			"0"
 	"ads_move_speed_scale"							"0.75" // 사격 시 이동 수준을 권총,SMG 수준으로 상향
 	"aimassist_disable_hipfire"						"0"

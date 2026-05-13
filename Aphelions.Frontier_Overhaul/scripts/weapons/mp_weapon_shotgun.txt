@@ -72,8 +72,8 @@ WeaponData
 
 	"impulse_force"   								"800"
 
-	"critical_hit_damage_scale"						"2.0"
-	"critical_hit"									"0"
+	"critical_hit_damage_scale"						"1.5"
+	"critical_hit"									"1"
 
 	// Ammo
 	"ammo_stockpile_max"							"60"
@@ -102,7 +102,7 @@ WeaponData
 	"allow_empty_click"   							"1"
 	"empty_reload_only"   							"0"
 	"trigger_snipercam"   							"0"
-	"allow_headshots" 								"0"
+	"allow_headshots" 								"1"
 	"primary_fire_does_not_block_sprint"			"0"
 	"ads_move_speed_scale"							"0.5"
 	"aimassist_disable_hipfire"						"0"
