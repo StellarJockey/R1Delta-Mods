@@ -70,8 +70,8 @@ WeaponData
     "critical_hit_damage_scale"                       "3.0"
 
     // Damage - When Used by NPCs
-    "npc_damage_near_distance"                        "200" //"100"
-    "npc_damage_far_distance"                         "2000" //"1200"
+    "npc_damage_near_distance"                        "150" //"100"
+    "npc_damage_far_distance"                         "1500" //"1200"
     "npc_damage_near_value"                           "215"
     "npc_damage_far_value"                            "60"
     "npc_damage_near_value_titanarmor"                "200" //"1050" //basically have to neuter them because they deal a SHIT ton of damage
@@ -215,7 +215,7 @@ WeaponData
     "npc_max_range"                                   "1500"
 	"npc_min_burst"                                   "3" //"1"
 	"npc_max_burst"                                   "3"
-	"rest_time_between_bursts_min"                    "1.5" //"0.5"
+	"rest_time_between_bursts_min"                    "0.8" //"0.5"
 	"rest_time_between_bursts_max"                    "2.2" //"1"
 
     // WeaponED Unhandled Key/Values and custom script Key/Values

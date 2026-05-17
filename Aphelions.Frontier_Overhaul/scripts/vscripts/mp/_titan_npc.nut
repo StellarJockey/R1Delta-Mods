@@ -733,8 +733,8 @@ function SpawnNPCTitan( table )
 
 function SetTitanAccuracyAndProficiency( npcTitan, lethality )
 {
-	local accuracyMultiplier = 4
-	local weaponProficiency = 4
+	local accuracyMultiplier = 2
+	local weaponProficiency = 2
 
 	//only reduce enemy titans
 	if ( GAMETYPE == COOPERATIVE && lethality != eAILethality.Default && npcTitan.GetTeam() == TEAM_IMC )
@@ -749,6 +749,16 @@ function SetTitanAccuracyAndProficiency( npcTitan, lethality )
 			case eAILethality.TD_Medium:
 				accuracyMultiplier = 0.75
 				weaponProficiency = 2
+				break
+			
+			case eAILethality.High:
+				accuracyMultiplier = 3
+				weaponProficiency = 3
+				break
+
+			case eAILethality.VeryHigh:
+				accuracyMultiplier = 4
+				weaponProficiency = 4
 				break
 		}
 	}

@@ -24,10 +24,10 @@ const RPG_USE_ALWAYS = 2
 
 const STANDARDGOALRADIUS = 100
 
-const AI_SPECTRE_ACCURACY = 4
-const AI_SOLDIER_ACCURACY = 3.5
-const AI_SPECTRE_PROFICIENCY = 4
-const AI_SOLDIER_PROFICIENCY = 4
+const AI_SPECTRE_ACCURACY = 1.0 // 4
+const AI_SOLDIER_ACCURACY = 0.6 // 3.5
+const AI_SPECTRE_PROFICIENCY = 2 // 4
+const AI_SOLDIER_PROFICIENCY = 2 // 4
 
 const CAPTAIN_NAME_FREQUENCY = 0.35
 
@@ -920,7 +920,7 @@ function UpdateAILethality( soldier, enemy )
 					weaponProficiencySniper = 1000
 					break
 				case eAILethality.VeryHigh:
-					accuracyMultiplier = 4
+					accuracyMultiplier = 3.5 // 4
 					weaponProficiency = 4
 					accuracyMultiplierSniper = 1000
 					weaponProficiencySniper = 1000
