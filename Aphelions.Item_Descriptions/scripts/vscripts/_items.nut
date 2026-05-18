@@ -17,7 +17,7 @@ const dmr_LONG_DESC =          "The D-101 Longbow is a semi-automatic sniper rif
 const lmg_LONG_DESC =          "The M600 Spitfire is a light machine gun made by Siwhan Industries. It fires heavy 7.62mm rounds at 540 RPM. The recoil is strong at first, but will stabilize as the weapon fires. As such, the manufacturers recommend a sustained fire."
 const hemlok_LONG_DESC =       "The M1A1 Hemlok is an assault rifle that fires 7.62mm rounds in three-round bursts. Prior to being acquired by Wonyeon Defense, TW Ordnance managed to deliver one last trifecta of accuracy, damage, and fire rate."
 const car_LONG_DESC =          "The C.A.R. (Combat Advanced Round) submachine gun fires 6.19mm rounds at 846 RPM. This more powerful round provides greater damage and accuracy at range, though at the cost of overall fire rate and capacity."
-const g2_LONG_DESC =           "The G2A4 is a semi-automatic rifle that uses 6.19x97mm LEC rounds. While it was phased out in favor of the R-101C for infantry, it still remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
+const g2_LONG_DESC =           "The G2A4 is a semi-automatic rifle that fires 6.19x97mm LEC rounds. While it was phased out in favor of the R-101C for infantry, it still remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
 const sniper_LONG_DESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one-shot, one-kill' for any human-sized target. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
 
 const lmg_SHORT_DESC =      "Light machine gun"
@@ -33,9 +33,9 @@ const semipistol_LONG_DESC =   "The Hammond P2011 is a semi-auto 11.43x23mm hand
 const autopistol_LONG_DESC =   "The Lastimosa Armory RE-45 is a fully automatic .45 caliber pistol. While it suffers at longer ranges, its high rate of fire can save your life at close range. It also offers a wide selection of mod options."
 const wingman_LONG_DESC =      "The B3 Wingman is a high-caliber revolver that fires .45 Long Colt rounds. Due to its precision and high stopping power, it is known as the 'pocket sniper' to veterans of the Frontier."
 
-const MOD_EXPLOSIVE_ROUNDS_DESCv2 =         "Explosive agents have been smuggled into your Wingman's rounds. Shots will deal additional damage around the point of impact."
-const MOD_STARBURST_AUTOPISTOL_LONGDESCv2 = "Based on the Hemlok mod of the same name, this changes the RE-45's firing mode to a five-round burst."
-const MOD_RECOIL_COMPENSATOR_LONGDESCv2 =   "The compensator modifies the weapon's gas system to reduce recoil when firing, improving shot-to-shot accuracy."
+const MOD_EXPLOSIVE_ROUNDS_LONGDESCv2 =         "Explosive agents have been smuggled into your Wingman's rounds. Shots will deal additional damage around the point of impact, though they will deal less direct damage."
+const MOD_STARBURST_AUTOPISTOL_LONGDESCv2 = 	"Based on the Hemlok mod of the same name, this changes the RE-45's firing mode to a five-round burst."
+const MOD_RECOIL_COMPENSATOR_LONGDESCv2 =   	"The compensator modifies the weapon's gas system to reduce recoil when firing, improving shot-to-shot accuracy."
 
 // AT Weapon DESCRIPTIONS
 const rocket_launcher_LONG_DESC = "The Archer Heavy Rocket is a powerful rocket launcher made by Brockhaurd Manufacturing. Aiming the weapon will activate the targeting window and begin the lock-on. The targeting reticle must be fully locked before it can fire."
@@ -68,13 +68,12 @@ const MEGA3_SHORT_DESC =    "Arc-powered minigun"
 const MEGA3_LONG_DESC =     "The AG-8 Thunderbolt is a Titan minigun that fires rounds at a steady RPM after a brief wind-up. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
 
 const vortex_LONG_DESC =    "The Vortex Shield captures incoming projectiles and fires them back at the enemy upon release. It can only reflect ballistics and projectile weapons, though it will still protect you against most forms of damage."
+const mega4_Desc_v2 = 		"Fires a directed energy beam"
 const mega4_LONG_DESC =     "The Charge Cannon is a shoulder-mounted laser that deals high damage. Unlike other tactical abilities, this one is built for pure offense. The damage output will increase the longer you charge the weapon."
 
 const MOD_RAPID_FIRE_MISSILES_DESCv2 =      "This mod converts the weapon into a fully-automatic, singular rocket launcher with a high rate of fire, at the expense of reduced damage per rocket."
 const MOD_AFTERBURNERS_LONGDESCv2 =         "This mod makes alt-fired rockets travel much faster, but will use twice as much ammo."
 const MOD_BURST_LONGBURST_LONGDESCv2 =      "This mod makes the weapon fire in eight-round bursts, allowing for more controlled and precise damage output."
-const MOD_AUTO_CONVERTER_LONGDESC =         "A receiver bypass makes this weapon fully automatic, increasing your rate of fire - at the cost of a higher recoil."
-const MOD_SEMI_CONVERTER_LONGDESC =         "The PR-01 receiver makes this weapon semi-automatic, inflicting massive damage at the expense of a reduced firing rate and ammo capacity."
 const MOD_HYDRAULIC_LAUNCHER_LONGDESC =     "This mod allows you to launch grenades further by holding down the trigger before release."
 
 const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
@@ -84,6 +83,7 @@ const OGRE_DESC = "The Ogre chassis is a walking tank. Although it is slow movin
 const DMG_CORE_DESC = "All forms of damage output are increased by 40% while active."
 const DASH_CORE_DESC = "Grants unlimited dash capacity while active."
 const SHIELD_CORE_DESC = "Shield is fully replenished upon activation. All incoming damage is then reduced by 50% while active."
+const TACTICAL_REACTOR_LONGDESCv2 = "This kit reduces the cooldown time of your Titan's Tactical Ability by 25%."
 
 function main()
 {
@@ -468,7 +468,7 @@ function InitItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 								null, 	"mp_weapon_rspn101",		"recoil_compensator",			"#MOD_RECOIL_COMPENSATOR_NAME",	MOD_RECOIL_COMPENSATOR_LONGDESCv2,	MOD_RECOIL_COMPENSATOR_LONGDESCv2,		0, 5, 0, 0, 0, 			"../ui/menu/items/mod_icons/recoil_compensator",	"../ui/menu/items/mod_icons/recoil_compensator",	HideFromMenus )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_rspn101_kills", 				1, 		"mp_weapon_rspn101",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_shotgun_spectre_kills",			1, 		"mp_weapon_shotgun",		"extended_ammo", 				"#MOD_EXTENDED_DRUM_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 			"../ui/menu/items/mod_icons/high_capacity_drum", 	"../ui/menu/items/mod_icons/high_capacity_drum" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_shotgun_pilot_kills",			1, 		"mp_weapon_shotgun",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/spread_increase_sg", 	"../ui/menu/items/mod_icons/spread_increase_sg" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_shotgun_pilot_kills",			1, 		"mp_weapon_shotgun",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/leadwall", 				"../ui/menu/items/mod_icons/leadwall" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_shotgun_kills", 				1, 		"mp_weapon_shotgun",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_smart_pistol_pilot_kills", 		1, 		"mp_weapon_smart_pistol",	"enhanced_targeting",			"#MOD_ENHANCED_TARGETING_NAME",	"#MOD_ENHANCED_TARGETING_DESC",		"#MOD_ENHANCED_TARGETING_LONGDESC",		0, 0, 10, 5, 0, 		"../ui/menu/items/mod_icons/enhanced_targeting", 	"../ui/menu/items/mod_icons/enhanced_targeting" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_smart_pistol_spectre_kills", 	2, 		"mp_weapon_smart_pistol",	"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 6, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
@@ -509,7 +509,7 @@ function InitItems()
 	//PILOT PASSIVE DATA
 	/////////////////////
 	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0,		null, 	null, "pas_power_cell",			"#GEAR_POWER_CELL",					"#GEAR_POWER_CELL_DESC",			"#GEAR_POWER_CELL_LONGDESC",			"../ui/menu/items/passive_icons/power_cell",			"../ui/menu/items/passive_icons/power_cell" )
-	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0, 		null, 	null, "pas_run_and_gun",		"#GEAR_RUNGUN_KIT",					"#GEAR_RUNGUN_KIT_DESC",			"#GEAR_RUNGUN_KIT_LONGDESC",			"../ui/menu/items/passive_icons/run_and_gun",			"../ui/menu/items/passive_icons/run_and_gun" )
+	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0, 		null, 	null, "pas_run_and_gun",		"#GEAR_RUNGUN_KIT",					GEAR_RUNGUN_KIT_DESCv2,			GEAR_RUNGUN_KIT_LONGDESCv2,			"../ui/menu/items/passive_icons/run_and_gun",			"../ui/menu/items/passive_icons/run_and_gun" )
 	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0, 		null, 	null, "pas_stealth_movement",	"#GEAR_STEALTH_KIT",				"#GEAR_STEALTH_KIT_DESC",			"#GEAR_STEALTH_KIT_LONGDESC",			"../ui/menu/items/passive_icons/stealth_movement",		"../ui/menu/items/passive_icons/stealth_movement" )
 	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0,		null, 	null, "pas_ordnance_pack",		"#GEAR_EXPLOSIVES_PACK",			"#GEAR_EXPLOSIVES_PACK_DESC",		"#GEAR_EXPLOSIVES_PACK_LONGDESC",		"../ui/menu/items/passive_icons/ordnance_pack",			"../ui/menu/items/passive_icons/ordnance_pack" )
 	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0,		null, 	null, "pas_wall_runner",		"#GEAR_PARKOUR_KIT",				"#GEAR_PARKOUR_KIT_DESC",			"#GEAR_PARKOUR_KIT_LONGDESC",			"../ui/menu/items/passive_icons/wall_runner", 			"../ui/menu/items/passive_icons/wall_runner" )
@@ -565,7 +565,7 @@ function InitItems()
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_triple_threat_kills",		 	1, 		"mp_titanweapon_triple_threat",		"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_triple_threat_titan_kills", 	1, 		"mp_titanweapon_triple_threat",		"mine_field",			"#MOD_MINE_FIELD_NAME",				"#MOD_MINE_FIELD_DESC",				"#MOD_MINE_FIELD_LONGDESC",				0, 10, -5, 0, 0, 		"../ui/menu/items/mod_icons/mine_field", 			"../ui/menu/items/mod_icons/mine_field" )
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_DISABLED,	0, 	null, 								null, 		"mp_titanweapon_triple_threat",		"arc_triple_threat",	"#MOD_ARC_TRIPLE_THREAT_NAME",		"#MOD_ARC_TRIPLE_THREAT_DESC",		"#MOD_ARC_TRIPLE_THREAT_LONGDESC",		0, 10, -5, 0, 0, 		"../ui/menu/items/mod_icons/mine_field", 			"../ui/menu/items/mod_icons/mine_field",	HideFromMenus  )
-	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_xo16_titan_kills", 				1, 		"mp_titanweapon_xo16",				"accelerator",			"#MOD_ACCELERATOR_NAME",			"#MOD_ACCELERATOR_DESC",			"#MOD_ACCELERATOR_LONGDESC",			0, -15, 0, 10, 90, 		"../ui/menu/items/mod_icons/accelerator", 			"../ui/menu/items/mod_icons/accelerator" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_xo16_titan_kills", 				1, 		"mp_titanweapon_xo16",				"accelerator",			"#MOD_ACCELERATOR_NAME",			"#MOD_ACCELERATOR_DESC",			"#MOD_ACCELERATOR_LONGDESC",			0, -15, 0, 10, 90, 		"../ui/menu/items/mod_icons/accelerator_v2", 			"../ui/menu/items/mod_icons/accelerator_v2" )
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 								1,  	"mp_titanweapon_xo16",				"burst",				"#MOD_BURST_NAME",					"#MOD_BURST_LONGBURST_DESC",		MOD_BURST_LONGBURST_LONGDESCv2,		0, 13, 0, -5, -4, 		"../ui/menu/items/mod_icons/burst",	 				"../ui/menu/items/mod_icons/burst" )
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_xo16_kills", 					1, 		"mp_titanweapon_xo16",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 30, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_DISABLED,	0, 	null, 								null, 	"mp_titanweapon_xo16",				"fast_reload",			"#MOD_FAST_RELOAD_NAME",			"#MOD_FAST_RELOAD_DESC",			"#MOD_FAST_RELOAD_LONGDESC",			0, 0, 0, 0, 0, 		"../ui/menu/items/mod_icons/fast_reload",	 		"../ui/menu/items/mod_icons/fast_reload",	HideFromMenus )
@@ -577,7 +577,7 @@ function InitItems()
 	CreatePassiveData( itemType.TITAN_PASSIVE1, 	DEV_ENABLED,	0, 	null, 	null, "pas_dash_recharge", 			"#GEAR_DASH_REACTOR",		"#GEAR_DASH_REACTOR_DESC",			"#GEAR_DASH_REACTOR_LONGDESC",			"../ui/menu/items/passive_icons/dash_recharge",				"../ui/menu/items/passive_icons/dash_recharge" )
 	CreatePassiveData( itemType.TITAN_PASSIVE1, 	DEV_ENABLED,	0, 	null, 	null, "pas_assault_reactor", 		"#GEAR_ASSAULT_REACTOR",	"#GEAR_ASSAULT_REACTOR_DESC",		"#GEAR_ASSAULT_REACTOR_LONGDESC",		"../ui/menu/items/passive_icons/assault_reactor",			"../ui/menu/items/passive_icons/assault_reactor" )
 	CreatePassiveData( itemType.TITAN_PASSIVE1, 	DEV_ENABLED,	0, 	null, 	null, "pas_build_up_nuclear_core", 	"#GEAR_NUCLEAR_CORE",		"#GEAR_NUCLEAR_CORE_DESC",			"#GEAR_NUCLEAR_CORE_LONGDESC",			"../ui/menu/items/passive_icons/build_up_nuclear_core",		"../ui/menu/items/passive_icons/build_up_nuclear_core" )
-	CreatePassiveData( itemType.TITAN_PASSIVE1, 	DEV_ENABLED,	0, 	null, 	null, "pas_defensive_core", 		"#GEAR_DEFENSE_REACTOR",	"#GEAR_DEFENSE_REACTOR_DESC",		"#GEAR_DEFENSE_REACTOR_LONGDESC",		"../ui/menu/items/passive_icons/defensive_core",			"../ui/menu/items/passive_icons/defensive_core" )
+	CreatePassiveData( itemType.TITAN_PASSIVE1, 	DEV_ENABLED,	0, 	null, 	null, "pas_defensive_core", 		"#GEAR_DEFENSE_REACTOR",	"#GEAR_DEFENSE_REACTOR_DESC",		TACTICAL_REACTOR_LONGDESCv2,		"../ui/menu/items/passive_icons/defensive_core",			"../ui/menu/items/passive_icons/defensive_core" )
 
 	CreatePassiveData( itemType.TITAN_PASSIVE2, 	DEV_ENABLED,	0, 	null, 	null, "pas_hyper_core", 			"#GEAR_HYPER_CORE",			"#GEAR_HYPER_CORE_DESC",			"#GEAR_HYPER_CORE_LONGDESC",			"../ui/menu/items/passive_icons/hyper_core",				"../ui/menu/items/passive_icons/hyper_core" )
 	CreatePassiveData( itemType.TITAN_PASSIVE2, 	DEV_ENABLED,	0, 	null, 	null, "pas_marathon_core", 			"#GEAR_MARATHON_CORE",		"#GEAR_MARATHON_CORE_DESC",			"#GEAR_MARATHON_CORE_LONGDESC",			"../ui/menu/items/passive_icons/marathon_core",				"../ui/menu/items/passive_icons/marathon_core" )
@@ -831,22 +831,21 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_autopistol_spectre_kills", 		1, 		"mp_weapon_autopistol",		"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 10, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_autopistol_kills", 				1, 		"mp_weapon_autopistol",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, -5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_autopistol_pilot_kills", 		1, 		"mp_weapon_autopistol",		"starburst",					"#MOD_STARBURST_NAME",			"#MOD_STARBURST_DESC",				MOD_STARBURST_AUTOPISTOL_LONGDESCv2,	0, -5, 0, 10, 0, 		"../ui/menu/items/mod_icons/starburst", 			"../ui/menu/items/mod_icons/starburst" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_autopistol_headshots", 			1, 		"mp_weapon_autopistol",		"recoil_compensator",			"#MOD_RECOIL_COMPENSATOR_NAME",	"#MOD_RECOIL_COMPENSATOR_DESC",		MOD_RECOIL_COMPENSATOR_LONGDESCv2,		0, 10, 0, 0, 0, 			"../ui/menu/items/mod_icons/recoil_compensator",	"../ui/menu/items/mod_icons/recoil_compensator" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_autopistol_headshots", 			1, 		"mp_weapon_autopistol",		"recoil_compensator",			"#MOD_RECOIL_COMPENSATOR_NAME",	"#MOD_RECOIL_COMPENSATOR_DESC",		MOD_RECOIL_COMPENSATOR_LONGDESCv2,		0, 10, 0, 0, 0, 			"../ui/menu/items/mod_icons/recoil_compensator_v2",	"../ui/menu/items/mod_icons/recoil_compensator_v2" )
 
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_semipistol_spectre_kills", 		1, 		"mp_weapon_semipistol",		"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_semipistol_kills", 				1, 		"mp_weapon_semipistol",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, -5, -2, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_semipistol_pilot_kills", 		1, 		"mp_weapon_semipistol",		"match_trigger",				"#MOD_MATCH_TRIGGER_NAME",		"#MOD_MATCH_TRIGGER_DESC",			"#MOD_MATCH_TRIGGER_LONGDESC",			0, -8, 0, 10, 0, 		"../ui/menu/items/mod_icons/match_trigger", 		"../ui/menu/items/mod_icons/match_trigger" )
 
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_kills", 				1, 		"mp_weapon_wingman",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-10, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_pilot_kills", 			1, 		"mp_weapon_wingman",		"explosive_rounds",				"#MOD_EXPLOSIVE_ROUNDS_NAME",	"#MOD_EXPLOSIVE_ROUNDS_DESC",		MOD_EXPLOSIVE_ROUNDS_DESCv2,			15, 0, 0, -2, 0, 		"../ui/menu/items/mod_icons/rapid_fire_missiles", 	"../ui/menu/items/mod_icons/rapid_fire_missiles" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_pilot_kills", 			1, 		"mp_weapon_wingman",		"explosive_rounds",				"#MOD_EXPLOSIVE_ROUNDS_NAME",	"#MOD_EXPLOSIVE_ROUNDS_DESC",		MOD_EXPLOSIVE_ROUNDS_LONGDESCv2,			15, 0, 0, -2, 0, 		"../ui/menu/items/mod_icons/explosive_rounds", 	"../ui/menu/items/mod_icons/explosive_rounds" )
 
-	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_crits", 					1, 		"mp_weapon_smr",			"tank_buster",					"#MOD_TANK_BUSTER_NAME",		"#MOD_TANK_BUSTER_DESC",			MOD_TANK_BUSTER_DESCv2,					20, 0, 0, -10, -13, 			"../ui/menu/items/mod_icons/slammer",				"../ui/menu/items/mod_icons/slammer" )
-	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_titan_kills", 				1, 		"mp_weapon_smr",			"stabilized_warhead",			"#MOD_STABILIZED_WARHEAD_NAME",	"#MOD_STABILIZED_WARHEAD_DESC",		MOD_STABILIZED_WARHEAD_DESCv2,			0, 15, 0, -13, 0, 			"../ui/menu/items/mod_icons/rapid_fire_missiles",	"../ui/menu/items/mod_icons/rapid_fire_missiles" )
+	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_crits", 					1, 		"mp_weapon_smr",			"tank_buster",					"#MOD_TANK_BUSTER_NAME",		"#MOD_TANK_BUSTER_DESC",			MOD_TANK_BUSTER_DESCv2,					20, 0, 0, -10, -13, 			"../ui/menu/items/mod_icons/tank_buster",				"../ui/menu/items/mod_icons/tank_buster" )
+	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_smr_titan_kills", 				1, 		"mp_weapon_smr",			"stabilized_warhead",			"#MOD_STABILIZED_WARHEAD_NAME",	"#MOD_STABILIZED_WARHEAD_DESC",		MOD_STABILIZED_WARHEAD_DESCv2,			0, 15, 0, -13, 0, 			"../ui/menu/items/mod_icons/stabilized_warhead",	"../ui/menu/items/mod_icons/stabilized_warhead" )
 
 	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_DISABLED,	0, 	"ch_archer_titan_kills", 			1, 		"mp_weapon_rocket_launcher","guided_missile",				"#MOD_GUIDED_MISSILE_NAME",		"#MOD_GUIDED_MISSILE_DESC",			"#MOD_GUIDED_MISSILE_DESC",				0, 0, 0, 0, 0, 			"../ui/menu/items/mod_icons/rapid_fire_missiles",	"../ui/menu/items/mod_icons/rapid_fire_missiles", HideFromMenus )
 
-	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_mgl_titan_kills", 				1, 		"mp_weapon_mgl",			"long_fuse",					"#MOD_LONG_FUSE_NAME",			"#MOD_LONG_FUSE_DESC",				MOD_LONG_FUSE_DESCv2,					0, 0, 0, 0, 0, 			"../ui/menu/items/mod_icons/mine_field",			"../ui/menu/items/mod_icons/mine_field" )
-	// CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_mgl_titan_kills", 				1, 		"mp_weapon_mgl",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 2, 			"../ui/menu/items/mod_icons/extended_ammo",			"../ui/menu/items/mod_icons/extended_ammo" )
+	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_mgl_titan_kills", 				1, 		"mp_weapon_mgl",			"long_fuse",					"#MOD_LONG_FUSE_NAME",			"#MOD_LONG_FUSE_DESC",				MOD_LONG_FUSE_DESCv2,					0, 0, 0, 0, 0, 			"../ui/menu/items/mod_icons/long_fuse",			"../ui/menu/items/mod_icons/long_fuse" )
 
 	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega1", 				"../ui/menu/items/weapon_valkyrie" )
 	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega2", 				"../ui/menu/items/weapon_twinbshotgun" )
@@ -865,24 +864,17 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_pilot_kills", 			0, 		"mp_weapon_mega1",			"stabilizer",					"#MOD_STABILIZER_NAME",			"#MOD_STABILIZER_DESC",				"#MOD_STABILIZER_LONGDESC",				0, 6, 0, 0, 0, 			"../ui/menu/items/mod_icons/stabilizer", 			"../ui/menu/items/mod_icons/stabilizer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega1",			"burn_mod_valkyrie", 				"#BC_VALKYRIE_M2",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_pilot_kills",			1, 		"mp_weapon_mega2",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/spread_increase_sg", 	"../ui/menu/items/mod_icons/spread_increase_sg" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_pilot_kills",			1, 		"mp_weapon_mega2",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/leadwall", 				"../ui/menu/items/mod_icons/leadwall" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_kills", 				1, 		"mp_weapon_mega2",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega2",			"burn_mod_twinb", 			"#BC_TWINB_SHOTGUN_M2",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
-	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_shotgun",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
-	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_g2",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
-	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_hemlok",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
-	
-	// CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 10, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo", HideFromMenus )
-	// CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, -5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer", HideFromMenus )
-	
 	////////////////////
 	//TITAN WEAPON DATA
 	////////////////////
 	CreateWeaponData( itemType.TITAN_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_titanweapon_shotgun", 				"../ui/menu/items/titanweapon_shotgun" )
 
 	// DEV_DISABLED for now, they're extremely OP
-	CreateWeaponData( itemType.TITAN_PRIMARY, 		DEV_DISABLED,	0, 		null, 	null, "mp_weapon_mega3", 				"../ui/menu/items/titanweapon_minigun", HideFromMenus )
+	CreateWeaponData( itemType.TITAN_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega3", 				"../ui/menu/items/titanweapon_minigun" )
 	CreateWeaponData( itemType.TITAN_SPECIAL,		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega4", 				"../ui/menu/items/ability_icons/charge_cannon",				"../ui/menu/items/ability_icons/charge_cannon", null )
 
 	CreateWeaponData( itemType.TITAN_ORDNANCE,		DEV_ENABLED,	0,		null, 	null, "mp_titanweapon_shoulder_turret", 	"../ui/menu/items/titanweapon_shoulder_rockets",		"HUD/coop/mini_turret_counter", 	"../ui/menu/items/titanweapon_shoulder_rockets", HideFromMenus )
@@ -890,13 +882,11 @@ function CreateR1DeltaItems()
 	////////////////////
 	//TITAN MOD DATA
 	////////////////////
-	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_triple_threat_pilot_kills",		 	1, 		"mp_titanweapon_triple_threat",		"hydraulic_launcher",		"#MOD_HYDRAULIC_LAUNCHER_NAME",			"#MOD_HYDRAULIC_LAUNCHER_DESC",			MOD_HYDRAULIC_LAUNCHER_LONGDESC,			0, 0, 7, -5, 0, 		"../ui/menu/items/mod_icons/instant_shot", 		"../ui/menu/items/mod_icons/instant_shot" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_triple_threat_pilot_kills",		 	1, 		"mp_titanweapon_triple_threat",		"hydraulic_launcher",		"#MOD_HYDRAULIC_LAUNCHER_NAME",			"#MOD_HYDRAULIC_LAUNCHER_DESC",			MOD_HYDRAULIC_LAUNCHER_LONGDESC,			0, 0, 15, -5, 0, 		"../ui/menu/items/mod_icons/hydraulic_launcher", 		"../ui/menu/items/mod_icons/hydraulic_launcher" )
 	
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_kills", 					1, 		"mp_titanweapon_shotgun",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
-	// CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Semi Converter",			"Semi-automatic weapon fire",			MOD_SEMI_CONVERTER_LONGDESC,			5, -5, 0, -7, 0, 		"../ui/menu/items/mod_icons/high_capacity_drum",	 		"../ui/menu/items/mod_icons/high_capacity_drum" )
-
-	// CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_titanweapon_shotgun",				"burn_mod_titan_shotgun", 					"#BC_TITAN_SHOTGUN_M2",				"#BC_TITAN_SHOTGUN_M2_FLYOUT_DESC",				"#BC_TITAN_SHOTGUN_M2_FLYOUT_DESC",				0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
@@ -965,6 +955,7 @@ function CreateR1DeltaItems()
 	itemData["mp_titanweapon_arc_cannon"].longdesc =       arc_cannon_LONG_DESC
 
 	itemData["mp_titanweapon_vortex_shield"].longdesc =  vortex_LONG_DESC
+	itemData["mp_weapon_mega4"].desc =  mega4_Desc_v2
 	itemData["mp_weapon_mega4"].longdesc =  mega4_LONG_DESC
 
 }
