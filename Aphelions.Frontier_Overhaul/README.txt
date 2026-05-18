@@ -1,4 +1,5 @@
 (Thank you to ASILLYNEKO and FRANN for making the original Extended Attrition mod!)
+Mod authors: ASillyNeko, Frann, 07zj, Nachos, StoneCold, and Aphelion
 
 This is a modified version of Extended Attrition. This is meant to be a more hardcore solo experience, like playing the TF|2 campaign on Master difficulty. NPCs are now an actual threat that will kill you if you aren't careful! You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
@@ -21,8 +22,7 @@ This mod currently includes:
 	* Aphelion's Instant Takeoff Evac
 	* Aphelion's Item Descriptions
 	
-These come included because, taken separately, they cause scripting conflicts with FO. They've since been integrated, meaning this also serves as an unofficial modpack for R1Delta.
-
+These come included because, taken separately, they will cause scripting conflicts with FO and break the game. They've since been integrated, meaning this also serves as an unofficial modpack for R1Delta.
 
 ///// HOW DO THE NPC PILOTS WORK? /////
 	Currently, they are just re-skinned grunts. They have maxed accuracy, increased movement speed, and can use any Pilot primary. They have a chance to spawn along grunts in drop pods (à la Battle of Demeter). Since they're just grunt model-swaps, they will only grant 1 point when killed in Attrition. They have the same health as a human player (200) but are nowhere near as intelligent. Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro.	Wall-running seems to be near-impossible to implement… at the present moment, anyways.
@@ -43,7 +43,7 @@ In Campaign:
 
 ///// HOW DO THE OBJECTIVE-BASED MODES WORK? /////
 Hardpoint Domination:
-	Grunts will (kind of) push the objective. It's a bit finicky. The AI is still a work-in-progress. As a player, you will cap points slightly faster than in the base game. Enemy grunts will capture points faster than your grunts. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any grunts/player, if it gets inside the capture zone.
+	Grunts will (kind of) push the objective. It's a bit finicky and the AI is still a work-in-progress. As a player, you will cap points slightly faster than in the base game. Enemy grunts will capture points faster than your grunts. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any grunts/player, if it gets inside the capture zone.
 
 Capture the Flag:
 	Gonna be honest, this one is still quite janky... But basically, if a grunt gets close to an enemy flag, it will automatically capture it. Grunts are *supposed* to have attacker/defender AI, but like Hardpoint, it can be kind of inconsistent. I'll be ironing it out in the future.
@@ -53,12 +53,10 @@ Capture the Flag:
 EVA-8 Shotgun:
 	* Run-n-Gun kit now applies
 	* Full-auto mod (fire rate is slower than the Burn Card version)
-	* Slightly buffed the range
+	* Slightly buffed the range for the player
 	* Range is slightly nerfed for npcs (getting shotgun-sniped was annoying)
 Charge Rifle:
 	* Added charge hack mod
-Kraber-AP Sniper:
-	* Added an anti-Titan mod
 B3 Wingman:
 	* Does enough damage to one-shot grunts, like a proper hand cannon
 	* Explosive round mod does a tiny bit more non-explosive damage
@@ -70,7 +68,7 @@ Mag Launcher:
 	* Added an extended mag mod
 TWIN-B:
 	* Does enough damage to one-shot grunt captains at close range
-	* Added double tap mod
+	* Added double tap mod to shoot both barrels at once
 	* Upscaled the loadout preview image
 WYS-0404:
 	* Does more damage and has a slightly higher fire rate
@@ -88,24 +86,26 @@ AG-8 THUNDERBOLT:
 	Just don't use the Thunderbolt in MP. It hasn't been fixed in base R1 yet.
 
 
+///// CAN I TURN DOWN THE DIFFICULTY? /////
+	Yes. By default, this mod sets the AI lethality to Very High. Simply bump it down to High or Normal if you find the AI to be too overbearing. They will still do the same damage as a player, they'll just be less accurate.
+
+
 ///// WHAT ENEMIES DOES THIS ADD? /////
 	Grunts, Grunt Captains, Spectres, Spectre variants, npc "Pilots", npc Titans, and Cloak Drones. This is basically a fusion of regular MP and Frontier Defense.
 
 
 ///// HOW DO THE SPECTRE VARIANTS WORK? /////
 SNIPER SPECTRES:
-There is a rare chance for a regular spectre squad to spawn as a sniper spectre squad. They can spawn with any of the three sniper weapons. They will always be cloaked and will only de-cloak when they have line of sight on an enemy to shoot
+There is a rare chance for a regular spectre squad to spawn as a sniper spectre squad. They can spawn with any of the three sniper weapons. They will always be cloaked and will only de-cloak when they have line of sight on an enemy to shoot.
 
 SUICIDE SPECTRES:
 	There is a random chance for them to spawn in their own dedicated waves mid-late game. They have several Pilots' worth of health so that grunts don't drop them immediately. They will die without exploding if they take enough damage. They also do increased damage to both Pilots and Titans and have increased sprint speed compared to the base game.
 	* Any grunt/spectre/Pilot melee will instant-kill them without blowing up, as will getting hit with any kind of electrical damage.
-	* Getting stepped on by a Titan or hit by a Titan weapon will blow them up, as will getting hit with any kind of laser damage.
+	* Getting stepped on by a Titan or hit by any Titan weapon will blow them up, as will getting hit with any kind of laser damage.
 
 
 ///// CAN I USE THIS MOD FOR A SERVER? /////
 	Yes... but honestly, I would advise against it. The main threat in a MP match is the other players. The AI is just there for set dressing. But in this mod, the AI is the main threat. And you have to shift your playstyle accordingly. It would be like trying to merge Halo 2 on Legendary into the regular MP sessions. The two styles of gameplay will clash heavily, and the end result is just not very fun.
 
-
-Mod authors: ASillyNeko, Frann, Nachos, StoneCold, and Aphelion
 
 Good luck, have fun!
