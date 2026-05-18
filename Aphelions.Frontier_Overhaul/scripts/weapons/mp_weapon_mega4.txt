@@ -48,8 +48,8 @@ WeaponData
 	"damage_far_distance" 							"3000"
 	"damage_near_value"   							"200"
 	"damage_far_value"								"200"
-	"damage_near_value_titanarmor"					"800" // "1000"
-	"damage_far_value_titanarmor" 					"800" // "1000"
+	"damage_near_value_titanarmor"					"1000"
+	"damage_far_value_titanarmor" 					"1000"
 
 	"critical_hit_damage_scale"						"1.5"
 	"critical_hit"  								"1"
