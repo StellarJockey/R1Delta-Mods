@@ -713,7 +713,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		// Instant explosion when stepped on, hit by a Titan weapon, or a laser weapon
 		case eDamageSourceId.titan_step:
 		case eDamageSourceId.titan_melee:
-		case eDamageSourceId,mp_weapon_sniper:
+		case eDamageSourceId.mp_weapon_sniper:
 		case eDamageSourceId.mp_titanweapon_shotgun:
 		case eDamageSourceId.mp_titanweapon_40mm:
 		case eDamageSourceId.mp_titanweapon_xo16:
