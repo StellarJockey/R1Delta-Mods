@@ -1785,18 +1785,20 @@ function TeamDeathmatchSpawnNPCsThink()
 		thread SpawnPilotWithTitans( TEAM_MILITIA )
 	}
 
-	// WAVE SPAWNING (Suicide spectres and cloak drones won't spawn in Titan-based modes)
+	// WAVE SPAWNING (Spectre variants and cloak drones won't spawn in Titan-based modes)
 	if ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == CAPTURE_THE_FLAG )
 	{
 		if ( !Flag( "Disable_IMC" ) )
 		{
 			thread SuicideSpectreWaveThink( TEAM_IMC )
 			thread CloakDroneWaveThink( TEAM_IMC )
+			thread SniperSpectreWaveThink( TEAM_IMC )
 		}
 		if ( !Flag( "Disable_MILITIA" ) )
 		{
 			thread SuicideSpectreWaveThink( TEAM_MILITIA )
 			thread CloakDroneWaveThink( TEAM_MILITIA )
+			thread SniperSpectreWaveThink( TEAM_MILITIA )
 		}
 	}
     
@@ -1863,10 +1865,6 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
 	local shouldSpawnSpectre = ShouldSpawnSpectre( team )
 
-	// Prevent Spectres and Sniper Spectres from spawning in Refueling Raid
-	if ( GetMapName() == "mp_fracture" && GetCurrentPlaylistName() == "campaign_carousel" )
-		shouldSpawnSpectre = false
-
 	local squadIndex = TryGetSmallestValidSquad( team, shouldSpawnSpectre )
 	if ( squadIndex == null )
 		return
@@ -1912,15 +1910,8 @@ function SpawnFrontlineSquad( team, numFreeSlots )
     local roll = RandomFloat( 0, 1 ) 
 
     if ( shouldSpawnSpectre )
-    {
-        if ( allowSnipers && roll < 0.30 ) // (30% chance)
-        {
-             npcArray = Spawn_TrackedDropPodSquad( "npc_spectre", team, squadSize, spawnPoint, squadName, false, SpawnSniperSpectre )
-        }
-        else
-        {
-            npcArray = Spawn_TrackedDropPodSpectreSquad( team, squadSize, spawnPoint, squadName )
-        } 
+	{
+        npcArray = Spawn_TrackedDropPodSpectreSquad( team, squadSize, spawnPoint, squadName )
     }
 	else
 	{
@@ -1957,12 +1948,12 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
 function SuicideSpectreWaveThink( team )
 {
-	// Prevent Suicide Spectres from spawning in Refueling Raid
-	if ( GetMapName() == "mp_fracture" || GetMapName() == "colony" && GetCurrentPlaylistName() == "campaign_carousel" )
+	// Prevent Spectre variants from spawning in the Campaign
+	if ( GetCurrentPlaylistName() == "campaign_carousel" )
 		return
 
-    // Wait until the 4-minute mark before starting waves
-    wait 240.0 
+    // Wait until the 3.5-minute mark before starting waves, can spawn as soon as 4.5 minutes
+    wait 210.0 + RandomFloat( 0.0, 45.0 )
 
     while ( IsNPCSpawningEnabled() )
     {
@@ -1995,8 +1986,12 @@ function SuicideSpectreWaveThink( team )
 
 function CloakDroneWaveThink( team )
 {
-    // Wait until the 3.5-minute mark before starting waves
-    wait 210.0 
+	// Prevent Cloak Drones from spawning in the Campaign
+	if ( GetCurrentPlaylistName() == "campaign_carousel" )
+		return
+
+    // Wait until the 3-minute mark before starting waves, can spawn as soon as 4 minutes
+    wait 180.0 + RandomFloat( 0.0, 45.0 )
 
     while ( IsNPCSpawningEnabled() )
     {
@@ -2023,6 +2018,50 @@ function CloakDroneWaveThink( team )
         }
     }
 }
+
+function SniperSpectreWaveThink( team )
+{
+	// Prevent Spectre variants from spawning in the Campaign
+	if ( GetCurrentPlaylistName() == "campaign_carousel" )
+		return
+
+    // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
+    wait 60.0 + RandomFloat( 0.0, 45.0 )
+
+    while ( IsNPCSpawningEnabled() )
+    {
+        // Wait a set interval before rolling for the next potential wave
+        wait RandomFloat( 60.0, 150.0 )
+
+        // 20% chance to spawn the sniper pods
+        if ( RandomFloat( 0.0, 1.0 ) > 0.20 )
+            continue
+
+        // Find valid spawn points for the wave
+        local spawnPoints = SpawnPoints_GetDropPod()
+        
+        // Define how many pods you want in the wave
+        local podsToSpawn = 2
+        local squadSize = 3
+      
+        local squadName = MakeSquadName( team, GetIndexSmallestSquad( team ) )
+
+        for ( local i = 0; i < podsToSpawn; i++ )
+        {
+            if ( spawnPoints.len() > i )
+            {
+                local sp = spawnPoints[i]
+                
+                // Spawn the pod using force = true to bypass max AI limits
+                Spawn_TrackedDropPodSquad( "npc_spectre", team, squadSize, sp, squadName, true, SpawnSniperSpectre )
+                
+                // Add a tiny stagger so the drop pods don't clip into each other
+                wait RandomFloat( 0.5, 1.5 ) 
+            }
+        }
+    }
+}
+
 
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
