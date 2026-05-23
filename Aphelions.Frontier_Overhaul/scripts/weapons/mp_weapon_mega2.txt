@@ -53,7 +53,7 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"buckshot"
-	"damage_near_distance"							"330"
+	"damage_near_distance"							"300"
 	"damage_far_distance" 							"800"
 	"damage_near_value"   							"250"
 	"damage_far_value"								"35"
@@ -383,10 +383,16 @@ WeaponData
 		burn_mod_twinb
 		{
 			"crosshair_index"								"1"
+			"damage_near_distance"							"100++"
+			"damage_far_distance" 							"100++"
 
-			"is_burn_mod"		"1"
+			"is_burn_mod"									"1"
+			"ammo_stockpile_max"							"10++"
+			"ammo_default_total"							"10++"
+
+			"fire_rate"   									"2.8"
+			"is_burn_mod"									"1"
 		}
-
 		dev_10shells
 		{
 			"ammo_stockpile_max"							"400"
