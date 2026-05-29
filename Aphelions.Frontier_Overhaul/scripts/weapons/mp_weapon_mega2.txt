@@ -15,9 +15,9 @@ WeaponData
 	"minimap_reveal_distance"						"32000"
 
 	// Menu Stats
-	"stat_damage" 									"50"
-	"stat_range"  									"70"
-	"stat_accuracy"   								"65"
+	"stat_damage" 									"90"
+	"stat_range"  									"18"
+	"stat_accuracy"   								"15"
 	"stat_rof"										"30"
 
 	// Models
@@ -73,7 +73,7 @@ WeaponData
 
 	"impulse_force"   								"800"
 
-	"critical_hit_damage_scale"						"2.0"
+	"critical_hit_damage_scale"						"1.5"
 	"critical_hit"									"1"
 
 	// Ammo
@@ -368,8 +368,8 @@ WeaponData
 			"viewkick_yaw_random" 				"*1.2"
 			"viewkick_scale_max_hipfire"        "*1.2"
 
-			"ammo_stockpile_max"							"36"
-			"ammo_default_total"							"36"
+			"ammo_stockpile_max"							"46"
+			"ammo_default_total"							"46"
 
 			"fire_rate"   					"8"
 			"burst_fire_count"				"2"
