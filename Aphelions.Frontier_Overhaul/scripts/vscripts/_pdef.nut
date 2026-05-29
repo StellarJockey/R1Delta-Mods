@@ -164,9 +164,9 @@ function InitPersistence()
 	    mp_weapon_mega3 = 42 // Thunderbolt (minigun)
 	    mp_weapon_mega4 = 43 // Charge Cannon
 	    
-		// mp_weapon_mega9 = 44 // Unfinished R101 SMG
+		mp_weapon_mega9 = 44 // Unfinished R101 SMG
 
-		// mp_titanweapon_shoulder_turret = 44
+		// mp_titanweapon_shoulder_turret = 45
     }
 
     AddPersistenceEnum("loadoutItems", loadoutItems)
@@ -642,10 +642,11 @@ function InitPersistence()
 		// mp_weapon_g2_auto_converter = 127,
 		// mp_weapon_hemlok_auto_converter = 128,
 
-		// mp_weapon_mega9_extended_ammo = 126,
-		// mp_weapon_mega9_silencer = 127,
-		// mp_weapon_mega9_iron_sights = 128,
-		// mp_weapon_mega9_hcog = 129,
+		mp_weapon_mega9_extended_ammo = 130,
+		mp_weapon_mega9_burst = 131,
+		// mp_weapon_mega9_silencer = 131,
+		// mp_weapon_mega9_iron_sights = 132,
+		// mp_weapon_mega9_hcog = 133,
 		
 		
 		
