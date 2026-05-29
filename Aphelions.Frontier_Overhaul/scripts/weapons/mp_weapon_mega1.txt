@@ -16,9 +16,9 @@ WeaponData
 	"minimap_reveal_distance"						"32000"
 
 	// Menu Stats
-	"stat_damage" 									"100"
+	"stat_damage" 									"97"
 	"stat_range"  									"100"
-	"stat_accuracy"   								"50"
+	"stat_accuracy"   								"75"
 	"stat_rof"										"23"
 
 	// Models
