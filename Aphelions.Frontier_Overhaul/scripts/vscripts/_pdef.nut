@@ -644,6 +644,7 @@ function InitPersistence()
 
 		mp_weapon_mega9_extended_ammo = 130,
 		mp_weapon_mega9_burst = 131,
+		mp_weapon_rocket_launcher_match_trigger = 132,
 		// mp_weapon_mega9_silencer = 131,
 		// mp_weapon_mega9_iron_sights = 132,
 		// mp_weapon_mega9_hcog = 133,
