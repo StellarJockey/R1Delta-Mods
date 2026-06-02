@@ -2033,8 +2033,8 @@ function SniperSpectreWaveThink( team )
         // Wait a set interval before rolling for the next potential wave
         wait RandomFloat( 60.0, 150.0 )
 
-        // 20% chance to spawn the sniper pods
-        if ( RandomFloat( 0.0, 1.0 ) > 0.20 )
+        // 15% chance to spawn the sniper pods
+        if ( RandomFloat( 0.0, 1.0 ) > 0.15 )
             continue
 
         // Find valid spawn points for the wave
