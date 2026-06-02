@@ -257,8 +257,8 @@ WeaponData
 			"charge_time" 									"*0.6"
 			"impact_effect_table" 							"exp_arc_cannon"
 
-			"damage_near_value"   							"*0.7"
-			"damage_far_value"								"*0.7"
+			"damage_near_value"   							"190"
+			"damage_far_value"								"190"
 			"damage_near_value_titanarmor"					"*0.7"
 			"damage_far_value_titanarmor" 					"*0.7"
 		}

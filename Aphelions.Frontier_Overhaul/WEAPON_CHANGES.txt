@@ -1,0 +1,71 @@
+///// PILOT PRIMARIES /////
+EVA-8 SHOTGUN:
+* Run-n-Gun kit now applies
+* Full-auto mod (fire rate is slower than the Burn Card version)
+* Leadwall mod reduces damage by only 9% instead of 17%
+* Slightly buffed the range for the player
+* Headshots have been enabled
+* Range is slightly nerfed for npcs (getting shotgun-sniped was annoying)
+
+R1-S BURRELL SMG:
+* Restored cut SMG version of the R101. Still experimenting with its role and numbers
+* Temporarily removed because it will break the game if you try and use it outside the mod
+
+HEMLOK:
+* Small range buff
+* Very small damage buff
+
+R-97:
+* Reduced extra recoil for the scatterfire mod from 25% to 20%
+
+VALKYRIE:
+* Slight damage buff to headshots (x2 instead of x1.4)
+* Added the dark mode skin, since its base model is not very detailed or interesting. Black makes everything better
+
+CAR:
+* Buffed the range slightly
+
+SPITFIRE:
+* Reduced ADS time from 0.7 sec to 0.5 sec
+* Range buff
+
+///// PILOT SECONDARIES /////
+P2011:
+* Will 3-shot Pilots and Grunts at close range instead of 4
+* Burn card version adds an 3 extra rounds to your mag
+
+RE-45:
+* Will 5-shot Pilots at close range instead of 6
+
+TWIN-B:
+* Does enough damage to one-shot grunt captains (250 health) at close range 
+* Added double tap mod to shoot both barrels at once
+
+
+///// ANTI-TITAN WEAPONS /////
+ARCHER:
+* Added dumbfire rocket mod
+
+MAG LAUNCHER:
+* Added an extended mag mod
+
+CHARGE RIFLE:
+* Added charge hack mod
+
+
+///// TITAN PRIMARIES /////
+QUAD ROCKET:
+* Small damage buff against Titans
+
+WYS-0404:
+* Does a bit more damage against Titans
+* Added a single-shot mod that does massive damage
+
+AG-8 THUNDERBOLT:
+* Ammo is no longer infinite, will passively regenerate when not firing
+* Gun will "overheat" if ammo depletes, locking you out of firing until all ammo has regenerated
+* 50% movement speed penalty is applied when firing
+* Added the dark mode skin, since its base skin doesn't fit TF1's art style
+
+///// SLAVED WARHEADS /////
+* Small damage buff

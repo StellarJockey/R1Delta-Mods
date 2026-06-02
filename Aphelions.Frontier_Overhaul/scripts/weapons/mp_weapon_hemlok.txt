@@ -60,9 +60,9 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
-	"damage_near_distance"							"1700"
-	"damage_far_distance" 							"2300"
-	"damage_near_value"   							"66"
+	"damage_near_distance"							"1800" // "1700"
+	"damage_far_distance" 							"2400" // "2300"
+	"damage_near_value"   							"70" // "66"
 	"damage_far_value"								"50"
 	"damage_near_value_titanarmor"					"30"
 	"damage_far_value_titanarmor" 					"10"
@@ -74,8 +74,8 @@ WeaponData
 	"damage_leg_scale"								"1.0"
 
 	// Damage - When Used by NPCs
-	"npc_damage_near_distance"						"1700"
-	"npc_damage_far_distance" 						"2300"
+	"npc_damage_near_distance"						"1800"
+	"npc_damage_far_distance" 						"2400" 
 	"npc_damage_near_value"   						"66"
 	"npc_damage_far_value"							"50"
 	"npc_damage_near_value_titanarmor"				"30"
@@ -123,7 +123,7 @@ WeaponData
 	// Spread
 	"spread_stand_hip"								"5.5"
 	"spread_stand_hip_run"							"8.0"
-	"spread_stand_hip_sprint"                       "11.0"
+	"spread_stand_hip_sprint"                    	"11.0"
 	"spread_crouch_hip"   							"4.5"
 	"spread_air_hip"  								"11.0"
 
@@ -373,12 +373,12 @@ WeaponData
 		starburst
 		{
 			//STARBURST
-			//"description" 					"5-Round Burst Variant"
+			//"description" 				"5-Round Burst Variant"
 			"fire_rate"   					"20"
 			"burst_fire_count"				"5"
 			"burst_fire_delay"				"0.24"
 			"ammo_clip_size"				"25"
-			"viewkick_pitch_base" 							"-0.7"
+			"viewkick_pitch_base" 			"-0.7"
 			"viewkick_pitch_hardScale"		"1.65"
 			"burst_fire_sound_start"		"Weapon_hemlok.FirstShotStarburst"
 			"burst_fire_sound_middle"		"Weapon_hemlok.SecondShotStarburst"
@@ -430,8 +430,6 @@ WeaponData
 
 		auto_converter
 		{
-			"damage_near_value"   			"50"
-			"damage_far_value"				"35"
 
 			"fire_mode"   					"auto"
 			"fire_rate"						"11"
@@ -461,8 +459,8 @@ WeaponData
 			"viewkick_perm_yaw_random_innerexclude"			"0.2"
 			
 			"loopingsounds
-			"fire_sound_2"									"Weapon_CBR101.SecondShot1"
-			"fire_sound_2_npc"								"Weapon_CBR101.SecondShot1_NPC"
+			"fire_sound_2"									"Weapon_hemlok.SecondShot"
+			"fire_sound_2_npc"								"Weapon_hemlok.SecondShot"
 			"looping_sounds"								"1"
 		}
 		burn_mod_hemlok

@@ -62,8 +62,8 @@ WeaponData
     "damage_far_value"                               "60"
     "damage_falloff_type"                            "inverse"
     "damage_inverse_distance"                        "350"
-    "damage_near_value_titanarmor"                   "1000"
-    "damage_far_value_titanarmor"                    "250" //"550"
+    "damage_near_value_titanarmor"                   "1150" // "1000"
+    "damage_far_value_titanarmor"                    "250" // "550"
     
 
     "impulse_force"                                   "5000" //"15000"
@@ -84,9 +84,9 @@ WeaponData
     "ammo_default_total"                              "360"
 
     // Behavior
-    "fire_rate"                                       "5.8"
+    "fire_rate"                                       "5.5"
     "burst_fire_count"								  "3"
-	"burst_fire_delay"								  "0.9" //"0.6"
+	"burst_fire_delay"								  "1.0" //"0.6"
     "zoom_time_in"                                    "0.1"
     "zoom_time_out"                                   "0.1"
     "zoom_fov"                                        "50" //"58"
@@ -313,8 +313,8 @@ WeaponData
             "fire_sound_1"                                  "Weapon_Titan_Sniper_Level_4"
 
 
-            "damage_near_value_titanarmor"                "*2.5"
-            "damage_far_value_titanarmor"                 "*2.5"
+            "damage_near_value_titanarmor"                    "*2.5"
+            "damage_far_value_titanarmor"                     "*2.5"
             "npc_damage_near_value_titanarmor"                "*2.5"
             "npc_damage_far_value_titanarmor"                 "*2.5"
 

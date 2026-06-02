@@ -52,7 +52,7 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"buckshot"
-	"damage_near_distance"							"320" // "270"
+	"damage_near_distance"							"300" // "270"
 	"damage_far_distance" 							"850"
 	"damage_near_value"   							"285"
 	"damage_far_value"								"30"
@@ -329,11 +329,11 @@ WeaponData
 		}
 		"auto_converter"
 		{
-			"fire_rate"                         "2.2"
+			"fire_rate"                         "2.3"
 			"fire_mode"                         "auto"
-			"ammo_stockpile_max"				"70"
-			"ammo_clip_size"   					"7"
-			"ammo_default_total"				"70"
+			// "ammo_stockpile_max"				"70"
+			// "ammo_clip_size"   				"7"
+			// "ammo_default_total"				"70"
 		}
 		recoil_compensator
 		{
@@ -378,8 +378,8 @@ WeaponData
 			"spread_crouch_ads"  							"10"
 			"spread_air_hip"	   							"10"
 			"spread_air_ads"   								"10"
-			"damage_near_value"   							"/1.15"
-			"damage_far_value"								"/1.15"
+			"damage_near_value"   							"/1.1"
+			"damage_far_value"								"/1.1"
 		}
 		twin_slug
 		{

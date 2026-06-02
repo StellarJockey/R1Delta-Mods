@@ -56,14 +56,14 @@ WeaponData
 	"fire_sound_2"									"Weapon_P2011_Fire"
 
 	// Network
-	"net_optimize"		                            "1"
+	"net_optimize"		                          	"1"
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
-	"damage_near_distance"							"1050"  // match to search distance and red crosshair range
-	"damage_far_distance" 							"1500"
-	"damage_near_value"   							"60"
-	"damage_far_value"								"45"
+	"damage_near_distance"							"1200"  // "1050"; match to search distance and red crosshair range
+	"damage_far_distance" 							"1700" // "1500"
+	"damage_near_value"   							"70"	// "60"
+	"damage_far_value"								"60"	// "45"
 	"damage_near_value_titanarmor"					"30"
 	"damage_far_value_titanarmor" 					"10"
 	"damage_rodeo" 									"190"
@@ -287,7 +287,7 @@ WeaponData
 	"is_anti_titan"  							    "0"
 
 	// Crosshair
-	"red_crosshair_range" 							"1050"
+	"red_crosshair_range" 							"1200" // "1050"
 
 	// Bodygroups:
 	"bodygroup1_name"	"suppressor_cyl_sm"
@@ -324,9 +324,9 @@ WeaponData
 		}
 		silencer
 		{
-			"fire_sound_2"									"Weapon_P2011_FireSuppressed"
-			"damage_near_value"   							"50"
-			"damage_far_value"								"50"
+			"fire_sound_2"						"Weapon_P2011_FireSuppressed"
+			"damage_near_value"   				"60" // "50"
+			"damage_far_value"					"50" //	"50"
 			"bodygroup1_set"					"1"
 
 			//"rumble"  						"4"

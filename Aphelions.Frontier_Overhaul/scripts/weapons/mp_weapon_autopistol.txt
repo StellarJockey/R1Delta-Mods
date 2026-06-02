@@ -51,8 +51,8 @@ WeaponData
 	"fx_muzzle_flash_attach"						"muzzle_flash"
 
 	// Sound
-	"fire_sound_1_player_1p"							"Weapon_bulletCasings.Bounce"
-	"fire_sound_1_player_3p"							"Weapon_bulletCasings.Bounce"
+	"fire_sound_1_player_1p"						"Weapon_bulletCasings.Bounce"
+	"fire_sound_1_player_3p"						"Weapon_bulletCasings.Bounce"
 	"fire_sound_2"									"Weapon_RE45Auto_Fire"
 	"looping_sounds"								"1"
 
@@ -63,8 +63,8 @@ WeaponData
 	"damage_type" 									"bullet"
 	"damage_near_distance"							"1050"  // match to search distance and red crosshair range
 	"damage_far_distance" 							"1300"
-	"damage_near_value"   							"38"
-	"damage_far_value"								"30"
+	"damage_near_value"   							"40" // "38"
+	"damage_far_value"								"32" // "30"
 	"damage_near_value_titanarmor"					"20"
 	"damage_far_value_titanarmor" 					"10"
 	"damage_rodeo" 									"110"
@@ -339,7 +339,7 @@ WeaponData
 			"fire_sound_2"						"" //Weapon_SmartPistol.SuppressedFire_Layer1
 			"bodygroup1_set"					"1"
 			"damage_near_value"   				"25"
-			"damage_far_value"					"15" //Keeping the same because it's so low already.
+			"damage_far_value"					"25" // "15" Keeping the same because it's so low already.
 			//"rumble"  						"4"
 			"tracer_effect"   					"weapon_tracers_pistol"
 			"minimap_reveal_distance"			"1"

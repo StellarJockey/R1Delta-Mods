@@ -51,46 +51,7 @@ Gonna be honest, this one is still quite janky... But basically, if a grunt gets
 
 
 ///// WHAT WEAPONS HAVE BEEN CHANGED? /////
-EVA-8 SHOTGUN:
-* Run-n-Gun kit now applies
-* Full-auto mod (fire rate is slower than the Burn Card version)
-* Slightly buffed the range for the player
-* Headshots have been enabled
-* Range is slightly nerfed for npcs (getting shotgun-sniped was annoying)
-
-CHARGE RIFLE:
-* Added charge hack mod
-
-B3 WINGMAN:
-* Does enough damage to one-shot grunts, like a proper hand cannon
-* Explosive round mod does a tiny bit more non-explosive damage
-
-P2011:
-* Burn card version adds an 3 extra rounds to your mag
-
-VALKYRIE:
-* Slight damage buff to headshots
-* Added the dark mode skin, since its base model is low-poly and is not very detailed or interesting
-
-MAG LAUNCHER:
-* Added an extended mag mod
-
-TWIN-B:
-* Does enough damage to one-shot grunt captains at close range
-* Added double tap mod to shoot both barrels at once
-
-WYS-0404:
-* Does a bit more damage and has a slightly higher fire rate
-* Added a single-shot mod that does massive damage
-
-AG-8 THUNDERBOLT:
-* Ammo is no longer infinite, will passively regenerate when not firing
-* Gun will "overheat" if ammo depletes, locking you out of firing until all ammo has regenerated
-* Bullets will no longer sap enemy shields
-* 50% movement speed penalty is applied when firing
-* Added the dark mode skin, since its base skin is too colorful and plastic looking
-	
-All npcs weapons will do the same damage as player weapons. These FO-exclusive weapon mods will not carry over into regular MP matches, so don't worry about that. Just don't use the Thunderbolt in MP. It hasn't been fixed in base R1 yet.
+The list is quite extensive, so look at the WEAPON_CHANGES.txt file. It's mostly weapon buffs for those that needed it, as well as some FO-exclusive mods. All npc weapons will now do the same damage as player weapons. These FO-exclusive weapon mods will not carry over into regular MP matches, so don't worry about that. Just don't use the Thunderbolt in MP. It hasn't been fixed in base R1 yet.
 
 
 ///// CAN I TURN DOWN THE DIFFICULTY? /////

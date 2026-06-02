@@ -2,23 +2,23 @@ WeaponData
 {
 	// General
 	"printname"									"R1-S Burrell SMG"
-	"shortprintname"								"R1-S Burrell SMG"
-	"description"									"Variable SMG"
+	"shortprintname"							"Burrell SMG"
+	"description"								"Variable SMG"
 	"longdesc"									"The R1-S Burrell is an SMG variant of the R-101C that fires 8.19mm rounds at 900 RPM. At close range, it provides the same versatility of its long range counterpart. It was discontinued after being acquired by Siwhan Industries, and later became the C.A.R. SMG."
 
-	"weaponClass"									"human"
+	"weaponClass"								"human"
 	"body_type"									"close_quarters"
 	"fire_mode"									"auto"
-	"server_vscript"								"weapons/mp_weapon_rspn101_carbine"
-	"client_vscript"								"weapons/mp_weapon_rspn101_carbine"
-	"pickup_hold_prompt"							"Hold [USE] [WEAPONNAME]"
-	"pickup_press_prompt"							"[USE] [WEAPONNAME]"
-	"minimap_reveal_distance"						"32000"
+	"server_vscript"							"weapons/mp_weapon_rspn101_carbine"
+	"client_vscript"							"weapons/mp_weapon_rspn101_carbine"
+	"pickup_hold_prompt"						"Hold [USE] [WEAPONNAME]"
+	"pickup_press_prompt"						"[USE] [WEAPONNAME]"
+	"minimap_reveal_distance"					"32000"
 
 	// Menu Stats
-	"stat_damage" 									"38"
-	"stat_range"  									"26"
-	"stat_accuracy"   								"45"
+	"stat_damage" 								"38"
+	"stat_range"  								"26"
+	"stat_accuracy"   							"45"
 	"stat_rof"									"75"
 
 	// Models

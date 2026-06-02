@@ -57,7 +57,7 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
-	"damage_near_distance"							"1000"
+	"damage_near_distance"							"1500" // "1000"
 	"damage_far_distance" 							"2000"
 	"damage_near_value"   							"70"
 	"damage_far_value"								"45"
@@ -90,8 +90,8 @@ WeaponData
 
 	// Behavior
 	"fire_rate"   									"9.0"
-	"zoom_time_in"									"0.7"
-	"zoom_time_out"   								"0.8"
+	"zoom_time_in"									"0.5" // "0.7"
+	"zoom_time_out"   								"0.6" // "0.8"
 	"zoom_fov"										"55"
 	"reload_time" 									"2.8"
 	"reload_time_late1"								"1.8"
@@ -136,7 +136,7 @@ WeaponData
 	"spread_kick_on_fire_crouch_hip"  				"0.5"
 	"spread_kick_on_fire_crouch_ads"  				"0.0"
 	"spread_kick_on_fire_air_hip" 					"0.5"
-	"spread_kick_on_fire_air_ads" 					"0.0"
+	"spread_kick_on_fire_air_ads" 					"0.0" 
 
 	"spread_max_kick_stand_hip"   					"13.0"
 	"spread_max_kick_stand_ads"   					"0.0"
