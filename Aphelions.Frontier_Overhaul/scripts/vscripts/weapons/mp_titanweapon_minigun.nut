@@ -4,7 +4,7 @@ chargeDownSoundDuration <- 1.0
 RegisterSignal( "OnDeactivate" )
 const MINIGUN_COOL_DELAY = 0.5
 const TITAN_SLOW_SPEED = 0.5
-const MINIGUN_REGEN_RATE = 20.0
+const MINIGUN_REGEN_RATE = 20.0 
 
 function OnWeaponActivate( activateParams )
 {
