@@ -1,4 +1,7 @@
 ///// PILOT PRIMARIES /////
+R101-C CARBINE:
+* Small increase to ADS recoil
+
 EVA-8 SHOTGUN:
 * Run-n-Gun kit now applies
 * Full-auto mod (fire rate is slower than the Burn Card version)
@@ -67,5 +70,9 @@ AG-8 THUNDERBOLT:
 * 50% movement speed penalty is applied when firing
 * Added the dark mode skin, since its base skin doesn't fit TF1's art style
 
-///// SLAVED WARHEADS /////
+///// TITAN ORDNANCE /////
+SLAVED WARHEADS:
 * Small damage buff
+
+SHOULDER TURRET:
+* Added in the Titan Shoulder Turret. Reduced its active time from 20 seconds to 15 seconds

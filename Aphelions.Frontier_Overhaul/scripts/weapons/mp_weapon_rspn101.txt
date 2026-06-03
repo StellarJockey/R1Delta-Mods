@@ -157,19 +157,19 @@ WeaponData
 	"viewkick_spring" 								"rspn101"
 
 	"viewkick_pitch_base" 							"-0.35"
-	"viewkick_pitch_random"   						"0.2"
+	"viewkick_pitch_random"   						"0.5" // "0.2"
 	"viewkick_pitch_softScale"						"1.0"
 	"viewkick_pitch_hardScale"						"1.0"
 
 	"viewkick_yaw_base"   							"0.0"
-	"viewkick_yaw_random" 							"0.3"
+	"viewkick_yaw_random" 							"0.5" // "0.3"
 	"viewkick_yaw_random_innerexclude"				"0.15"
 	"viewkick_yaw_softScale"  						"1.2"
 	"viewkick_yaw_hardScale"  						"0.8"
 
 	"viewkick_roll_base"  							"0"
-	"viewkick_roll_randomMin" 						"0.1"
-	"viewkick_roll_randomMax" 						"0.2"
+	"viewkick_roll_randomMin" 						"0.3" // "0.1"
+	"viewkick_roll_randomMax" 						"0.4" // "0.2"
 	"viewkick_roll_softScale" 						"0.2"
 	"viewkick_roll_hardScale" 						"1.85"
 
