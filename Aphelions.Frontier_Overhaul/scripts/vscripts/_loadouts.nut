@@ -663,7 +663,7 @@ function GetUnlockLevelForCustomLoadout( loadoutClass, slot )
 {
 	if ( loadoutClass == "pilot" )
 		return unlockLevels[ "pilot_custom_loadout_" + ( slot + 1 ) ]
-	else if ( loadoutClass = "titan" )
+	else if ( loadoutClass == "titan" )
 		return unlockLevels[ "titan_custom_loadout_" + ( slot + 1 ) ]
 	else
 		Assert( 0, "Invalid loadout class" )
