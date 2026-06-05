@@ -1651,12 +1651,13 @@ function FillBurnCardDeckFromArray( player, array )
 	}
 
 	// Fill only the slots provided in the array
-	foreach (index, card in array)
+	for ( local i = 0; i < array.len(); i++ )
 	{
+		local card = array[i]
 		if( card != null )
 		{
-			player.SetPersistentVar( _GetBurnCardDeckPersDataPrefix() + "[" + index + "]", card.cardRef )
-			player.SetPersistentVar( _GetBurnCardPersPlayerDataPrefix() + ".burnCardIsNew[" + index + "]", card.new )
+			player.SetPersistentVar( _GetBurnCardDeckPersDataPrefix() + "[" + i + "]", card.cardRef )
+			player.SetPersistentVar( _GetBurnCardPersPlayerDataPrefix() + ".burnCardIsNew[" + i + "]", card.new )
 		}
 	}
 }
