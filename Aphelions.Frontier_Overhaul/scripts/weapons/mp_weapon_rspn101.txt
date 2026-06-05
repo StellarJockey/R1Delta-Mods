@@ -74,8 +74,8 @@ WeaponData
 	// Damage - When Used by NPCs
 	"rest_time_between_bursts_min"					"0.2"
 	"rest_time_between_bursts_max"					"1.0"
-	"npc_damage_near_distance"						"2000"
-	"npc_damage_far_distance" 						"2400"
+	"npc_damage_near_distance"						"1450" // "2000"
+	"npc_damage_far_distance" 						"2100" // "2400"
 	"npc_damage_near_value"   						"50"
 	"npc_damage_far_value"							"40"
 	"npc_damage_near_value_titanarmor"				"25"
@@ -128,13 +128,13 @@ WeaponData
 	"spread_crouch_hip"   							"4.5"
 	"spread_air_hip"  								"11.0"
 
-	"spread_stand_ads"								"0.35"
+	"spread_stand_ads"								"0.4" // "0.35"
 	"spread_crouch_ads"   							"0.35"
 	"spread_air_ads"  								"0.5"
 
-	"spread_kick_on_fire_stand_hip"   				"0.5"
+	"spread_kick_on_fire_stand_hip"   				"0.6" // "0.5"
 	"spread_kick_on_fire_crouch_hip"  				"0.5"
-	"spread_kick_on_fire_air_hip" 					"0.5"
+	"spread_kick_on_fire_air_hip" 					"0.6" // "0.5"
 
 	"spread_kick_on_fire_stand_ads"   				".075"
 	"spread_kick_on_fire_crouch_ads"  				".05"
@@ -144,9 +144,9 @@ WeaponData
 	"spread_max_kick_crouch_hip"  					"5.0"
 	"spread_max_kick_air_hip" 						"8.0"
 
-	"spread_max_kick_stand_ads"   					"0.4"
+	"spread_max_kick_stand_ads"   					"0.6" // "0.4"
 	"spread_max_kick_crouch_ads"  					"0.4"
-	"spread_max_kick_air_ads" 						"0.4"
+	"spread_max_kick_air_ads" 						"0.9" // "0.4"
 
 	"spread_decay_delay"  							"0.1"
 	"spread_decay_rate"   							"4"

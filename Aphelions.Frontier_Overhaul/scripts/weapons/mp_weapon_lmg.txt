@@ -57,7 +57,7 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
-	"damage_near_distance"							"1500" // "1000"
+	"damage_near_distance"							"1250" // "1000"
 	"damage_far_distance" 							"2000"
 	"damage_near_value"   							"70"
 	"damage_far_value"								"45"
@@ -73,7 +73,7 @@ WeaponData
 	// Damage - When Used by NPCs
 	"rest_time_between_bursts_min"					"0.2"
 	"rest_time_between_bursts_max"					"1.0"
-	"npc_damage_near_distance"						"1000"
+	"npc_damage_near_distance"						"1250" // "1000"
 	"npc_damage_far_distance" 						"2000"
 	"npc_damage_near_value"   						"70"
 	"npc_damage_far_value"							"45"

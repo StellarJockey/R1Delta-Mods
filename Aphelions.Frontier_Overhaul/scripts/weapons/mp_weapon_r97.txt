@@ -72,8 +72,8 @@ WeaponData
 	// Damage - When Used by NPCs
 	"rest_time_between_bursts_min"					"0.2"
 	"rest_time_between_bursts_max"					"1.0"
-	"npc_damage_near_distance"						"900"
-	"npc_damage_far_distance" 						"1080"
+	"npc_damage_near_distance"						"860" // "900"
+	"npc_damage_far_distance" 						"1150" // "1080"
 	"npc_damage_near_value"   						"30"
 	"npc_damage_far_value"							"20"
 

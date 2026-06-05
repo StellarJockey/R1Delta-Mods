@@ -59,8 +59,8 @@ WeaponData
 	"damage_rodeo" 									"200"
 
 	// Damage - When Used by NPCs
-	"npc_damage_near_distance"						"800"
-	"npc_damage_far_distance" 						"1000"
+	"npc_damage_near_distance"						"1050" // "800"
+	"npc_damage_far_distance" 						"1500" // "1000"
 	"npc_damage_near_value"   						"67"
 	"npc_damage_far_value"							"67"
 	"npc_damage_near_value_titanarmor"				"40"
@@ -285,8 +285,8 @@ WeaponData
 	"smart_ammo_track_cloaked_targets"				"1"
 	"smart_ammo_targeting_time_min"					"0.37"
 	"smart_ammo_targeting_time_max"					"0.65"
-	"smart_ammo_targeting_time_min_npc"				"0.1"
-	"smart_ammo_targeting_time_max_npc"				"0.2"
+	"smart_ammo_targeting_time_min_npc"				"0.37" // "0.1"
+	"smart_ammo_targeting_time_max_npc"				"0.65" // "0.2"
 	"smart_ammo_targeting_time_modifier_projectile_owner"	"0.35"
 	"smart_ammo_target_max_locks_player"			"3"
 	"smart_ammo_target_max_locks_spectre"			"2"

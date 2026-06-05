@@ -45,16 +45,16 @@ WeaponData
 	"damage_type" 								"bullet"
 	"damage_near_distance"							"800"
 	"damage_far_distance" 							"1200"
-	"damage_near_value"   							"205" //was 185
-	"damage_far_value"							"205" //was 185
+	"damage_near_value"   							"220" // "205" was 185
+	"damage_far_value"							"220" // "205" was 185
 	"explosion_damage"							"1"
 	"explosion_damage_heavy_armor"						"2"
 
 	// Damage - When Used by NPCs
 	"npc_damage_near_distance"						"1000"
 	"npc_damage_far_distance" 						"1500"
-	"npc_damage_near_value"   						"205" //was 185
-	"npc_damage_far_value"							"205" //was 185
+	"npc_damage_near_value"   						"220" // "205" was 185
+	"npc_damage_far_value"							"220" // "205" was 185
 	"npc_explosion_damage"							"1"
 	"npc_explosion_damage_heavy_armor"					"2"
 
@@ -198,8 +198,8 @@ WeaponData
 			"smart_ammo_targeting_time_min"					"*0.6"
 			"smart_ammo_targeting_time_max"					"*0.6"
 
-			"damage_near_value"   							"205" //was 185
-			"damage_far_value"								"205" //was 185
+			"damage_near_value"   							"220" // "205" was 185
+			"damage_far_value"								"220" // "205" was 185
 
 			"is_burn_mod"		"1"
 		}

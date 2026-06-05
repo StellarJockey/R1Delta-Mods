@@ -67,7 +67,7 @@ WeaponData
 
 	// Damage - When Used by NPCs
 	"npc_damage_near_distance"						"800"
-	"npc_damage_far_distance" 						"1200"
+	"npc_damage_far_distance" 						"15000" // "1200"
 	"npc_damage_near_value"   						"50"
 	"npc_damage_far_value"							"50"
 	"npc_damage_near_value_titanarmor"				"197"

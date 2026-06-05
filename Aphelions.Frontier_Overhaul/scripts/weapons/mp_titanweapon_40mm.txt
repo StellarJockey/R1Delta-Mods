@@ -58,6 +58,7 @@ WeaponData
 	// Damage - When Used by NPCs
 	"npc_damage_near_value_titanarmor"					"900"
 	"npc_damage_far_value_titanarmor" 					"900"
+
 	"explosion_inner_radius"  						"50"
 	"explosionradius" 								"150"
 	"impulse_force"   								"60000" //"15000"

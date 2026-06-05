@@ -36,6 +36,14 @@ function OnWeaponPrimaryAttack( attackParams )
 
 	if ( self.HasMod( "semi_converter" ) )
 	{
+		self.EmitWeaponSound( "titan_shotgun_mega_fire" )
+		if ( attackParams.firstTimePredicted )
+			thread PlayCasingsSound( 1 )
+
+		self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
+
+		ShotgunBlast( attackParams.pos, attackParams.dir, PELLETS_PER_BARREL, damageTypes.Shotgun, 1 )
+
 		return 3
 	}
 
@@ -90,6 +98,14 @@ function OnWeaponNpcPrimaryAttack( attackParams )
 
 	if ( self.HasMod( "semi_converter" ) )
 	{
+		self.EmitWeaponSound( "titan_shotgun_mega_fire" )
+		if ( attackParams.firstTimePredicted )
+			thread PlayCasingsSound( 1 )
+
+		self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
+
+		ShotgunBlast( attackParams.pos, attackParams.dir, PELLETS_PER_BARREL, damageTypes.Shotgun, 1 )
+
 		return 3
 	}
 }

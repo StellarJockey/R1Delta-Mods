@@ -1,6 +1,7 @@
 ///// PILOT PRIMARIES /////
 R101-C CARBINE:
 * Small increase to ADS recoil
+* Small increase to weapon spread
 
 EVA-8 SHOTGUN:
 * Run-n-Gun kit now applies
@@ -15,8 +16,7 @@ R1-S BURRELL SMG:
 * Temporarily removed because it will break the game if you try and use it outside the mod
 
 HEMLOK:
-* Small range buff
-* Very small damage buff
+* Reduced weapon spread
 
 R-97:
 * Reduced extra recoil for the scatterfire mod from 25% to 20%
@@ -24,9 +24,6 @@ R-97:
 VALKYRIE:
 * Slight damage buff to headshots (x2 instead of x1.4)
 * Added the dark mode skin, since its base model is not very detailed or interesting. Black makes everything better
-
-CAR:
-* Buffed the range slightly
 
 SPITFIRE:
 * Reduced ADS time from 0.7 sec to 0.5 sec
@@ -62,6 +59,7 @@ QUAD ROCKET:
 
 WYS-0404:
 * Does a bit more damage against Titans
+* Small buff to fire rate
 * Added a single-shot mod that does massive damage
 
 AG-8 THUNDERBOLT:
