@@ -20,7 +20,7 @@ HEMLOK:
 
 VALKYRIE:
 * Slight damage buff to headshots (x2 instead of x1.4)
-* Added the dark mode skin, since its base model is not very detailed or interesting. Black makes everything better
+* Added the dark mode skin, since its base model is not very detailed or interesting. Black makes everything better >:)
 
 SPITFIRE:
 * Reduced ADS time from 0.7 sec to 0.5 sec
@@ -52,12 +52,12 @@ CHARGE RIFLE:
 
 ///// TITAN PRIMARIES /////
 QUAD ROCKET:
-* Small damage buff against Titans
+* Damage buff against Titans
 
 WYS-0404:
 * Does a bit more damage against Titans
-* Restored back to pre-nerf fire rate
-* Added a single-shot mod that does massive damage
+* Small burst delay decrease
+* Added the Lead Converter mod; increases fire rate, but range and damage are reduced
 
 AG-8 THUNDERBOLT:
 * Ammo is no longer infinite, will passively regenerate when not firing
