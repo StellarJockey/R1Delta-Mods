@@ -473,10 +473,14 @@ function ChangeOnDeckBurnCardToActive( player )
 {
     local cardIndex = GetPlayerBurnCardOnDeckIndex( player )
 
-    if( cardIndex == -1 )
+    if( cardIndex == -1 || cardIndex == null )
         return
 
     local cardRef = player.GetPersistentVar( _GetActiveBurnCardsPersDataPrefix() + "[" + cardIndex + "].cardRef" )
+
+    // ADDED: Validate cardRef before proceeding
+    if( cardRef == null || !( cardRef in level.burnCardsByName ) )
+        return
 
     local idx = GetBurnCardIndexByRef( cardRef )
 

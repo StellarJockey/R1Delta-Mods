@@ -182,6 +182,13 @@ function InitBurnCards( player )
 	if ( !UsingAlternateBurnCardPersistence() )
 		return
 
+	// Check if player already has cards in their deck from a multiplayer match
+	local existingDeck = GetPlayerBurnCardDeck( player )
+	
+	// Only initialize with default PM deck if player has no existing cards
+	if ( existingDeck.len() > 0 )
+		return
+
 	local pmDeck = [
 		{ cardRef = "bc_minimap", new = false }
 		{ cardRef = "bc_r97_m2", new = false }
