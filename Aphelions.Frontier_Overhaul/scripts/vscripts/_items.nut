@@ -26,7 +26,7 @@ const MEGA1_LONGDESC =     "The VSR-1 'Valkyrie' is a bolt-action sniper that fi
 const MEGA2_SHORTDESC =    "Sawn-off shotgun"
 const MEGA2_LONGDESC =     "The TWIN-B is a 12-gauge break-action shotgun. Originally used by colonists for game hunting, the barrel has been sawed down for easier concealment - making it highly illegal to own in most IMC districts."
 
-const r97_SCATTER_LONGDESC =  "This mod increases the R-97's rate of fire even further to 1,260 RPM and grants a small boost to rodeo damage. However, this also comes with a 20% increase to the weapon's recoil."
+const r97_SCATTER_LONGDESC =  "This mod increases the R-97's rate of fire even further to 1,260 RPM, tightens the hipfire spread, and grants a small boost to rodeo damage. However, this also comes with a 25% increase to the weapon's recoil."
 // const SP_TARGETMOD_LONGDESC = "This mod accelerates the Smart Pistol's lock-on speed and increases its target acquisition range, at the expense of a smaller targeting area.\n\nWARNING: Enemy Pilot will be notified as soon as lock-on begins."
 
 // Secondary DESCRIPTIONS
@@ -102,7 +102,7 @@ const MOD_ACCELERATOR_LONGDESC_V2 = 		"The accelerator slowly ramps up the weapo
 
 // FRONTIER OVERHAUL EXCLUSIVE MODS
 const MOD_AUTO_CONVERTER_LONGDESC =         "A receiver bypass makes this weapon fully automatic, increasing your rate of fire to 138 RPM. However, this comes at the cost of a slightly higher recoil."
-const MOD_SEMI_CONVERTER_LONGDESC =         "The PR-01 receiver makes this weapon semi-automatic, inflicting massive damage at the expense of a reduced firing rate and ammo capacity."
+const MOD_SEMI_CONVERTER_LONGDESC =         "A receiver bypass increases the burst-fire rate of the WYS, but its damage will be decreased by 10% and its effective range will be halved. It is optimized for hit-and-run style engagements."
 const MOD_DOUBLE_TAP_LONGDESC =			    "This mod allows you to pull both triggers and fire both barrels at once. Be mindful of your ammo reserve, as you will burn through it much faster."
 const MOD_CHARGE_HACK_LONGDESC = 			"A magnetron bypass allows the weapon to reach its full charge 40% faster, but will deal 30% less damage."
 const MOD_DUMBFIRE_LONGDESC = 				"This mod allows the Archer to be fired freely without locking on. However, the rocket will travel in a straight line once fired, and reloading will take slightly longer."
@@ -502,7 +502,7 @@ function InitItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_rspn101_kills", 				1, 		"mp_weapon_rspn101",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_shotgun_spectre_kills",			1, 		"mp_weapon_shotgun",		"extended_ammo", 				"#MOD_EXTENDED_DRUM_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 			"../ui/menu/items/mod_icons/high_capacity_drum", 	"../ui/menu/items/mod_icons/high_capacity_drum" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_shotgun_pilot_kills",			1, 		"mp_weapon_shotgun",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/leadwall", 				"../ui/menu/items/mod_icons/leadwall" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_shotgun_kills", 				1, 		"mp_weapon_shotgun",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_shotgun_kills", 				1, 		"mp_weapon_shotgun",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, -2, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_smart_pistol_pilot_kills", 		1, 		"mp_weapon_smart_pistol",	"enhanced_targeting",			"#MOD_ENHANCED_TARGETING_NAME",	"#MOD_ENHANCED_TARGETING_DESC",		"#MOD_ENHANCED_TARGETING_LONGDESC",		0, 0, 10, 5, 0, 		"../ui/menu/items/mod_icons/enhanced_targeting", 	"../ui/menu/items/mod_icons/enhanced_targeting" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_smart_pistol_spectre_kills", 	2, 		"mp_weapon_smart_pistol",	"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 6, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_smart_pistol_kills", 			1, 		"mp_weapon_smart_pistol",	"silencer", 					"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-10, 0, 0, -5, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
@@ -902,7 +902,7 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega1",			"burn_mod_valkyrie", 				"#BC_VALKYRIE_M2",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_pilot_kills",			1, 		"mp_weapon_mega2",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/leadwall", 				"../ui/menu/items/mod_icons/leadwall" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_kills", 				1, 		"mp_weapon_mega2",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_kills", 				1, 		"mp_weapon_mega2",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				"#MOD_SILENCER_LONGDESC",				-5, -2, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega2",			"burn_mod_twinb", 			"#BC_TWINB_SHOTGUN_M2",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_shotgun",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 0, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
@@ -935,7 +935,7 @@ function CreateR1DeltaItems()
 	
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_kills", 					1, 		"mp_titanweapon_shotgun",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
-	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Semi Converter",			"Semi-automatic weapon fire",			MOD_SEMI_CONVERTER_LONGDESC,			5, -5, 0, -7, 0, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Lead Converter",			"Increased burst-fire rate",			MOD_SEMI_CONVERTER_LONGDESC,			-5, 0, -5, 10, 0, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 

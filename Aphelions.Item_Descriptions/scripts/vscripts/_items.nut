@@ -25,7 +25,7 @@ const MEGA1_SHORTDESC =    "Bolt-action sniper rifle"
 const MEGA1_LONGDESC =     "The VSR-1 'Valkyrie' is a bolt-action sniper that fires .338 Norma rounds. It is favored by veterans of the Titan Wars. Despite its age, its light weight and reliability make it more than suitable for eliminating fast-moving targets."
 const MEGA2_SHORTDESC =    "Sawn-off shotgun"
 const MEGA2_LONGDESC =     "The TWIN-B is a 12-gauge break-action shotgun. Originally used by colonists for game hunting, the barrel has been sawed down for easier concealment - making it highly illegal to own in most IMC districts."
-const r97_SCATTER_LONGDESC =  "This mod increases the R-97's rate of fire even further to 1,260 RPM and grants a small boost to rodeo damage. However, this also comes with a 25% increase to the weapon's recoil."
+const r97_SCATTER_LONGDESC =  "This mod increases the R-97's rate of fire even further to 1,260 RPM, tightens the hipfire spread, and grants a small boost to rodeo damage. However, this also comes with a 25% increase to the weapon's recoil."
 
 // Secondary DESCRIPTIONS
 const semipistol_LONGDESC =   "The Hammond P2011 is a semi-auto 11.43x23mm handgun. It is the standard-issue sidearm for IMC infantry. What it lacks in damage, it makes up for with accuracy and minimal recoil - a jack of all trades, master of none."

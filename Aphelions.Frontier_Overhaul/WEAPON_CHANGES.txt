@@ -18,9 +18,6 @@ R1-S BURRELL SMG:
 HEMLOK:
 * Reduced weapon spread
 
-R-97:
-* Reduced extra recoil for the scatterfire mod from 25% to 20%
-
 VALKYRIE:
 * Slight damage buff to headshots (x2 instead of x1.4)
 * Added the dark mode skin, since its base model is not very detailed or interesting. Black makes everything better
@@ -59,7 +56,7 @@ QUAD ROCKET:
 
 WYS-0404:
 * Does a bit more damage against Titans
-* Small buff to fire rate
+* Restored back to pre-nerf fire rate
 * Added a single-shot mod that does massive damage
 
 AG-8 THUNDERBOLT:

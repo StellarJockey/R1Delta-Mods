@@ -31,8 +31,8 @@ WeaponData
     "tracer_effect"                                   "weapon_tracers_xo_shotgun"
     "tracer_effect_first_person"                      "weapon_tracers_xo_shotgun"
     "impact_effect_table"                             "titan_bullet"
-    //"vortex_absorb_effect"                            "wpn_vortex_projectile_shotgun_FP"
-    //"vortex_absorb_effect_third_person"                "wpn_vortex_projectile_shotgun"
+    //"vortex_absorb_effect"                          "wpn_vortex_projectile_shotgun_FP"
+    //"vortex_absorb_effect_third_person"             "wpn_vortex_projectile_shotgun"
 	"vortex_absorb_effect"                            "wpn_vortex_projectile_40mm_FP"
 	"vortex_absorb_effect_third_person"               "wpn_vortex_projectile_40mm"
     
@@ -301,37 +301,23 @@ WeaponData
 
 		"semi_converter"
 		{
-            "critical_hit_damage_scale"                     "1.0"
-            
-            "fire_rate"                                       "0.8"
-            // "fire_mode"                                       "semi-auto"
+            "fire_rate"                                      "9"
 
-    		"burst_fire_count"			                	  "1"
-			"burst_fire_delay"				                  "0"
-            "impact_effect_table"                             "titan_sniper"
+            "damage_near_distance"                           "*0.5"
+            "damage_far_distance"                            "*0.5"
+            "damage_near_value"                              "*0.9"
+            "damage_far_value"                               "*0.9"
+            "damage_near_value_titanarmor"                   "*0.9"
+            "damage_far_value_titanarmor"                    "*0.9"
 
-            "fire_sound_1"                                  "Weapon_Titan_Sniper_Level_4"
+            "npc_damage_near_distance"                       "*0.5"
+            "npc_damage_far_distance"                        "*0.5"
+            "npc_damage_near_value"                          "*0.9"
+            "npc_damage_far_value"                           "*0.9"
+            "npc_damage_near_value_titanarmor"               "*0.9"
+            "npc_damage_far_value_titanarmor"                "*0.9"
 
-
-            "damage_near_value_titanarmor"                    "*2.5"
-            "damage_far_value_titanarmor"                     "*2.5"
-            "npc_damage_near_value_titanarmor"                "*2.5"
-            "npc_damage_far_value_titanarmor"                 "*2.5"
-
-			"npc_min_burst"                                   "1"
-			"npc_max_burst"                                   "1"
-			"rest_time_between_bursts_min"                    "1.5"
-			"rest_time_between_bursts_max"                    "2.0"
-
-			"viewkick_pitch_base" 				"*4.0"
-			"viewkick_pitch_random" 			"*4.0"
-			"viewkick_yaw_base" 				"*4.0"
-			"viewkick_yaw_random" 				"*4.0"
-			"viewkick_scale_max_hipfire"                    "*4.0"
-
-            "spread_stand_hip"                                  "15"
-            "spread_stand_ads"                                  "12" //"10"
-            "spread_npc"                                        "15"
+            "burst_fire_delay"								 "0.6"
 		}
 
 		burn_mod_titan_shotgun

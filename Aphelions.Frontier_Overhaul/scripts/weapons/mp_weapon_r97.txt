@@ -401,20 +401,19 @@ WeaponData
 		{
 			"fire_rate"   									"21"
 
-			// These were all 1.25, changed to 1.2
-			"viewkick_pitch_base" 							"*1.2"
-			"viewkick_pitch_random"   						"*1.2"
+			"viewkick_pitch_base" 							"*1.25"
+			"viewkick_pitch_random"   						"*1.25"
 
-			"viewkick_yaw_base"   							"*1.2"
-			"viewkick_yaw_random" 							"*1.2"
+			"viewkick_yaw_base"   							"*1.25"
+			"viewkick_yaw_random" 							"*1.25"
 
-			"viewkick_perm_pitch_base"				 		"*1.2"
-			"viewkick_perm_pitch_random"   					"*1.2"
-			"viewkick_perm_yaw_base"   						"*1.2"
-			"viewkick_perm_yaw_random" 						"*1.2"
+			"viewkick_perm_pitch_base"				 		"*1.25"
+			"viewkick_perm_pitch_random"   					"*1.25"
+			"viewkick_perm_yaw_base"   						"*1.25"
+			"viewkick_perm_yaw_random" 						"*1.25"
 
-			"viewkick_scale_min_ads"  						"*1.2"
-			"viewkick_scale_max_ads"  						"*1.2"
+			"viewkick_scale_min_ads"  						"*1.25"
+			"viewkick_scale_max_ads"  						"*1.25"
 
 			"spread_stand_hip"								"3.0"
 			"spread_stand_ads"								"0.35"

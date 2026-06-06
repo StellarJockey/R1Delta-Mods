@@ -44,7 +44,7 @@ function OnWeaponPrimaryAttack( attackParams )
 
 		ShotgunBlast( attackParams.pos, attackParams.dir, PELLETS_PER_BARREL, damageTypes.Shotgun, 1 )
 
-		return 3
+		return 1
 	}
 
 	local totalBarrels = self.GetWeaponInfoFileKeyField( "ammo_clip_size" )

@@ -64,4 +64,3 @@ function SmartWeaponFireSound( weapon, target )
 }
 
 InitForAllClients()
-
