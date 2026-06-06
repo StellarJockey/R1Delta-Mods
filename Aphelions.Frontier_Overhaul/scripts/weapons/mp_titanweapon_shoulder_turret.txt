@@ -3,7 +3,7 @@ WeaponData
 	// General
 	"printname"   									"Shoulder Turret"
 	"description" 									"Hull-mounted sentry gun"
-	"longdesc"									"The Shoulder Turret is a Pilot sentry gun retrofitted for point defense on your Titan. Select a target, and it will fire for 15 seconds. While it is active, you may switch to a new target at any time."
+	"longdesc"									"The Shoulder Turret is a Pilot sentry gun retrofitted for Titan use. Select an enemy target, and it will fire for 15 seconds. While it is active, you may switch to a new target at any time."
 	
 	"weaponClass" 									"titan"
 	"fire_mode"   									"offhand_instant"
