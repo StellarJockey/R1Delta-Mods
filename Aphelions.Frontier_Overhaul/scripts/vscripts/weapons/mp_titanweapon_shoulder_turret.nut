@@ -163,6 +163,8 @@ function UpdateShoulderTurretTargetUI( ownerPlayer, target )
 {
 	target.EndSignal( "OnDeath" )
 	ownerPlayer.EndSignal( "OnTurretTargetChanged" )
+	ownerPlayer.EndSignal( "OnDeath" ) 
+	ownerPlayer.EndSignal( "OnDestroy" )
 
 	EmitSoundOnEntity( ownerPlayer, "Weapon_SmartAmmo.TargetLocked" )
 
@@ -174,8 +176,9 @@ function UpdateShoulderTurretTargetUI( ownerPlayer, target )
 	OnThreadEnd(
 		function() : ( ownerPlayer, target )
 		{
-			// Always hide the reticle when the thread ends
-			ownerPlayer.hudElems.TitanShoulderTurretMissileLockReticle.Hide()
+			// Always hide the reticle when the thread ends, if owner is still valid
+			if ( IsValid( ownerPlayer ) && "hudElems" in ownerPlayer )
+				ownerPlayer.hudElems.TitanShoulderTurretMissileLockReticle.Hide()
 		}
 	)
 
