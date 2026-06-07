@@ -1642,6 +1642,10 @@ function ChangedPlayerBurnCards(player) {
 
 function FillBurnCardDeckFromArray( player, array )
 {
+	// Don't clear and refill if array is empty or null
+	if ( array == null || array.len() == 0 )
+		return
+	
 	local max = PersistenceGetArrayCount( _GetBurnCardDeckPersDataPrefix() )
 	// Clear all slots first
 	for ( local i = 0; i < max; i++ )

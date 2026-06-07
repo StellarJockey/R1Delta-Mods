@@ -376,15 +376,18 @@ function ClientCommand_InGameMenuOpened( player, ... )
 
 function ClientCommand_InGameMenuClosed( player, ... )
 {
-	if ( ( "pilotLoadout" in player.s ) || ( "titanLoadout" in player.s ) )
-	{
-		if ( "OnPlayerCloseClassMenu" in getroottable() )
-			OnPlayerCloseClassMenu( player )
+    if ( ( "pilotLoadout" in player.s ) || ( "titanLoadout" in player.s ) )
+    {
+        if ( "OnPlayerCloseClassMenu" in getroottable() )
+            OnPlayerCloseClassMenu( player )
 
-		thread GiveLoadouts( player )
-	}
+        // Clear stale burn card state
+        StopActiveBurnCard( player )
+        
+        thread GiveLoadouts( player )
+    }
 
-	return true
+    return true
 }
 
 function ClientCommand_PilotLoadoutsMenuClosed( player, ... )
