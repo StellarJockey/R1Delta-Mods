@@ -301,23 +301,26 @@ WeaponData
 
 		"semi_converter"
 		{
-            "fire_rate"                                      "9"
+            "fire_rate"                                      "8"
+            "burst_fire_delay"								 "0.7"
 
             "damage_near_distance"                           "*0.5"
             "damage_far_distance"                            "*0.5"
+            "npc_damage_near_distance"                       "*0.5"
+            "npc_damage_far_distance"                        "*0.5"
+
+            /*
             "damage_near_value"                              "*0.9"
             "damage_far_value"                               "*0.9"
             "damage_near_value_titanarmor"                   "*0.9"
             "damage_far_value_titanarmor"                    "*0.9"
 
-            "npc_damage_near_distance"                       "*0.5"
-            "npc_damage_far_distance"                        "*0.5"
+
             "npc_damage_near_value"                          "*0.9"
             "npc_damage_far_value"                           "*0.9"
             "npc_damage_near_value_titanarmor"               "*0.9"
             "npc_damage_far_value_titanarmor"                "*0.9"
-
-            "burst_fire_delay"								 "0.6"
+            */
 		}
 
 		burn_mod_titan_shotgun

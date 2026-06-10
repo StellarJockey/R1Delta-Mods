@@ -102,7 +102,7 @@ const MOD_ACCELERATOR_LONGDESC_V2 = 		"The accelerator slowly ramps up the weapo
 
 // FRONTIER OVERHAUL EXCLUSIVE MODS
 const MOD_AUTO_CONVERTER_LONGDESC =         "A receiver bypass makes this weapon fully automatic, increasing your rate of fire to 138 RPM. However, this comes at the cost of a slightly higher recoil."
-const MOD_SEMI_CONVERTER_LONGDESC =         "A receiver bypass increases the burst-fire rate of the WYS, but its damage will be decreased by 10% and its effective range will be halved. It is optimized for hit-and-run style engagements."
+const MOD_SEMI_CONVERTER_LONGDESC =         "A receiver bypass increases the burst-fire rate of the WYS, but its effective range will be halved. It is optimized for hit-and-run style engagements."
 const MOD_DOUBLE_TAP_LONGDESC =			    "This mod allows you to pull both triggers and fire both barrels at once. Be mindful of your ammo reserve, as you will burn through it much faster."
 const MOD_CHARGE_HACK_LONGDESC = 			"A magnetron bypass allows the weapon to reach its full charge 40% faster, but will deal 30% less damage."
 const MOD_DUMBFIRE_LONGDESC = 				"This mod allows the Archer to be fired freely without locking on. However, the rocket will travel in a straight line once fired, and reloading will take slightly longer."
@@ -402,9 +402,9 @@ function InitItems()
 {
 	itemData <- {}
 	::combinedModData <- {}
-	itemsOfType <- {}
-	attachmentsOfType <- {}
-	modsOfType <- {}
+	::itemsOfType <- {}
+	::attachmentsOfType <- {}
+	::modsOfType <- {}
 	::allItems <- []
 
 	local HideFromMenus = false
@@ -906,7 +906,7 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega2",			"burn_mod_twinb", 			"#BC_TWINB_SHOTGUN_M2",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_shotgun",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 0, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
-	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_sniper_pilot_kills", 		1, 	"mp_weapon_sniper",				"tank_buster",		"Anti-Titan Rounds",			"Increased damage to Titans",			MOD_AT_ROUNDS_LONGDESC,			0, 0, 0, -3, -1, 		"../ui/menu/items/mod_icons/titan_hunter",	 		"../ui/menu/items/mod_icons/titan_hunter" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_sniper_pilot_kills", 		1, 	"mp_weapon_sniper",				"tank_buster",		"Anti-Titan Rounds",			"Increased damage to Titans",			MOD_AT_ROUNDS_LONGDESC,			0, 0, 0, -3, -1, 		"../ui/menu/items/mod_icons/titan_hunter",	 		"../ui/menu/items/mod_icons/titan_hunter" )
 	
 	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_mega2",				"match_trigger",		"Double Tap",			"Fire both barrels",			MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 		"../ui/menu/items/mod_icons/double_tap",	 		"../ui/menu/items/mod_icons/double_tap" )
 
@@ -935,7 +935,7 @@ function CreateR1DeltaItems()
 	
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_kills", 					1, 		"mp_titanweapon_shotgun",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
-	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Lead Converter",			"Increased burst-fire rate",			MOD_SEMI_CONVERTER_LONGDESC,			-5, 0, -5, 10, 0, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"semi_converter",		"Lead Converter",			"Increased burst-fire rate",			MOD_SEMI_CONVERTER_LONGDESC,			0, 0, -4, 12, 0, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 

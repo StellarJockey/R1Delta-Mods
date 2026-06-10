@@ -637,8 +637,8 @@ function InitPersistence()
 		mp_weapon_defender_charge_hack = 128,
 		mp_weapon_mega2_match_trigger = 129,
 		mp_weapon_rocket_launcher_match_trigger = 130,
+		mp_weapon_sniper_tank_buster = 131,	
 
-		// mp_weapon_sniper_tank_buster = 129,	
 		// mp_weapon_g2_auto_converter = 127,
 		// mp_weapon_hemlok_auto_converter = 128,
 

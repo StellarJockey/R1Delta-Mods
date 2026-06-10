@@ -320,10 +320,10 @@ WeaponData
 			"smart_ammo_hud_lock_style"						"default"
 			"smart_ammo_looping_sound_locked"				"titan_missle_lock_tone"
 
-			"reload_time"								"*1.2"
-			"reload_time_late1"							"*1.2"
-			"reloadempty_time"							"*1.2"
-			"reloadempty_time_late1"					"*1.2"
+			"reload_time"								"*1.1"
+			"reload_time_late1"							"*1.1"
+			"reloadempty_time"							"*1.1"
+			"reloadempty_time_late1"					"*1.1"
 
 		}
 		tank_buster

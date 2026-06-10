@@ -6,7 +6,7 @@ R101-C CARBINE:
 EVA-8 SHOTGUN:
 * Run-n-Gun kit now applies
 * Full-auto mod (fire rate is slower than the Burn Card version)
-* Leadwall mod reduces damage by only 9% instead of 17%
+* Leadwall mod reduces damage by only 9% instead of 17% (i.e. the Twin-B version)
 * Slightly buffed the range for the player
 * Headshots have been enabled
 * Range is slightly nerfed for npcs (getting shotgun-sniped was annoying)
@@ -25,6 +25,9 @@ VALKYRIE:
 SPITFIRE:
 * Reduced ADS time from 0.7 sec to 0.5 sec
 * Range buff
+
+KRABER:
+* Added Anti-Titan rounds mod
 
 ///// PILOT SECONDARIES /////
 P2011:
@@ -57,7 +60,10 @@ QUAD ROCKET:
 WYS-0404:
 * Does a bit more damage against Titans
 * Small burst delay decrease
-* Added the Lead Converter mod; increases fire rate, but range and damage are reduced
+* Added the Lead Converter mod; increases fire rate, but range is reduced
+
+TRIPLE THREAT:
+* Got rid of the fire rate nerf, the charge time feels like its enough of a fire rate debuff
 
 AG-8 THUNDERBOLT:
 * Ammo is no longer infinite, will passively regenerate when not firing
