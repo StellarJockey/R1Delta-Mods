@@ -141,11 +141,14 @@ function main()
 			break
 		case LAST_TITAN_STANDING:
 		case WINGMAN_LAST_TITAN_STANDING:
+		case TITAN_MFD:
+		case TITAN_MFD_PRO:
 			level.npcRespawnWait = 5
 			npcPerSide = GetCPULevelWrapper() == CPU_LEVEL_HIGHEND ? level.max_npc_per_side : 9
 			break
 		case CAPTURE_THE_FLAG:
-			level.npcRespawnWait = 5
+		case CAPTURE_THE_FLAG_PRO:
+			level.npcRespawnWait = 10
 			npcPerSide = 18
 			break
 	}
@@ -330,6 +333,7 @@ function GiveTitanPilot( titan, trueorfalse )
 	}
 	file.pilotedtitans = pilotedtitans
 }
+Globalize( GiveTitanPilot )
 
 function SetNPCAsPilot( pilot, trueorfalse )
 {
@@ -366,6 +370,7 @@ function GiveTitanPilotModel( titan, model )
 {
 	file.pilotedtitanmodels[ titan ] <- model
 }
+Globalize( GiveTitanPilotModel )
 
 function NPCPilotEmbarkTitan( pilot, title, titan )
 {
@@ -2396,8 +2401,12 @@ function GameModeRemoveFrontline( entArray )
 	switch ( gameMode )
 	{
 		case CAPTURE_THE_FLAG:
+		case CAPTURE_THE_FLAG_PRO:
 		case LAST_TITAN_STANDING:
 		case WINGMAN_LAST_TITAN_STANDING:
+		case TITAN_BRAWL:
+		case TITAN_MFD:
+		case TITAN_MFD_PRO:
 			break
 		default:
 			keepUndefined = true
@@ -2606,7 +2615,8 @@ function CheckFrontlineOverrun( losingTeam )
 //////////////////////////////////////////////////////////
 function MoveFrontline( winningTeam )
 {
-	if ( GameRules.GetGameMode() == CAPTURE_THE_FLAG )
+	local gamemode = GameRules.GetGameMode()
+	if ( gamemode == CAPTURE_THE_FLAG || gamemode == CAPTURE_THE_FLAG_PRO )
 		return
 
 	local prevFrontlineName = file.currentFrontline.name
@@ -2830,8 +2840,16 @@ function CreateTempFrontline()
 	printt( "************************************" )
 
 	local spawnpoints = SpawnPoints_GetPilotStart( TEAM_ANY )
-	if ( GameRules.GetGameMode() == LAST_TITAN_STANDING || GameRules.GetGameMode() == WINGMAN_LAST_TITAN_STANDING )
-		spawnpoints = SpawnPoints_GetTitanStart( TEAM_ANY )
+	switch( GameRules.GetGameMode() )
+	{
+		case LAST_TITAN_STANDING:
+		case WINGMAN_LAST_TITAN_STANDING:
+		case TITAN_BRAWL:
+		case TITAN_MFD:
+		case TITAN_MFD_PRO:
+			spawnpoints = SpawnPoints_GetTitanStart( TEAM_ANY )
+			break
+	}
 
 	if ( spawnpoints.len() == 0 )
 		return []
@@ -3068,6 +3086,10 @@ function FrontlineDeath( ent, damageInfo )
 	}
 
 	local team = ent.GetTeam()
+
+	if ( team == TEAM_BOTH )
+		return
+
 	CheckFrontlineOverrun( team )
 }
 

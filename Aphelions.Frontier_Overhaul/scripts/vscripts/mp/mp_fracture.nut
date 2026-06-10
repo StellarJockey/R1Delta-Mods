@@ -718,6 +718,10 @@ function IntroMilitiaCaptain()
 			{
 				titan.SetEfficientMode( false )
 				DeleteAnimEvent( titan, "cockpitOpen", ChangCockpitOpen )
+
+				GiveTitanPilot( titan, true )
+				GiveTitanPilotModel( titan, TEAM_MILITIA_CAPTAIN_MDL )
+
 				thread IntroCaptainMCORFight( titan )
 			}
 		}
@@ -1233,6 +1237,10 @@ function IntroIMCCaptain( test = false )
 				titan.SetTitle( "#NPC_CAPTAIN_RIGGS" )
 				titan.SetShortTitle( "#NPC_CAPTAIN_RIGGS" )
 				titan.SetEfficientMode( false )
+
+				GiveTitanPilot( titan, true )
+				GiveTitanPilotModel( titan, TEAM_IMC_CAPTAIN_MDL )
+
 				thread IntroCaptainIMCFight( titan )
 			}
 		}
