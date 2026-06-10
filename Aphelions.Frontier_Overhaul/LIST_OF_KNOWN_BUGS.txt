@@ -1,0 +1,11 @@
+///// HARD CRASHES /////
+* Game will hard crash if you attempt to open Pilot/Titan loadout immediately after starting the 15 second countdown for a game. Oddly enough, if you wait 2 seconds, you should be safe to open the loadouts for the remaining 13 seconds.
+* Game has a high chance to hard crash when loading back into a private lobby after a solo match.
+
+///// GAMEPLAY BUGS /////
+* I'm told that the unkillable npc Pilot bug is still present... I haven't seen it, but it may still be there.
+* Npc Titans sometimes do the stanky leg when standing up.
+
+///// WEIRD MENU SHIT... /////
+* If you try and open your Titan loadouts after a game, you sometimes get locked into the Burn Cards menu with no way to back out, forcing you to restart the game.
+* I think I got rid of the bug that would nuke your entire burn card reserve... I think... but be warned.
