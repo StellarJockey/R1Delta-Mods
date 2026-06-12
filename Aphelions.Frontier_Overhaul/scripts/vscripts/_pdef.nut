@@ -230,6 +230,7 @@ function InitPersistence()
 	    burn_mod_twinb = 56
 		auto_converter = 57
 		charge_hack = 58
+		guided_missile_0 = 59
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -636,7 +637,7 @@ function InitPersistence()
 		mp_weapon_mgl_extended_ammo = 127,
 		mp_weapon_defender_charge_hack = 128,
 		mp_weapon_mega2_match_trigger = 129,
-		mp_weapon_rocket_launcher_match_trigger = 130,
+		mp_weapon_rocket_launcher_guided_missile_0 = 130,
 		mp_weapon_sniper_tank_buster = 131,	
 
 		// mp_weapon_g2_auto_converter = 127,

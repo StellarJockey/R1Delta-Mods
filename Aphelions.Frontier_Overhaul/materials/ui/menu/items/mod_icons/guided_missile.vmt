@@ -1,6 +1,6 @@
 Basic
 {
-	$basetexture		"ui/menu/items/mod_icons/dumbfire"
+	$basetexture		"ui/menu/items/mod_icons/guided_missile"
 	$translucent		1
 	$vertexcolor		1
 	$vertexalpha		1
