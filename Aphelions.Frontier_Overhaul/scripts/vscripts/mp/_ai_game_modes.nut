@@ -86,6 +86,7 @@ function main()
 	Globalize( SetLevelAICount )
 
 	FlagInit( "FrontlineInitiated" )
+	FlagInit( "IntroMilitiaNPCsSpawned" )
 	RegisterSignal( "FreeAISlotsUpdated" )
 	RegisterSignal( "TitanHotDropComplete" )
 	RegisterSignal( "DisableRocketPods" )
@@ -530,7 +531,6 @@ function SetupLevelAICount()
 		case "mp_corporate":
 		case "mp_nexus":
 		case "mp_rise":
-		case "mp_fracture":
 		case "mp_o2":
 		case "mp_training_ground":
 		case "mp_swampland":
@@ -541,6 +541,12 @@ function SetupLevelAICount()
 		case "mp_haven":
 		case "mp_nest2":
 		case "mp_mia":
+			break
+
+		// Start with default, that way one of the extra drop pods doesn't land on Captain Dunnam in the MCOR intro
+		case "mp_fracture":
+			aiCount = 12
+			thread RestoreAICount()
 			break
 
 		case "mp_angel_city":
@@ -568,6 +574,16 @@ function SetupLevelAICount()
 
 	SetLevelAICount( aiCount, TEAM_MILITIA )
 	SetLevelAICount( aiCount, TEAM_IMC )
+}
+
+function RestoreAICount()
+{
+	FlagWait( "GamePlaying" )
+
+	wait 15.0
+
+	SetLevelAICount( 28, TEAM_MILITIA )
+	SetLevelAICount( 28, TEAM_IMC )
 }
 
 function GetMaxAICount( team )
