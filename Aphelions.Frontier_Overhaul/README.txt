@@ -19,7 +19,6 @@ Yes. With this mod, TF1's "campaign" is now fully playable offline.
 * Nacho's One-Handed Wallrun
 * Nacho's Weapon Script Fixes
 * ASillyNeko's Extended Attrition
-* Aphelion's Instant Takeoff Evac
 * Aphelion's Item Descriptions
 	
 These come included because, taken separately, they will cause scripting conflicts with FO and break the game. They've since been integrated, meaning this also serves as an unofficial modpack for R1Delta.
