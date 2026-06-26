@@ -968,27 +968,26 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 	
 	local weaponMods = []
 	local weaponModPools = {
-		mp_titanweapon_40mm            = [ "burst", "extended_ammo", ],                 // "burn_mod_titan_40mm"
-		mp_titanweapon_xo16            = [ "extended_ammo", "burst", "accelerator", ],  // "burn_mod_titan_xo16"
-		mp_titanweapon_sniper          = [ "extended_ammo", ],
-		mp_titanweapon_arc_cannon      = [ null, "capacitor", "burn_mod_titan_arc_cannon", ],  
-		mp_titanweapon_rocket_launcher = [ "rapid_fire_missiles", "extended_ammo", ],   // "burn_mod_titan_rocket_launcher"
-		mp_titanweapon_triple_threat   = [ "mine_field", "extended_ammo", ],            // "burn_mod_titan_triple_threat"
-		mp_titanweapon_shotgun         = [ "extended_ammo", "semi_converter", ],
+		mp_titanweapon_40mm            = [ null, null, "burst", "burst", "extended_ammo", "extended_ammo", "burn_mod_titan_40mm", ],
+		mp_titanweapon_xo16            = [ null, null, "extended_ammo", "extended_ammo", "burst", "burst", "accelerator", "accelerator", "burn_mod_titan_xo16", ],
+		mp_titanweapon_sniper          = [ null, "extended_ammo", ],
+		mp_titanweapon_arc_cannon      = [ null, null, "capacitor", "capacitor", "burn_mod_titan_arc_cannon", ],  
+		mp_titanweapon_rocket_launcher = [ null, null, "rapid_fire_missiles", "rapid_fire_missiles", "extended_ammo", "extended_ammo", "burn_mod_titan_rocket_launcher", ],
+		mp_titanweapon_triple_threat   = [ null, null, "mine_field", "mine_field", "extended_ammo", "extended_ammo", "burn_mod_titan_triple_threat", ],
+		mp_titanweapon_shotgun         = [ null, "extended_ammo", "semi_converter", ],
 	}
 
 	local primaryWeapon = titanDataTable.primary
-	if ( primaryWeapon in weaponModPools )
-	{
-		local availableMods = weaponModPools[primaryWeapon]
-		local roll = RandomInt( 0, availableMods.len() - 1 )
-		local selectedMod = availableMods[roll]
+    if ( primaryWeapon in weaponModPools )
+    {
+        local availableMods = weaponModPools[primaryWeapon]
+        local selectedMod = Random( availableMods ) 
 
-		if ( selectedMod != null )
-		{
-			weaponMods.append( selectedMod )
-		}
-	}
+        if ( selectedMod != null )
+        {
+            weaponMods.append( selectedMod )
+        }
+    }
 
 	titan.GiveWeapon( titanDataTable.primary, weaponMods )
     titan.TakeOffhandWeapon( 0 )
