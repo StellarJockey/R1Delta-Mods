@@ -2072,5 +2072,10 @@ function CoopTD_OnSoldierOrSpectreSpawn(npc) {
 }
 
 function CoopTD_EnableSpectreRodeo(spectre) {
-	SimulateSpectreRodeo(spectre)
+	local mode = GameRules.GetGameMode()
+	
+	if ( mode != TITAN_BRAWL )
+	{
+		SimulateSpectreRodeo(spectre)
+	}
 }
