@@ -1869,7 +1869,7 @@ function RespawnTitanPilot( player, rematchOrigin = null )
 		if ( GetWaveSpawnType() != eWaveSpawnType.DISABLED && level.waveSpawnByDropship == true )
 			MessageToPlayer( player, eEventNotifications.Clear )
 
-		thread TitanPlayerHotDropsIntoLevel( player )
+		thread TitanPlayerHotDropsIntoLevel( player, rematchOrigin )
 
 		TitanDeployed( player )
 
@@ -2006,7 +2006,7 @@ function ShouldStartSpawn( player )
 }
 
 
-function TitanPlayerHotDropsIntoLevel( player )
+function TitanPlayerHotDropsIntoLevel( player, rematchOrigin = null )
 {
 	printl( "TitanPlayerHotDropsIntoLevel" )
 
@@ -2025,6 +2025,10 @@ function TitanPlayerHotDropsIntoLevel( player )
 	if ( startSpawn )
 	{
 		spawnPoint = FindStartSpawnPoint( player, true )
+	}
+	else if ( rematchOrigin && Riff_TitanExitIsDisabled() )
+	{
+		spawnPoint = FindClosestSpawnPoint( player, rematchOrigin, true )
 	}
 	else
 	{
@@ -2461,6 +2465,11 @@ function AutoBalancePlayer( player, forceSwitch = false )
 			{
 				printt( "Autobalance: WARNING - Could not determine correct model name for player " + player + " using playerSetFile '" + classSettings + "' and field '" + modelFieldName + "'" )
 			}
+			
+			// Fix rodeo viewmodel not changing skin
+			local viewModel = player.GetFirstPersonProxy()
+			if ( viewModel )
+				viewModel.SetSkin( player.GetSkin() )
 		}
 
 		NotifyClientsOfTeamChange( player, currentTeam, newTeam ) // Notify clients about the team change

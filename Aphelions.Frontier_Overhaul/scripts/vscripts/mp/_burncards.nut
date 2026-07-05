@@ -10,6 +10,7 @@ function main()
     PrecacheModel( MILITIA_SPECTRE_MODEL )
     PrecacheModel( IMC_SPECTRE_MODEL )
     AddCallback_OnClientConnected( BCOnClientConnected )
+	AddSpawnCallback( "npc_grenade_frag", BCGrenadeCreatedCallback )
 }
 
 function BCOnClientConnected( player )
@@ -176,8 +177,12 @@ function RefillWeaponAmmo( player )
             if ( PlayerHasPassive( player, PAS_ORDNANCE_PACK))
                 maxAmmo = 3
 
-            if(currentAmmo != maxAmmo)
+            if ( currentAmmo != maxAmmo )
+            {
 		        offhand.SetWeaponPrimaryClipCount( currentAmmo + 1 )
+
+                EmitSoundOnEntityOnlyToPlayer( player, player, "BurnCard_GrenadeRefill_Refill" )
+            }
 		}
 
         wait 8
@@ -228,7 +233,6 @@ function ApplyPilotWeaponBurnCards_Threaded( player, cardRef )
         player.TakeOffhandWeapon( slot )
 
         player.GiveOffhandWeapon( weaponData.weapon, slot, weaponData.mods )
-
         if( cardData.ctFlags & CT_FRAG )
             thread RefillWeaponAmmo( player )
 
@@ -466,6 +470,21 @@ function IsBurnCardEdgeCaseUseValid( player, cardRef )
             return false
     }
 
+    if ( Riff_TitanExitIsDisabled() )
+    {
+        // CT_WEAPON is only used by pilot weapons
+        // CT_SPECTRE could probably be disabled as well but it doesnt really matter. Dont wanna go all "no fun allowed"
+        if ( ( cardData.ctFlags & CT_PILOT && cardRef != "bc_rematch" ) || cardData.ctFlags & CT_WEAPON )
+            return false
+
+        if ( cardData.ctFlags & CT_SPECIAL && cardRef != "bc_auto_sonar" && cardRef != "bc_sonar_forever" )
+            return false
+
+        // Just switch loadouts...
+        if ( cardRef == "bc_summon_atlas" || cardRef == "bc_summon_ogre" || cardRef == "bc_summon_stryder" )
+            return false
+    }
+
     return true
 }
 
@@ -641,6 +660,12 @@ function RollTheDice( player, slot )
 
 function BCPlayerRespawned( player )
 {
+    if ( !( "bc_grenadesPendingForRefill" in player.s ) )
+    {
+        player.s.bc_grenadesPendingForRefill <- 0
+        player.s.bc_grenadeRefillInProgress <- false
+    }
+
     thread BurnCardPlayerRespawned_Threaded( player )
 }
 
@@ -826,6 +851,14 @@ function RunSpawnBurnCard( player, cardRef )
 
             BCSpiderSense( player )
             break
+
+        case "bc_stim_forever":
+            if ( player.IsTitan() )
+                player.WaitSignal( "OnLeftTitan" ); wait 0.5
+
+            player.stimmedForever = true
+		    StimPlayer( player, USE_TIME_INFINITE )
+            break
     }
 }
 
@@ -903,6 +936,9 @@ function BCOnPlayerKilled( player, damageInfo )
 
     if( IsRoundBased() && !GamePlayingOrSuddenDeath() )
         return
+
+    player.s.bc_grenadesPendingForRefill = 0
+    player.s.bc_grenadeRefillInProgress = false
 
     BurnCardOnDeath( player, damageInfo, BC_NEXTDEATH )
 
@@ -1086,3 +1122,70 @@ function TakeAwayTitanBCOnDeath( titan )
     WaitForever()
 }
 
+function BCGrenadeCreatedCallback( frag )
+{
+    local player = frag.GetOwner()
+	if ( !player || !player.IsPlayer() )
+		return
+
+    if ( player.IsTitan() )
+        return
+
+    local cardRef = GetPlayerActiveBurnCard( player )
+    if ( !cardRef )
+        return
+
+    local cardData = GetBurnCardData( cardRef )
+    if ( !( cardData.ctFlags & CT_FRAG ) )
+        return
+
+    local weapon = player.GetActiveWeapon()
+    if ( weapon.GetWeaponClassName() != GetBurnCardWeapon( cardRef ).weapon )
+        return
+
+    player.s.bc_grenadesPendingForRefill++
+    //printt( "++player.s.bc_grenadesPendingForRefill", player.s.bc_grenadesPendingForRefill )
+
+    if ( !player.s.bc_grenadeRefillInProgress )
+        thread RefillGrenadeAmmo( player )
+}
+
+function RefillGrenadeAmmo( player )
+{
+    player.s.bc_grenadeRefillInProgress = true
+
+    wait 8
+
+    if ( !player )
+        return
+
+    if ( !IsAlive( player ) || player.IsTitan() )
+        return
+
+    if ( player.s.bc_grenadesPendingForRefill <= 0 )
+    {
+        player.s.bc_grenadeRefillInProgress = false
+        return
+    }
+
+    local offhand = player.GetOffhandWeapon( 0 )
+	if ( !offhand )
+        return
+
+    local currentAmmo = offhand.GetWeaponPrimaryClipCount()
+    local maxAmmo = player.GetWeaponAmmoMaxLoaded( offhand )
+
+    if ( currentAmmo != maxAmmo )
+    {
+	    offhand.SetWeaponPrimaryClipCount( currentAmmo + 1 )
+        EmitSoundOnEntityOnlyToPlayer( player, player, "BurnCard_GrenadeRefill_Refill" )
+
+        player.s.bc_grenadesPendingForRefill--
+        //printt( "--player.s.bc_grenadesPendingForRefill", player.s.bc_grenadesPendingForRefill )
+
+        if ( player.s.bc_grenadesPendingForRefill <= 0 )
+            player.s.bc_grenadeRefillInProgress = false
+        else
+            thread RefillGrenadeAmmo( player )
+    }
+}
