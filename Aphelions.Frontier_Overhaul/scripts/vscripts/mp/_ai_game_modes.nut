@@ -108,6 +108,11 @@ function main()
 	level.max_npc_per_side <- 28
 	level.max_npc_per_side_small <- 24
 
+	// NEW: Initialize AI behavior system (works for all game modes)
+	level.aiSpottingEnabled <- true  // Can be disabled per-mode
+	level.aiHuntThinkEnabled <- true
+	level.aiSpottedPlayers <- {}    // Global spotted player tracking
+
 	level.occupiedAISlots <- {}
 	level.occupiedAISlots[TEAM_IMC] <- 0
 	level.occupiedAISlots[TEAM_MILITIA] <- 0
@@ -1014,10 +1019,11 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 	else if ( IsValid( titan ) && IsAlive( titan ) )
 	    thread PlayAnimGravity( titan, "at_hotdrop_quickstand" )
 
-	return
-
-	thread TitanBrawlAuto_HuntThink( titan, entry )
-	thread TitanBrawlAuto_SpottingThink( titan, entry )
+	if ( level.aiHuntThinkEnabled )
+	{
+		thread AI_HuntThink( titan, team )
+		thread AI_SpottingThink( titan, team )
+	}
 }
 
 function TitanStandUpHandle( pilot, titan )
@@ -4610,158 +4616,200 @@ function AutoTitan_CanDoRangeCheck( autoTitan )
 }
 
 
-//////////////////////////
+//=========================================================
 // Ripped this stuff down here from Auto Titan Brawl to make the Titans more aggressive
 // ...Look man, don't ask questions. It just works
+//=========================================================
 
-
-function TitanBrawlAuto_HuntThink( titan, entry )
+function AI_SpottingThink( titan, team = null )
 {
-    titan.EndSignal( "OnDeath" )
-    titan.EndSignal( "OnDestroy" )
+	// Unified spotting logic that works for any NPC Titan
+	titan.EndSignal( "OnDeath" )
+	titan.EndSignal( "OnDestroy" )
 
-    local lastValidTargetTime = Time()
-    local lastPosition = titan.GetOrigin()
-    local lastPositionCheckTime = Time()
-    local stuckThreshold = 2.0  // If titan hasn't moved in 2 seconds, it's stuck
-    local minMovementDistance = 100.0  // Minimum distance to consider "moved"
+	local titanTeam = team != null ? team : titan.GetTeam()
+	if ( !("aiSpottedPlayers" in level) )
+		level.aiSpottedPlayers <- {}
+	
+	if ( !(titanTeam in level.aiSpottedPlayers) )
+		level.aiSpottedPlayers[titanTeam] <- {}
 
-    while ( true )
-    {
-        // Check if titan is stuck (hasn't moved significantly)
-        local currentTime = Time()
-        local currentPosition = titan.GetOrigin()
-        local timeSinceLastCheck = currentTime - lastPositionCheckTime
-
-        if ( timeSinceLastCheck >= stuckThreshold )
-        {
-            local distanceMoved = Distance( currentPosition, lastPosition )
-
-            if ( distanceMoved < minMovementDistance )
-            {
-                // Titan is stuck! Force it to find a new location
-                printt("[AutoTitan]", entry.name, "is stuck, forcing new target")
-                TitanBrawlAuto_SendToRandomLocation( titan, entry )
-                lastValidTargetTime = currentTime
-            }
-
-            lastPosition = currentPosition
-            lastPositionCheckTime = currentTime
-        }
-
-        local target = TitanBrawlAuto_SelectTarget( titan, entry )
-        if ( IsValid( target ) )
-        {
-			printt("TARGET:" + target)
-            titan.SetEnemy( target )
-            SendAIToAssaultPoint( titan, target.GetOrigin(), null, 256 )
-            lastValidTargetTime = currentTime
-        }
-        else
-        {
-            // No valid target - make titan roam to prevent standing still
-            local timeSinceLastTarget = currentTime - lastValidTargetTime
-            if ( timeSinceLastTarget >= 1.0 )
-            {
-                TitanBrawlAuto_SendToRandomLocation( titan, entry )
-                lastValidTargetTime = currentTime
-            }
-        }
-        wait RandomFloat( 1.5, 3.0 )
-    }
-}
-
-function TitanBrawlAuto_SendToRandomLocation( titan, entry )
-{
-    // Try to find a random assault point or spawn point to patrol to
-    local enemyTeam = GetOtherTeam( entry.team )
-    local assaultPoints = GetEntArrayByClass_Expensive( "info_frontline" )
-
-    if ( assaultPoints.len() > 0 )
-    {
-        local randomPoint = assaultPoints[ RandomInt( assaultPoints.len() ) ]
-        SendAIToAssaultPoint( titan, randomPoint.GetOrigin(), null, 512 )
-        return
-    }
-
-    // Fallback: move toward enemy spawn
-    local enemySpawns = SpawnPoints_GetTitanStart( enemyTeam )
-    if ( enemySpawns.len() > 0 )
-    {
-        local randomSpawn = enemySpawns[ RandomInt( enemySpawns.len() ) ]
-        SendAIToAssaultPoint( titan, randomSpawn.GetOrigin(), null, 512 )
-        return
-    }
-
-    // Last resort: move in a random direction
-    local currentPos = titan.GetOrigin()
-    local randomOffset = Vector( RandomFloat( -1000, 1000 ), RandomFloat( -1000, 1000 ), 0 )
-    local newPos = currentPos + randomOffset
-    SendAIToAssaultPoint( titan, newPos, null, 256 )
-}
-
-function TitanBrawlAuto_SelectTarget( titan, entry )
-{
-    local enemyTeam = GetOtherTeam( entry.team )
-    local origin = titan.GetOrigin()
-    
-    // Priority 1: Players (only spotted ones) and ALL Titans
-    local highPriority = []
-    
-    // Add spotted players only
-    local enemyPlayers = GetPlayerArrayOfTeam( enemyTeam )
-    foreach ( player in enemyPlayers )
-    {
-        if ( player in entry.spottedPlayers )
-            highPriority.append( player )
-    }
-    
-    // Add ALL enemy titans (always valid targets)
-    highPriority.extend( GetNPCArrayEx( "npc_titan", enemyTeam, origin, -1 ) )
-    
-	foreach ( otherEntry in level.autoTitanData[ enemyTeam ] )
+	while ( true )
 	{
-		if ( !(otherEntry.titan in highPriority) )
-			highPriority.append(otherEntry.titan)
+		local enemyTeam = GetOtherTeam( titanTeam )
+		local enemyPlayers = GetPlayerArrayOfTeam( enemyTeam )
+		
+		foreach ( player in enemyPlayers )
+		{
+			if ( !IsValid( player ) || !IsAlive( player ) )
+				continue
+			
+			// Skip if already spotted by this team
+			if ( player in level.aiSpottedPlayers[titanTeam] )
+				continue
+			
+			// Check if titan is facing the player
+			local toPlayer = player.GetOrigin() - titan.GetOrigin()
+			toPlayer.Norm()
+			local facing = titan.GetForwardVector()
+			local dot = facing.Dot( toPlayer )
+			
+			// Within ~90 degree cone
+			if ( dot > 0.0 )
+			{
+				// Check line of sight
+				local traceResult = TraceLine( titan.EyePosition(), player.EyePosition(), [titan], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_NONE )
+				
+				if ( traceResult.fraction >= 0.99 || traceResult.hitEnt == player )
+				{
+					// Player spotted globally
+					level.aiSpottedPlayers[titanTeam][player] <- true
+					if ( file.debug & DEBUG_NPC_FRONTLINE )
+						printt( "[AI] Titan spotted enemy:", player.GetPlayerName() )
+				}
+			}
+		}
+		
+		wait 0.5  // Check twice per second
 	}
-    
-    // Check high priority targets first
-    local best = TitanBrawlAuto_FindClosestValid( highPriority, origin )
-    if ( best != null )
-        return best
-    
-    // Priority 2: Low priority NPCs (soldiers/spectres)
-    local lowPriority = []
-    lowPriority.extend( GetNPCArrayEx( "npc_soldier", enemyTeam, origin, -1 ) )
-    lowPriority.extend( GetNPCArrayEx( "npc_spectre", enemyTeam, origin, -1 ) )
-    
-    return TitanBrawlAuto_FindClosestValid( lowPriority, origin )
 }
 
-function TitanBrawlAuto_FindClosestValid( candidates, origin )
+function AI_HuntThink( titan, team = null )
 {
-    local closest = null
-    local closestDist = 999999
+	// Unified hunt logic that prioritizes spotted players and enemies
+	titan.EndSignal( "OnDeath" )
+	titan.EndSignal( "OnDestroy" )
 
-    foreach ( candidate in candidates )
-    {
-        if ( !IsValid(candidate) )
-            continue
+	local titanTeam = team != null ? team : titan.GetTeam()
+	local lastValidTargetTime = Time()
+	local lastPosition = titan.GetOrigin()
+	local lastPositionCheckTime = Time()
+	local stuckThreshold = 2.0
+	local minMovementDistance = 100.0
 
-        if ( !IsAlive(candidate) )
-            continue
+	while ( true )
+	{
+		// Check if stuck
+		local currentTime = Time()
+		local currentPosition = titan.GetOrigin()
+		local timeSinceLastCheck = currentTime - lastPositionCheckTime
 
-        local d = Distance(origin, candidate.GetOrigin())
+		if ( timeSinceLastCheck >= stuckThreshold )
+		{
+			local distanceMoved = Distance( currentPosition, lastPosition )
+			if ( distanceMoved < minMovementDistance )
+			{
+				AI_SendToRandomLocation( titan, titanTeam )
+				lastValidTargetTime = currentTime
+			}
 
-        if ( d < closestDist )
-        {
-            closest = candidate
-            closestDist = d
-        }
-    }
+			lastPosition = currentPosition
+			lastPositionCheckTime = currentTime
+		}
 
-    return closest
+		local target = AI_SelectTarget( titan, titanTeam )
+		if ( IsValid( target ) )
+		{
+			titan.SetEnemy( target )
+			SendAIToAssaultPoint( titan, target.GetOrigin(), null, 256 )
+			lastValidTargetTime = currentTime
+		}
+		else
+		{
+			local timeSinceLastTarget = currentTime - lastValidTargetTime
+			if ( timeSinceLastTarget >= 1.0 )
+			{
+				AI_SendToRandomLocation( titan, titanTeam )
+				lastValidTargetTime = currentTime
+			}
+		}
+		wait RandomFloat( 1.5, 3.0 )
+	}
 }
+
+function AI_SelectTarget( titan, team )
+{
+	local enemyTeam = GetOtherTeam( team )
+	local origin = titan.GetOrigin()
+	local highPriority = []
+
+	// Priority 1: Spotted players and enemy titans
+	if ( team in level.aiSpottedPlayers )
+	{
+		local enemyPlayers = GetPlayerArrayOfTeam( enemyTeam )
+		foreach ( player in enemyPlayers )
+		{
+			if ( player in level.aiSpottedPlayers[team] )
+				highPriority.append( player )
+		}
+	}
+
+	// Add ALL enemy titans
+	highPriority.extend( GetNPCArrayEx( "npc_titan", enemyTeam, origin, -1 ) )
+
+	local best = AI_FindClosestValid( highPriority, origin )
+	if ( best != null )
+		return best
+
+	// Priority 2: Low priority NPCs
+	local lowPriority = []
+	lowPriority.extend( GetNPCArrayEx( "npc_soldier", enemyTeam, origin, -1 ) )
+	lowPriority.extend( GetNPCArrayEx( "npc_spectre", enemyTeam, origin, -1 ) )
+
+	return AI_FindClosestValid( lowPriority, origin )
+}
+
+function AI_FindClosestValid( candidates, origin )
+{
+	local best = null
+	local bestDist = 99999999.0
+
+	foreach ( candidate in candidates )
+	{
+		if ( !IsValid( candidate ) )
+			continue
+		if ( candidate.IsPlayer() && !IsAlive( candidate ) )
+			continue
+
+		local dist = DistanceSqr( candidate.GetOrigin(), origin )
+		if ( dist < bestDist )
+		{
+			best = candidate
+			bestDist = dist
+		}
+	}
+
+	return best
+}
+
+function AI_SendToRandomLocation( titan, team )
+{
+	local enemyTeam = GetOtherTeam( team )
+	local assaultPoints = GetEntArrayByClass_Expensive( "info_frontline" )
+
+	if ( assaultPoints.len() > 0 )
+	{
+		local randomPoint = assaultPoints[ RandomInt( assaultPoints.len() ) ]
+		SendAIToAssaultPoint( titan, randomPoint.GetOrigin(), null, 512 )
+		return
+	}
+
+	local enemySpawns = SpawnPoints_GetTitanStart( enemyTeam )
+	if ( enemySpawns.len() > 0 )
+	{
+		local randomSpawn = enemySpawns[ RandomInt( enemySpawns.len() ) ]
+		SendAIToAssaultPoint( titan, randomSpawn.GetOrigin(), null, 512 )
+		return
+	}
+
+	local currentPos = titan.GetOrigin()
+	local randomOffset = Vector( RandomFloat( -1000, 1000 ), RandomFloat( -1000, 1000 ), 0 )
+	SendAIToAssaultPoint( titan, currentPos + randomOffset, null, 256 )
+}
+
+Globalize( AI_SpottingThink )
+Globalize( AI_HuntThink )
+Globalize( AI_SelectTarget )
 
 
 ////////////////////////////////////////////////////////////////
