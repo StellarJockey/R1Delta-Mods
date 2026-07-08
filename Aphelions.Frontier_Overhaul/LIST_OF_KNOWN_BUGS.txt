@@ -5,7 +5,9 @@
 ///// GAMEPLAY BUGS /////
 * I'm told that the unkillable npc Pilot bug is still present... I haven't seen it, but it may still be there.
 * Npc Titans sometimes do the stanky leg when standing up.
+* Npc Titans refuse to fire the minigun, so they won't spawn with it until I can get it to work.
 
-///// WEIRD MENU SHIT... /////
+///// MENU BUGS... /////
 * If you try and open your Titan loadouts after a game, you sometimes get locked into the Burn Cards menu with no way to back out, forcing you to restart the game.
 * I think I got rid of the bug that would nuke your entire burn card reserve... I think... but be warned.
+* Sometimes when logging into a private match lobby, you'll get stuck in an endless "CONNECTING..." loop and have to restart the game.
