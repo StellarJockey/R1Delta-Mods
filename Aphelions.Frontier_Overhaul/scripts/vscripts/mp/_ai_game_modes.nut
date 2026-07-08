@@ -925,27 +925,13 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 	pilot.SetHealth( 200 )
 
 	local title = ""
-    
-    // Custom logic for varied Pilot names based on Team
     if ( team == TEAM_IMC )
     {
-        local imcCodeNames = [
-            "Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo",
-            "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform",
-            "Victor", "Whiskey", "Xray", "Yankee", "Zulu", "Steel", "Raven", "Falcon", "Silver", "Roach",
-			"Io", "Ganymede", "Callisto", "Europa",
-        ]
-        title = "Pilot " + Random( imcCodeNames )
+		title = GetRandomPilotName( team )
     }
     else if ( team == TEAM_MILITIA )
     {
-        local militiaNames = [
-            "Jackson", "Rodriguez", "Williams", "Wilson", "Moore", "Anderson", "White", "Lewis", "Clark", "Walker",
-            "Baker", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hanes", "Stokes",
-            "Bohr", "Allen", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr",
-			"Barnes", "Hernandez", "Greene",
-        ]
-        title = "Pilot " + Random( militiaNames )
+		title = GetRandomPilotName( team )
     }
 
     // This title is then passed to the spawn function

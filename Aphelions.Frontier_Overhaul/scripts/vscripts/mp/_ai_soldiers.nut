@@ -140,6 +140,27 @@ function main()
 	RegisterSignal("Stop_SimulateGrenadeThink")
 }
 
+function GetRandomPilotName( team )
+{
+	local imcCodeNames = [
+		"Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo",
+		"Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform",
+		"Victor", "Whiskey", "Xray", "Yankee", "Zulu", "Steel", "Raven", "Falcon", "Silver", "Roach",
+		"Io", "Ganymede", "Callisto", "Europa", "Gold", "Red", "Blue", "Indigo", "June", "August",
+	]
+	local militiaNames = [
+		"Jackson", "Rodriguez", "Williams", "Wilson", "Moore", "Asgeirsson", "White", "Lewis", "Clark", "Walker",
+		"Baker", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hanes", "Stokes",
+		"Bohr", "Allen", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr",
+		"Barnes", "Hernandez", "Greene", "Higgins", "Burke", "Rodgers", "Chang", "Gore", "Vargas",
+	]
+
+	if ( team == TEAM_IMC )
+		return "Pilot " + Random( imcCodeNames )
+	else
+		return "Pilot " + Random( militiaNames )
+}
+Globalize( GetRandomPilotName )
 
 function ClientCommand_SpawnViewGrunt( player, team )
 {
@@ -395,8 +416,6 @@ function CreateGrunt( team, model, weapon, alert = true, captain = false )
 
 	return npc_soldier
 }
-
-
 
 
 function SetGruntTitleFromTeam( grunt, team, captain = false )
@@ -662,13 +681,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
             "models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl"
         ]
         
-        local militiaNames = [
-            "Jackson", "Rodriguez", "Williams", "Wilson", "Moore", "Anderson", "White", "Lewis", "Clark", "Walker",
-            "Baker", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hanes", "Stokes",
-            "Bohr", "Allen", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr",
-            "Barnes", "Hernandez", "Greene"
-        ]
-        title = "Pilot " + Random( militiaNames )
+		title = GetRandomPilotName( team )
         
     } else {
         pilotmodels = [
@@ -677,13 +690,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
             "models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
         ]
         
-        local imcCodeNames = [
-            "Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo",
-            "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform",
-            "Victor", "Whiskey", "Xray", "Yankee", "Zulu", "Steel", "Raven", "Falcon", "Silver", "Roach",
-            "Io", "Ganymede", "Callisto", "Europa"
-        ]
-        title = "Pilot " + Random( imcCodeNames )
+		title = GetRandomPilotName( team )
     }
     
 	// Determine the correct model based on the weapon equipped
@@ -1832,6 +1839,7 @@ function InitCaptainNames()
 	ArrayRandomize( level.captainNames )
 	level.captainNamesIndex <- 0
 }
+
 
 function SetGlobalNPCHealth( healthValue ) //Debug, for trailer team
 {
