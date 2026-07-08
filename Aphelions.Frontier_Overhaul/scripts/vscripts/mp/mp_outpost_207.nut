@@ -3018,7 +3018,7 @@ function IntroTitan_MCOR( isDev = false )
 			if ( IsAlive( titan ) )
 			{
 				IntroTitan_PostAnim( titan )
-				
+				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
     			GiveTitanPilotModel( titan, TEAM_MILITIA_CAPTAIN_MDL )
 				
@@ -3324,7 +3324,7 @@ function IntroTitan_IMC( isDev = false )
 				IntroTitan_PostAnim( titan )
 				ClearInvincible( titan )
 				DeleteAnimEvent( titan, "hatch_closed", IntroTitan_IMC_HatchClosed )
-
+				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
     			GiveTitanPilotModel( titan, TEAM_IMC_CAPTAIN_MDL )
 
