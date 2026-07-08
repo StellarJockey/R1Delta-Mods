@@ -57,7 +57,7 @@ The list is quite extensive, so look at the WEAPON_CHANGES.txt file. It's mostly
 Yes. By default, this mod sets the AI lethality to Very High. Simply bump it down to High or Normal if you find the AI to be too overbearing. They will still do the same damage as a player, they'll just be less accurate.
 
 
-///// WHAT ENEMIES DOES THIS ADD? /////
+///// WHAT ENEMIES DOES THIS INCLUDE? /////
 Grunts, Grunt Captains, Spectres, Spectre variants, npc "Pilots", npc Titans, and Cloak Drones. This is basically a fusion of regular MP and Frontier Defense.
 
 
@@ -69,7 +69,7 @@ SUICIDE SPECTRES:
 There is a random chance for them to spawn in their own dedicated waves mid-late game. They have several Pilots' worth of health so that grunts don't drop them immediately. They will die without exploding if they take enough damage. They also do increased damage to both Pilots and Titans and have increased sprint speed compared to the base game.
 
 * Any grunt/spectre/Pilot melee will instant-kill them without blowing up, as will getting hit with any kind of electrical damage.
-* Getting stepped on by a Titan or hit by any Titan weapon will blow them up, as will getting hit with any kind of laser damage.
+* Getting stepped on by a Titan or hit by any Titan weapon will blow them up, as will getting hit with any kind of laser damage or the smart pistol.
 
 
 ///// CAN I USE THIS MOD FOR A SERVER? /////
