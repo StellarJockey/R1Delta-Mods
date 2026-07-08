@@ -67,6 +67,13 @@ function MeleeThread_TitanVsTitan_Internal( actions, action, attacker, target )
 
 	// should rename TitanType
 	local titanType = GetSoulTitanType(attacker.GetTitanSoul())
+	
+	// Identify the default, safe execution for the attacker's chassis
+	local defaultFunc = MeleeThread_AtlasVsTitan
+	if ( titanType == "stryder" )
+		defaultFunc = MeleeThread_StryderVsTitan
+	else if ( titanType == "ogre" )
+		defaultFunc = MeleeThread_OgreVsTitan
 
 	if ( target.IsNPC() && !TitanHasPilotInTitan( target ) )
 	{
@@ -74,23 +81,29 @@ function MeleeThread_TitanVsTitan_Internal( actions, action, attacker, target )
 	}
 	else
 	{
-		switch ( titanType )
+		// Choose one of the titan execution handlers at random
+		local execList = [ MeleeThread_AtlasVsTitan, MeleeThread_StryderVsTitan, MeleeThread_OgreVsTitan ]
+		func = Random( execList )
+
+		if ( attacker.IsPlayer() )
 		{
-			case "atlas":
-				func = MeleeThread_AtlasVsTitan
-				break
+			local viewmodel = attacker.GetFirstPersonProxy()
+			local requiredAnim = ""
+			
+			// Map the selected function to the first-person animation it requires
+			if ( func == MeleeThread_OgreVsTitan )
+				requiredAnim = "ogpov_melee_armrip_attacker"
+			else if ( func == MeleeThread_StryderVsTitan )
+				requiredAnim = "strypov_melee_sync_frontkill"
+			else if ( func == MeleeThread_AtlasVsTitan )
+				requiredAnim = "atpov_melee_sync_frontkill"
 
-			case "stryder":
-				func = MeleeThread_StryderVsTitan
-				break
-
-			case "ogre":
-				// func = MeleeThread_StryderVsTitan
-				func = MeleeThread_OgreVsTitan
-				break
-			// case "destroyer":
-			// 	func = MeleeThread_OgreVsTitan
-			// 	break
+			// If the viewmodel is missing the animation, fallback to default
+			if ( IsValid( viewmodel ) && requiredAnim != "" && !viewmodel.Anim_HasSequence( requiredAnim ) )
+			{
+				printt( "Viewmodel missing anim: " + requiredAnim + ". Falling back to " + titanType + " default." )
+				func = defaultFunc
+			}
 		}
 	}
 
