@@ -7,6 +7,6 @@ To install, download this repo in bulk, extract the zip file, and simply place t
 * Frontier Overhaul's README has a full list of mods that it comes built-in with.
 *  IF YOU ATTEMPT TO USE ANY OF THOSE MODS ALONGSIDE F.O., IT WILL BREAK THE GAME.
 
-* Other than that, Custom Backgrounds and Extra Music will work just fine alongside FO.
+* Other than that, Custom Backgrounds, Extra Music, and Low-Gravity Moons will work just fine alongside FO.
 
 Good luck, have fun!
