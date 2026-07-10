@@ -282,9 +282,11 @@ function GetRandomBurnCardGroup()
 	return Random( level.burnCardGroups )
 }
 
+const frag_flavor = "''In case of ticking sound, evacuate immediately and contact emergency services.''"
+
 function CreateAllBurnCards()
 {
-	CreateBurnCardWeapon( "bc_frag_m2",					BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON	| CT_FRAG									, "burncards/burncard_art_08", 	BC_NEXTDEATH, 		"#BC_FRAG_GRENADE_M2"		, "#BC_FRAG_GRENADE_M2_DESC"	, "#BC_FRAG_GRENADE_FLAVOR"				, "#BC_FLAVOR_LABEL",			"mp_weapon_frag_grenade",		"burn_mod_frag_grenade",				"OFFHAND0"		)
+	CreateBurnCardWeapon( "bc_frag_m2",					BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON	| CT_FRAG									, "burncards/burncard_art_08", 	BC_NEXTDEATH, 		"#BC_FRAG_GRENADE_M2"		, "#BC_FRAG_GRENADE_M2_DESC"	, frag_flavor							, "#BC_FLAVOR_LABEL",			"mp_weapon_frag_grenade",		"burn_mod_frag_grenade",				"OFFHAND0"		)
 	CreateBurnCardWeapon( "bc_arc_m2",					BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON	| CT_FRAG									, "burncards/burncard_art_11", 	BC_NEXTDEATH, 		"#BC_EMP_GRENADE_M2"		, "#BC_EMP_GRENADE_M2_DESC"		, "#BC_EMP_GRENADE_M2_FLAVOR"			, "#BC_FLAVOR_BLISK_ANGEL_CITY", "mp_weapon_grenade_emp",		"burn_mod_emp_grenade",					"OFFHAND0"		)
 	CreateBurnCardWeapon( "bc_prox_m2",					BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON	| CT_FRAG									, "burncards/burncard_art_10", 	BC_NEXTDEATH, 		"#BC_PROXIMITY_MINE_M2"		, "#BC_PROXIMITY_MINE_M2_DESC"	, "#BC_PROXIMITY_MINE_M2_FLAVOR"		, "#BC_FLAVOR_GRAVES",			"mp_weapon_proximity_mine",		"burn_mod_proximity_mine",				"OFFHAND0"		)
 	CreateBurnCardWeapon( "bc_satchel_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON	| CT_FRAG									, "burncards/burncard_art_09", 	BC_NEXTDEATH, 		"#BC_SATCHEL_M2"			, "#BC_SATCHEL_M2_DESC"			, "#BC_SATCHEL_M2_FLAVOR"				, "#BC_FLAVOR_TITAN_FIGHTER",	"mp_weapon_satchel",			"burn_mod_satchel",						"OFFHAND0"		)
