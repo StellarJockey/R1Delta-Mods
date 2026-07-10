@@ -1,6 +1,6 @@
 "AddonInfo"
 {
-	"addontitle"			"Aphelion's Low Gravity Moons"
+	"addontitle"			"Aphelion's Low-Gravity Moons"
 	"addonDescription"		"Adds lower gravity for maps that take place on moons"
 	"addonversion"			"1.0.0"
 	"addonauthor"			"Aphelion"
