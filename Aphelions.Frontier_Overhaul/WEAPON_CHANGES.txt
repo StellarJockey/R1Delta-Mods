@@ -1,4 +1,6 @@
-///// PILOT PRIMARIES /////
+//////////////////////////////
+////// PILOT PRIMARIES ///////
+//////////////////////////////
 R101-C CARBINE:
 * Small increase to ADS recoil
 * Small increase to weapon spread
@@ -13,7 +15,7 @@ EVA-8 SHOTGUN:
 
 R1-S BURRELL SMG:
 * Restored cut SMG version of the R101. Still experimenting with its role and numbers
-* Temporarily removed because it will break the game if you try and use it outside the mod
+* Temporarily removed because it will actually break the game super hard if you try and use it outside the mod
 
 HEMLOK:
 * Reduced weapon spread
@@ -29,7 +31,9 @@ SPITFIRE:
 KRABER:
 * Added Anti-Titan rounds mod
 
-///// PILOT SECONDARIES /////
+//////////////////////////////
+///// PILOT SECONDARIES //////
+//////////////////////////////
 P2011:
 * Will 3-shot Pilots and Grunts at close range instead of 4
 * Burn card version adds an 3 extra rounds to your mag
@@ -41,10 +45,11 @@ TWIN-B:
 * Does enough damage to one-shot grunt captains (250 health) at close range 
 * Added double tap mod to shoot both barrels at once
 
-
+//////////////////////////////
 ///// ANTI-TITAN WEAPONS /////
+//////////////////////////////
 ARCHER:
-* Added dumbfire rocket mod
+* Added guided rocket mod
 
 MAG LAUNCHER:
 * Added an extended mag mod
@@ -53,7 +58,9 @@ CHARGE RIFLE:
 * Added charge hack mod
 
 
-///// TITAN PRIMARIES /////
+//////////////////////////////
+////// TITAN PRIMARIES ///////
+//////////////////////////////
 QUAD ROCKET:
 * Damage buff against Titans
 
@@ -63,7 +70,7 @@ WYS-0404:
 * Added the Lead Converter mod; increases fire rate, but range is reduced
 
 TRIPLE THREAT:
-* Got rid of the fire rate nerf, the charge time feels like its enough of a fire rate debuff
+* Got rid of the fire rate nerf for the hydraulic launcher, the charge time feels like its enough of a fire rate debuff
 
 AG-8 THUNDERBOLT:
 * Ammo is no longer infinite, will passively regenerate when not firing
@@ -71,9 +78,11 @@ AG-8 THUNDERBOLT:
 * 50% movement speed penalty is applied when firing
 * Added the dark mode skin, since its base skin doesn't fit TF1's art style
 
-///// TITAN ORDNANCE /////
+//////////////////////////////
+/////// TITAN ORDNANCE ///////
+//////////////////////////////
 SLAVED WARHEADS:
 * Small damage buff
 
 SHOULDER TURRET:
-* Added in the Titan Shoulder Turret. Reduced its active time from 20 seconds to 15 seconds
+* Added in the Titan Shoulder Turret
