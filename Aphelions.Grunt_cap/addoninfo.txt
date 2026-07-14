@@ -1,9 +1,0 @@
-"AddonInfo"
-{
-	"addontitle"			"Aphelion's Frontier Overhaul"
-	"addonDescription"		"Single-player modpack that includes AI Titans, more minions, and greater AI lethality"
-	"addonversion"			"1.0.0"
-	"addonauthor"			"Aphelion"
-
-	"addonContent_Script"	"1"
-}
