@@ -26,10 +26,10 @@ Currently, they are just re-skinned grunts. They have maxed accuracy, increased 
 
 ///// HOW DOES THE EVAC WORK? /////
 In Attrition, CTF, and Hardpoint:
-* If you win, there is no evac, since there are no enemy players to hunt.
-* If you lose, evac will trigger same as in MP. It will also take off as soon as you get in!
+* If you win, there is no epilogue segment, since there are no enemy players to hunt.
+* If you lose, the epilogue + evac will trigger just like in MP. Dropship will also take off as soon as you get in!
 In Campaign:
-* The evac will trigger regardless of if you win or lose, since the epilogue cutscenes/dialogue require it to run.
+* The epilogue will trigger regardless of if you win or lose, since the post-game cutscenes/dialogue require it to run.
 
 ///// WHAT ABOUT FRONTIER DEFENSE? /////
 Haha... yeah no, this turns FD into nightmare-difficulty. But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone. But it is still quite difficult. So be ready.
