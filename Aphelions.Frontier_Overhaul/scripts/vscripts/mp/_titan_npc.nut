@@ -555,6 +555,8 @@ function CreateNPCTitanForPlayer( player, origin, angles, delayedCreation = fals
 
 	SetTitanOSForPlayer( player )
 
+	if ( !IsTrainingLevel())
+		SetDecalForTitan( player )
 	// start a new titan building when the current titan dies
 	AddSoulDeathFunc( UpdateSoulDeath )
 
@@ -654,7 +656,8 @@ function SpawnNPCTitan( table )
 	local hidden 	 = table.hidden
 	local settings   = table.settings
 	local skin       = table.skin
-	local weapon 	= table.weapon
+	local weapon 	 = table.weapon
+	local decal      = table.decal
 
 	if ( !settings )
 		settings = "titan_atlas"
@@ -677,7 +680,7 @@ function SpawnNPCTitan( table )
 	npcTitan.kv.physdamagescale = 1.0
 	npcTitan.kv.NumGrenades = 0
 	npcTitan.kv.alwaysalert = 1
-	npcTitan.kv.reactChance = 100
+	npcTitan.kv.reactChance = 0
 	npcTitan.kv.teamnumber = team
 	npcTitan.kv.maxEnemyDist = 16000
 	npcTitan.SetTeam( team )
@@ -708,7 +711,7 @@ function SpawnNPCTitan( table )
 	DispatchSpawn( npcTitan, true )
 
 	npcTitan.SetAllowJump( false )	// need to setup traverse animations
-	npcTitan.StayPut( false )
+	npcTitan.StayPut( true )
 	npcTitan.SetAISettings( "titan" )
 	npcTitan.SetEngagementDistVsStrong( 0, 6000 )
 
