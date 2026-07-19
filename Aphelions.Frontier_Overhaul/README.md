@@ -50,10 +50,10 @@ Haha... yeah no, this turns FD into nightmare-difficulty. But you will have up t
 HOW DO THE OBJECTIVE-BASED MODES WORK?
 -
 Hardpoint Domination:
-* Grunts will (kind of) push the objective. It's a bit finicky and the AI is still a work-in-progress. As a player, you will cap points slightly faster than in the base game. Enemy grunts will capture points faster than your grunts. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any grunts/player, if it gets inside the capture zone.
+* Grunts will (kind of) push the objective. It's a bit finicky and the AI is still a work-in-progress. As a player, you will cap points slightly faster than in the base game. Enemy grunts will capture points faster than your grunts. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any grunts/player if it gets inside the capture zone.
 
 Capture the Flag:
-* Gonna be honest, this one is still quite janky... But basically, if a grunt gets close to an enemy flag, it will automatically capture it. Grunts are \*supposed\* to have attacker/defender AI, but like Hardpoint, it can be kind of inconsistent. I'll be ironing it out in the future.
+* Gonna be honest, this one is still quite janky... But basically, if a grunt gets close to an enemy flag, it will automatically capture it. Grunts are *supposed* to have attacker/defender AI, but like Hardpoint, it can be kind of inconsistent. I'll be ironing it out in the future.
 
 WHAT WEAPONS HAVE BEEN CHANGED?
 -
@@ -65,7 +65,7 @@ The list is quite extensive, so look at the WEAPON\_CHANGES.txt file. It's mostl
 
 CAN I TURN DOWN THE DIFFICULTY?
 -
-Yes. By default, this mod sets the AI lethality to Very High. Simply bump it down to High or Normal if you find the AI to be too overbearing. They will still do the same damage as a player, they'll just be less accurate.
+Yes. By default, this mod sets the AI lethality to Very High. Simply bump it down to High or Normal if you find the AI to be too overbearing. They will still do the same damage as a player; they'll just be less accurate.
 
 WHAT ENEMIES DOES THIS INCLUDE?
 -
@@ -76,7 +76,7 @@ Grunts, Grunt Captains, Spectres, Spectre variants, npc "Pilots", npc Titans, an
 HOW DO THE SPECTRE VARIANTS WORK?
 -
 SNIPER SPECTRES:
-* There is a rare chance for group of sniper spectres to spawn starting after two minutes. They can spawn with any of the three sniper weapons. They will always be cloaked and will only de-cloak when they have line of sight on an enemy to shoot.
+* There is a rare chance for a group of sniper spectres to spawn starting after two minutes. They can spawn with any of the three sniper weapons. They will always be cloaked and will only de-cloak when they have line of sight on an enemy to shoot.
 
 SUICIDE SPECTRES:
 * There is a random chance for them to spawn in their own dedicated waves mid-late game. They have several Pilots' worth of health so that grunts don't drop them immediately. They will die without exploding if they take enough damage. They also do increased damage to both Pilots and Titans and have increased sprint speed compared to the base game.
