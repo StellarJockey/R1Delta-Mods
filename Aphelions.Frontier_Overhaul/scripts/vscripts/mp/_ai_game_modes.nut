@@ -434,6 +434,7 @@ function NPCPilotEmbarkTitan( pilot, title, titan )
 	EmitSoundOnEntity( titan, Audio )
 	waitthread PlayAnimGravity( titan, animation )
 	SetStanceStand( titan.GetTitanSoul() )
+	DecayNPCDomeShield( titan, 0.0 )
 	GiveTitanPilot( titan, true )
 	GiveTitanPilotModel( titan, pilotmodel )
 	if ( IsValid( pilot ) )
@@ -581,7 +582,7 @@ function SetupLevelAICount()
 	SetLevelAICount( aiCount, TEAM_IMC )
 }
 
-function RestoreAICount()
+function RestoreAICount() // FOR FRACTURE
 {
 	FlagWait( "GamePlaying" )
 
@@ -893,82 +894,85 @@ function Spawn_TrackedPilotWithTitan( team, spawnPoint )
 
 function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 {
-	local titanDataTable = GetRandomTitanLoadout()
-	local titans = Random([ "titan_stryder", "titan_atlas", "titan_ogre" ])
-	titanDataTable.setFile = titans
-	local settings = titanDataTable.setFile
-	titanDataTable.primary = Random([
-		"mp_titanweapon_arc_cannon",
-		"mp_titanweapon_rocket_launcher",
-		"mp_titanweapon_40mm",
-		"mp_titanweapon_sniper",
-		"mp_titanweapon_triple_threat",
-		"mp_titanweapon_xo16",
-		"mp_titanweapon_shotgun",
-		// "mp_weapon_mega3",
-	])
+    local isTitanBrawl = ( GameRules.GetGameMode() == TITAN_BRAWL )
+    local pilot = null
+    local title = ""
 
 	local pilotmodels = file.pilotmodels
-	if ( team == TEAM_MILITIA )
-	    pilotmodels = file.militiapilotmodels
-	else if ( team == TEAM_IMC )
-	    pilotmodels = file.imcpilotmodels
+    if ( team == TEAM_MILITIA )
+        pilotmodels = file.militiapilotmodels
+    else if ( team == TEAM_IMC )
+        pilotmodels = file.imcpilotmodels
 
-	local pilot = CreateEntity( "npc_soldier" )
-	DispatchSpawn( pilot )
-	pilot.SetOrigin( spawnOrigin )
-	pilot.SetTeam( team )
-	pilot.SetModel( Random( pilotmodels ) )
-	SetNPCAsPilot( pilot, true )
-	GiveMinionWeapon( pilot, "mp_weapon_rspn101" )
-	pilot.SetMaxHealth( 200 )
-	pilot.SetHealth( 200 )
-
-	local title = ""
-    if ( team == TEAM_IMC )
+    // PILOT SETUP (obvisouly skips in Titan Brawl)
+    if ( !isTitanBrawl )
     {
-		title = GetRandomPilotName( team )
+        pilot = CreateEntity( "npc_soldier" )
+        DispatchSpawn( pilot )
+        pilot.SetOrigin( spawnOrigin )
+        pilot.SetTeam( team )
+        pilot.SetModel( Random( pilotmodels ) )
+        SetNPCAsPilot( pilot, true )
+        GiveMinionWeapon( pilot, "mp_weapon_rspn101" )
+        pilot.SetMaxHealth( 200 )
+        pilot.SetHealth( 200 )
+
+        if ( team == TEAM_IMC || team == TEAM_MILITIA )
+        {
+            title = GetRandomPilotName( team )
+        }
+
+        thread Spawn_PilotInDroppod( pilot, title, team, spawnPoint )
+        
+        wait 2.5 
     }
-    else if ( team == TEAM_MILITIA )
+
+    // TITAN CREATION
+    local titanDataTable = GetRandomTitanLoadout()
+    local titans = Random([ "titan_stryder", "titan_atlas", "titan_ogre" ])
+    titanDataTable.setFile = titans
+    local settings = titanDataTable.setFile
+    titanDataTable.primary = Random([
+        "mp_titanweapon_arc_cannon",
+        "mp_titanweapon_rocket_launcher",
+        "mp_titanweapon_40mm",
+        "mp_titanweapon_sniper",
+        "mp_titanweapon_triple_threat",
+        "mp_titanweapon_xo16",
+        "mp_titanweapon_shotgun",
+    ])
+
+    local titan = CreateNPCTitanFromSettings( settings, team, spawnOrigin, spawnAngles )
+    
+    if ( !("nukeTitanDamagesOtherTitans" in titan.s) )
+        titan.s.nukeTitanDamagesOtherTitans <- true
+
+    // 10% chance to become a Nuke Titan
+    if ( RandomFloat( 0.0, 1.0 ) <= 0.1 )
     {
-		title = GetRandomPilotName( team )
+        NPC_SetNuclearPayload( titan, true )
+        titan.SetSubclass( eSubClass.nukeTitan )
     }
 
-    // This title is then passed to the spawn function
-    thread Spawn_PilotInDroppod( pilot, title, team, spawnPoint )
+    if ( titans == "titan_stryder" )
+        titan.SetTitle( "#CHASSIS_STRYDER_NAME" )
+    else if ( titans == "titan_atlas" )
+        titan.SetTitle( "#CHASSIS_ATLAS_NAME" )
+    else if ( titans == "titan_ogre" )
+        titan.SetTitle( "#CHASSIS_OGRE_NAME" )
+    
+    local weaponMods = []
+    local weaponModPools = {
+        mp_titanweapon_40mm            = [ null, null, "burst", "burst", "extended_ammo", "extended_ammo", "burn_mod_titan_40mm", ],
+        mp_titanweapon_xo16            = [ null, null, "extended_ammo", "extended_ammo", "burst", "burst", "accelerator", "accelerator", "burn_mod_titan_xo16", ],
+        mp_titanweapon_sniper          = [ null, "extended_ammo", ],
+        mp_titanweapon_arc_cannon      = [ null, null, "capacitor", "capacitor", "burn_mod_titan_arc_cannon", ],  
+        mp_titanweapon_rocket_launcher = [ null, null, "rapid_fire_missiles", "rapid_fire_missiles", "extended_ammo", "extended_ammo", "burn_mod_titan_rocket_launcher", ],
+        mp_titanweapon_triple_threat   = [ null, null, "mine_field", "mine_field", "extended_ammo", "extended_ammo", "burn_mod_titan_triple_threat", ],
+        mp_titanweapon_shotgun         = [ null, "extended_ammo", "semi_converter", ],
+    }
 
-	wait 2.5
-	local titan = CreateNPCTitanFromSettings( settings, team, spawnOrigin, spawnAngles )
-	
-	if ( !("nukeTitanDamagesOtherTitans" in titan.s) )
-		titan.s.nukeTitanDamagesOtherTitans <- true
-
-	// 10% chance to become a Nuke Titan
-	if ( RandomFloat( 0.0, 1.0 ) <= 0.1 )
-	{
-		NPC_SetNuclearPayload( titan, true )
-		titan.SetSubclass( eSubClass.nukeTitan )
-	}
-
-	if ( titans == "titan_stryder" )
-	titan.SetTitle( "#CHASSIS_STRYDER_NAME" )
-	else if ( titans == "titan_atlas" )
-	titan.SetTitle( "#CHASSIS_ATLAS_NAME" )
-	else if ( titans == "titan_ogre" )
-	titan.SetTitle( "#CHASSIS_OGRE_NAME" )
-	
-	local weaponMods = []
-	local weaponModPools = {
-		mp_titanweapon_40mm            = [ null, null, "burst", "burst", "extended_ammo", "extended_ammo", "burn_mod_titan_40mm", ],
-		mp_titanweapon_xo16            = [ null, null, "extended_ammo", "extended_ammo", "burst", "burst", "accelerator", "accelerator", "burn_mod_titan_xo16", ],
-		mp_titanweapon_sniper          = [ null, "extended_ammo", ],
-		mp_titanweapon_arc_cannon      = [ null, null, "capacitor", "capacitor", "burn_mod_titan_arc_cannon", ],  
-		mp_titanweapon_rocket_launcher = [ null, null, "rapid_fire_missiles", "rapid_fire_missiles", "extended_ammo", "extended_ammo", "burn_mod_titan_rocket_launcher", ],
-		mp_titanweapon_triple_threat   = [ null, null, "mine_field", "mine_field", "extended_ammo", "extended_ammo", "burn_mod_titan_triple_threat", ],
-		mp_titanweapon_shotgun         = [ null, "extended_ammo", "semi_converter", ],
-	}
-
-	local primaryWeapon = titanDataTable.primary
+    local primaryWeapon = titanDataTable.primary
     if ( primaryWeapon in weaponModPools )
     {
         local availableMods = weaponModPools[primaryWeapon]
@@ -980,36 +984,84 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         }
     }
 
-	titan.GiveWeapon( titanDataTable.primary, weaponMods )
-    titan.TakeOffhandWeapon( 0 )
-    titan.TakeOffhandWeapon( 1 )
-	titan.SetLookDist( 120000 )
-	titan.kv.faceEnemyWhileMovingDistSq = 1024 * 1024
-	
-	AttritionGiveTitanRandomTacticalAbility( titan )
-	GiveTitanRandomShoulderWeapon( titan )
-	AllowTeamRodeo( titan, true )
-	thread TrackTitan( titan )
-	waitthread SuperHotDropGenericTitan_DropIn( titan, spawnOrigin, spawnAngles )
-	thread PlayAnim( titan, "at_MP_embark_idle_blended" )
-	if ( IsValid( pilot ) && IsValid( titan ) && IsAlive( pilot ) && IsAlive( titan ) )
-	{
-		pilot.SetOrigin( titan.GetOrigin() )
-		pilot.InitFollowBehavior( titan, AIF_FIRETEAM )
-	    pilot.EnableBehavior( "Follow" )
-		pilot.DisableBehavior( "Assault" )
-	    thread NPCPilotEmbarkTitan( pilot, title, titan )
-		thread TitanStandUpHandle( pilot, titan )
-		return
-	}
-	else if ( IsValid( titan ) && IsAlive( titan ) )
-	    thread PlayAnimGravity( titan, "at_hotdrop_quickstand" )
+	if ( isTitanBrawl )
+    {
+        GiveTitanPilot( titan, true )
+        GiveTitanPilotModel( titan, Random( pilotmodels ) )
+        titan.SetEfficientMode( false )
+    }
 
-	if ( level.aiHuntThinkEnabled )
-	{
-		thread AI_HuntThink( titan, team )
-		thread AI_SpottingThink( titan, team )
-	}
+    titan.GiveWeapon( titanDataTable.primary, weaponMods )
+	titan.TakeOffhandWeapon( 0 )
+    titan.TakeOffhandWeapon( 1 )
+    titan.SetLookDist( 120000 )
+    titan.kv.faceEnemyWhileMovingDistSq = 1024 * 1024
+
+    GiveTitanRandomShoulderWeapon( titan )
+    AllowTeamRodeo( titan, true )
+
+	local tacChoice = RandomInt( 3 )
+    if ( tacChoice == 0 )
+    {
+        titan.GiveOffhandWeapon( "mp_titanability_bubble_shield", TAC_ABILITY_WALL, [] )
+        titan.SetTacticalAbility( titan.GetOffhandWeapon( TAC_ABILITY_WALL ), TTA_WALL )
+    }
+    else if ( tacChoice == 1 )
+    {
+        titan.GiveOffhandWeapon( "mp_titanability_smoke", TAC_ABILITY_SMOKE, [] )
+        titan.SetTacticalAbility( titan.GetOffhandWeapon( TAC_ABILITY_SMOKE ), TTA_SMOKE )
+    }
+    else
+    {
+        titan.SetTacticalAbility( titan.GetOffhandWeapon( TAC_ABILITY_VORTEX ), TTA_VORTEX )
+    }
+   
+    // DROP SEQUENCE LOGIC
+    thread TrackTitan( titan )
+    waitthread SuperHotDropGenericTitan_DropIn( titan, spawnOrigin, spawnAngles )
+
+    if ( isTitanBrawl )
+    {
+        thread DecayNPCDomeShield( titan, 3.0 )
+		waitthread PlayAnimGravity( titan, "at_hotdrop_quickstand" )
+        SetStanceStand( titan.GetTitanSoul() )
+
+        if ( level.aiHuntThinkEnabled )
+        {
+            thread AI_HuntThink( titan, team )
+            thread AI_SpottingThink( titan, team )
+        }
+
+        return titan
+    }
+
+    // Standard Modes Finish
+    thread PlayAnim( titan, "at_MP_embark_idle_blended" )
+    if ( IsValid( pilot ) && IsValid( titan ) && IsAlive( pilot ) && IsAlive( titan ) )
+    {
+        pilot.SetOrigin( titan.GetOrigin() )
+        pilot.InitFollowBehavior( titan, AIF_FIRETEAM )
+        pilot.EnableBehavior( "Follow" )
+        pilot.DisableBehavior( "Assault" )
+        thread NPCPilotEmbarkTitan( pilot, title, titan )
+        thread TitanStandUpHandle( pilot, titan )
+        return
+    }
+	else if ( IsValid( titan ) && IsAlive( titan ) )
+    {
+        // The pilot is dead, so the Titan stands up on its own
+        waitthread PlayAnimGravity( titan, "at_hotdrop_quickstand" )
+        SetStanceStand( titan.GetTitanSoul() )
+        
+        // Shield decays instantly
+        DecayNPCDomeShield( titan, 0.0 )
+    }
+
+    if ( level.aiHuntThinkEnabled )
+    {
+        thread AI_HuntThink( titan, team )
+        thread AI_SpottingThink( titan, team )
+    }
 }
 
 function TitanStandUpHandle( pilot, titan )
@@ -1027,50 +1079,6 @@ function TitanStandUpHandle( pilot, titan )
 	)
 	WaitForever()
 }
-
-function AttritionGiveTitanRandomTacticalAbility( titan )
-{
-	AttritionGiveTitanTacticalAbility( titan, RandomInt( 1, 4 ) )
-}
-
-function AttritionGiveTitanTacticalAbility( titan, tacAbility )
-{
-	local tac = titan.GetOffhandWeapon( tacAbility )
-	switch ( tacAbility )
-	{
-		case 1:
-			if ( !IsValid( tac ) )
-				titan.GiveOffhandWeapon( "mp_titanability_bubble_shield", 2 )
-			titan.SetTacticalAbility( titan.GetOffhandWeapon( 2 ), TTA_WALL )
-			break
-
-		case 2:
-			if ( !IsValid( tac ) )
-				titan.GiveOffhandWeapon( "mp_titanability_smoke", 3 )
-			titan.SetTacticalAbility( titan.GetOffhandWeapon( 3 ), TTA_SMOKE )
-			break
-
-		default:
-			if ( !IsValid( tac ) )
-				titan.GiveOffhandWeapon( "mp_titanweapon_vortex_shield", 1 )
-			titan.SetTacticalAbility( titan.GetOffhandWeapon( 1 ), TTA_VORTEX )
-			break
-	}
-}
-
-function GiveTitanRandomShoulderWeapon( titan )
-{
-	local weapons = [
-		"mp_titanweapon_salvo_rockets",
-		"mp_titanweapon_dumbfire_rockets",
-		"mp_titanweapon_shoulder_rockets",
-		"mp_titanweapon_homing_rockets",
-		]
-
-	GiveTitanShoulderWeapon( titan, Random( weapons ) )
-}
-
-//////////////////////////////
 
 function GiveTitanRandomShoulderWeapon( titan )
 {
@@ -2078,14 +2086,9 @@ function SniperSpectreWaveThink( team )
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
 	local mode = GameRules.GetGameMode()
-    if ( mode == TITAN_BRAWL || mode == LAST_TITAN_STANDING )
+    if ( mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING )
     {
-        wait 0.0  // Titans spawn instantly in Titan Brawl and LTS
-    }
-
-    else
-    {
-        wait RandomFloat( 20, 90 )   // Titan spawn delay in seconds 
+        wait RandomFloat( 20, 90 )   // Titan spawn delay in seconds
     } 
 
     if ( !IsNPCSpawningEnabled( team ) )
@@ -5575,4 +5578,22 @@ function ApplyDroneCloak( drone, target )
     }
 
     target.SetCloakDuration( 3.0, -1, 0 ) 
+}
+
+function DecayNPCDomeShield( titan, delay )
+{
+    titan.EndSignal( "OnDeath" )
+    titan.EndSignal( "OnDestroy" )
+
+    wait delay
+
+    // Ensure the Titan has a valid soul and shield before trying to destroy it
+    if ( IsValid( titan ) && IsValid( titan.GetTitanSoul() ) )
+    {
+        local soul = titan.GetTitanSoul()
+        if ( IsValid( soul.bubbleShield ) )
+        {
+            soul.bubbleShield.Destroy()
+        }
+    }
 }
