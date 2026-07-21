@@ -78,7 +78,7 @@ const FAST_AUTOLOADER_LONGDESCv2 =	"This advanced autoload mechanism replenishes
 const titan_40mm_LONGDESC =      "The 40mm Cannon is a semi-automatic weapon that fires highly explosive rounds of depleted uranium. Originally used by APCs, Brockhaurd Manufacturing has repurposed it for Titan combat."
 const xo16_LONGDESC =            "The XOTBR-16 Chaingun is an automatic, belt-fed machine gun that fires 35mm rounds at 600 RPM. Due to its range and precision, it is very effective against both Pilots and Titans."
 const quad_rocket_LONGDESC =     "The Quad Rocket launches a tight cluster of four 60mm rockets at once. When zoomed in, the rockets will fire in a slow-moving spiral that expands outward, denying territory to the enemy."
-const arc_cannon_LONGDESC =      "The Arc Cannon fires a bolt of electricity at 5 terajoules that will arc across nearby targets. It can be fired instantly, or it can be charged over time for an increase in firepower."
+const arc_cannon_LONGDESC =      "The Arc Cannon fires a bolt of electricity at up to 5 terajoules that will arc across nearby targets. It can be fired instantly, or it can be charged over time for an increase in firepower."
 const titan_shotgun_LONGDESC =   "The WYS-0404 Shotgun is the predecessor to the Plasma Railgun, making it one of the earliest known Titan weapons. It fires in three-round bursts for devastating CQB firepower."
 const titan_sniper_LONGDESC =    "The PR-01 Plasma Railgun is a sniper weapon that fires hypersonic tungsten. When zoomed, the weapon's power will charge up over several stages. The weapon may be fired at any stage, even zero."
 
