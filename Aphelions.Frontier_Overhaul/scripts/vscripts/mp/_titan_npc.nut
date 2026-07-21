@@ -578,7 +578,7 @@ function UpdateSoulDeath( soul )
 
 	player.OnDestroyTitan()
 
-	ClearPlayerActiveObjective( player )
+	// ClearPlayerActiveObjective( player )
 }
 
 

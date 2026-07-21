@@ -1377,7 +1377,7 @@ function CodeCallback_OnPlayerKilled( player, damageInfo )
 	Remote.CallFunction_NonReplay( player, "ServerCallback_YouDied" )
 
 	// [LJS] hud 에 탈출 알람 or 타이탄 알람 삭제.
-	ClearPlayerActiveObjective( player )
+	// ClearPlayerActiveObjective( player )
 
 	local team = player.GetTeam()
 	Assert( player.GetTeam() > TEAM_SPECTATOR )

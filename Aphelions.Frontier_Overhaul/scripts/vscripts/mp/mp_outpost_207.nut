@@ -3326,7 +3326,7 @@ function IntroTitan_IMC( isDev = false )
 				DeleteAnimEvent( titan, "hatch_closed", IntroTitan_IMC_HatchClosed )
 				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
-    			GiveTitanPilotModel( titan, TEAM_IMC_CAPTAIN_MDL )
+    			GiveTitanPilotModel( titan, TEAM_IMC_GRUNT_MDL )
 
 
 				local assaultPos = Vector( 1570, 378, -323 )
