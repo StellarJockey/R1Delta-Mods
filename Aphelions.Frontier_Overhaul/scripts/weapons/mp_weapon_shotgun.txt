@@ -381,6 +381,14 @@ WeaponData
 			"damage_near_value"   							"/1.1"
 			"damage_far_value"								"/1.1"
 		}
+		"pump_action"
+		{
+			"damage_near_value"								"*1.4"
+			"damage_far_value"								"*1.4"
+			"damage_rodeo"									"*1.4"
+			"fire_rate" 									"2.5"
+			"rechamber_time"								"1.0"
+		}
 		twin_slug
 		{
 			"ammo_stockpile_max"							"60"
