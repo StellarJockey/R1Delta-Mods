@@ -298,12 +298,7 @@ function CodeCallback_IsValidRodeoTarget( player, titan )
 
 			if ( IsServer() )
 			{
-				// This doesnt work properly so disabling it for now
-
-				//if ( IsValidTitanRodeoTarget( player, titan ) )
-				//	HoldToRodeoUpdate( player, titan )
-
-				if ( !ButtonPressed( player, "use" ) && !ButtonPressed( player, "useandreload" ) )
+				if ( !player.UseButtonPressed() )
 					return false
 			}
 		}
@@ -1311,15 +1306,6 @@ Globalize( HoldToRodeoState )
 
 if ( IsServer() )
 {
-	function HoldToRodeoUpdate( player, titan )
-	{
-		if ( !( "SetUsePrompts" in titan.s ) )
-		{
-			titan.SetUsePrompts( "#HINT_RODEO", "#HINT_RODEO" )
-			titan.s.SetUsePrompts <- true
-		}
-	}
-
 	function Rodeo_OnClientConnected( player )
 	{
 		if ( !( "holdToRodeoState" in player.s ) )

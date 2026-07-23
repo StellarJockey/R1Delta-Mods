@@ -3641,3 +3641,29 @@ function ShouldPreventFriendlyFire( victim, attacker )
 
 	return false
 }
+
+function IsUplinkMode()
+{
+	return GameRules.GetGameMode() == UPLINK
+}
+
+function GetActiveUplinkPoint()
+{
+	if ( level.nv.activeUplinkID == null )
+		return null
+
+	if ( IsClient )
+	{
+		local player = GetLocalClientPlayer()
+		local hardpoint = null
+
+		foreach( hardpoint in player.s.hardpointArray )
+		{
+			if ( hardpoint.GetHardpointID() == level.nv.activeUplinkID )
+				return hardpoint
+		}
+
+		return hardpoint
+	}
+	return GetHardpointByID( level.nv.activeUplinkID )
+}
