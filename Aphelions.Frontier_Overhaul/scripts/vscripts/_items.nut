@@ -27,7 +27,6 @@ const MEGA2_SHORTDESC =    "Sawn-off shotgun"
 const MEGA2_LONGDESC =     "The TWIN-B is a 12-gauge break-action shotgun. Originally used by colonists for game hunting, the barrel has been sawed down for easier concealment - making it highly illegal to own in most IMC districts."
 
 const r97_SCATTER_LONGDESC =  "This mod increases the R-97's rate of fire even further to 1,260 RPM, tightens the hipfire spread, and grants a small boost to rodeo damage. However, this also comes with a 25% increase to the weapon's recoil."
-// const SP_TARGETMOD_LONGDESC = "This mod accelerates the Smart Pistol's lock-on speed and increases its target acquisition range, at the expense of a smaller targeting area.\n\nWARNING: Enemy Pilot will be notified as soon as lock-on begins."
 
 // Secondary DESCRIPTIONS
 const semipistol_LONGDESC =   "The Hammond P2011 is a semi-auto 11.43x23mm handgun. It is the standard-issue sidearm for IMC infantry. What it lacks in damage, it makes up for with accuracy and minimal recoil - a jack of all trades, master of none."
@@ -102,12 +101,13 @@ const MOD_ACCELERATOR_LONGDESC_V2 = 		"The accelerator slowly ramps up the weapo
 
 // FRONTIER OVERHAUL EXCLUSIVE MODS
 const MOD_AUTO_CONVERTER_LONGDESC =         "A receiver bypass makes this weapon fully automatic, increasing your rate of fire to 138 RPM. However, this comes at the cost of a slightly higher recoil."
-const MOD_PUMP_ACTION_LONGDESC = 			"This mod upgrades the EVA-8 with a pump-action receiver that cycles high-impact magnum shells. Shots will deal 40% more damage, but at the cost of a slower rate of fire."
+const MOD_PUMP_ACTION_LONGDESC = 			"This mod upgrades the EVA-8 with a pump-action receiver that cycles high-impact magnum shells. Shots will deal 30% more damage, but at the cost of a slower rate of fire."
 const MOD_SEMI_CONVERTER_LONGDESC =         "A receiver bypass increases the burst-fire rate of the WYS, but its effective range will be halved. It is optimized for hit-and-run style engagements."
 const MOD_DOUBLE_TAP_LONGDESC =			    "This mod allows you to pull both triggers and fire both barrels at once. Be mindful of your ammo reserve, as you will burn through it much faster."
-const MOD_CHARGE_HACK_LONGDESC = 			"This mod retunes the cavity magnetron, allowing the weapon to reach its full charge 40% faster, but will deal 30% less damage."
+const MOD_CHARGE_HACK_LONGDESC = 			"This mod retunes the weapon's cavity magnetron, allowing the weapon to reach its full charge 40% faster, but will deal 30% less damage."
 const MOD_GUIDED_MISSILE_LONGDESC = 		"This mod allows the Archer to be fired freely without locking on. The missile will follow your line of sight, meaning you have to manually guide it. Reloading will also take slightly longer."
 const MOD_AT_ROUNDS_LONGDESC = 				"This mod turns the Kraber-AP into a heavy anti-materiel rifle, increasing its damage to Titan armor. However, reloading and rechambering will take longer, and you will have reduced ammo capacity."
+const lmg_SCATTER_LONGDESC =  				"This mod increases the Spitfire's rate of fire to 720 RPM and does slightly more damage against Titan armor. However, this also comes with a 40% reduction to rodeo damage."
 
 const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
 const STRYDER_DESC = "The Stryder is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
@@ -907,11 +907,12 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega2",			"burn_mod_twinb", 			"#BC_TWINB_SHOTGUN_M2",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_shotgun",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 0, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_shotgun",				"pump_action",			"Pump Action",				"Pump-action weapon fire",				MOD_PUMP_ACTION_LONGDESC,				2, 0, 0,-5, 0, 			"../ui/menu/items/mod_icons/pump_action",	 			"../ui/menu/items/mod_icons/pump_action" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_shotgun",				"pump_action",			"Pump Action",				"Pump-action weapon fire",				MOD_PUMP_ACTION_LONGDESC,				2, 0, 0,-8, 0, 			"../ui/menu/items/mod_icons/pump_action",	 			"../ui/menu/items/mod_icons/pump_action" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_sniper_pilot_kills", 		1, 	"mp_weapon_sniper",				"tank_buster",		"Anti-Titan Rounds",			"Increased damage to Titans",			MOD_AT_ROUNDS_LONGDESC,			0, 0, 0, -3, -1, 		"../ui/menu/items/mod_icons/titan_hunter",	 		"../ui/menu/items/mod_icons/titan_hunter" )
 	
 	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_mega2",				"match_trigger",		"Double Tap",			"Fire both barrels",			MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 		"../ui/menu/items/mod_icons/double_tap",	 		"../ui/menu/items/mod_icons/double_tap" )
-
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_pilot_kills", 			1, 		"mp_weapon_lmg",			"scatterfire",					"#MOD_SCATTERFIRE_NAME",		"#MOD_SCATTERFIRE_DESC",			lmg_SCATTER_LONGDESC,			        0, -10, 0, 10, 0, 		"../ui/menu/items/mod_icons/scatterfire", 			"../ui/menu/items/mod_icons/scatterfire" )
+	
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_g2",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_hemlok",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
 	
