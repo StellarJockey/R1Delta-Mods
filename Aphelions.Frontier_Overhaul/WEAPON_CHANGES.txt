@@ -7,11 +7,11 @@ R101-C CARBINE:
 
 EVA-8 SHOTGUN:
 * Run-n-Gun kit now applies
-* Full-auto mod (fire rate is slower than the Burn Card version)
-* Leadwall mod reduces damage by only 9% instead of 17% (i.e. the Twin-B version)
 * Slightly buffed the range for the player
 * Headshots have been enabled
-* Range is slightly nerfed for npcs (getting shotgun-sniped was annoying)
+* Leadwall mod reduces damage by only 9% instead of 17% (i.e. the Twin-B version)
+* Added a Full-Auto mod (fire rate is a bit slower than the Burn Card version)
+* Added a Pump-Action mod that does more damage but with a slower fire rate
 
 R1-S BURRELL SMG:
 * Restored cut SMG version of the R101. Still experimenting with its role and numbers
@@ -27,9 +27,10 @@ VALKYRIE:
 SPITFIRE:
 * Reduced ADS time from 0.7 sec to 0.5 sec
 * Range buff
+* Added Scatterfire mod (fire rate is a bit slower than the Burn Card version)
 
 KRABER:
-* Added Anti-Titan rounds mod
+* Added Anti-Titan Rounds mod (has less ammo than the burn card version)
 
 //////////////////////////////
 ///// PILOT SECONDARIES //////
@@ -43,19 +44,19 @@ RE-45:
 
 TWIN-B:
 * Does enough damage to one-shot grunt captains (250 health) at close range 
-* Added double tap mod to shoot both barrels at once
+* Added Double Tap mod to fire both barrels (almost) at once
 
 //////////////////////////////
 ///// ANTI-TITAN WEAPONS /////
 //////////////////////////////
 ARCHER:
-* Added guided rocket mod
+* Added Guided Rocket mod
 
 MAG LAUNCHER:
-* Added an extended mag mod
+* Added an Extended Mag mod
 
 CHARGE RIFLE:
-* Added charge hack mod
+* Added Charge Hack mod
 
 
 //////////////////////////////

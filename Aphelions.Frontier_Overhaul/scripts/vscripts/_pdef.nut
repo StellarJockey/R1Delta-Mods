@@ -642,6 +642,7 @@ function InitPersistence()
 		mp_weapon_rocket_launcher_guided_missile_0 = 130,
 		mp_weapon_sniper_tank_buster = 131,	
 		mp_weapon_shotgun_pump_action = 132,
+		mp_weapon_lmg_scatterfire = 133,
 
 		// mp_weapon_g2_auto_converter = 127,
 		// mp_weapon_hemlok_auto_converter = 128,
@@ -653,8 +654,6 @@ function InitPersistence()
 		// mp_weapon_mega9_silencer = 131,
 		// mp_weapon_mega9_iron_sights = 132,
 		// mp_weapon_mega9_hcog = 133,
-		
-		
 		
     }
 
