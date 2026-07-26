@@ -535,16 +535,8 @@ for ( ;; )
 	}
 
 	printt( "Launch it!" )
-	local gamemodeForMap = null
 	if (modeName == "campaign_carousel") {
-		// we need to get gamemode, mv does not want to hardcode maps and gamemodes here so we're grabbing off playlist
-		for (local i = 0; i < GetMapCountForPlaylist(modeName); i++) {
-			if (GetPlaylistMapByIndex(modeName, i) == mapName)
-				gamemodeForMap = GetPlaylistGamemodeByIndex(modeName, i)
-		}
-		ServerCommand( "playlist " + modeName )
-		ServerCommand( "mp_gamemode " + gamemodeForMap )
-		ServerCommand( "changelevel " + mapName )
+		GameRules_ChangeCampaignMap( mapName, modeName )
 	} else {
 		GameRules_ChangeMap( mapName, modeName )
 	}

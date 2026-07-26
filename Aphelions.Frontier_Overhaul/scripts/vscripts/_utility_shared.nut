@@ -452,6 +452,9 @@ function ShouldDoReplay( player, attacker, replayTime )
 
 	if ( attacker == player )
 		return false
+	
+	if ( GetCurrentPlaylistName() == "campaign_carousel" )
+		return false
 
 	// Check for connectTime property existence (for replay buffer check)
 	if ( !( "connectTime" in player ) || !( "connectTime" in attacker ) )
