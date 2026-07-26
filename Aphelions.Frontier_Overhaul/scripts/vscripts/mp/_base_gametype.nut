@@ -2916,6 +2916,12 @@ function CodeCallback_OnClientConnectionCompleted( player )
 
     InitPassives( player )
 
+	InitPersistentData( player )
+    InitPlayerStats( player )
+    InitPlayerChallenges( player )
+    UpdatePlayerDecalUnlocks( player, false )
+    ValidateCustomLoadouts( player )
+
     if ( !player.IsBot() && !IsTrainingLevel() )
     {
         // LoadOut Setting
@@ -3028,11 +3034,6 @@ function CodeCallback_OnClientConnectionCompleted( player )
 
     PlayCurrentTeamMusicEventsOnPlayer( player )
     SetCurrentTeamObjectiveForPlayer( player )
-    InitPersistentData( player )
-    InitPlayerStats( player )
-    InitPlayerChallenges( player )
-    UpdatePlayerDecalUnlocks( player, false )
-    ValidateCustomLoadouts( player )
     SaveDateLoggedIn( player )
     FinishClientScriptInitialization( player )
 
