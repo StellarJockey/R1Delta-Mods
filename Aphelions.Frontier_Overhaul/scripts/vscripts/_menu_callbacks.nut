@@ -98,7 +98,7 @@ function ClientCommand_ActivateBurnCard(player, ...) {
 
 	// Get the card reference from the player's active burn card slot
 	local cardRef = GetPlayerActiveBurnCardSlotContents( player, index )
-	
+	local cardIndex = GetBurnCardIndexByRef(cardRef)
 	if ( cardRef == null )
 		return false
 
