@@ -101,7 +101,7 @@ const MOD_ACCELERATOR_LONGDESC_V2 = 		"The accelerator slowly ramps up the weapo
 
 // FRONTIER OVERHAUL EXCLUSIVE MODS
 const MOD_AUTO_CONVERTER_LONGDESC =         "A receiver bypass makes this weapon fully automatic, increasing your rate of fire to 138 RPM. However, this comes at the cost of a slightly higher recoil."
-const MOD_PUMP_ACTION_LONGDESC = 			"This mod upgrades the EVA-8 with a pump-action receiver that cycles high-impact magnum shells. Shots will deal 30% more damage, but at the cost of a slower rate of fire."
+const MOD_PUMP_ACTION_LONGDESC = 			"This mod upgrades the EVA-8 with a pump-action receiver that cycles high-impact magnum shells. Shots will deal 35% more damage, but at the cost of a slower rate of fire."
 const MOD_SEMI_CONVERTER_LONGDESC =         "A receiver bypass increases the burst-fire rate of the WYS, but its effective range will be halved. It is optimized for hit-and-run style engagements."
 const MOD_DOUBLE_TAP_LONGDESC =			    "This mod allows you to pull both triggers and fire both barrels at once. Be mindful of your ammo reserve, as you will burn through it much faster."
 const MOD_CHARGE_HACK_LONGDESC = 			"This mod retunes the weapon's cavity magnetron, allowing the weapon to reach its full charge 40% faster, but will deal 30% less damage."

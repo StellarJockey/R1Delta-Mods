@@ -53,9 +53,9 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"buckshot"
-	"damage_near_distance"							"300"
-	"damage_far_distance" 							"800"
-	"damage_near_value"   							"250"
+	"damage_near_distance"							"380"  // "300"
+	"damage_far_distance" 							"1000" // "700"
+	"damage_near_value"   							"285"  // "130"
 	"damage_far_value"								"35"
 	"damage_falloff_type"							"inverse"
 	"damage_inverse_distance"						"130"
@@ -64,7 +64,7 @@ WeaponData
 	"damage_rodeo" 									"700"
 
 	// Damage - When Used by NPCs
-	"npc_damage_near_distance"						"330"
+	"npc_damage_near_distance"						"350"
 	"npc_damage_far_distance" 						"800"
 	"npc_damage_near_value"   						"250"
 	"npc_damage_far_value"							"35"

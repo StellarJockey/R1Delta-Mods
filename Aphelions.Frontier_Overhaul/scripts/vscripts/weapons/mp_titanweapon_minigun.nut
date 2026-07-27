@@ -159,10 +159,10 @@ function OnWeaponNpcPrimaryAttack( attackParams )
 {
     self.s.lastFireTime = Time()
     self.SetNextAttackAllowedTime( Time() + (1.0 / 15.0) )
-    self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1 )
+    self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageTypes.Electric | DF_STOPS_TITAN_REGEN )
+    self.SetWeaponPrimaryClipCount( 100 )
 
-    local clip = self.GetWeaponPrimaryClipCount()
-    if ( clip > 0 ) self.SetWeaponPrimaryClipCount( clip - 1 )
+    return 1
 }
 
 function OnWeaponChargeBegin( chargeParams )
