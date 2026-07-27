@@ -1971,19 +1971,16 @@ function GetSortedBurnCards( deckArray, player = null )
 	local sortedArray = deckArray
 	local sortType = GetPlayerBurnCardSortFunction( player )
 
-	if ( !ShouldReverseBurnCardDeck( player ) )
-		sortedArray.sort( sortType.normal )
-	else
-		sortedArray.sort( sortType.reversed )
+	sortedArray.sort( sortType )
 
 	return sortedArray
 }
 
+const MAX_CARD_SORT_TYPE = 2
 function GetPlayerBurnCardSortFunction( player = null )
 {
-	local sortType = {}
-	sortType.normal <- null
-	sortType.reversed <- null
+	local sortType
+	local reversedSortType
 
 	local type
 	if ( player )
@@ -1994,22 +1991,25 @@ function GetPlayerBurnCardSortFunction( player = null )
 	switch( type )
 	{
 		case 1:
-			sortType.normal = BurnCardGroupSort
-			sortType.reversed = BurnCardGroupSortReversed
+			sortType = BurnCardGroupSort
+			reversedSortType = BurnCardGroupSortReversed
 			break
 
-		case 2:
-			sortType.normal = BurnCardRaritySort
-			sortType.reversed = BurnCardRaritySortReversed
+		case MAX_CARD_SORT_TYPE:
+			sortType = BurnCardRaritySort
+			reversedSortType = BurnCardRaritySortReversed
 			break
 
 		default:
-			sortType.normal = BurnCardNumericSort
-			sortType.reversed = BurnCardNumericSortReversed
+			sortType = BurnCardNumericSort
+			reversedSortType = BurnCardNumericSortReversed
 			break
 	}
 
-	return sortType
+	if ( !ShouldReverseBurnCardDeck( player ) )
+		return sortType
+	else
+		return reversedSortType
 }
 
 function BurnCardNumericSort( card1, card2 )
@@ -2044,9 +2044,9 @@ function BurnCardGroupSort( card1, card2 )
 	local group2 = GetBurnCardGroup( card2.cardRef )
 
 	if ( group1 > group2 )
-		return -1
-	if ( group1 < group2 )
 		return 1
+	if ( group1 < group2 )
+		return -1
 
 	if ( group1 == group2 )
 	{
@@ -2067,9 +2067,9 @@ function BurnCardGroupSortReversed( card1, card2 )
 	local group2 = GetBurnCardGroup( card2.cardRef )
 
 	if ( group1 > group2 )
-		return 1
-	if ( group1 < group2 )
 		return -1
+	if ( group1 < group2 )
+		return 1
 
 	if ( group1 == group2 )
 	{
