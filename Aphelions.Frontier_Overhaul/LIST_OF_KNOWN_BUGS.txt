@@ -1,11 +1,11 @@
 ///// HARD CRASHES /////
-* Game has a chance to crash if you attempt to open Pilot/Titan loadout immediately after starting the 15 second countdown for a private game.
+* Game has a chance to crash if you attempt to open Pilot/Titan loadout after starting the 15 second countdown for a private game.
 * Game has a high chance to crash when loading back into a private lobby after a solo match.
 
 ///// GAMEPLAY BUGS /////
 * Npc Titans sometimes do the stanky leg when standing up.
 * Npc Titans refuse to fire the minigun, so they won't spawn with it until I can get it to work.
-* Npc Titans' vortex shield have trouble blocking damage and catching/reflecting projectiles. I believe this is a base game issue.
+* Npc Titans' vortex shield have trouble blocking damage and catching/reflecting projectiles (this may be a base game issue).
 
 ///// MENU BUGS... /////
 * If you try and open your Titan loadouts after a game, you sometimes get locked into the Burn Cards menu with no way to back out, forcing you to restart the game.

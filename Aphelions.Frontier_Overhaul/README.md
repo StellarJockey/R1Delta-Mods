@@ -90,7 +90,7 @@ SNIPER SPECTRES:
 
 SUICIDE SPECTRES:
 
-* There is a random chance for them to spawn in their own dedicated waves mid-late game. They have several Pilots' worth of health so that grunts don't drop them immediately. They will die without exploding if they take enough damage. They also do increased damage to both Pilots and Titans and have increased sprint speed compared to the base game.
+* There is a random chance for them to spawn in their own dedicated waves mid-late game. They have several Pilots' worth of health so that grunts don't drop them immediately. They will die without exploding if they take enough damage. They also do increased damage to both Pilots and Titans.
 * Any grunt/spectre/Pilot melee will instant-kill them without blowing up, as will getting hit with any kind of electrical damage.
 * Getting stepped on by a Titan or hit by any Titan weapon will blow them up, as will getting hit with any kind of laser damage or the smart pistol.
 
