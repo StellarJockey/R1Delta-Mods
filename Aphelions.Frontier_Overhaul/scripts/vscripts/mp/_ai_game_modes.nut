@@ -44,8 +44,6 @@ function main()
 	Globalize( Coop_OnPlayerOrNPCKilled )
 	Globalize( SquadAssaultFrontline )
 	Globalize( SquadAssault )
-	Globalize( SquadHardpointRunThink )
-	Globalize( GetHardpointObjectiveForTeam )
 	Globalize( SquadFlagRunThink )
 	Globalize( GetCTFFlagOriginForTeam )
 	Globalize( GetCTFObjectiveForTeam )
@@ -143,6 +141,7 @@ function main()
 			level.npcRespawnWait = 5
 			break
 		case ATTRITION:
+		case CAPTURE_POINT:
 			level.npcRespawnWait = 10
 			break
 		case LAST_TITAN_STANDING:
@@ -1958,6 +1957,10 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 			printt( "[CTF_AI] SpawnFrontlineSquad dispatching squadIndex", squadIndex, "to AssaultCTF for team", team )
 		AssaultCTF( npcArray, squadIndex )
 	}
+	else if ( GameRules.GetGameMode() == CAPTURE_POINT )
+	{
+		thread SquadHardpointRunThink( npcArray, squadIndex )
+	}
 	else
 	{
 		// make the squad assault the correct frontline
@@ -3270,7 +3273,7 @@ function SquadAssaultFrontline_AssaultEnts( squad, squadIndex )
 		local npc = squad[ i ]
 
 		Assert( "assaultPoint" in npc.s )
-		SetFrontlineAssaultPointValues( npc.s.assaultPoint )
+		SetFrontlineAssaultPointValues( npc.s.assaultPoint, npc.GetTeam() )
 		npc.s.assaultPoint.SetOrigin( nodePos )
 
 		if ( file.debug & DEBUG_ASSAULTPOINT )
@@ -3285,21 +3288,47 @@ function SquadAssaultFrontline_AssaultEnts( squad, squadIndex )
 }
 
 //////////////////////////////////////////////////////////
-function SetFrontlineAssaultPointValues( point )
+function SetFrontlineAssaultPointValues( point, team )
 {
-	point.kv.stopToFightEnemyRadius = 800
-	point.kv.allowdiversionradius = 0
-	point.kv.allowdiversion = 1
-	point.kv.faceAssaultPointAngles = 0
-	point.kv.assaulttolerance = 512
-	point.kv.nevertimeout = 0
-	point.kv.strict = 0
-	point.kv.forcecrouch = 0
-	point.kv.spawnflags = 0
-	point.kv.clearoncontact = 1
-	point.kv.assaulttimeout = RandomFloat( 4, 8 )
-	point.kv.arrivaltolerance = 600
+	local players = GetPlayerArray()
+	if ( players.len() == 0 )
+		return
+
+	local playerTeam = players[0].GetTeam()
+
+	if ( team != playerTeam )
+	{
+		point.kv.stopToFightEnemyRadius = 0 	// Do not stop marching just because an enemy is visible
+		point.kv.allowdiversionradius 	= 0		// Zero diversion radius
+		point.kv.allowdiversion 		= 0		// Never divert from the objective path
+		point.kv.faceAssaultPointAngles = 0
+		point.kv.assaulttolerance		= 256
+		point.kv.nevertimeout 			= 1
+		point.kv.strict 				= 1
+		point.kv.forcecrouch			= 0
+		point.kv.spawnflags 			= 0
+		point.kv.clearoncontact 		= 0
+		point.kv.assaulttimeout			= RandomFloat( 15, 20 )
+		point.kv.arrivaltolerance 		= 400
+	}
+	else // Default values
+	{
+		point.kv.stopToFightEnemyRadius = 800
+		point.kv.allowdiversionradius 	= 0
+		point.kv.allowdiversion 		= 1
+		point.kv.faceAssaultPointAngles = 0
+		point.kv.assaulttolerance 		= 512
+		point.kv.nevertimeout			= 0
+		point.kv.strict 				= 0
+		point.kv.forcecrouch			= 0
+		point.kv.spawnflags 			= 0
+		point.kv.clearoncontact 		= 1
+		point.kv.assaulttimeout 		= RandomFloat( 4, 8 )
+		point.kv.arrivaltolerance 		= 600
+	}
+
 }
+
 
 //////////////////////////////////////////////////////////
 function SquadAssaultFrontline_Old( squad, squadIndex )
@@ -3356,6 +3385,9 @@ function SquadAssault( squad, pos )
 			thread DrawAssaultGoal( squad[ i ], nodePos )
 	}
 }
+
+
+
 
 
 // debug functions
@@ -3704,8 +3736,6 @@ function MoveBot( team )
 }
 
 
-
-
 function EntitiesDidLoad()
 {
 	switch( GameRules.GetGameMode() )
@@ -3741,16 +3771,33 @@ function ScriptedSquadAssault( squad, index )
 }
 
 
-//==================================
-// FO AI HARDPOINT LOGIC
-//==================================
 function AssaultHP( guys, index )
 {
 	if ( !guys.len() )
 		return
 
-	local team = guys[ 0 ].GetTeam()
-	local squadName = MakeSquadName( team, index )
+	//give everyone proper squad name
+	local team 			= guys[ 0 ].GetTeam()
+	local startPoint 	= null
+
+	// find a rough start location for the team
+	local spawnpoints = GetEntArrayByClass_Expensive( "info_spawnpoint_titan_start" )
+	local startOrigin = Vector( 0, 0, 0 )
+	local count = 0
+	for( local i = 0; i < spawnpoints.len(); i++ )
+	{
+		if ( spawnpoints[ i ].GetTeam() == team )
+		{
+			startOrigin += spawnpoints[ i ].GetOrigin()
+			count++
+		}
+	}
+
+	startOrigin = startOrigin * ( 1.0 / count.tofloat() )
+
+	local hardpoints 	= ArrayFarthest( GetHardpoints(), startOrigin )
+	local hpIndex 		= GetHardpointIndex( hardpoints[ index ] )
+	local squadName 	= MakeSquadName( team, hpIndex )
 
 	foreach ( guy in guys )
 	{
@@ -3758,155 +3805,16 @@ function AssaultHP( guys, index )
 			SetSquad( guy, squadName )
 	}
 
+	//is our squad filled up yet?
 	local squad = GetNPCArrayBySquad( squadName )
 
 	if ( squad.len() > SQUADSIZE )
 		return
 
-	// Create a 2:1 Attacker/Defender bias based on the squad's index
-	local role = ( index < 2 ) ? "attack" : "defend"
-
-	// Route to the dynamic think loop instead of a static order
-	thread SquadHardpointRunThink( squadName, team, role )
+	//ok we got everyone - lets assault some shit
+	thread SquadCapturePointThink( squadName, hardpoints[ index ], team )
 }
 
-function SquadHardpointRunThink( squadName, team, role )
-{
-	local signalString = "SquadHardpointRunThink_" + squadName
-
-	level.ent.Signal( signalString )
-	level.ent.EndSignal( signalString )
-
-	if ( !GetNPCSquadSize( squadName ) )
-		return
-
-	local lastGoal = null
-
-	while ( true )
-	{
-		local squad = GetNPCArrayBySquad( squadName )
-		ArrayRemoveDead( squad )
-
-		if ( !squad.len() )
-			return
-
-		// GET THE SQUAD'S CURRENT LOCATION
-		// Use the first living member's origin as the reference point
-		local squadOrigin = squad[0].GetOrigin()
-
-		// Pass the origin into the new objective function
-		local targetHardpoint = GetHardpointObjectiveForTeam( team, role, squadOrigin )
-
-		if ( targetHardpoint != null )
-		{
-			// Only issue a new assault order if their objective actually changed
-			if ( lastGoal == null || targetHardpoint != lastGoal )
-			{
-				NPCsAssaultHardpoint( squad, targetHardpoint )
-				lastGoal = targetHardpoint
-			}
-		}
-
-		// Wait 3 seconds before re-evaluating the map state
-		wait 3.0
-	}
-}
-
-
-function GetHardpointObjectiveForTeam( team, role, squadOrigin )
-{
-	if ( !( "hardpoints" in level ) || level.hardpoints.len() == 0 )
-		return null
-
-	local ownedPoints = []
-	local neutralPoints = []
-	local enemyPoints = []
-
-	local emergencyPoint = null
-	local closestEmergencyDist = 99999999
-
-	// Categorize all hardpoints on the map and calculate distance to the squad
-	foreach ( hp in level.hardpoints )
-	{
-		local hpTeam = hp.GetTeam()
-		local hpState = hp.GetHardpointState()
-		local dist = Distance( squadOrigin, hp.GetOrigin() )
-
-		// EMERGENCY CHECK: Is our owned point currently being contested or captured by the enemy?
-		if ( hpTeam == team && ( hpState == CAPTURE_POINT_STATE_HALTED || hpState == CAPTURE_POINT_STATE_CAPPING ) )
-		{
-			if ( dist < closestEmergencyDist )
-			{
-				closestEmergencyDist = dist
-				emergencyPoint = hp
-			}
-		}
-
-		// Store the hardpoint and its distance in a table for sorting later
-		local hpData = { point = hp, distance = dist }
-
-		if ( hpTeam == team )
-			ownedPoints.append( hpData )
-		else if ( hpTeam == TEAM_UNASSIGNED )
-			neutralPoints.append( hpData )
-		else
-			enemyPoints.append( hpData )
-	}
-
-	// ---------------------------------------------------------
-	// DEFENDER LOGIC
-	// ---------------------------------------------------------
-	if ( role == "defend" )
-	{
-		// 1. Defend the closest emergency point immediately
-		if ( emergencyPoint != null )
-			return emergencyPoint
-			
-		// 2. Otherwise, garrison the closest owned point
-		if ( ownedPoints.len() > 0 )
-		{
-			ownedPoints.sort( SortByDistance )
-			return ownedPoints[0].point 
-		}
-	}
-
-	// ---------------------------------------------------------
-	// ATTACKER LOGIC
-	// ---------------------------------------------------------
-	// 1. Prioritize the closest Neutral points first for early leads
-	if ( neutralPoints.len() > 0 )
-	{
-		neutralPoints.sort( SortByDistance )
-		return neutralPoints[0].point
-	}
-
-	// 2. If no Neutral points, push the closest Enemy point
-	if ( enemyPoints.len() > 0 )
-	{
-		enemyPoints.sort( SortByDistance )
-		return enemyPoints[0].point
-	}
-
-	// ---------------------------------------------------------
-	// FALLBACK LOGIC
-	// ---------------------------------------------------------
-	// If we own all 3 points, even attackers must fall back to defend the closest point
-	if ( ownedPoints.len() > 0 )
-	{
-		ownedPoints.sort( SortByDistance )
-		return ownedPoints[0].point
-	}
-
-	return level.hardpoints[0]
-}
-
-// Helper function to sort tables by the "distance" key
-function SortByDistance( a, b ) 
-{
-	if ( a.distance > b.distance ) return 1
-	if ( a.distance < b.distance ) return -1
-	return 0
-}
 
 function AssaultTDM( guys, index )
 {
@@ -5595,5 +5503,98 @@ function DecayNPCDomeShield( titan, delay )
         {
             soul.bubbleShield.Destroy()
         }
+    }
+}
+
+
+function GetHardpointObjectiveForTeam( team, squadOrigin )
+{
+
+    local hardpoints = GetEntArrayByClass_Expensive( "info_hardpoint" )
+
+    if ( hardpoints.len() == 0 )
+        return null
+
+    local bestHardpoint = null
+    // Use a very large number for initial comparison
+    local bestDistSq = 9999999999.0 
+
+    // Find the closest enemy or neutral hardpoint
+    foreach ( hp in hardpoints )
+    {
+        local hpTeam = hp.GetTeam()
+
+        // Skip hardpoints our team already owns
+        if ( hpTeam == team )
+            continue
+
+        local distSq = DistanceSqr( hp.GetOrigin(), squadOrigin )
+
+        if ( distSq < bestDistSq )
+        {
+            bestDistSq = distSq
+            bestHardpoint = hp
+        }
+    }
+
+    // If we own all hardpoints, defend the closest one instead of idling
+    if ( bestHardpoint == null )
+    {
+        bestDistSq = 9999999999.0
+        
+        foreach ( hp in hardpoints )
+        {
+            local distSq = DistanceSqr( hp.GetOrigin(), squadOrigin )
+            if ( distSq < bestDistSq )
+            {
+                bestDistSq = distSq
+                bestHardpoint = hp
+            }
+        }
+    }
+
+    return bestHardpoint
+}
+
+function SquadHardpointRunThink( squad, squadIndex )
+{
+    if ( !squad || squad.len() == 0 )
+        return
+
+    local team = squad[0].GetTeam()
+
+    // Keep pushing as long as the squad is alive
+    while ( true )
+    {
+        // Clean up dead NPCs
+        ArrayRemoveInvalid( squad )
+        if ( squad.len() == 0 )
+            break
+
+        // Safely get a valid origin for the squad to measure distance from
+        local squadOrigin = squad[0].GetOrigin() 
+
+        // Grab the most relevant hardpoint for this team, passing BOTH arguments
+        local targetHardpoint = GetHardpointObjectiveForTeam( team, squadOrigin )
+        if ( !targetHardpoint )
+        {
+            wait 5.0
+            continue
+        }
+
+        local targetPos = targetHardpoint.GetOrigin()
+
+        foreach ( npc in squad )
+        {
+            if ( !IsAlive( npc ) || !("assaultPoint" in npc.s) )
+                continue
+
+            // Simply update the coordinates; the aggressive KVs were already set at spawn
+            local point = npc.s.assaultPoint
+            point.SetOrigin( targetPos )
+        }
+
+        // Re-evaluate the target every 8 seconds
+        wait 8.0
     }
 }
