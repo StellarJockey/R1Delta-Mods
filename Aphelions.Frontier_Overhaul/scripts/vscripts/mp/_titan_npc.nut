@@ -519,7 +519,7 @@ function CreateDefaultNPCTitanTemplate( team )
 {
 	local settings 	= null
 	local table 	= CreateSpawnNPCTitanTemplate( team, settings )
-	table.health 	= 6200
+	table.health 	= 5000
 	table.maxHealth	= table.health
 	table.weapon 	= "mp_titanweapon_xo16"
 
@@ -578,7 +578,10 @@ function UpdateSoulDeath( soul )
 
 	player.OnDestroyTitan()
 
-	// ClearPlayerActiveObjective( player )
+	// Nexon clears the objective when doing this because they used the objective system
+	// To show people how to deploy their titan etc
+	// We dont use any of that, so getting rid of this
+	//ClearPlayerActiveObjective( player )
 }
 
 

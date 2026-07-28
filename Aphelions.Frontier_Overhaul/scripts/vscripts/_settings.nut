@@ -280,7 +280,7 @@ if ( IsClient() )
 	GameMode_SetIcon( UPLINK, "../ui/menu/playlist/tdm" )
 	GameMode_AddServerScript( UPLINK, "mp/uplink" )
 	GameMode_AddClientScript( UPLINK, "client/cl_uplink" )
-	GameMode_SetDefaultScoreLimits( UPLINK, 5, 0 )
+	GameMode_SetDefaultScoreLimits( UPLINK, 160, 0 )
 	
 
 	GameMode_Create( TITAN_BRAWL )
@@ -972,6 +972,7 @@ enum eRocketPodState
 PLAYER_HEALTH_BAR_CLASSNAMES 							<- {}
 PLAYER_HEALTH_BAR_CLASSNAMES["npc_dropship"]			<- true
 PLAYER_HEALTH_BAR_CLASSNAMES["npc_turret_mega"]			<- true
+PLAYER_HEALTH_BAR_CLASSNAMES["npc_turret_mega_bb"]		<- true
 PLAYER_HEALTH_BAR_CLASSNAMES["npc_turret_sentry"]		<- true
 
 const HEALTH_BARS_ENABLED_SP							= 1			// Turn on/off health bar drawing

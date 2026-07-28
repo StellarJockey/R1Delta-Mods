@@ -2012,11 +2012,11 @@ function ShouldRunEvac()
 	if ( winningTeam == TEAM_UNASSIGNED )
 		return false
 
-
-	if ( !GetCurrentPlaylistVarInt( "run_evac", 0 ) )
-    {
-        if ( GameRules.GetGameMode() == COOPERATIVE )
-            return true
+	if ( !GetCurrentPlaylistVarInt( "run_evac", 0 ) ) //If playlist var to always run evac don't do check for players being on both team
+	{
+		// We don't care about player count when playing coop
+		if ( GameRules.GetGameMode() == COOPERATIVE )
+			return true
 
         local losingTeam = GetOtherTeam( winningTeam )
         local playlist = GetCurrentPlaylistName()

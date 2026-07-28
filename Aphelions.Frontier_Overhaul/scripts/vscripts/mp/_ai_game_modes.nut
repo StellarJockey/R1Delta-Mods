@@ -3296,7 +3296,7 @@ function SetFrontlineAssaultPointValues( point, team )
 
 	local playerTeam = players[0].GetTeam()
 
-	if ( team != playerTeam )
+	if ( team != playerTeam && GameRules.GetGameMode() == CAPTURE_POINT )
 	{
 		point.kv.stopToFightEnemyRadius = 0 	// Do not stop marching just because an enemy is visible
 		point.kv.allowdiversionradius 	= 0		// Zero diversion radius

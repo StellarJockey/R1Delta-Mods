@@ -54,6 +54,7 @@ function InitPersistence()
         tmfd = 14
         tmfdp = 15
 		bb = 16
+		uplink = 17
     }
 
     AddPersistenceEnum("gameModes", gameModes)
@@ -629,28 +630,30 @@ function InitPersistence()
 
 		mp_weapon_mega3_burn_mod_thunderbolt = 121,
 		mp_weapon_mega4_burn_mod_charge_cannon = 122,
-		mp_titanweapon_triple_threat_hydraulic_launcher = 123,
-		
-		mp_titanweapon_shotgun_semi_converter = 124,
-		mp_weapon_mega3_extended_ammo = 125,
-		
-		mp_weapon_shotgun_auto_converter = 126,
-		mp_weapon_mgl_extended_ammo = 127,
-		mp_weapon_defender_charge_hack = 128,
-		mp_weapon_mega2_match_trigger = 129,
 
-		mp_weapon_rocket_launcher_guided_missile_0 = 130,
-		mp_weapon_sniper_tank_buster = 131,	
-		mp_weapon_shotgun_pump_action = 132,
-		mp_weapon_lmg_scatterfire = 133,
+		mp_titanweapon_triple_threat_hydraulic_launcher = 123
+		mp_weapon_sniper_scope_10x = 124,
+		mp_weapon_sniper_scope_12x = 125
+		mp_weapon_dmr_scope_10x = 126,
+		mp_weapon_dmr_scope_12x = 127
+
+		mp_titanweapon_shotgun_semi_converter = 128,
+		mp_weapon_mega3_extended_ammo = 129,
+		
+		mp_weapon_shotgun_auto_converter = 130,
+		mp_weapon_mgl_extended_ammo = 131,
+		mp_weapon_defender_charge_hack = 132,
+		mp_weapon_mega2_match_trigger = 133,
+
+		mp_weapon_rocket_launcher_guided_missile_0 = 134,
+		mp_weapon_sniper_tank_buster = 135,	
+		mp_weapon_shotgun_pump_action = 136,
+		mp_weapon_lmg_scatterfire = 137,
 
 		// mp_weapon_g2_auto_converter = 127,
 		// mp_weapon_hemlok_auto_converter = 128,
-
 		// mp_weapon_mega9_extended_ammo = 130,
 		// mp_weapon_mega9_burst = 131,
-		
-
 		// mp_weapon_mega9_silencer = 131,
 		// mp_weapon_mega9_iron_sights = 132,
 		// mp_weapon_mega9_hcog = 133,
@@ -821,7 +824,7 @@ function InitPersistence()
 	    ["bc_titan_shield_wall_m2"] = 72,
 	    ["bc_titan_melee_m2"] = 73,
 	    ["bc_extra_dash"] = 74,
-		bc_valkyrie_m2 = 75,			
+	    bc_valkyrie_m2 = 75,			
 	    bc_twinb_m2 = 76,			
 	    bc_titan_shotgun_m2 = 77,	
 	    bc_thunderbolt_m2 = 78,		
@@ -865,6 +868,9 @@ function InitPersistence()
     AddPersistenceKey("currentBurnCardPile", "int")
     AddPersistenceArray("currentBurnCardOffset", 3)
     AddPersistenceKey("currentBurnCardOffset", "int")
+
+    AddPersistenceKey("currentBurnCardSortType", "int")
+    AddPersistenceKey("currentBurnCardSortIsReversed", "bool")
 
     AddPersistenceArray("burnCardDeck", 1000)
     AddPersistenceKey("burnCardDeck", "burnCard")
@@ -1954,7 +1960,7 @@ function InitPersistence()
     AddPersistenceKey("savedCoopData.players.enemyType.killCount", "int")
     AddPersistenceKey("savedCoopData.players.enemyType.turretKillCount", "int")
 
-    AddPersistenceArray("mapHistory", 24)
+    AddPersistenceArray("mapHistory", "maps")
     AddPersistenceKey("mapHistory", "int")
     AddPersistenceArray("modeHistory", 10)
     AddPersistenceKey("modeHistory", "int")

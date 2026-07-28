@@ -31,14 +31,6 @@ const AI_SOLDIER_PROFICIENCY = 2 // 4
 
 const CAPTAIN_NAME_FREQUENCY = 0.35
 
-const BUBBLE_SHIELD_FREQUENCY = 0.0
-/*
-if ( GameTime.PlayingTime() > 0 )
-{
-	const BUBBLE_SHIELD_FREQUENCY = 0.05
-}
-*/
-
 COOP_AT_WEAPON_RATES <- {}
 COOP_AT_WEAPON_RATES[ "mp_weapon_rocket_launcher" ] <- 0.5
 COOP_AT_WEAPON_RATES[ "mp_weapon_smr" ] <- 0.4
@@ -132,11 +124,31 @@ function main()
 	AddSpawnCallback("npc_spectre", CoopTD_EnableSpectreRodeo)
 
 	Globalize( ClientCommand_SpawnViewGrunt )
-	if ( GetDeveloperLevel() > 0 )
+	Globalize( ClientCommand_SpawnViewCaptainGrunt )
+	Globalize( ClientCommand_SpawnViewShieldGrunt )
+	Globalize( ClientCommand_SpawnViewSpectre )
+	Globalize( ClientCommand_SpawnViewShieldSpectre )
+
+	Globalize( ClientCommand_SpawnViewSuicideSpectre )
+	Globalize( ClientCommand_SpawnViewSniperSpectre )
+
+	Globalize( SpawnViewMinion )
+
+//	if ( GetDeveloperLevel() > 0 )
+	{
 		AddClientCommandCallback( "SpawnViewGrunt", ClientCommand_SpawnViewGrunt )
+		AddClientCommandCallback( "SpawnViewCaptainGrunt", ClientCommand_SpawnViewCaptainGrunt )
+		AddClientCommandCallback( "SpawnViewShieldGrunt", ClientCommand_SpawnViewShieldGrunt )
+
+		AddClientCommandCallback( "SpawnViewSpectre", ClientCommand_SpawnViewSpectre )
+		AddClientCommandCallback( "SpawnViewShieldSpectre", ClientCommand_SpawnViewShieldSpectre )
+
+		AddClientCommandCallback( "SpawnViewSuicideSpectre", ClientCommand_SpawnViewSuicideSpectre )
+		AddClientCommandCallback( "SpawnViewSniperSpectre", ClientCommand_SpawnViewSniperSpectre )
+	}
 
 	InitCaptainNames()
-	
+
 	RegisterSignal("Stop_SimulateGrenadeThink")
 }
 
@@ -162,11 +174,99 @@ function GetRandomPilotName( team )
 }
 Globalize( GetRandomPilotName )
 
-function ClientCommand_SpawnViewGrunt( player, team )
+function ClientCommand_SpawnViewGrunt( player, ... )
 {
-	if ( GetDeveloperLevel() < 1 )
+	if ( !GetConVarBool( "sv_cheats" ) )
 		return true
 
+	local team = GetOtherTeam( player )
+	if ( vargc > 0 )
+		team = vargv[0]
+
+	SpawnViewMinion( player, team, SpawnGrunt )
+	return true
+}
+
+function ClientCommand_SpawnViewShieldGrunt( player, ... )
+{
+	if ( !GetConVarBool( "sv_cheats" ) )
+		return true
+
+	local team = GetOtherTeam( player )
+	if ( vargc > 0 )
+		team = vargv[0]
+
+	SpawnViewMinion( player, team, SpawnBubbleShieldGrunt_Signal )
+	return true
+}
+
+function ClientCommand_SpawnViewCaptainGrunt( player, ... )
+{
+	if ( !GetConVarBool( "sv_cheats" ) )
+		return true
+
+	local team = GetOtherTeam( player )
+	if ( vargc > 0 )
+		team = vargv[0]
+
+	SpawnViewMinion( player, team, SpawnGruntCaptain )
+	return true
+}
+
+function ClientCommand_SpawnViewSpectre( player, ... )
+{
+	if ( !GetConVarBool( "sv_cheats" ) )
+		return true
+
+	local team = GetOtherTeam( player )
+	if ( vargc > 0 )
+		team = vargv[0]
+
+	SpawnViewMinion( player, team, SpawnSpectre )
+	return true
+}
+
+function ClientCommand_SpawnViewShieldSpectre( player, ... )
+{
+	if ( !GetConVarBool( "sv_cheats" ) )
+		return true
+
+	local team = GetOtherTeam( player )
+	if ( vargc > 0 )
+		team = vargv[0]
+
+	SpawnViewMinion( player, team, SpawnBubbleShieldSpectre_Signal )
+	return true
+}
+
+function ClientCommand_SpawnViewSuicideSpectre( player, ... )
+{
+	if ( !GetConVarBool( "sv_cheats" ) )
+		return true
+
+	local team = GetOtherTeam( player )
+	if ( vargc > 0 )
+		team = vargv[0]
+
+	SpawnViewMinion( player, team, SpawnSuicideSpectre )
+	return true
+}
+
+function ClientCommand_SpawnViewSniperSpectre( player, ... )
+{
+	if ( !GetConVarBool( "sv_cheats" ) )
+		return true
+
+	local team = GetOtherTeam( player )
+	if ( vargc > 0 )
+		team = vargv[0]
+
+	SpawnViewMinion( player, team, SpawnSniperSpectre )
+	return true
+}
+
+function SpawnViewMinion( player, team, spawnFunc )
+{
 	local origin = player.EyePosition()
 	local angles = player.EyeAngles()
 	local forward = angles.AnglesToForward()
@@ -174,10 +274,10 @@ function ClientCommand_SpawnViewGrunt( player, team )
 	angles.x = 0
 	angles.z = 0
 
-	SpawnGrunt( team, "squad" + team + RandomInt(100), result.endPos, angles )
+	spawnFunc( team, "squad" + team + RandomInt(100), result.endPos, angles )
+
 	return true
 }
-
 
 function GetFreeSquadName( team )
 {
@@ -397,8 +497,8 @@ function CreateGrunt( team, model, weapon, alert = true, captain = false )
 	npc_soldier.kv.alwaysalert = alertVal
 	npc_soldier.kv.reactChance = 20
 	npc_soldier.kv.reactFriendlyChance = 100
-	npc_soldier.kv.health = 160
-	npc_soldier.kv.max_health = 160
+	npc_soldier.kv.health = 160 	// 120
+	npc_soldier.kv.max_health = 160 // 120
 	npc_soldier.kv.physdamagescale = 1.0
 	npc_soldier.kv.WeaponProficiency = AI_SOLDIER_PROFICIENCY
 	npc_soldier.kv.NumGrenades = 0
@@ -416,7 +516,6 @@ function CreateGrunt( team, model, weapon, alert = true, captain = false )
 
 	return npc_soldier
 }
-
 
 function SetGruntTitleFromTeam( grunt, team, captain = false )
 {
@@ -509,6 +608,12 @@ function SpawnBubbleShieldGrunt( team, squadName, origin, angles)
 }
 Globalize( SpawnBubbleShieldGrunt )
 
+function SpawnBubbleShieldGrunt_Signal( team, squadName, origin, angles)
+{
+	local grunt = SpawnBubbleShieldGrunt( team, squadName, origin, angles )
+	grunt.Signal( "npc_deployed" )
+	return grunt
+}
 
 function SpawnBubbleShieldSpectre( team, squadName, origin, angles )
 {
@@ -518,6 +623,12 @@ function SpawnBubbleShieldSpectre( team, squadName, origin, angles )
 }
 Globalize( SpawnBubbleShieldSpectre )
 
+function SpawnBubbleShieldSpectre_Signal( team, squadName, origin, angles )
+{
+	local spectre = SpawnBubbleShieldSpectre( team, squadName, origin, angles )
+	spectre.Signal( "npc_deployed" )
+	return spectre
+}
 
 function CreateBubbleShieldMinion( guy )
 {
@@ -528,7 +639,11 @@ function CreateBubbleShieldMinion( guy )
 	}
 	else
 	{
-		guy.SetModel( TEAM_IMC_CAPTAIN_MDL )
+		if ( guy.GetTeam() == TEAM_MILITIA )
+			guy.SetModel( TEAM_MILITIA_CAPTAIN_MDL )
+		else
+			guy.SetModel( TEAM_IMC_CAPTAIN_MDL )
+
 		guy.SetSubclass( eSubClass.bubbleShieldGrunt )
 	}
 
@@ -566,35 +681,21 @@ function CreateMinionBubbleShield( guy )
 	vortexSphere.SetAngles( angles ) // viewvec?
 	vortexSphere.SetOrigin( origin )
 	vortexSphere.SetOwner( guy )
-	vortexSphere.SetMaxHealth( 1000 )
-	vortexSphere.SetHealth( 1000 )
+	vortexSphere.SetMaxHealth( 32000 )
+	vortexSphere.SetHealth( 32000 )
 
 	DispatchSpawn( vortexSphere, true )
 	vortexSphere.Fire( "Enable" )
 
-	local colorVec = Vector( 200, 128, 80 ) // Default Orange
-	local players = GetPlayerArray()
-	if ( players.len() > 0 )
-	{
-		local playerTeam = players[0].GetTeam()
-		if ( guy.GetTeam() == playerTeam )
-		{
-			colorVec = Vector( 115, 247, 255 ) // Blue 
-		}
-	}
-	
 	// Shield wall fx control point
 	local cpoint = CreateEntity( "info_placement_helper" )
-	local cpointName = UniqueString( "shield_color_cp" )
-	cpoint.SetName( cpointName ) 
-	cpoint.SetOrigin( colorVec ) // The particle uses this origin as an RGB value 
+	cpoint.SetName( UniqueString( "shield_wall_controlpoint" ) )
 	DispatchSpawn( cpoint, false )
 
 	// Shield wall fx
 	local particleSystem = CreateEntity( "info_particle_system" )
 	particleSystem.kv.start_active = 1
 	particleSystem.kv.VisibilityFlags = 7
-	particleSystem.kv.cpoint1 = cpointName
 	particleSystem.kv.effect_name = FX_SPECTRE_BUBBLESHIELD
 	particleSystem.SetName( UniqueString() )
 	particleSystem.SetOrigin( vortexSphere.GetOrigin() )
@@ -770,6 +871,7 @@ function GetGruntModel( team, captain = false )
 	{
 		if ( captain )
 			return TEAM_IMC_CAPTAIN_MDL
+
 		if ( prob < 0.3  )
 			return TEAM_IMC_ROCKET_GRUNT_MDL
 		else
@@ -779,6 +881,7 @@ function GetGruntModel( team, captain = false )
 	{
 		if ( captain )
 			return TEAM_MILITIA_CAPTAIN_MDL
+
 		if ( prob < 0.3  )
 			return TEAM_MILITIA_ROCKET_GRUNT_MDL
 		else
@@ -897,7 +1000,6 @@ function UpdateAILethality( soldier, enemy )
 {
 	local accuracyMultiplier = soldier.IsSpectre() ? AI_SPECTRE_ACCURACY : AI_SOLDIER_ACCURACY
 	local weaponProficiency = soldier.IsSpectre() ? AI_SPECTRE_PROFICIENCY : AI_SOLDIER_PROFICIENCY
-	
 	local accuracyMultiplierSniper = 100
 	local weaponProficiencySniper = 4
 
@@ -927,7 +1029,7 @@ function UpdateAILethality( soldier, enemy )
 					weaponProficiencySniper = 1000
 					break
 				case eAILethality.VeryHigh:
-					accuracyMultiplier = 3.5 // 4
+					accuracyMultiplier = 4.0
 					weaponProficiency = 4
 					accuracyMultiplierSniper = 1000
 					weaponProficiencySniper = 1000
@@ -1161,16 +1263,8 @@ function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, a
 	Assert( type( spawnFunc ) == "function" )
 	local guy
 
-	// Check for Bubble Shield first
-	if ( ShouldSpawnBubbleShield( count, index ) )
-	{
-		if ( spawnFunc == SpawnSpectre )
-			guy = SpawnBubbleShieldSpectre( team, squadName, origin, angles )
-		else
-			guy = SpawnBubbleShieldGrunt( team, squadName, origin, angles )
-	}
-	// NEW: 10% Chance for an NPC Pilot inside Grunt Pods
-	else if ( spawnFunc.getinfos().name == "SpawnGrunt" && RandomFloat( 0.0, 1.0 ) <= 0.10 )
+	// 10% Chance for an NPC Pilot inside Grunt Pods
+	if ( spawnFunc.getinfos().name == "SpawnGrunt" && RandomFloat( 0.0, 1.0 ) <= 0.10 )
 	{
 		guy = SpawnPilotInfantry( team, squadName, origin, angles )
 	}
@@ -1217,20 +1311,6 @@ function ShouldSpawnCaptain( count, index, spawnFunc, isArray = false )
 	return true
 }
 Globalize( ShouldSpawnCaptain )
-
-
-function ShouldSpawnBubbleShield( count, index )
-{
-	// Only allow one per squad, usually the first slot
-	if ( index != 0 )
-		return false
-
-	if ( RandomFloat( 0, 1 ) >= BUBBLE_SHIELD_FREQUENCY )
-		return false
-
-	return true
-}
-Globalize( ShouldSpawnBubbleShield )
 
 
 //a unified function for spawning npc's in the droppod ( like the dropship has )
@@ -1331,6 +1411,7 @@ function GetPlayerSpectreSquadName( player )
 	return "player" + player.entindex() + "spectreSquad"
 }
 
+
 //////////////////////////////////////////////////////////
 function SpawnSpectre( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {
@@ -1347,27 +1428,27 @@ function SpawnSpectre( team, squadName, origin, angles, alert = true, weapon = n
     else
         model = NEUTRAL_SPECTRE_MODEL
 
-    local spectre = CreateEntity( "npc_spectre" )
-    spectre.kv.spawnflags = 131072 | 512 | 4 // don't drop grenade, fall to ground, fade corpse
-    spectre.kv.AccuracyMultiplier = AI_SPECTRE_ACCURACY
-    spectre.kv.alwaysalert = alertVal
-    spectre.kv.reactChance = 0
-    spectre.kv.reactFriendlyChance = 0
-    spectre.kv.physdamagescale = 1.0
-    spectre.kv.WeaponProficiency = AI_SPECTRE_PROFICIENCY
-    spectre.kv.NumGrenades = 0
-    spectre.kv.teamnumber = team
-    spectre.kv.additionalequipment = weapon
+	local spectre = CreateEntity( "npc_spectre" )
+	spectre.kv.spawnflags = 131072 | 512 | 4 // don't drop grenade, fall to ground, fade corpse
+	spectre.kv.AccuracyMultiplier = AI_SPECTRE_ACCURACY
+	spectre.kv.alwaysalert = alertVal
+	spectre.kv.reactChance = 0
+	spectre.kv.reactFriendlyChance = 0
+	spectre.kv.physdamagescale = 1.0
+	spectre.kv.WeaponProficiency = AI_SPECTRE_PROFICIENCY
+	spectre.kv.NumGrenades = 0
+	spectre.kv.teamnumber = team
+	spectre.kv.additionalequipment = weapon
 
-    spectre.SetModel( model )
-    spectre.SetOrigin( origin )
-    spectre.SetAngles( angles )
-    spectre.kv.squadname = squadName
+	spectre.SetModel( model )
+	spectre.SetOrigin( origin )
+	spectre.SetAngles( angles )
+	spectre.kv.squadname = squadName
 
-    if ( hidden )
-        spectre.Hide()	//may want to hide before spawning to avoid pop in scripted model swaps
+	if ( hidden )
+		spectre.Hide()	//may want to hide before spawning to avoid pop in scripted model swaps
 
-    DispatchSpawn( spectre, true )
+	DispatchSpawn( spectre, true )
 	ApplyIronsights( spectre, weapon )
 
     spectre.ConnectOutput( "OnGainEnemyLOS", OnSpectreSeeEnemy )
@@ -1376,7 +1457,6 @@ function SpawnSpectre( team, squadName, origin, angles, alert = true, weapon = n
 
     return spectre
 }
-
 
 //////////////////////////////////////////////////////////
 function SpectreEyeGlow( spectre )
@@ -1871,6 +1951,7 @@ function GiveMinionWeapon( npc, weapon )
 {
 	npc.kv.additionalequipment = weapon
 	npc.TakeActiveWeapon()
+
 	local sightMod = "iron_sights"
 	switch ( weapon )
 	{
@@ -2030,7 +2111,6 @@ function NPCGrenadeThrow(npc) {
 		PlaySquadConversationToAll( "aichat_grenade_incoming", npc )
 		//EmitSoundOnEntity(npc, GRUNT_GRENADE_OUT)
 }
-
 
 //HACK! -> DO NOT SHIP - this should be in code
 function SimulateSpectreRodeo( spectre )

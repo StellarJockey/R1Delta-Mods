@@ -1601,8 +1601,8 @@ function GetBurnCardSetForIndex(setIndex) {
     "bc_extra_dash",
 	"bc_valkyrie_m2",			
 	"bc_twinb_m2",			
-	"bc_titan_shotgun_m2",	
-	"bc_thunderbolt_m2",		
+	//"bc_titan_shotgun_m2",	
+	//"bc_thunderbolt_m2",		
 	"bc_titan_charge_cannon_m2",]
 			break
 		case 2:
@@ -1664,6 +1664,9 @@ function FillBurnCardDeckFromArray( player, array )
 			player.SetPersistentVar( _GetBurnCardPersPlayerDataPrefix() + ".burnCardIsNew[" + i + "]", card.new )
 		}
 	}
+	
+	if ( IsLobby() )
+		Remote.CallFunction_NonReplay( player, "SCB_RefreshCards" )
 }
 
 function Ranked_PlayerConnected( player )
@@ -2091,6 +2094,11 @@ function SpawnPropAtCrosshair( player, model, angles = null, solidType = 6, scal
 }
 
 function SpawnPropAtCrosshair_Destroy( player, model, angles = null, solidType = 6, scale = 1 )
+{
+	thread SpawnPropAtCrosshairDestroy_Thread( player, model, angles, solidType, scale )
+}
+
+function SpawnPropAtCrosshairDestroy_Thread( player, model, angles = null, solidType = 6, scale = 1 )
 {
 	DestroyCrosshairProps( player )
 
