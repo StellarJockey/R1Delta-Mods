@@ -59,6 +59,8 @@ function main()
 		level.shouldPlayerBeEliminatedFuncTable <- null
     	level.lastForceSwitchTime <- {} // Track last force switch time per player
 
+		level.customPlayerEliminatedMessage <- null
+
 		CreateTeamColorControlPoints()
 
 		AddClientCommandCallback( "CC_SelectRespawn", ClientCommand_SelectRespawn ) //
@@ -1376,8 +1378,12 @@ function CodeCallback_OnPlayerKilled( player, damageInfo )
 {
 	Remote.CallFunction_NonReplay( player, "ServerCallback_YouDied" )
 
+	// Nexon clears the objective when doing this because they used the objective system
+	// To show people how to deploy their titan etc
+	// We dont use any of that, so getting rid of this
+
 	// [LJS] hud 에 탈출 알람 or 타이탄 알람 삭제.
-	// ClearPlayerActiveObjective( player )
+	//ClearPlayerActiveObjective( player )
 
 	local team = player.GetTeam()
 	Assert( player.GetTeam() > TEAM_SPECTATOR )
@@ -1730,7 +1736,11 @@ function DecideRespawnPlayer( player, rematchOrigin = null )
 		// printt( "are we observing?" )
 		if ( IsPlayerEliminated( player ) && GetGameState() == eGameState.Playing )
 		{
-			SendHudMessage( player, "#GAMEMODE_RESPAWN_NEXT_ROUND", -1, 0.4, 255, 255, 255, 255, 1.0, 6.0, 1.0 )
+			// Can also be replaced with a custom function if people need it
+			if ( level.customPlayerEliminatedMessage )
+				SendHudMessage( player, level.customPlayerEliminatedMessage, -1, 0.4, 255, 255, 255, 255, 1.0, 6.0, 1.0 )
+			else
+				SendHudMessage( player, "#GAMEMODE_RESPAWN_NEXT_ROUND", -1, 0.4, 255, 255, 255, 255, 1.0, 6.0, 1.0 )
 		}
 
 		thread ObserverThread( player )
@@ -2475,6 +2485,58 @@ function AutoBalancePlayer( player, forceSwitch = false )
 		NotifyClientsOfTeamChange( player, currentTeam, newTeam ) // Notify clients about the team change
 
 		thread PostAutoBalanceThink( player, newTeam )
+				NotifyClientsOfTeamChange( player, currentTeam, newTeam ) // Notify clients about the team change
+
+		local ai = GetNPCArrayByClass( "npc_soldier" )
+		ai.extend( GetNPCArrayByClass( "npc_spectre" ) )
+
+		foreach( npc in ai )
+		{
+			// Swap hacked Spectres and conscripted grunts
+			if ( npc.GetBossPlayer() == player )
+				npc.SetTeam( newTeam )
+
+			// Only these two NPCs use the overhead teammate indicator
+			local eHandle = npc.GetEncodedEHandle()
+			Remote.CallFunction_Replay( player, "ServerCallback_UpdateOverheadIconForNPC", eHandle )
+		}
+
+		local turrets = GetNPCArrayByClass( "npc_turret_mega" )
+		turrets.extend( GetNPCArrayByClass( "npc_turret_mega_bb" ) )
+		turrets.extend( GetNPCArrayByClass( "npc_turret_sentry" ) )
+
+		foreach ( npc in turrets )
+		{
+			// Swap hacked turrets
+			if ( npc.GetBossPlayer() != player )
+				continue
+
+			switch( npc.GetClassname() )
+			{
+				case "npc_turret_sentry":
+					npc.SetTeam( newTeam )
+					npc.SetSkin( player.GetSkin() )
+					break
+
+				case "npc_tureet_mega_bb":
+					BBTurretChangeTeam( npc, newTeam )
+
+					local terminal = npc.GetControlPanel()
+					if ( terminal )
+						terminal.SetTeam( newTeam )
+					
+					break
+
+				default:
+					TurretChangeTeam( npc, newTeam )
+
+					local terminal = npc.GetControlPanel()
+					if ( terminal )
+						terminal.SetTeam( newTeam )
+
+					break
+			}
+		}
 
 		foreach ( callbackInfo in level.onPostAutoBalanceCallbacks )
 		{
@@ -2497,10 +2559,21 @@ function ShouldAutoBalancePlayer( player, forceSwitch )
 	if ( GameRules.GetGameMode() == COOPERATIVE )
 		return false
 
+	if ( GameRules.GetGameMode() == WINGMAN_LAST_TITAN_STANDING )
+		return false
+
 	if ( IsFFABased() )
 		return false
 
 	if ( player.s.respawnCount < 1 )
+		return false
+
+	if ( player.ContextAction_IsMeleeExecution() || player.ContextAction_IsLeeching() )
+		return false
+
+	// Prevent the player controlling the titan in ctt from changing teams
+	// level.teamFlag = the titans soul
+	if ( GameRules.GetGameMode() == CAPTURE_THE_TITAN && level.teamFlag && level.teamFlag.GetBossPlayer() == player )
 		return false
 
 	if ( !forceSwitch )
@@ -2548,9 +2621,6 @@ function PostAutoBalanceThink( player, newTeam )
 	}
 
 	wait 2
-
-	if ( player )
-		player.s.forceDisableFlagTouch = false
 }
 
 function GameStart_AutoBalanceCooldown()
@@ -2756,7 +2826,7 @@ function CodeCallback_OnClientConnectionStarted( player )
 
 	player.s.lastNagTime <- 0
 
-	player.s.forceDisableFlagTouch <- false
+	player.s.nextFlagTouchTime <- 0
 
 	Assert( !player._entityVars )
 	InitEntityVars( player )
