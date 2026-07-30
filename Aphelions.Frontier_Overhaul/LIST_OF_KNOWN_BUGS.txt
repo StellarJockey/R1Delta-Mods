@@ -1,5 +1,5 @@
 ///// HARD CRASHES /////
-* Game has a chance to crash if you attempt to open Pilot/Titan loadout after starting the 15 second countdown for a private game.
+* Game has a chance to crash if you attempt to open Pilot/Titan loadout in a private match lobby.
 * Game has a high chance to crash when loading back into a private lobby after a solo match.
 
 ///// GAMEPLAY BUGS /////
