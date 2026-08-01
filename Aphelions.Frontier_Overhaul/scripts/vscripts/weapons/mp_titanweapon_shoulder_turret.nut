@@ -196,6 +196,10 @@ function UpdateShoulderTurretTargetUI( ownerPlayer, target )
 
 	while ( true )
 	{
+		// Force the thread to end if the player is no longer in a Titan
+		if ( !ownerPlayer.IsTitan() )
+			return
+			
 		local screenHeight = GetEntityScreenHeight( ownerPlayer, target )
 		local scale = screenHeight / elemHeight
 
