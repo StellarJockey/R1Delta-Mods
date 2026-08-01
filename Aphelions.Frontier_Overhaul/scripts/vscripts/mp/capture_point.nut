@@ -229,8 +229,7 @@ function CapturePoint_Update( hardpoint )
 	local touchingEnts = hardpoint.s.trigger.GetTouchingEntities()
 	foreach ( ent in touchingEnts )
 	{
-		// IsTitan() is a native entity function in the engine
-		if ( ent.IsNPC() && ent.IsTitan() ) 
+		if ( ( ent.IsNPC() || ent.IsPlayer() ) && ent.IsTitan() )
 		{
 			if ( ent.GetTeam() == TEAM_IMC )
 				imcTitans++
@@ -249,20 +248,20 @@ function CapturePoint_Update( hardpoint )
 		if ( playerTeam == TEAM_MILITIA )
 		{
 			// PLAYER IS MILITIA: 
-			// Enemy (IMC) grunts get 2.5x buff
-			imcPower = ( imcPlayers + imcAI ) * CAPTURE_POINT_PLAYER_CAP_POWER * 2.5
+			// Enemy (IMC) grunts get 3.0x buff
+			imcPower = ( imcPlayers + imcAI ) * CAPTURE_POINT_PLAYER_CAP_POWER * 3.0
 			
-			// Friendly (Militia) player gets explicit 1.5x buff, AI remains standard
-			milPower = ( milPlayers * CAPTURE_POINT_PLAYER_CAP_POWER * 1.5 ) + ( milAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5)
+			// Friendly (Militia) player gets explicit 2.0x buff, AI remains standard
+			milPower = ( milPlayers * CAPTURE_POINT_PLAYER_CAP_POWER * 2.0 ) + ( milAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5)
 		}
 		else if ( playerTeam == TEAM_IMC )
 		{
 			// PLAYER IS IMC: 
-			// Enemy (Militia) grunts get 2.5x buff
-			milPower = ( milPlayers + milAI ) * CAPTURE_POINT_PLAYER_CAP_POWER * 2.5
+			// Enemy (Militia) grunts get 3.0x buff
+			milPower = ( milPlayers + milAI ) * CAPTURE_POINT_PLAYER_CAP_POWER * 3.0
 			
-			// Friendly (IMC) player gets explicit 1.5x buff, AI remains standard
-			imcPower = ( imcPlayers * CAPTURE_POINT_PLAYER_CAP_POWER * 1.5 ) + ( imcAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5)
+			// Friendly (IMC) player gets explicit 2.0x buff, AI remains standard
+			imcPower = ( imcPlayers * CAPTURE_POINT_PLAYER_CAP_POWER * 2.0 ) + ( imcAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5)
 		}
 	}
 	else
@@ -287,14 +286,14 @@ function CapturePoint_Update( hardpoint )
 	{
 		// IMC Titan overrides all Militia presence (players and minions)
 		powerTable.strongerTeam = TEAM_IMC
-		powerTable.power = imcPower
+		powerTable.power = CAPTURE_POINT_MAX_CAP_POWER * 0.75
 		powerTable.contested = false
 	}
 	else if ( milTitans > 0 && imcTitans == 0 )
 	{
 		// Militia Titan overrides all IMC presence (players and minions)
 		powerTable.strongerTeam = TEAM_MILITIA
-		powerTable.power = milPower
+		powerTable.power = CAPTURE_POINT_MAX_CAP_POWER * 0.75
 		powerTable.contested = false
 	}
 	else if ( imcPresence && milPresence )

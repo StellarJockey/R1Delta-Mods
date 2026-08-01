@@ -905,10 +905,7 @@ function UpdateHardpointCount( point )
 			}
 			else if ( usingTerminal )
 			{
-				if ( ent.IsTitan() )
-					teamAICount[entTeam] += 3 // AI Titans now count as 3 minions (adjust to your liking)
-				else
-					teamAICount[entTeam]++
+				teamAICount[entTeam]++
 			}
 		}
 	}
