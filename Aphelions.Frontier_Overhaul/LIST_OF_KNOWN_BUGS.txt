@@ -10,6 +10,7 @@
 
 ///// MENU BUGS... /////
 * Sometimes when logging into a private match lobby, you'll get stuck in an endless "CONNECTING..." loop and have to restart the game.
-* If you remove the mod from the addons folder, there is a chance that all of your player progression will be completely wiped out.
+* Game has a chance to randomly reset certain loadouts/attachment slots.
+* Game has a chance to completely wipe your player progression data if you remove the mod from the addons folder.
 
 Note: These are all being worked on and will hopefully be fixed in the near future.
