@@ -1,19 +1,15 @@
 ///// HARD CRASHES /////
 * Game has a chance to crash if you attempt to open Pilot/Titan loadout in a private match lobby.
-* Game has a high chance to crash when loading back into a private lobby after a solo match.
+* Game has a high chance to crash when loading back into a private lobby after a solo match (this may be a base game issue).
 
 ///// GAMEPLAY BUGS /////
 * Npc Titans sometimes do the stanky leg when standing up.
 * Npc Titans refuse to fire the minigun, so they won't spawn with it until I can get it to work.
 * Npc Titans' vortex shield have trouble blocking damage and catching/reflecting projectiles (this may be a base game issue).
+* Npcs with sniper weapons have a hard time getting their hits to register onto you.
 
 ///// MENU BUGS... /////
-* If you try and open your Titan loadouts after a game, you sometimes get locked into the Burn Cards menu with no way to back out, forcing you to restart the game.
 * Sometimes when logging into a private match lobby, you'll get stuck in an endless "CONNECTING..." loop and have to restart the game.
-* There is a rare chance for your player progression level to be set back to 1. It doesn't affect your Generation level, thankfully.
-
-///// BUGS THAT -SHOULD- BE FIXED /////
-* I think I got rid of the bug that would nuke your entire burn card reserve... I think... but be warned.
-* I'm told that the unkillable npc Pilot bug is still present... I haven't seen it, but it may still be there.
+* If you remove the mod from the addons folder, there is a chance that all of your player progression will be completely wiped out.
 
 Note: These are all being worked on and will hopefully be fixed in the near future.
