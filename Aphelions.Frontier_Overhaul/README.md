@@ -1,8 +1,6 @@
-**Mod authors:** ASillyNeko, Frann, 07zj, Nachos, StoneCold, and Aphelion
-
 (Thank you to ASILLYNEKO and FRANN for making the original Extended Attrition mod!)
 
-This is a heavily modified version of Extended Attrition. This is meant to be an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. NPCs are now an actual threat that will kill you if you aren't careful! You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
+Frontier Overhaul is a heavily modified version of Extended Attrition. This is meant to be an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. NPCs are now an actual threat that will kill you if you aren't careful! You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
 
 This mod currently includes:
@@ -105,7 +103,6 @@ What other quality of life changes are there?
 * IMC spectres now use the Militia (Mk.I) model on The Refueling Raid, since the Mk.II model isn't canonically introduced until The Colony.
 * The team you pick in the lobby will always be the team you're assigned to in-game.
 * Campaign mission briefings will now play in full.
-* Grunt captains will be inside campaign-specific Titans when executed (and you can now hitch a ride on them!)
 * Cloak drones and spectre variants will not spawn in campaign, since those are canonically introduced afterwards.
 * Titans will have a chance to use any Titan execution, regardless of the chassis, since they were all animated. This makes things less visually repetitive.
 
@@ -113,3 +110,5 @@ What other quality of life changes are there?
 Good luck, have fun!
 -
 That's an order.
+
+**Mod authors**: ASillyNeko, Frann, 07zj, Nachos, StoneCold, Claude, and Aphelion
