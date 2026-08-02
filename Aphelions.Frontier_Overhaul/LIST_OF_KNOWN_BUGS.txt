@@ -5,12 +5,12 @@
 ///// GAMEPLAY BUGS /////
 * Npc Titans sometimes do the stanky leg when standing up.
 * Npc Titans refuse to fire the minigun, so they won't spawn with it until I can get it to work.
-* Npc Titans' vortex shield have trouble blocking damage and catching/reflecting projectiles (this may be a base game issue).
-* Npcs with sniper weapons have a hard time getting their hits to register onto you.
+* Npc Titans' vortex shield have trouble blocking damage and catching/reflecting projectiles (again, this may be a base game issue).
+* Npcs (notably those with sniper weapons) sometimes have issues getting their shots on you to register.
 
 ///// MENU BUGS... /////
 * Sometimes when logging into a private match lobby, you'll get stuck in an endless "CONNECTING..." loop and have to restart the game.
 * Game has a chance to randomly reset certain loadouts/attachment slots.
-* Game has a chance to completely wipe your player progression data if you remove the mod from the addons folder.
+* Game has a chance to completely wipe out your player progression data if you remove the mod from the addons folder (THIS MIGHT BE BECAUSE OF PRE-RELEASE 3.0 CAUSING ISSUES).
 
 Note: These are all being worked on and will hopefully be fixed in the near future.
