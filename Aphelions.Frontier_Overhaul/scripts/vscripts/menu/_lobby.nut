@@ -182,13 +182,6 @@ function InitBurnCards( player )
 	if ( !UsingAlternateBurnCardPersistence() )
 		return
 
-	// Check if player already has cards in their deck from a multiplayer match
-	local existingDeck = GetPlayerBurnCardDeck( player )
-	
-	// Only initialize with default PM deck if player has no existing cards
-	if ( existingDeck.len() > 0 )
-		return
-
 	local pmDeck = [
 		{ cardRef = "bc_minimap", new = false }
 		{ cardRef = "bc_r97_m2", new = false }
@@ -493,11 +486,11 @@ function PrivateMatchLobbyLogic()
 	mapName = GetMapNameForEnum( level.ui.privatematch_map )
 	modeName = GetModeNameForEnum( level.ui.privatematch_mode )
 
-for ( ;; )
+	for ( ;; )
 	{
 		WaitEndFrame() // allow the thread that is updating file.teamReady to do it's updates
 
-		if ( level.ui.privatematch_starting == ePrivateMatchStartState.STARTING )
+		if ( level.ui.privatematch_starting == ePrivateMatchStartState.STARTING && level.ui && file.teamReady[TEAM_IMC] && file.teamReady[TEAM_MILITIA] && mapName && modeName )
 		{
 			if ( level.ui.gameStartTime == null )
 			{
@@ -621,7 +614,6 @@ function MatchmakingServerLobbyLogic()
                         local totalPlayers = players.len()
                         local targetPerTeam = ceil(totalPlayers / 2.0)
 
-						/*
                         if ( imcPlayers.len() > militiaPlayers.len() )
                         {
                             local playersToMove = imcPlayers.len() - targetPerTeam
@@ -1382,6 +1374,8 @@ function ClearNextMap()
 
 function PlayCampaignLobbyScene( player )
 {
+	Assert( IsValid( player ) )
+	Assert( IsPlayer( player ) )
 	player.EndSignal( "Disconnected" )
 	for ( ;; )
 	{
