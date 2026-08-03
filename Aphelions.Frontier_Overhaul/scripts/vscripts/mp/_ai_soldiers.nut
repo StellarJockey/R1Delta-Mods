@@ -2157,9 +2157,20 @@ function SimulateSpectreRodeoThink(spectre) {
 		Assert(IsAlive(titan))
 
 		if (!CanSpectreRodeo(spectre, titan))
-			continue
+            continue
 
-		thread SpectreRodeo(spectre, titan)
+        // --- RODEO WEAPON CHECK ---
+        local currentWeapon = spectre.GetActiveWeapon()
+        local primaryWeapon = spectre.kv.additionalequipment 
+
+        // If they have a weapon out and it's not their primary, swap it
+        if ( currentWeapon && currentWeapon.GetClassname() != primaryWeapon )
+        {
+            spectre.TakeActiveWeapon()
+            spectre.GiveWeapon( primaryWeapon )
+        }
+
+        thread SpectreRodeo(spectre, titan)
 		return
 	}
 }

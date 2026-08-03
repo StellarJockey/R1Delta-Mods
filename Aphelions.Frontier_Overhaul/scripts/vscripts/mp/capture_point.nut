@@ -251,8 +251,8 @@ function CapturePoint_Update( hardpoint )
 			// Enemy (IMC) grunts get 3.0x buff
 			imcPower = ( imcPlayers + imcAI ) * CAPTURE_POINT_PLAYER_CAP_POWER * 3.0
 			
-			// Friendly (Militia) player gets explicit 2.0x buff, AI remains standard
-			milPower = ( milPlayers * CAPTURE_POINT_PLAYER_CAP_POWER * 2.0 ) + ( milAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5)
+			// Friendly (Militia) player gets explicit 1.75x buff, AI remains standard
+			milPower = ( milPlayers * CAPTURE_POINT_PLAYER_CAP_POWER * 1.75 ) + ( milAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5)
 		}
 		else if ( playerTeam == TEAM_IMC )
 		{
@@ -260,8 +260,8 @@ function CapturePoint_Update( hardpoint )
 			// Enemy (Militia) grunts get 3.0x buff
 			milPower = ( milPlayers + milAI ) * CAPTURE_POINT_PLAYER_CAP_POWER * 3.0
 			
-			// Friendly (IMC) player gets explicit 2.0x buff, AI remains standard
-			imcPower = ( imcPlayers * CAPTURE_POINT_PLAYER_CAP_POWER * 2.0 ) + ( imcAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5)
+			// Friendly (IMC) player gets explicit 1.75x buff, AI remains standard
+			imcPower = ( imcPlayers * CAPTURE_POINT_PLAYER_CAP_POWER * 1.75 ) + ( imcAI * CAPTURE_POINT_PLAYER_CAP_POWER * 0.5)
 		}
 	}
 	else
