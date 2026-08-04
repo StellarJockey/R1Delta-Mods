@@ -153,7 +153,7 @@ function MapButton_Focused( button )
 	
 	if (GetModeNameForEnum(level.ui.privatematch_mode) == "campaign_carousel") {
 		nextMapName.SetText( GetCampaignMapDisplayName( mapName ) )
-		nextMapImage.SetColor( 135, 135, 135 )
+		nextMapImage.SetColor( 150, 150, 150 )
 		local campaignDescriptions = {
 			mp_fracture =    "1750 Hours, July 15, 2710\n________________________________________________________________\nThe 1st Militia Fleet arrives in orbit around Victor, desperately low on fuel. They've embedded themselves within a civilian trading convoy, as to not trigger the IMC's orbital defense array. Bish had warned them that a raid of this scale was a very bad idea. They'll either get the fuel – or die trying."
 			mp_colony =      "1604 Hours, July 20, 2710\n________________________________________________________________\nTroy is a backwater world, even by Frontier standards. Initially arriving in search of Militia fugitives, IMC recon satellites found something far worse. Sergeant Blisk has ordered that Mk.II spectres be deployed to help. But in trying to reclaim the Vice Admiral's lost ship, an old war hero is forced out of hiding..."
