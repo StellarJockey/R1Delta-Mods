@@ -10,6 +10,6 @@ There is currently no in-game way to swap out backgrounds, so you'll have to do 
 
 Each folder comes with a downscaled JPG titled "low res preview" to show you what background it is. The in-game image will, of course, be full HD resolution.
 
-**IMPORTANT:** Demeter, Orthos, Mountains, Militia, IMC, and Default are all **4K**. The other ones are **1080p**.
+**IMPORTANT:** Demeter, Orthos, Mountains, Militia, IMC, 207, and Default are all **4K**. The other ones are **1080p**.
 
 Good luck, have fun!
