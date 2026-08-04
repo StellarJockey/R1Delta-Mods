@@ -356,9 +356,10 @@ WeaponData
 			"viewkick_yaw_base"   							"*0.7"
 			"viewkick_yaw_random" 							"*0.7"
 
-			"damage_near_distance"							"280" // "250"
 			"damage_near_value"   							"240" // "210"
 			"damage_far_value"								"28"
+			"damage_near_distance"							"*0.9" // "250"
+			"damage_far_distance"							"*0.9"
 
 			//"rumble"  									"4"
 			//"tracer_effect"   							"weapon_tracers_pistol"
