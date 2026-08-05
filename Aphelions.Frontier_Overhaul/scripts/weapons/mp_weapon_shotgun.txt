@@ -63,8 +63,8 @@ WeaponData
 	"damage_rodeo" 									"550"
 
 	// Damage - When Used by NPCs
-	"npc_damage_near_distance"						"150"
-	"npc_damage_far_distance" 						"1200"
+	"npc_damage_near_distance"						"125"
+	"npc_damage_far_distance" 						"1000"
 	"npc_damage_near_value"   						"200"
 	"npc_damage_far_value"							"30"
 	"npc_damage_near_value_titanarmor"				"130"
