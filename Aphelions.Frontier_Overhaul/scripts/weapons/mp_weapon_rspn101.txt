@@ -156,7 +156,7 @@ WeaponData
 	// View Kick
 	"viewkick_spring" 								"rspn101"
 
-	"viewkick_pitch_base" 							"-0.45" // "-0.35"
+	"viewkick_pitch_base" 							"-0.35"
 	"viewkick_pitch_random"   						"0.5" // "0.2"
 	"viewkick_pitch_softScale"						"1.0"
 	"viewkick_pitch_hardScale"						"1.0"
