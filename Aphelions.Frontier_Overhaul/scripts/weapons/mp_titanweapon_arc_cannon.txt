@@ -25,7 +25,7 @@ WeaponData
 	"anim_prefix" 									"ar2"
 
 	// Effects
-	//"tracer_effect"   								"weapon_tracers_xo16"
+	//"tracer_effect"   							"weapon_tracers_xo16"
 	//Impact Table used for visuals at the top of arc_cannon.nut
 	"impact_effect_table" 							"exp_arc_cannon_whiz_by"
 	"adjust_to_gun_barrel"							"1"
@@ -208,13 +208,15 @@ WeaponData
 		}
 		capacitor
 		{
-			"charge_time" 									"2.5" //for reference was 3 in 10/15 evening playtest
+			"charge_time" 									"2.5" // for reference was 3 in 10/15 evening playtest
 			"charge_cooldown_time"							"1.0"
 			"charge_cooldown_delay"   						"0.0"
 			"crosshair_index"								"1"
 			"spread_stand_hip"  							"15"
 			"damage_far_distance" 							"2700"
-			"damage_near_value_titanarmor"					"2000"
+		
+			"npc_damage_near_value_titanarmor"				"4000"
+			"npc_damage_near_value_titanarmor"				"200"
 		}
 		splitter
 		{
@@ -229,6 +231,9 @@ WeaponData
 			"damage_far_value"								"*1.1"
 			"damage_near_value_titanarmor"					"*1.1"
 			"damage_far_value_titanarmor" 					"*1.1"
+
+			"npc_damage_near_value_titanarmor"				"*1.5"
+			"npc_damage_near_value_titanarmor"				"*1.5"
 			"is_burn_mod"		"1"
 		}
 	}
