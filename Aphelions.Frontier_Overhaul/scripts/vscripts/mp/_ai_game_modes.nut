@@ -82,6 +82,8 @@ function main()
 	Globalize( GetMaxAICount )
 	Globalize( GetSpawnSquadSize )
 	Globalize( SetLevelAICount )
+	Globalize( SpawnGhostPilot )
+	Globalize( GhostPilotThink )
 
 	FlagInit( "FrontlineInitiated" )
 	FlagInit( "IntroMilitiaNPCsSpawned" )
@@ -1813,12 +1815,14 @@ function TeamDeathmatchSpawnNPCsThink()
 			thread SuicideSpectreWaveThink( TEAM_IMC )
 			thread CloakDroneWaveThink( TEAM_IMC )
 			thread SniperSpectreWaveThink( TEAM_IMC )
+			thread GhostPilotWaveThink( TEAM_IMC )
 		}
 		if ( !Flag( "Disable_MILITIA" ) )
 		{
 			thread SuicideSpectreWaveThink( TEAM_MILITIA )
 			thread CloakDroneWaveThink( TEAM_MILITIA )
 			thread SniperSpectreWaveThink( TEAM_MILITIA )
+			thread GhostPilotWaveThink( TEAM_MILITIA )
 		}
 	}
     
@@ -2086,6 +2090,44 @@ function SniperSpectreWaveThink( team )
     }
 }
 
+function GhostPilotWaveThink( team )
+{
+    // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
+    wait 60.0 + RandomFloat( 0.0, 45.0 )
+
+    while ( IsNPCSpawningEnabled() )
+    {
+        // Wait a set interval before rolling for the next potential wave
+       // wait RandomFloat( 60.0, 150.0 )
+
+        // 10% chance to spawn a ghost pod
+        if ( RandomFloat( 0.0, 1.0 ) > 0.10 )
+            continue
+
+        // Find valid spawn points for the wave
+        local spawnPoints = SpawnPoints_GetDropPod()
+        
+        // Define how many pods you want in the wave
+        local podsToSpawn = 1
+        local squadSize = 4
+      
+        local squadName = MakeSquadName( team, GetIndexSmallestSquad( team ) )
+
+        for ( local i = 0; i < podsToSpawn; i++ )
+        {
+            if ( spawnPoints.len() > i )
+            {
+				local sp = spawnPoints[i]
+
+                Spawn_TrackedDropPodSquad( "npc_soldier", team, squadSize, sp, squadName, true, SpawnGhostPilot )
+                
+                // Add a tiny stagger so the drop pods don't clip into each other
+                wait RandomFloat( 0.5, 1.5 )
+            }
+        }
+    }
+}
+
 
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
@@ -2108,7 +2150,7 @@ function SpawnPilotWithTitans( team )
 {
 	local waittime = 10.0
 	
-	if ( GameRules.GetGameMode() == TITAN_BRAWL || GameRules.GetGameMode() == LAST_TITAN_STANDING )
+	if ( GameRules.GetGameMode() == TITAN_BRAWL || GameRules.GetGameMode() == LAST_TITAN_STANDING || GameRules.GetGameMode() == COOPERATIVE )
 	{
 		waittime = 0.0
 	}
@@ -2182,7 +2224,7 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 			break
 
 		case COOPERATIVE:
-			limit = ( team == playerTeam ) ? 3 : 0   // 3 for your team
+			limit = ( team == playerTeam ) ? 3 : 0   // 3 for your team in Frontier Defense
 			 
 		default:
 			// Attrition, Hardpoint, Campaign, 
@@ -3360,9 +3402,6 @@ function SquadAssault( squad, pos )
 			thread DrawAssaultGoal( squad[ i ], nodePos )
 	}
 }
-
-
-
 
 
 // debug functions
@@ -4685,7 +4724,7 @@ Globalize( AI_SelectTarget )
 
 
 ////////////////////////////////////////////////////////////////
-//////////////// CLOAK DRONES /////////////////////
+//////////////////// CLOAK DRONE LOGIC /////////////////////////
 ////////////////////////////////////////////////////////////////
 
 const CLOAKED_DRONE_SPEED		= 1800
@@ -5443,7 +5482,6 @@ function IsSquadCenterClose( npc, dist = 256 )
 	return false
 }
 
-
 function ApplyDroneCloak( drone, target )
 {
     if ( !IsValid( target ) || !IsAlive( target ) )
@@ -5463,6 +5501,106 @@ function ApplyDroneCloak( drone, target )
     target.SetCloakDuration( 3.0, -1, 0 ) 
 }
 
+/////////////////////////////////////////////////////////
+/////////////// NPC GHOST PILOT ENEMIES /////////////////
+/////////////////////////////////////////////////////////
+function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
+{
+    local ghostPilot = SpawnPilotAI( team, squadName, origin, angles, alert )
+    
+    ghostPilot.SetTitle( "Ghost Pilot" )
+    
+    // LMG intentionally excluded because it has no silencer 
+    local pilotWeapons = [
+        "mp_weapon_rspn101",
+        "mp_weapon_shotgun",
+        "mp_weapon_dmr",
+        "mp_weapon_r97",
+        "mp_weapon_hemlok",
+        "mp_weapon_g2",
+        "mp_weapon_car",
+        "mp_weapon_mega1",
+        "mp_weapon_sniper",
+        "mp_weapon_smart_pistol",
+    ]
+
+    local chosenWeapon = Random( pilotWeapons )
+
+    ghostPilot.TakeActiveWeapon()
+    local sightMod = "iron_sights"
+    switch ( chosenWeapon )
+    {
+        case "mp_weapon_shotgun":
+        case "mp_weapon_mega2":
+        case "mp_weapon_autopistol":
+        case "mp_weapon_semipistol":
+        case "mp_weapon_smart_pistol":
+        case "mp_weapon_wingman":
+            sightMod = ""
+            break
+
+        case "mp_weapon_dmr":
+        case "mp_weapon_sniper":
+        case "mp_weapon_mega1":
+            sightMod = "scope_6x"
+            break
+    }
+
+    local mods = []
+    if ( sightMod != "" )
+        mods.append( sightMod )
+
+    mods.append( "silencer" )
+
+    // GiveWeapon accepts a nil/empty array for no mods; pass mods when non-empty
+    if ( mods.len() > 0 )
+        ghostPilot.GiveWeapon( chosenWeapon, mods )
+    else
+        ghostPilot.GiveWeapon( chosenWeapon )
+
+    thread GhostPilotThink( ghostPilot )
+    
+    return ghostPilot
+}
+
+function GhostPilotThink( sniper )
+{
+    sniper.EndSignal( "OnDeath" )
+    sniper.EndSignal( "OnDestroy" )
+
+    // Script-side state tracking
+    sniper.s.cloaked <- true
+
+    SniperCloak( sniper )
+
+    while ( true )
+    {
+        local enemy = sniper.GetEnemy()
+        local shouldDecloak = false
+
+        if ( IsValid( enemy ) && IsAlive( enemy ) && sniper.CanSee( enemy ) )
+        {
+            shouldDecloak = true
+        }
+
+        if ( shouldDecloak && sniper.s.cloaked )
+        {
+            SniperDeCloak( sniper )
+            sniper.s.cloaked = false
+        }
+        else if ( !shouldDecloak && !sniper.s.cloaked )
+        {
+            SniperCloak( sniper )
+            sniper.s.cloaked = true
+        }
+
+        wait 0.25
+    }
+}
+
+////////////////////////////////////////////////////////////
+/////////////// DOME SHIELD SHENANIGANS ////////////////////
+////////////////////////////////////////////////////////////
 function DecayNPCDomeShield( titan, delay )
 {
     titan.EndSignal( "OnDeath" )
@@ -5481,6 +5619,11 @@ function DecayNPCDomeShield( titan, delay )
     }
 }
 
+
+////////////////////////////////////////////////////////////
+//////////////// HARDPOINT LOGIC FOR NPCS //////////////////
+/////// ( I DON'T EVEN KNOW IF THIS DOES ANYTHING ) ////////
+////////////////////////////////////////////////////////////
 
 function GetHardpointObjectiveForTeam( team, squadOrigin )
 {

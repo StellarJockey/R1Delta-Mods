@@ -30,9 +30,9 @@ These come included because, taken separately, they will cause scripting conflic
 
 How do the NPC Pilots work?
 -
-Currently, they are just re-skinned grunts. They have maxed accuracy, increased movement speed, and can use any Pilot primary. They have a chance to spawn along grunts in drop pods (à la Battle of Demeter). Since they're just grunt model-swaps, they will only grant 1 point when killed in Attrition. They have the same health as a human player (200) but are nowhere near as intelligent.
-
-Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro. Wall-running seems to be near-impossible to implement… at the present moment, anyways.
+* Currently, they are just re-skinned grunts. They have maxed accuracy, increased movement speed, and can use any Pilot primary. They have a chance to spawn along grunts in drop pods (à la Battle of Demeter). Since they're just grunt model-swaps, they will only grant 1 point when killed in Attrition. They have the same health as a human player (200) but are nowhere near as intelligent.
+* There is also a rare chance for npc "Ghost Pilots" to spawn that function the same way as sniper spectres. Only difference is that they're even less common and will have the burn card version of any primary, not just snipers.
+* Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro. Wall-running seems to be near-impossible to implement… at the present moment, anyways.
 
 
 How does the evac work?
@@ -49,7 +49,7 @@ In Campaign:
 
 What about Frontier Defense?
 -
-Haha... yeah no, this turns FD into nightmare-difficulty. But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone. But it is still quite difficult. So be ready.
+Haha... yeah no, this turns FD into nightmare-difficulty. But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone. I also increased the Harvester's health and shield values. But it is still quite difficult. So be ready.
 
 
 How do the objective-based modes work?
@@ -77,7 +77,7 @@ Yes. By default, this mod sets the AI lethality to Very High. Simply bump it dow
 
 What enemies does this include?
 -
-Grunts, Grunt Captains, Spectres, Spectre variants, npc "Pilots", npc Titans, and Cloak Drones. This is basically a fusion of regular MP and Frontier Defense.
+Grunts, Grunt Captains, Spectres, Spectre variants, npc "Pilots", Ghost Pilots, npc Titans, and Cloak Drones. This is basically a fusion of regular MP and Frontier Defense.
 
 
 How do the spectre variants work?

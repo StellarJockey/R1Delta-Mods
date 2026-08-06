@@ -375,12 +375,17 @@ WeaponData
 			"bodygroup5_set"					"1"
 			"fire_sound_1_player_1p"			"SR_Valkyrie.Fire_Suppressed"
 			"fire_sound_1_player_3p"			"SR_Valkyrie.Fire_Suppressed"
-			"fire_sound_1_npc"					"SR_Valkyrie.Fire_Suppressed"
 
 			"damage_near_value"   				"125"
 			"damage_far_value"					"125"
 			"damage_near_distance"				"*0.9"
 			"damage_far_distance"				"*0.9"
+
+			"fire_sound_1_npc"					"SR_Valkyrie.Fire_Suppressed"
+			"npc_damage_near_value"   			"125"
+			"npc_damage_far_value"				"125"
+			"npc_damage_near_distance"			"*0.9"
+			"npc_damage_far_distance"			"*0.9"
 
 			//"rumble"  						"4"
 			"tracer_effect"   					"weapon_tracers_pistol"

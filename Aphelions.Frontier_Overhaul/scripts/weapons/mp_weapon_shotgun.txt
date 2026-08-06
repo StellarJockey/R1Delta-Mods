@@ -361,6 +361,11 @@ WeaponData
 			"damage_near_distance"							"*0.9" // "250"
 			"damage_far_distance"							"*0.9"
 
+			"npc_damage_near_value"   						"180" 
+			"npc_damage_far_value"							"20"
+			"npc_damage_near_distance"							"*0.9" // "250"
+			"npc_damage_far_distance"							"*0.9"
+
 			//"rumble"  									"4"
 			//"tracer_effect"   							"weapon_tracers_pistol"
 			"minimap_reveal_distance"						"1"

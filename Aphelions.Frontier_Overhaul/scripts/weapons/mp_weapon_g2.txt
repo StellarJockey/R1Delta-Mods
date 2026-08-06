@@ -393,12 +393,20 @@ WeaponData
 		}
 		silencer
 		{
-			"fire_sound_1_player_1p"				"Weapon_G2A4_FireSuppressed"
-			"fire_sound_1_player_3p"				"Weapon_G2A4_FireSuppressed"
+			"fire_sound_1_player_1p"			"Weapon_G2A4_FireSuppressed"
+			"fire_sound_1_player_3p"			"Weapon_G2A4_FireSuppressed"
+			"fire_sound_1_npc"					"Weapon_G2A4_FireSuppressed"
+
 			"damage_near_value"   				"66"
 			"damage_far_value"					"50"
 			"damage_near_distance"				"*0.9"
 			"damage_far_distance"				"*0.9"
+
+			"npc_damage_near_value"   			"66"
+			"npc_damage_far_value"				"50"
+			"npc_damage_near_distance"			"*0.9"
+			"npc_damage_far_distance"			"*0.9"
+
 			"bodygroup5_set"					"1"
 
 			//"rumble"  						"4"

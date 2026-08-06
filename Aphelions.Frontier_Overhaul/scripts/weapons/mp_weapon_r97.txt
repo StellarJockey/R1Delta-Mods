@@ -358,6 +358,11 @@ WeaponData
 			"damage_far_value"					"25"
 			"damage_near_distance"				"*0.9"
 			"damage_far_distance"				"*0.9"
+					
+			"npc_damage_near_value"   				"39"
+			"npc_damage_far_value"					"25"
+			"npc_damage_near_distance"				"*0.9"
+			"npc_damage_far_distance"				"*0.9"
 
 			"viewkick_pitch_base" 							"-0.008"
 			"viewkick_pitch_random"   						"0.33"

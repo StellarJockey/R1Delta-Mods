@@ -405,10 +405,17 @@ WeaponData
 			"damage_near_distance"				"*0.9"
 			"damage_far_distance"				"*0.9"
 
+			"npc_damage_near_value"   			"49"
+			"npc_damage_far_value"				"40"
+			"npc_damage_near_distance"			"*0.9"
+			"npc_damage_far_distance"			"*0.9"
+
 			//"rumble"  						"4"
 			"tracer_effect"   					"weapon_tracers_pistol"
 			"tracer_effect_first_person"   		"weapon_tracers_pistol"
 			"minimap_reveal_distance"			"1"
+
+			"burst_fire_sound_start_npc"		"Weapon_hemlok.FirstShotSuppressed"
 			"burst_fire_sound_start"			"Weapon_hemlok.FirstShotSuppressed"
 			"burst_fire_sound_middle"			"Weapon_hemlok.SecondShotStarburst"
 			"burst_fire_sound_end"				"Weapon_hemlok.LastShotStarburst"

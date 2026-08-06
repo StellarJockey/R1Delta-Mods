@@ -382,6 +382,13 @@ WeaponData
 			"damage_far_value"							"90"
 			"damage_near_distance"						"*0.9"
 			"damage_far_distance"						"*0.9"
+
+			"fire_sound_1_npc"							"DMR_Rifle.SingleSuppressed"
+			"npc_damage_near_value"   					"90"
+			"npc_damage_far_value"						"90"
+			"npc_damage_near_distance"					"*0.9"
+			"npc_damage_far_distance"					"*0.9"
+
 			"bodygroup4_set"							"1"
 
 			//"rumble"  								"4"

@@ -443,6 +443,11 @@ WeaponData
 			"damage_near_distance"				"*0.9"
 			"damage_far_distance"				"*0.9"
 
+			"npc_damage_near_value"   				"49"
+			"npc_damage_far_value"					"34"
+			"npc_damage_near_distance"				"*0.9"
+			"npc_damage_far_distance"				"*0.9"
+
 			//"rumble"  						"4"
 			"tracer_effect"   					"weapon_tracers_pistol"
 			"tracer_effect_first_person"   		"weapon_tracers_pistol"
