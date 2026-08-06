@@ -2093,12 +2093,12 @@ function SniperSpectreWaveThink( team )
 function GhostPilotWaveThink( team )
 {
     // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
-    wait 60.0 + RandomFloat( 0.0, 45.0 )
+    wait 10.0 + RandomFloat( 0.0, 45.0 )
 
     while ( IsNPCSpawningEnabled() )
     {
         // Wait a set interval before rolling for the next potential wave
-       wait RandomFloat( 60.0, 150.0 )
+       // wait RandomFloat( 60.0, 150.0 )
 
         // 10% chance to spawn a ghost pod
         if ( RandomFloat( 0.0, 1.0 ) > 0.10 )
@@ -5557,6 +5557,20 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         ghostPilot.GiveWeapon( chosenWeapon, mods )
     else
         ghostPilot.GiveWeapon( chosenWeapon )
+
+	ghostPilot.kv.health = 200
+    ghostPilot.kv.max_health = 200
+    ghostPilot.kv.AccuracyMultiplier = 4
+    ghostPilot.kv.WeaponProficiency = 4
+
+	ghostPilot.SetAISettings( "fireteam_soldier" )
+	CommonInit( ghostPilot )
+	SetupSoldierForRPGs( ghostPilot, ghostPilot.GetTeam() )
+	ApplyIronsights( ghostPilot, chosenWeapon )
+
+	ghostPilot.SetMoveSpeedScale( 1.15 )
+	ghostPilot.PreferSprint( true )
+	ghostPilot.SetHearingSensitivity( 10 )
 
     thread GhostPilotThink( ghostPilot )
     
