@@ -2098,7 +2098,7 @@ function GhostPilotWaveThink( team )
     while ( IsNPCSpawningEnabled() )
     {
         // Wait a set interval before rolling for the next potential wave
-       // wait RandomFloat( 60.0, 150.0 )
+       wait RandomFloat( 60.0, 150.0 )
 
         // 10% chance to spawn a ghost pod
         if ( RandomFloat( 0.0, 1.0 ) > 0.10 )
