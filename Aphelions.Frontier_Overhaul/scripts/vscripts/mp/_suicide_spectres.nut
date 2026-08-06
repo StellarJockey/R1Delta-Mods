@@ -1,9 +1,9 @@
 //spectres
 const SPECTRE_TRIGGER_EXPLODE_DIST = 200
-const SPECTRE_EXPLOSION_RADIUSFALLOFFMAX = 400
-const SPECTRE_EXPLOSION_RADIUSFULLDMG = 300
-const SPECTRE_EXPLOSION_TITANDMG = 1500
-const SPECTRE_EXPLOSION_PILOTDMG = 200
+const SPECTRE_EXPLOSION_RADIUSFALLOFFMAX = 400 // 300
+const SPECTRE_EXPLOSION_RADIUSFULLDMG = 250    // 200
+const SPECTRE_EXPLOSION_TITANDMG = 1500 	   // 500
+const SPECTRE_EXPLOSION_PILOTDMG = 200  	   // 100
 
 enum eSuicideState
 {
@@ -112,8 +112,8 @@ function MakeSuicideSpectre( spectre )
 	spectre.s.suicideBehavior.allowNeutralize <- true
 	spectre.s.state <- eSuicideState.SPECTRE_STATE_SEARCHING
 
-	spectre.SetMaxHealth( 1200 )
-	spectre.SetHealth( 1200 )
+	spectre.SetMaxHealth( 1200 ) // 50
+	spectre.SetHealth( 1200 )	 // 50
 	spectre.SetAimAssistAllowed( false )
 	spectre.SetAllowMelee( false )
 	spectre.AllowSuicideAttack( true )
@@ -710,7 +710,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 	// CHECK FOR INSTANT-KILL / INSTANT-NEUTRALIZE DAMAGE TYPES FIRST
 	switch( damageSourceId )
 	{
-		// Instant explosion when stepped on, hit by a Titan weapon, or a laser weapon, or smart pistol
+		// INSTANT EXPLOSION when stepped on, hit by a Titan weapon, or a laser weapon, or smart pistol
 		case eDamageSourceId.titan_step:
 		case eDamageSourceId.titan_melee:
 		case eDamageSourceId.mp_weapon_sniper:
@@ -724,13 +724,19 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.mp_titanweapon_dumbfire_rockets:
 		case eDamageSourceId.mp_titanweapon_shoulder_rockets:
 		case eDamageSourceId.mp_titanweapon_homing_rockets:
+		case eDamageSourceId.mp_weapon_rocket_launcher:
 		case eDamageSourceId.mp_weapon_defender:
 		case eDamageSourceId.mp_weapon_mega4:
 		case eDamageSourceId.mp_weapon_smart_pistol:
+		case eDamageSourceId.mp_weapon_yh803:
+		case eDamageSourceId.mp_weapon_yh803_bullet:
+		case eDamageSourceId.mp_weapon_mega_turret:
+		case eDamageSourceId.mp_weapon_mega_turret_aa:
+		case eDamageSourceId.mp_titanweapon_shoulder_turret:
 			thread SpectreExplode( spectre, results )
 			return
 			
-		// Electrical things or a melee will neutralize them
+		// Electrical things or a melee will NEUTRALIZE them
 		case eDamageSourceId.mp_weapon_grenade_emp:
 		case eDamageSourceId.mp_weapon_proximity_mine:
 		case eDamageSourceId.mp_titanweapon_arc_cannon:
