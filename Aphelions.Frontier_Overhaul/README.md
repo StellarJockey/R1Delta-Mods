@@ -6,7 +6,7 @@ Frontier Overhaul is a heavily modified version of Extended Attrition. This is m
 This mod currently includes:
 -
 * Spectre rodeos and grenade-tossing minions
-* Sniper spectres, suicide spectres, and cloak drones that spawn in the mid-late game
+* Sniper spectres, suicide spectres, ghost pilots, and cloak drones that spawn in the mid-late game
 * Works for Attrition, Hardpoint, CTF, Frontier Defense, and Titan Brawl
 * A rework for the Thunderbolt Titan minigun
 * Comes bundled with several other mods!
@@ -31,7 +31,7 @@ These come included because, taken separately, they will cause scripting conflic
 How do the NPC Pilots work?
 -
 * Currently, they are just re-skinned grunts. They have maxed accuracy, increased movement speed, and can use any Pilot primary. They have a chance to spawn along grunts in drop pods (à la Battle of Demeter). Since they're just grunt model-swaps, they will only grant 1 point when killed in Attrition. They have the same health as a human player (200) but are nowhere near as intelligent.
-* There is also a rare chance for npc "Ghost Pilots" to spawn that function the same way as sniper spectres. Only difference is that they're even less common and will have the burn card version of any primary, not just snipers.
+* There is also a rare chance for npc "Ghost Pilots" to spawn that function the same way as sniper spectres. Only difference is that they're even less common and will have suppressed versions of any primary, not just snipers.
 * Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro. Wall-running seems to be near-impossible to implement… at the present moment, anyways.
 
 
