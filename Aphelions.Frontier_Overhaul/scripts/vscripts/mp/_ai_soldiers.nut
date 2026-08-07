@@ -169,12 +169,14 @@ function GetRandomPilotName( team )
 		"Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform",
 		"Victor", "Whiskey", "Xray", "Yankee", "Zulu", "Steel", "Raven", "Falcon", "Silver", "Roach",
 		"Io", "Ganymede", "Callisto", "Europa", "Gold", "Red", "Blue", "Indigo", "June", "August",
+		"Beta", "Gamma", "Eta", "Omicron", "Epsilon", "Rho", "Tau", "Zeta",
 	]
 	local militiaNames = [
 		"Jackson", "Rodriguez", "Williams", "Wilson", "Moore", "Asgeirsson", "White", "Lewis", "Clark", "Walker",
 		"Baker", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hanes", "Stokes",
 		"Bohr", "Allen", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr",
-		"Barnes", "Hernandez", "Greene", "Higgins", "Burke", "Rodgers", "Chang", "Gore", "Vargas",
+		"Barnes", "Hernandez", "Greene", "Higgins", "Burke", "Rodgers", "Chang", "Gore", "Vargas", "Gruzinsky",
+		"Wood", "Everett", "Namir", "Hale", "Hermann", "Dutch", "Wayans",
 	]
 
 	if ( team == TEAM_IMC )
