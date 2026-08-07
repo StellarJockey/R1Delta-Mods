@@ -49,7 +49,7 @@ In Campaign:
 
 What about Frontier Defense?
 -
-Haha... yeah no, this turns FD into nightmare-difficulty. But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone. I also increased the Harvester's health and shield values. But it is still quite difficult. So be ready.
+Haha... yeah no, this turns FD into nightmare-difficulty. But you will have up to 3 friendly npc Titans that will spawn after 1-2 in-game minutes, so you won't be alone. I also increased the Harvester's health value. But it is still quite difficult. So be ready.
 
 
 How do the objective-based modes work?

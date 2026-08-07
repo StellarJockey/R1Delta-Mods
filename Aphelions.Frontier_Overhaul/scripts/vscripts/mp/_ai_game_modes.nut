@@ -519,13 +519,22 @@ function Spawn_PilotInDroppod( pilot, title, team, spawnPoint )
 
 function TrackTitan( titan )
 {
-	local team = titan.GetTeam()
-	while( IsValid( titan ) && IsAlive( titan ) )
-	{
-		team = titan.GetTeam()
-		wait 0.1
-	}
-	file.spawnedtitans[team] <- file.spawnedtitans[team] - 1
+    if ( !IsValid( titan ) )
+        return
+
+    local team = titan.GetTeam()
+
+    // If the Titan is destroyed for any reason, release its spawn slot.
+    OnThreadEnd(
+        function() : ( team )
+        {
+            if ( team in file.spawnedtitans )
+                file.spawnedtitans[ team ] <- max( 0, file.spawnedtitans[ team ] - 1 )
+        }
+    )
+
+    titan.EndSignal( "OnDestroy" )
+    titan.WaitSignal( "OnDeath" )
 }
 
 function SetupLevelAICount()
@@ -882,16 +891,20 @@ Globalize( Spawn_TrackedDropPodSquad )
 
 function Spawn_TrackedPilotWithTitan( team, spawnPoint )
 {
-	if ( !IsNPCSpawningEnabled( team ) )
-		return []
+	if ( GameRules.GetGameMode() != COOPERATIVE && !IsNPCSpawningEnabled() )
+		return
 
 	if ( !spawnPoint )
 		return
+
 	if ( "inUse" in spawnPoint.s )
-    spawnPoint.s.inUse <- true
-	CreateTitanForTeam( team, spawnPoint, spawnPoint.GetOrigin(), spawnPoint.GetAngles() )
+   		spawnPoint.s.inUse <- true
+
+	local spawned = CreateTitanForTeam( team, spawnPoint, spawnPoint.GetOrigin(), spawnPoint.GetAngles() )
 	if ( "inUse" in spawnPoint.s )
-	spawnPoint.s.inUse <- false
+		spawnPoint.s.inUse <- false
+
+	return spawned
 }
 
 function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
@@ -1033,7 +1046,6 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
             thread AI_HuntThink( titan, team )
             thread AI_SpottingThink( titan, team )
         }
-
         return titan
     }
 
@@ -1047,7 +1059,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         pilot.DisableBehavior( "Assault" )
         thread NPCPilotEmbarkTitan( pilot, title, titan )
         thread TitanStandUpHandle( pilot, titan )
-        return
+        return titan
     }
 	else if ( IsValid( titan ) && IsAlive( titan ) )
     {
@@ -1064,6 +1076,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         thread AI_HuntThink( titan, team )
         thread AI_SpottingThink( titan, team )
     }
+	return titan
 }
 
 function TitanStandUpHandle( pilot, titan )
@@ -1930,9 +1943,6 @@ function SpawnFrontlineSquad( team, numFreeSlots )
 
 	/////////////////////////////
 	local npcArray
-    local allowSnipers = GameTime.PlayingTime() > 120.0     // 2 min
-    local roll = RandomFloat( 0, 1 ) 
-
     if ( shouldSpawnSpectre )
 	{
         npcArray = Spawn_TrackedDropPodSpectreSquad( team, squadSize, spawnPoint, squadName )
@@ -2093,7 +2103,7 @@ function SniperSpectreWaveThink( team )
 function GhostPilotWaveThink( team )
 {
     // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
-    wait 60.0 + RandomFloat( 0.0, 45.0 )
+    wait 60.0 + RandomFloat( 0.0, 30.0 )
 
     while ( IsNPCSpawningEnabled() )
     {
@@ -2128,86 +2138,87 @@ function GhostPilotWaveThink( team )
     }
 }
 
-
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
-	local mode = GameRules.GetGameMode()
-    if ( mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING )
+    local mode = GameRules.GetGameMode()
+    if ( mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING && mode != COOPERATIVE && GameTime.PlayingTime() > 10.0 )
     {
         wait RandomFloat( 20, 90 )   // Titan spawn delay in seconds
-    } 
+    }
+    else if ( mode == COOPERATIVE ) 
+    {
+        wait RandomFloat( 0.0, 60 )
+    }
 
-    if ( !IsNPCSpawningEnabled( team ) )
-        return
-    if ( !IsSpawnpointValidDrop( spawnPoint, team ) )
-        return
-        
-    Spawn_TrackedPilotWithTitan( team, spawnPoint )
+    local spawned = Spawn_TrackedPilotWithTitan( team, spawnPoint )
+    
+    // If the spawn aborted and returned an empty array or null, free the slot
+	if ( typeof spawned == "null" || (typeof spawned == "array" && spawned.len() == 0) )
+    {
+        if ( team in file.spawnedtitans )
+            file.spawnedtitans[team] <- max(0, file.spawnedtitans[team] - 1)
+    }
 }
 
 
 function SpawnPilotWithTitans( team )
 {
-	local waittime = 10.0
-	
-	if ( GameRules.GetGameMode() == TITAN_BRAWL || GameRules.GetGameMode() == LAST_TITAN_STANDING || GameRules.GetGameMode() == COOPERATIVE )
-	{
-		waittime = 0.0
-	}
+    while( true )
+    {
+        local mode = GameRules.GetGameMode()
 
-	wait waittime
-    
-	while( true )
-	{
-		if ( !IsNPCSpawningEnabled() || SpawnPoints_GetTitan().len() <= 0 )
-			return
+		if ( GameRules.GetGameMode() != COOPERATIVE && !IsNPCSpawningEnabled() )
+            return
 
-		local shouldSpawnPilotWithTitan = ShouldSpawnPilotWithTitan( team )
-        
-		if ( shouldSpawnPilotWithTitan )
-		{
-			local spawnpoints = SpawnPoints_GetTitan()
-			local SpawnPoints = []
-            
-			foreach( spawnpoint in spawnpoints )
-			{
-				if ( IsValid( spawnpoint ) && IsSpawnpointValidDrop( spawnpoint, team ) )
-					SpawnPoints.append( spawnpoint )
-			}
+        local titanSpawnPoints = SpawnPoints_GetTitan()
 
-			if ( SpawnPoints.len() <= 0 )
-			{
-				thread SpawnPilotWithTitans( team )
-				return
-			}
-            
-			local spawnPoint = Random( SpawnPoints )
+        if ( titanSpawnPoints.len() <= 0 )
+        {
+            wait level.npcRespawnWait
+            continue
+        }
 
-			thread Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
-            
-			if ( team in file.spawnedtitans )
-				file.spawnedtitans[team] <- file.spawnedtitans[team] + 1
-			else
-				file.spawnedtitans[team] <- 1
-		}
-        
-		// Use a near-instant polling rate for Brawl/LTS, and the default wait for everything else
-		if ( GameRules.GetGameMode() == TITAN_BRAWL || GameRules.GetGameMode() == LAST_TITAN_STANDING )
-		{
-			wait 0.5
-		}
-		else
-		{
-			wait level.npcRespawnWait
-		}
-	}
+        local shouldSpawnPilotWithTitan = ShouldSpawnPilotWithTitan( team )
+
+        if ( shouldSpawnPilotWithTitan )
+        {
+            local SpawnPoints = []
+
+            foreach( spawnpoint in titanSpawnPoints )
+            {
+                if ( IsValid( spawnpoint ) && IsSpawnpointValidDrop( spawnpoint, team ) )
+                    SpawnPoints.append( spawnpoint )
+            }
+
+            if ( SpawnPoints.len() <= 0 )
+            {
+                wait level.npcRespawnWait
+                continue
+            }
+
+            local spawnPoint = Random( SpawnPoints )
+
+            if ( team in file.spawnedtitans )
+                file.spawnedtitans[team] <- file.spawnedtitans[team] + 1
+            else
+                file.spawnedtitans[team] <- 1
+
+            thread Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
+        }
+
+        if ( mode == TITAN_BRAWL || mode == LAST_TITAN_STANDING )
+            wait 0.5
+        else
+            wait level.npcRespawnWait
+    }
 }
+
 
 function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 {
     if ( !(team in file.spawnedtitans) )
+        file.spawnedtitans[team] <- 0
 
-        return true
     local players = GetPlayerArray()
     if ( players.len() == 0 )
         return false // If no player is in yet, don't spawn
@@ -2225,9 +2236,10 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 
 		case COOPERATIVE:
 			limit = ( team == playerTeam ) ? 3 : 0   // 3 for your team in Frontier Defense
-			 
+			break
+			
 		default:
-			// Attrition, Hardpoint, Campaign, 
+			// Attrition, Hardpoint, Campaign, etc.
 			limit = ( team == playerTeam ) ? 2 : 5   // 2 for your team, 5 for enemy team
 			break
 	}
@@ -2243,13 +2255,12 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 
 function Coop_SpawnTitansAfterDelay()
 {
-	// Wait 90 in-game seconds
-	wait 90.0
+	// Wait 60 in-game seconds
+	wait 60.0
 	
 	// Start spawning Titans for friendly team (TEAM_MILITIA in Coop)
 	thread SpawnPilotWithTitans( TEAM_MILITIA )
 }
-
 
 function GetIndexSmallestSquad( team )
 {
@@ -4587,59 +4598,86 @@ function AI_SpottingThink( titan, team = null )
 
 function AI_HuntThink( titan, team = null )
 {
-	// Unified hunt logic that prioritizes spotted players and enemies
-	titan.EndSignal( "OnDeath" )
-	titan.EndSignal( "OnDestroy" )
+    if ( !IsValid( titan ) || !IsAlive( titan ) )
+        return
 
-	local titanTeam = team != null ? team : titan.GetTeam()
-	local lastValidTargetTime = Time()
-	local lastPosition = titan.GetOrigin()
-	local lastPositionCheckTime = Time()
-	local stuckThreshold = 2.0
-	local minMovementDistance = 100.0
+    titan.EndSignal( "OnDeath" )
+    titan.EndSignal( "OnDestroy" )
 
-	while ( true )
-	{
-		// Check if stuck
-		local currentTime = Time()
-		local currentPosition = titan.GetOrigin()
-		local timeSinceLastCheck = currentTime - lastPositionCheckTime
+    local titanTeam = team != null ? team : titan.GetTeam()
 
-		if ( timeSinceLastCheck >= stuckThreshold )
-		{
-			local distanceMoved = Distance( currentPosition, lastPosition )
-			if ( distanceMoved < minMovementDistance )
-			{
-				AI_SendToRandomLocation( titan, titanTeam )
-				lastValidTargetTime = currentTime
-			}
+    if ( !IsValid( titan ) || !IsAlive( titan ) )
+        return
 
-			lastPosition = currentPosition
-			lastPositionCheckTime = currentTime
-		}
+    local lastValidTargetTime = Time()
+    local lastPosition = titan.GetOrigin()
+    local lastPositionCheckTime = Time()
+    local stuckThreshold = 2.0
+    local minMovementDistance = 100.0
 
-		local target = AI_SelectTarget( titan, titanTeam )
-		if ( IsValid( target ) )
-		{
-			titan.SetEnemy( target )
-			SendAIToAssaultPoint( titan, target.GetOrigin(), null, 256 )
-			lastValidTargetTime = currentTime
-		}
-		else
-		{
-			local timeSinceLastTarget = currentTime - lastValidTargetTime
-			if ( timeSinceLastTarget >= 1.0 )
-			{
-				AI_SendToRandomLocation( titan, titanTeam )
-				lastValidTargetTime = currentTime
-			}
-		}
-		wait RandomFloat( 1.5, 3.0 )
-	}
+    while ( true )
+    {
+        // Titan may have been destroyed between waits.
+        if ( !IsValid( titan ) || !IsAlive( titan ) )
+            return
+
+        local currentTime = Time()
+        local currentPosition = titan.GetOrigin()
+        local timeSinceLastCheck = currentTime - lastPositionCheckTime
+
+        if ( timeSinceLastCheck >= stuckThreshold )
+        {
+            local distanceMoved = Distance( currentPosition, lastPosition )
+
+            if ( distanceMoved < minMovementDistance )
+            {
+                if ( IsValid( titan ) && IsAlive( titan ) )
+                    AI_SendToRandomLocation( titan, titanTeam )
+
+                lastValidTargetTime = currentTime
+            }
+
+            lastPosition = currentPosition
+            lastPositionCheckTime = currentTime
+        }
+
+        if ( !IsValid( titan ) || !IsAlive( titan ) )
+            return
+
+        local target = AI_SelectTarget( titan, titanTeam )
+
+        if ( IsValid( target ) )
+        {
+            if ( !IsValid( titan ) || !IsAlive( titan ) )
+                return
+
+            titan.SetEnemy( target )
+            SendAIToAssaultPoint( titan, target.GetOrigin(), null, 256 )
+            lastValidTargetTime = currentTime
+        }
+        else
+        {
+            local timeSinceLastTarget = currentTime - lastValidTargetTime
+
+            if ( timeSinceLastTarget >= 1.0 )
+            {
+                if ( !IsValid( titan ) || !IsAlive( titan ) )
+                    return
+
+                AI_SendToRandomLocation( titan, titanTeam )
+                lastValidTargetTime = currentTime
+            }
+        }
+
+        wait RandomFloat( 1.5, 3.0 )
+    }
 }
 
 function AI_SelectTarget( titan, team )
 {
+	if ( !IsValid( titan ) || !IsAlive( titan ) )
+        return null
+
 	local enemyTeam = GetOtherTeam( team )
 	local origin = titan.GetOrigin()
 	local highPriority = []
