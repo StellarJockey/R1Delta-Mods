@@ -2093,12 +2093,12 @@ function SniperSpectreWaveThink( team )
 function GhostPilotWaveThink( team )
 {
     // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
-    wait 10.0 + RandomFloat( 0.0, 45.0 )
+    wait 60.0 + RandomFloat( 0.0, 45.0 )
 
     while ( IsNPCSpawningEnabled() )
     {
         // Wait a set interval before rolling for the next potential wave
-       // wait RandomFloat( 60.0, 150.0 )
+       wait RandomFloat( 60.0, 150.0 )
 
         // 10% chance to spawn a ghost pod
         if ( RandomFloat( 0.0, 1.0 ) > 0.10 )
