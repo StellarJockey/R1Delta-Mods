@@ -2140,15 +2140,17 @@ function GhostPilotWaveThink( team )
 
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
-    local mode = GameRules.GetGameMode()
-    if ( mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING && mode != COOPERATIVE && GameTime.PlayingTime() > 10.0 )
-    {
-        wait RandomFloat( 20, 90 )   // Titan spawn delay in seconds
-    }
-    else if ( mode == COOPERATIVE ) 
-    {
-        wait RandomFloat( 0.0, 60 )
-    }
+	local mode = GameRules.GetGameMode()
+	if ( mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING && mode != COOPERATIVE )
+	{
+		// ensure at least 10s have elapsed plus a random 20-90s delay (earliest spawn ~30s)
+		local first10 = max( 0.0, 10.0 - GameTime.PlayingTime() )
+		wait first10 + RandomFloat( 20.0, 90.0 )
+	}
+	else if ( mode == COOPERATIVE )
+	{
+		wait RandomFloat( 0.0, 60.0 )
+	}
 
     local spawned = Spawn_TrackedPilotWithTitan( team, spawnPoint )
     
