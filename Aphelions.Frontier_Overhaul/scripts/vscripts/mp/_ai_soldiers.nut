@@ -186,6 +186,64 @@ function GetRandomPilotName( team )
 }
 Globalize( GetRandomPilotName )
 
+function ChoosePilotModelForWeapon( team, weapon )
+{
+    local pilotmodels = []
+    local title = ""
+
+    if ( team == TEAM_MILITIA ) {
+        pilotmodels = [
+            "models/Humans/mcor_pilot/male_br/mcor_pilot_male_br.mdl",
+            "models/Humans/mcor_pilot/male_cq/mcor_pilot_male_cq.mdl",
+            "models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl"
+        ]
+        
+		title = GetRandomPilotName( team )
+        
+    } else {
+        pilotmodels = [
+            "models/Humans/imc_pilot/male_br/imc_pilot_male_br.mdl",
+            "models/humans/imc_pilot/male_cq/imc_pilot_male_cq.mdl",
+            "models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
+        ]
+        
+		title = GetRandomPilotName( team )
+    }
+    
+	// Determine the correct model based on the weapon equipped
+    local modelIndex = 0
+    switch ( weapon )
+    {
+        case "mp_weapon_rspn101":
+        case "mp_weapon_car":
+        case "mp_weapon_lmg":
+        case "mp_weapon_hemlok":
+            modelIndex = 0 // br
+            break
+
+        case "mp_weapon_shotgun":
+        case "mp_weapon_r97":
+        case "mp_weapon_smart_pistol":
+            modelIndex = 1 // cq
+            break
+
+        case "mp_weapon_dmr":
+        case "mp_weapon_sniper":
+        case "mp_weapon_g2":
+        case "mp_weapon_mega1":
+            modelIndex = 2 // dm
+            break
+
+        default:
+            // fallback to first model if unknown weapon
+            modelIndex = 0
+            break
+    }
+
+    return pilotmodels[ modelIndex ]
+}
+Globalize( ChoosePilotModelForWeapon )
+
 function ClientCommand_SpawnViewGrunt( player, ... )
 {
 	if ( !GetConVarBool( "sv_cheats" ) )
@@ -784,56 +842,18 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 
     local guy = SpawnGrunt( team, squadName, origin, angles, alert, weapon, hidden, false )
 
-    local pilotmodels = []
     local title = ""
+    if ( team == TEAM_MILITIA )
+        title = GetRandomPilotName( team )
+    else
+        title = GetRandomPilotName( team )
 
-    if ( team == TEAM_MILITIA ) {
-        pilotmodels = [
-            "models/Humans/mcor_pilot/male_br/mcor_pilot_male_br.mdl",
-            "models/Humans/mcor_pilot/male_cq/mcor_pilot_male_cq.mdl",
-            "models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl"
-        ]
-        
-		title = GetRandomPilotName( team )
-        
-    } else {
-        pilotmodels = [
-            "models/Humans/imc_pilot/male_br/imc_pilot_male_br.mdl",
-            "models/humans/imc_pilot/male_cq/imc_pilot_male_cq.mdl",
-            "models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
-        ]
-        
-		title = GetRandomPilotName( team )
-    }
-    
-	// Determine the correct model based on the weapon equipped
-    local modelIndex = 0
-    switch ( weapon )
-    {
-        case "mp_weapon_rspn101":
-        case "mp_weapon_car":
-        case "mp_weapon_lmg":
-        case "mp_weapon_hemlok":
-            modelIndex = 0 // br
-            break
-            
-        case "mp_weapon_shotgun":
-        case "mp_weapon_r97":
-        case "mp_weapon_smart_pistol":
-            modelIndex = 1 // cq
-            break
-            
-        case "mp_weapon_dmr":
-        case "mp_weapon_sniper":
-        case "mp_weapon_g2":
-        case "mp_weapon_mega1":
-            modelIndex = 2 // dm
-            break
-    }
+    // Determine the correct model based on the weapon equipped using centralized helper
+    local model = ChoosePilotModelForWeapon( team, weapon )
+    guy.SetModel( model )
 
-    guy.SetModel( pilotmodels[ modelIndex ] )
     guy.SetTitle( title )
-	guy.s.isPilot <- true
+    guy.s.isPilot <- true
 
     guy.kv.health = 200
     guy.kv.max_health = 200
@@ -847,6 +867,82 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
     return guy
 }
 Globalize( SpawnPilotInfantry )
+
+function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
+{
+    // LMG intentionally excluded because it has no silencer 
+    local pilotWeapons = [
+        "mp_weapon_rspn101",
+        "mp_weapon_shotgun",
+        "mp_weapon_dmr",
+        "mp_weapon_r97",
+        "mp_weapon_hemlok",
+        "mp_weapon_g2",
+        "mp_weapon_car",
+        "mp_weapon_mega1",
+        "mp_weapon_sniper",
+        "mp_weapon_smart_pistol",
+    ]
+
+    local chosenWeapon = Random( pilotWeapons )
+
+    // Spawn with SpawnPilotInfantry so the model is chosen consistently for the weapon
+    local ghostPilot = SpawnPilotInfantry( team, squadName, origin, angles, alert, chosenWeapon, false )
+    if ( !IsAlive( ghostPilot ) )
+        return null
+
+    ghostPilot.SetTitle( "Ghost Pilot" )
+    ghostPilot.s.isPilot <- true
+
+    ghostPilot.TakeActiveWeapon()
+    local sightMod = "iron_sights"
+    switch ( chosenWeapon )
+    {
+        case "mp_weapon_shotgun":
+        case "mp_weapon_mega2":
+        case "mp_weapon_autopistol":
+        case "mp_weapon_semipistol":
+        case "mp_weapon_smart_pistol":
+        case "mp_weapon_wingman":
+            sightMod = ""
+            break
+
+        case "mp_weapon_dmr":
+        case "mp_weapon_sniper":
+        case "mp_weapon_mega1":
+            sightMod = "scope_6x"
+            break
+    }
+
+    local mods = []
+    if ( sightMod != "" )
+        mods.append( sightMod )
+    mods.append( "silencer" )
+
+    if ( mods.len() > 0 )
+        ghostPilot.GiveWeapon( chosenWeapon, mods )
+    else
+        ghostPilot.GiveWeapon( chosenWeapon )
+
+    ghostPilot.kv.health = 220
+    ghostPilot.kv.max_health = 220
+    ghostPilot.kv.AccuracyMultiplier = 4
+    ghostPilot.kv.WeaponProficiency = 4
+
+    ghostPilot.SetAISettings( "fireteam_soldier" )
+    CommonInit( ghostPilot )
+    SetupSoldierForRPGs( ghostPilot, ghostPilot.GetTeam() )
+
+    ghostPilot.SetMoveSpeedScale( 1.15 )
+    ghostPilot.PreferSprint( true )
+    ghostPilot.SetHearingSensitivity( 10 )
+
+    // start the ghost cloak behavior thread defined in ai_game_modes
+    thread GhostPilotThink( ghostPilot )
+
+    return ghostPilot
+}
+Globalize( SpawnGhostPilot )
 
 function SpawnGruntPropDynamic( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {

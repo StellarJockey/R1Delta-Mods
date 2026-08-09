@@ -2115,8 +2115,8 @@ function GhostPilotWaveThink( team )
         // Wait a set interval before rolling for the next potential wave
        wait RandomFloat( 60.0, 120.0 )
 
-        // 10% chance to spawn a ghost pod
-        if ( RandomFloat( 0.0, 1.0 ) > 0.10 )
+        // 15% chance to spawn a ghost pod
+        if ( RandomFloat( 0.0, 1.0 ) > 0.15 )
             continue
 
         // Find valid spawn points for the wave
@@ -5549,79 +5549,6 @@ function ApplyDroneCloak( drone, target )
 /////////////////////////////////////////////////////////
 /////////////// NPC GHOST PILOT ENEMIES /////////////////
 /////////////////////////////////////////////////////////
-function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
-{
-    local ghostPilot = SpawnPilotAI( team, squadName, origin, angles, alert )
-    
-    ghostPilot.SetTitle( "Ghost Pilot" )
-	ghostPilot.s.isPilot <- true
-    
-    // LMG intentionally excluded because it has no silencer 
-    local pilotWeapons = [
-        "mp_weapon_rspn101",
-        "mp_weapon_shotgun",
-        "mp_weapon_dmr",
-        "mp_weapon_r97",
-        "mp_weapon_hemlok",
-        "mp_weapon_g2",
-        "mp_weapon_car",
-        "mp_weapon_mega1",
-        "mp_weapon_sniper",
-        "mp_weapon_smart_pistol",
-    ]
-
-    local chosenWeapon = Random( pilotWeapons )
-
-    ghostPilot.TakeActiveWeapon()
-    local sightMod = "iron_sights"
-    switch ( chosenWeapon )
-    {
-        case "mp_weapon_shotgun":
-        case "mp_weapon_mega2":
-        case "mp_weapon_autopistol":
-        case "mp_weapon_semipistol":
-        case "mp_weapon_smart_pistol":
-        case "mp_weapon_wingman":
-            sightMod = ""
-            break
-
-        case "mp_weapon_dmr":
-        case "mp_weapon_sniper":
-        case "mp_weapon_mega1":
-            sightMod = "scope_6x"
-            break
-    }
-
-    local mods = []
-    if ( sightMod != "" )
-        mods.append( sightMod )
-
-    mods.append( "silencer" )
-
-    // GiveWeapon accepts a nil/empty array for no mods; pass mods when non-empty
-    if ( mods.len() > 0 )
-        ghostPilot.GiveWeapon( chosenWeapon, mods )
-    else
-        ghostPilot.GiveWeapon( chosenWeapon )
-
-	ghostPilot.kv.health = 250
-    ghostPilot.kv.max_health = 200
-    ghostPilot.kv.AccuracyMultiplier = 4
-    ghostPilot.kv.WeaponProficiency = 4
-
-	ghostPilot.SetAISettings( "fireteam_soldier" )
-	CommonInit( ghostPilot )
-	SetupSoldierForRPGs( ghostPilot, ghostPilot.GetTeam() )
-	ApplyIronsights( ghostPilot, chosenWeapon )
-
-	ghostPilot.SetMoveSpeedScale( 1.15 )
-	ghostPilot.PreferSprint( true )
-	ghostPilot.SetHearingSensitivity( 10 )
-
-    thread GhostPilotThink( ghostPilot )
-    
-    return ghostPilot
-}
 
 function GhostPilotThink( sniper )
 {
