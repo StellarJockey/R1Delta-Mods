@@ -430,6 +430,7 @@ function NPCPilotEmbarkTitan( pilot, title, titan )
 		GiveMinionWeapon( newpilot, "mp_weapon_rspn101" )
 	    // newpilot.SetInvulnerable()  // Maybe this is the invincibility bug?
 	    newpilot.SetTitle( title )
+		newpilot.s.isPilot <- true
 		pilot.Destroy()
 		thread FirstPersonSequence( sequence, newpilot, titan )
 	}
@@ -478,6 +479,7 @@ function Spawn_PilotInDroppod( pilot, title, team, spawnPoint )
 	newpilot.SetTeam( pilot.GetTeam() )
 	newpilot.SetModel( pilot.GetModelName() )
 	newpilot.SetTitle( title )
+	newpilot.s.isPilot <- true
 	
 	GiveMinionWeapon( newpilot, "mp_weapon_rspn101" )
 	newpilot.SetMaxHealth( 200 )
@@ -499,6 +501,7 @@ function Spawn_PilotInDroppod( pilot, title, team, spawnPoint )
         if ( IsValid( pilot ) ) 
         {
             pilot.SetTitle( title )
+			pilot.s.isPilot <- true
             pilot.kv.VisibilityFlags = 7 // Show the pilot again
             // pilot.ClearInvulnerable()
             pilot.SetOrigin( newpilot.GetOrigin() )
@@ -976,6 +979,8 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
     else if ( titans == "titan_ogre" )
         titan.SetTitle( "#CHASSIS_OGRE_NAME" )
     
+	titan.s.isTitan <- true
+
     local weaponMods = []
     local weaponModPools = {
         mp_titanweapon_40mm            = [ null, null, "burst", "burst", "extended_ammo", "extended_ammo", "burn_mod_titan_40mm", ],
@@ -2108,7 +2113,7 @@ function GhostPilotWaveThink( team )
     while ( IsNPCSpawningEnabled() )
     {
         // Wait a set interval before rolling for the next potential wave
-       wait RandomFloat( 60.0, 150.0 )
+       wait RandomFloat( 60.0, 120.0 )
 
         // 10% chance to spawn a ghost pod
         if ( RandomFloat( 0.0, 1.0 ) > 0.10 )
@@ -5549,6 +5554,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
     local ghostPilot = SpawnPilotAI( team, squadName, origin, angles, alert )
     
     ghostPilot.SetTitle( "Ghost Pilot" )
+	ghostPilot.s.isPilot <- true
     
     // LMG intentionally excluded because it has no silencer 
     local pilotWeapons = [
@@ -5598,7 +5604,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
     else
         ghostPilot.GiveWeapon( chosenWeapon )
 
-	ghostPilot.kv.health = 200
+	ghostPilot.kv.health = 250
     ghostPilot.kv.max_health = 200
     ghostPilot.kv.AccuracyMultiplier = 4
     ghostPilot.kv.WeaponProficiency = 4

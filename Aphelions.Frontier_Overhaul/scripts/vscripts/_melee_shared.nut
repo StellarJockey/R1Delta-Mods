@@ -940,6 +940,34 @@ function CodeCallback_OnMeleeKilled( target )
 	}
 
 	local damageAmount = target.GetMaxHealth() + 1
+
+	// If an NPC pilot is riding this Titan, award the pilot kill splash/xp to the killer.
+	if ( target.IsTitan() && TitanHasPilotInTitan( target ) )
+	{
+		// resolve the player who should receive the award
+		local killerPlayer = null
+		if ( IsValid( attacker ) )
+		{
+			if ( attacker.IsPlayer() )
+				killerPlayer = attacker
+			else if ( attacker.IsTitan() )
+				killerPlayer = attacker.GetBossPlayer()
+		}
+
+		if ( IsValid( killerPlayer ) && killerPlayer.IsPlayer() )
+		{
+			if ( ScoreEventExists( "KillReskinnedPilot" ) )
+			{
+				local ev = ScoreEventFromName( "KillReskinnedPilot" )
+				local evInt = ev.GetInt()
+				local points = ev.GetPointValue()
+				// award XP and show the splash to the killer (mirrors other score code)
+				AddXP( points, killerPlayer )
+				Remote.CallFunction_NonReplay( killerPlayer, "ServerCallback_PointSplash", evInt, null, points )
+			}
+		}
+	}
+
 	target.TakeDamage( damageAmount , attacker, attacker, { forceKill = true, damageType = DMG_MELEE_EXECUTION, damageSourceId = damageSourceId, scriptType = DF_NO_INDICATOR } )
 }
 

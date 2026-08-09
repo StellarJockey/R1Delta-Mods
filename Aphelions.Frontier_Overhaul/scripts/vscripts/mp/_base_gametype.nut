@@ -1453,6 +1453,7 @@ function CodeCallback_OnPlayerKilled( player, damageInfo )
 	{
 		callbackInfo.func.acall( [callbackInfo.scope, player, damageInfo] )
 	}
+	
 }
 
 function CodeCallback_OnWeaponAttack(player,weapon,weaponName,ammoUsed) {

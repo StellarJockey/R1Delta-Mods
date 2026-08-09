@@ -833,12 +833,13 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 
     guy.SetModel( pilotmodels[ modelIndex ] )
     guy.SetTitle( title )
+	guy.s.isPilot <- true
 
     guy.kv.health = 200
     guy.kv.max_health = 200
     guy.kv.AccuracyMultiplier = 4
     guy.kv.WeaponProficiency = 4
-	guy.s.useRPGPreference = RPG_USE_ALWAYS
+	guy.s.useRPGPreference = RPG_USE_SOMETIMES
 	guy.SetMoveSpeedScale( 1.15 )
 	guy.PreferSprint( true )
 	guy.SetHearingSensitivity( 10 )
