@@ -92,7 +92,14 @@ function InitScoreEvents()
 	event.SetSplashText( "Killed Pilot" )
 	event.SetShouldStackDisplay( true )
 	event.SetXPType( XP_TYPE.PILOT_KILL )  
-	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS ) 
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+
+	event = cScoreEvent( "MeleeHumanExecutionVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Executed Pilot" )
+	event.SetSplashTextAppendTargetName( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
 
 	event = cScoreEvent( "Kill" )
 	event.SetPointValue( POINTVALUE_KILL )
@@ -1809,6 +1816,20 @@ function ScoreEventForNPCKilled(npc, damageInfo)
     local damageSourceId = damageInfo.GetDamageSourceIdentifier()
     local npcClass = npc.GetClassname()
 
+	//////////////////////////////////////////////////
+	////////// SUPER HACKY NPC "PILOT" LOGIC /////////
+	//////////////////////////////////////////////////
+	if ( "s" in npc && "isPilot" in npc.s && npc.s.isPilot )
+	{
+		// For human executions we want our custom execution splash
+		if ( damageSourceId == eDamageSourceId.human_execution )
+			return "MeleeHumanExecutionVsReskinnedPilot"
+		else
+			return "KillReskinnedPilot"
+
+		return ScoreEventForMethodOfDeath( npc, damageInfo )
+	}
+
     // Check if this is a Titan with an NPC pilot inside
     if ( npc.IsTitan() && TitanHasPilotInTitan( npc ) )
     {
@@ -1818,12 +1839,7 @@ function ScoreEventForNPCKilled(npc, damageInfo)
             return "KillReskinnedPilot"
         }
     }
-
-    // Original check for reskinned pilots
-    if ( "s" in npc && "isPilot" in npc.s && npc.s.isPilot )
-    {
-        return "KillReskinnedPilot"
-    }
+	/////////////////////////////////////////////
 
 	switch ( npcClass )
 	{
