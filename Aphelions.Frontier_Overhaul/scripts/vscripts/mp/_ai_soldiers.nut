@@ -803,6 +803,11 @@ function CreateMinionBubbleShield( guy )
 }
 Globalize( CreateMinionBubbleShield )
 
+function IsGruntCaptain( npc )
+{
+    return ("s" in npc && "isCaptain" in npc.s && npc.s.isCaptain)
+}
+Globalize( IsGruntCaptain )
 
 function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {
@@ -817,6 +822,7 @@ function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapo
     guy.kv.max_health = 250
     guy.kv.AccuracyMultiplier = 3.75
     guy.kv.WeaponProficiency = 4
+	guy.s.isCaptain <- true
 
     return guy
 }
@@ -868,6 +874,12 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 }
 Globalize( SpawnPilotInfantry )
 
+function IsGhostPilot( npc )
+{
+    return ( "s" in npc && "isGhostPilot" in npc.s && npc.s.isGhostPilot )
+}
+Globalize( IsGhostPilot )
+
 function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
 {
     // LMG intentionally excluded because it has no silencer 
@@ -892,7 +904,11 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         return null
 
     ghostPilot.SetTitle( "Ghost Pilot" )
-    ghostPilot.s.isPilot <- true
+
+    if ( "s" in ghostPilot && "isPilot" in ghostPilot.s )
+		ghostPilot.s.isPilot <- false
+		
+	ghostPilot.s.isGhostPilot <- true
 
     ghostPilot.TakeActiveWeapon()
     local sightMod = "iron_sights"
