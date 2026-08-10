@@ -7,6 +7,7 @@ This mod currently includes:
 -
 * Spectre rodeos and grenade-tossing minions
 * Sniper spectres, suicide spectres, ghost pilots, and cloak drones that spawn in the mid-late game
+* Exclusive weapon mods/attachments
 * Works for Attrition, Hardpoint, CTF, Frontier Defense, and Titan Brawl
 * A rework for the Thunderbolt Titan minigun
 * Comes bundled with several other mods!
