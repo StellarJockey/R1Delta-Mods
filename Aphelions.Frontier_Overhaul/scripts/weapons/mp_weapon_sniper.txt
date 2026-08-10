@@ -398,15 +398,15 @@ WeaponData
 		{
 			"bodygroup6_set"					"1"
 			"bodygroup1_set"					"0"
-			"damage_near_value"   				"190"
-			"damage_far_value"					"190"
+			"damage_near_value"   				"250" // "190"
+			"damage_far_value"					"250" // "190"
 			"damage_near_distance"				"*0.9"
 			"damage_far_distance"				"*0.9"
 
-			"npc_damage_near_value"   				"190"
-			"npc_damage_far_value"					"190"
-			"npc_damage_near_distance"				"*0.9"
-			"npc_damage_far_distance"				"*0.9"
+			"npc_damage_near_value"   			"250" // "190"
+			"npc_damage_far_value"				"250" // "190"
+			"npc_damage_near_distance"			"*0.9"
+			"npc_damage_far_distance"			"*0.9"
 
 			//"rumble"  						"4"
 			"tracer_effect"   					"weapon_tracers_pistol"
