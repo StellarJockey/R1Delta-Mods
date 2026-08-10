@@ -27,7 +27,7 @@ VALKYRIE:
 SPITFIRE:
 * Reduced ADS time from 0.7 sec to 0.5 sec
 * Range buff
-* Added Scatterfire mod (fire rate is a bit slower than the Burn Card version)
+* Added Cyclic Receiver mod (ADS and reload are slower than the Burn Card version)
 
 KRABER:
 * Added Anti-Titan Rounds mod (has less ammo than the burn card version)

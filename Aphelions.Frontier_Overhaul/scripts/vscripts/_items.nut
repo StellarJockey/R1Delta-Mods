@@ -27,6 +27,7 @@ const MEGA2_SHORTDESC =    "Sawn-off shotgun"
 const MEGA2_LONGDESC =     "The TWIN-B is a 12-gauge break-action shotgun. Originally used by colonists for game hunting, the barrel has been sawed down for easier concealment - making it highly illegal to own in most IMC districts."
 
 const r97_SCATTER_LONGDESC =  "This mod increases the R-97's rate of fire even further to 1,260 RPM, tightens the hipfire spread, and grants a small boost to rodeo damage. However, this also comes with a 25% increase to the weapon's recoil."
+const slammer_LONGDESCv2 =    "This mod upgrades the Spitfire with high-power anti-Titan rounds, giving it a 50% increase in rodeo damage against enemy Titans."
 const suppressor_LONGDESC =   "The suppressor minimizes the weapon's firing noise and muzzle flash, ensuring that enemies will not detect you on their minimap when you fire. However, due to also using subsonic rounds, your damage and range are slightly reduced."
 
 // Secondary DESCRIPTIONS
@@ -105,10 +106,11 @@ const MOD_AUTO_CONVERTER_LONGDESC =         "A receiver bypass makes this weapon
 const MOD_PUMP_ACTION_LONGDESC = 			"This mod upgrades the EVA-8 with a pump-action receiver that cycles high-impact magnum shells. Shots will deal 35% more damage, but at the cost of a slower rate of fire."
 const MOD_SEMI_CONVERTER_LONGDESC =         "A receiver bypass increases the burst-fire rate of the WYS, but its effective range will be reduced by 35%. It is optimized for hit-and-run style engagements."
 const MOD_DOUBLE_TAP_LONGDESC =			    "This mod allows you to pull both triggers and fire both barrels at once. Be mindful of your ammo reserve, as you will burn through it much faster."
+
 const MOD_CHARGE_HACK_LONGDESC = 			"This mod retunes the weapon's cavity magnetron, allowing the weapon to reach its full charge 40% faster, but will deal 30% less damage."
 const MOD_GUIDED_MISSILE_LONGDESC = 		"This mod allows the Archer to be fired freely without locking on. The missile will follow your line of sight, meaning you have to manually guide it. Reloading will also take slightly longer."
 const MOD_AT_ROUNDS_LONGDESC = 				"This mod turns the Kraber-AP into a heavy anti-materiel rifle, increasing its damage to Titan armor. However, reloading and rechambering will take longer, and you will have reduced ammo capacity."
-const lmg_SCATTER_LONGDESC =  				"This mod increases the Spitfire's rate of fire to 720 RPM and does slightly more damage against Titan armor. However, this also comes with a 40% reduction to rodeo damage."
+const lmg_SCATTER_LONGDESC =  				"This mod maximizes the Spitfire's rate of fire at 780 RPM. However, this heavy bolt carrier means that reloading and ADS handling will take longer, and also reduces rodeo damage by 35%."
 const r101_BURST_LONGDESC =  				"This mod makes the weapon fire in three-round bursts, allowing for more controlled and precise damage output."
 
 const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
@@ -496,7 +498,7 @@ function InitItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_hemlok_kills", 					1, 		"mp_weapon_hemlok",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,					-5, 0, -10, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_hemlok_pilot_kills", 			1, 		"mp_weapon_hemlok",			"starburst",					"#MOD_STARBURST_NAME",			"#MOD_STARBURST_DESC",				"#MOD_STARBURST_LONGDESC",				0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/starburst", 			"../ui/menu/items/mod_icons/starburst" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_spectre_kills", 			1, 		"mp_weapon_lmg",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 16, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_pilot_kills", 				1, 		"mp_weapon_lmg",			"slammer",						"#MOD_SLAMMER_NAME",			"#MOD_SLAMMER_DESC",				"#MOD_SLAMMER_LONGDESC",				10, 0, 0, 0, 0, 		"../ui/menu/items/mod_icons/slammer", 				"../ui/menu/items/mod_icons/slammer" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_pilot_kills", 				1, 		"mp_weapon_lmg",			"slammer",						"#MOD_SLAMMER_NAME",			"#MOD_SLAMMER_DESC",				slammer_LONGDESCv2,						10, 0, 0, 0, 0, 		"../ui/menu/items/mod_icons/slammer", 				"../ui/menu/items/mod_icons/slammer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_spectre_kills", 			1, 		"mp_weapon_r97",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 10, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_pilot_kills", 				1, 		"mp_weapon_r97",			"scatterfire",					"#MOD_SCATTERFIRE_NAME",		"#MOD_SCATTERFIRE_DESC",			r97_SCATTER_LONGDESC,			        0, -15, 0, 10, 0, 		"../ui/menu/items/mod_icons/scatterfire", 			"../ui/menu/items/mod_icons/scatterfire" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_r97_kills", 					1, 		"mp_weapon_r97",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,					-5, -5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
@@ -916,7 +918,7 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_sniper_pilot_kills", 		1, 	"mp_weapon_sniper",				"tank_buster",		"Anti-Titan Rounds",			"Increased damage to Titans",			MOD_AT_ROUNDS_LONGDESC,			0, 0, 0, -3, -1, 		"../ui/menu/items/mod_icons/titan_hunter",	 		"../ui/menu/items/mod_icons/titan_hunter" )
 	
 	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_mega2",				"match_trigger",		"Double Tap",			"Fire both barrels",			MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 		"../ui/menu/items/mod_icons/double_tap",	 		"../ui/menu/items/mod_icons/double_tap" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_pilot_kills", 			1, 		"mp_weapon_lmg",			"scatterfire",					"#MOD_SCATTERFIRE_NAME",		"#MOD_SCATTERFIRE_DESC",			lmg_SCATTER_LONGDESC,			        0, -10, 0, 10, 0, 		"../ui/menu/items/mod_icons/scatterfire", 			"../ui/menu/items/mod_icons/scatterfire" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_pilot_kills", 			1, 		"mp_weapon_lmg",			"cyclic",				"Cyclic Receiver",		"Maximum firing rate",		lmg_SCATTER_LONGDESC,			    -5, -10, 0, 15, 0, 		"../ui/menu/items/mod_icons/auto_converter", 			"../ui/menu/items/mod_icons/auto_converter" )
 	
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_g2",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_hemlok",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )

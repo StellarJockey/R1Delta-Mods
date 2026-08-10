@@ -233,6 +233,7 @@ function InitPersistence()
 		charge_hack = 58
 		guided_missile_0 = 59
 		pump_action = 60
+		cyclic = 61
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -648,7 +649,7 @@ function InitPersistence()
 		mp_weapon_rocket_launcher_guided_missile_0 = 134,
 		mp_weapon_sniper_tank_buster = 135,	
 		mp_weapon_shotgun_pump_action = 136,
-		mp_weapon_lmg_scatterfire = 137,
+		mp_weapon_lmg_cyclic = 137,
 
 		// mp_weapon_g2_auto_converter = 127,
 		// mp_weapon_hemlok_auto_converter = 128,
