@@ -376,8 +376,8 @@ WeaponData
 			"fire_sound_1_player_1p"			"SR_Valkyrie.Fire_Suppressed"
 			"fire_sound_1_player_3p"			"SR_Valkyrie.Fire_Suppressed"
 
-			"damage_near_value"   				"125"
-			"damage_far_value"					"125"
+			"damage_near_value"   				"140" // "125"
+			"damage_far_value"					"140" // "125"
 			"damage_near_distance"				"*0.9"
 			"damage_far_distance"				"*0.9"
 

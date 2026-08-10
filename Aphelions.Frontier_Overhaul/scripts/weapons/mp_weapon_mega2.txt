@@ -322,8 +322,8 @@ WeaponData
 			"viewkick_yaw_base"   							"*0.7"
 			"viewkick_yaw_random" 							"*0.7"
 
-			"damage_near_value"   							"230"
-			"damage_far_value"								"28"
+			"damage_near_value"   							"255"
+			"damage_far_value"								"30" // "28"
 			"damage_near_distance"							"*0.9"
 			"damage_far_distance"							"*0.9"
 
