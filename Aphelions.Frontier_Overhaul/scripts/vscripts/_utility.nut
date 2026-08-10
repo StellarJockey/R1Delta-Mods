@@ -1,5 +1,5 @@
 //=========================================================
-//	_utility
+//	_utility FO
 //
 //=========================================================
 
@@ -2696,6 +2696,19 @@ function FakePlayerAwareness( npc, endSig = null )
 	}
 }
 
+function GetAiRelationshipEntityName( entity )
+{
+	Assert( IsValid( entity ), "ai_relationship endpoint is invalid" )
+
+	local name = entity.GetName()
+	if ( name != "" && GetEntArrayByName_Expensive( name ).len() == 1 )
+		return name
+
+	name = UniqueString( "ai_relationship_endpoint" )
+	entity.SetName( name )
+	return name
+}
+
 function createAiRelationship( subject, target, disposition = "D_HT", rank = 0, reciprocal = 1 )
 {
 	local dispositionList = { D_HT = 1, D_FR = 2, D_LI = 3, D_NU = 4 };
@@ -2703,12 +2716,12 @@ function createAiRelationship( subject, target, disposition = "D_HT", rank = 0, 
 
 	local ai_relationship = CreateEntity( "ai_relationship" )
 	ai_relationship.SetName( UniqueString( "ai_relationship" ) )
-	ai_relationship.kv.subject = subject
-	ai_relationship.kv.target = target
-	ai_relationship.kv.disposition = dispositionList[ disposition ]
-	ai_relationship.kv.StartActive = 1
-	ai_relationship.kv.rank = rank
-	ai_relationship.kv.Reciprocal = reciprocal
+	ai_relationship.Set( "subject", GetAiRelationshipEntityName( subject ) )
+	ai_relationship.Set( "target", GetAiRelationshipEntityName( target ) )
+	ai_relationship.Set( "disposition", dispositionList[ disposition ] )
+	ai_relationship.Set( "StartActive", 1 )
+	ai_relationship.Set( "rank", rank )
+	ai_relationship.Set( "reciprocal", reciprocal )
 	DispatchSpawn( ai_relationship, false )
 
 	return ai_relationship
@@ -3972,7 +3985,7 @@ function IsFriendlyGruntOrSpectre( hitEnt, testEnt )
 	if ( !IsNPC( hitEnt ) )
 		return false
 
-	if ( hitEnt.GetTeam() != testEnt.GetTeam() )
+	if ( !ShouldPreventFriendlyFire( hitEnt, testEnt ) )
 		return false
 
 	if ( hitEnt.IsSpectre() )
@@ -4994,6 +5007,18 @@ function EmitSoundOnEntityToTeamExceptPlayer( ent, sound, team, excludePlayer )
 		EmitSoundOnEntityOnlyToPlayer( ent, player, sound )
 	}
 }
+function EmitSoundOnEntityToOpponents( ent, sound )
+{
+	foreach ( player in GetPlayerArray() )
+	{
+		if ( ShouldPreventFriendlyFire( ent, player ) )
+			continue
+
+		EmitSoundOnEntityOnlyToPlayer( ent, player, sound )
+	}
+}
+
+
 
 
 function DamageRange( value, headShotMultiplier, health = 200 )
@@ -5960,4 +5985,42 @@ function AddCallback_OnWeaponAttack( callbackFunc )
 	callbackInfo.scope <- this
 
 	level.onWeaponAttackCallbacks[name] <- callbackInfo
+}
+
+function SetPlayerSetFile( player, classSettings )
+{
+	if ( !IsValid( player ) )
+		return
+
+	if ( !IsAlive( player ) )
+		return
+
+	player.SetPlayerSettings( classSettings )
+
+	local team = player.GetTeam()
+	local isTitan = player.IsTitan()
+	if ( !isTitan )
+		player.SetPlayerPilotSettings( classSettings )
+
+	local modelFieldName = "bodymodel_imc"
+	if ( team == TEAM_MILITIA )
+		modelFieldName = "bodymodel_militia"
+
+	local correctModelName = GetPlayerSettingsFieldForClassName( classSettings, modelFieldName )
+	if ( correctModelName != null && correctModelName != "" )
+	{
+		player.SetModel( correctModelName )
+
+		local skin = 0 // Assuming non-female models use skin 0 regardless of team, adjust if needed
+		if ( classSettings.find( "female" ) != null || isTitan )
+			skin = team == TEAM_MILITIA ? 1 : 0
+
+		player.SetSkin( skin )
+
+		RandomizeHead( player )
+	}
+	else
+	{
+		printt( "WARNING - Could not determine correct model name for player " + player + " using playerSetFile '" + classSettings + "' and field '" + modelFieldName + "'" )
+	}
 }

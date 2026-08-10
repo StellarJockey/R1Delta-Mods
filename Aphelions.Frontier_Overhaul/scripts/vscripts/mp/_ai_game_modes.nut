@@ -4967,7 +4967,7 @@ function CloakedDroneCloakThink( cloakedDrone )
 				if ( guy in cloakList )
 					continue
 
-				if ( IsCloaked( guy ) )	// cloaked by another cloakedDrone
+				if ( IsValid( guy ) && IsCloaked( guy ) )	// cloaked by another cloakedDrone
 					continue
 
 				cloakList[ guy ] <- true
@@ -5072,7 +5072,7 @@ function CloakedDronePathThink( cloakedDrone )
 				if ( guy.GetParent() != null )
 					continue
 
-				if ( IsCloaked( guy ) )
+				if ( IsValid( guy ) && IsCloaked( guy ) )
 					continue
 
 				if ( IsSquadCenterClose( guy ) == false )

@@ -5,6 +5,14 @@ const LOCKON_RUMBLE_AMOUNT	= 45
 RegisterSignal( "StopLockonRumble" )
 RegisterSignal( "StopGuidedLaser" )
 
+function HasGuidedMissileMod( weapon )
+{
+	// A weapon whose mod definitions were not populated (e.g. spawned without
+	// a loadout) throws from the native HasMod; an unknown mod is not equipped.
+	try { return weapon.HasMod( "guided_missile_0" ) } catch ( ex ) { return false }
+}
+
+
 function main()
 {
 	if( IsClient() )
@@ -54,7 +62,7 @@ function MissileThink( weapon, missile )
 
 function OnWeaponActivate( activateParams )
 {
-	local hasGuidedMissiles = self.HasMod( "guided_missile_0" ) // guided_missile
+	local hasGuidedMissiles = HasGuidedMissileMod( self ) // guided_missile
 
 	if ( !hasGuidedMissiles )
 	{
@@ -95,7 +103,7 @@ function OnWeaponActivate( activateParams )
 
 function OnWeaponDeactivate( deactivateParams )
 {
-	if ( !self.HasMod( "guided_missile_0" ) )
+	if ( !HasGuidedMissileMod( self ) )
 		SmartAmmo_Stop( self )
 	else
 		self.Signal("StopGuidedLaser")
@@ -124,7 +132,7 @@ function OnWeaponPrimaryAttack( attackParams )
 		attackParams.pos = attackParams.pos + up * 20
 
 	self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
-	if ( !self.HasMod( "guided_missile_0" ) )
+	if ( !HasGuidedMissileMod( self ) )
 	{
 		return SmartAmmo_FireWeapon( self, attackParams, damageTypes.ATRocket )
 	}
@@ -188,14 +196,14 @@ function OnWeaponNpcPrimaryAttack( attackParams )
 
 function OnWeaponStartZoomIn()
 {
-	if ( !self.HasMod( "guided_missile_0" ) )
+	if ( !HasGuidedMissileMod( self ) )
 		SmartAmmo_Start( self )
 	HandleWeaponSoundZoomIn( self, "Weapon_Archer.ADS_Up" )
 }
 
 function OnWeaponStartZoomOut()
 {
-	if ( !self.HasMod( "guided_missile_0" ) )
+	if ( !HasGuidedMissileMod( self ) )
 		SmartAmmo_Stop( self )
 	HandleWeaponSoundZoomOut( self, "Weapon_Archer.ADS_Down" )
 }

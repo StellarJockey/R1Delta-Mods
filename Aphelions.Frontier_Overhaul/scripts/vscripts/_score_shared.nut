@@ -80,6 +80,7 @@ function InitScoreEvents()
 	event.SetShouldStackDisplay( true )
 	event.SetXPType( XP_TYPE.ROUND_COMPLETE )
 
+	//////////////// FO BONUS EVENTS ////////////////
 	event = cScoreEvent( "StealthBonus" )
 	event.SetPointValue( 0 )
 	event.SetSplashText( "Stealth Bonus" ) 
@@ -97,9 +98,17 @@ function InitScoreEvents()
 	event = cScoreEvent( "MeleeHumanExecutionVsReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_KILL )
 	event.SetSplashText( "Executed Pilot" )
-	event.SetSplashTextAppendTargetName( true )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "TitanStepVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Crushed Pilot" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+	//////////////////////////////////////////////
 
 	event = cScoreEvent( "Kill" )
 	event.SetPointValue( POINTVALUE_KILL )
@@ -1824,6 +1833,8 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 		// For human executions we want our custom execution splash
 		if ( damageSourceId == eDamageSourceId.human_execution )
 			return "MeleeHumanExecutionVsReskinnedPilot"
+		else if ( damageSourceId == eDamageSourceId.titan_step )
+			return "TitanStepVsReskinnedPilot"
 		else
 			return "KillReskinnedPilot"
 

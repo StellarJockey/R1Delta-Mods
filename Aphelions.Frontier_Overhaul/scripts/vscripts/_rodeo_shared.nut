@@ -4,7 +4,6 @@ function main()
 	Globalize( CodeCallback_IsValidRodeoTarget )
 	Globalize( GetTitanSoulBeingRodeoed )
 	Globalize( GetTitanBeingRodeoed )
-	Globalize( AllowTeamRodeo )
 	Globalize( GetPlayerRodeoing )
 	Globalize( GetRodeoPackage )
 	Globalize( GetFriendlyRodeoPlayer )
@@ -23,7 +22,6 @@ function main()
 	Globalize( SetRodeoAnimsFromPackage )
 	Globalize( DebugRodeoTimes )
 	Globalize( SetDebugRodeoAnim ) // Set to force a particular rodeo anim to occur
-	Globalize( CreateRodeoPackageForJumpingOn )
 
 	RegisterSignal( "RodeoStarted" )
 	RegisterSignal( "RodeoOver" )
@@ -217,44 +215,32 @@ function main()
 
 		AddCallback_OnClientConnected( Rodeo_OnClientConnected )
 	}
-
-	file.allowedarray <- []
 }
 
 function AllowTeamRodeo( titan, trueorfalse )
 {
-	local allowedarray = []
-	foreach ( npc in file.allowedarray )
-	    if ( IsValid( npc ) && IsAlive( npc ) )
-	        allowedarray.append( npc )
-	if ( !IsValid( titan ) || !IsAlive( titan ) )
-	    return
-	if ( trueorfalse == true )
-	    allowedarray.append( titan )
-	if ( trueorfalse == false )
-	{
-		local newallowedarray = []
-		foreach ( npc in allowedarray )
-		    if ( npc != titan )
-		        newallowedarray.append( npc )
-		allowedarray = newallowedarray
-	}
-	file.allowedarray = allowedarray
+    // Ensure the script-state table exists before writing into it
+    if ( !("s" in titan) )
+        titan.s <- {}
+
+    titan.s.npc_AllowTeamRodeo <- trueorfalse
 }
+Globalize( AllowTeamRodeo )
 
 function IsAllowedTeamRodeo( titan )
 {
-	local validallowedarray = []
-	foreach ( npc in file.allowedarray )
-	    if ( IsValid( npc ) && IsAlive( npc ) )
-	        validallowedarray.append( npc )
-	file.allowedarray = validallowedarray
-	foreach ( npc in validallowedarray )
-	    if ( npc == titan )
-	        return true
+    // Only bad thing about this is that it makes the rodeo popup not show up
+    // But at least it works i guess?
+    if ( IsClient() )
+        return false
 
-	return false
+    // If the key doesn't exist, default to false
+    if ( !("s" in titan) || !("npc_AllowTeamRodeo" in titan.s) )
+        return false
+
+    return titan.s.npc_AllowTeamRodeo
 }
+Globalize( IsAllowedTeamRodeo )
 
 function CodeCallback_OnRodeoAttach( player, titan )
 {
@@ -288,7 +274,7 @@ function CodeCallback_IsValidRodeoTarget( player, titan )
 
 	if ( holdToRodeoState != HOLD_RODEO_DISABLED )
 	{
-		if ( holdToRodeoState != HOLD_RODEO_FRIENDLY || titan.GetTeam() == player.GetTeam() )
+		if ( holdToRodeoState != HOLD_RODEO_FRIENDLY || ShouldPreventFriendlyFire( titan, player ) )
 		{
 			if ( IsClient() )
 			{
@@ -334,7 +320,7 @@ function IsValidTitanRodeoTarget( player, titan )
 			return false
 		if ( !IsValid( soul.GetBossPlayer() ) )
 		{
-			if ( player.GetTeam() == titan.GetTeam() && !IsAllowedTeamRodeo( titan ) )
+			if ( ShouldPreventFriendlyFire( player, titan ) && !IsAllowedTeamRodeo( titan ) )
 				return false
 		}
 	}
@@ -368,6 +354,7 @@ function FindPlayerJumponSpot( player, titan )
 
 	return true
 }
+Globalize( FindPlayerJumponSpot )
 
 function CreateRodeoPackageForJumpingOn( player, titan )
 {
@@ -1138,7 +1125,7 @@ function GetFriendlyRodeoPlayer( titan )
 	if ( !IsValid( rodeoPlayer ) )
 		return null
 
-	if ( rodeoPlayer.GetTeam() != titan.GetTeam() )
+	if ( !ShouldPreventFriendlyFire( rodeoPlayer, titan ) )
 		return null
 
 	return rodeoPlayer
@@ -1151,7 +1138,7 @@ function GetEnemyRodeoPlayer( titan )
 	if ( !IsValid( rodeoPlayer ) )
 		return null
 
-	if ( rodeoPlayer.GetTeam() == titan.GetTeam() )
+	if ( ShouldPreventFriendlyFire( rodeoPlayer, titan ) )
 		return null
 
 	return rodeoPlayer
@@ -1278,7 +1265,7 @@ function HoldToRodeoEnabled( player )
 {
 	if ( IsServer() )
 	{
-		return player.s.holdToRodeoState > 0
+		return HoldToRodeoState( player ) > HOLD_RODEO_DISABLED
 	}
 	else if ( IsClient() )
 	{
@@ -1293,6 +1280,9 @@ function HoldToRodeoState( player )
 {
 	if ( IsServer() )
 	{
+		if ( !( "holdToRodeoState" in player.s ) )
+			player.s.holdToRodeoState <- HOLD_RODEO_DISABLED
+
 		return player.s.holdToRodeoState
 	}
 	else if ( IsClient() )
@@ -1308,8 +1298,7 @@ if ( IsServer() )
 {
 	function Rodeo_OnClientConnected( player )
 	{
-		if ( !( "holdToRodeoState" in player.s ) )
-			player.s.holdToRodeoState <- 0
+		HoldToRodeoState( player )
 	}
 
 	function ClientCommand_HoldToRodeo( player, args )
@@ -1317,9 +1306,6 @@ if ( IsServer() )
 		local holdToRodeoState = args.tointeger()
 		if ( holdToRodeoState < 0 || holdToRodeoState > 2)
 			return true
-
-		if ( !( "holdToRodeoState" in player.s ) )
-			player.s.holdToRodeoState <- 0
 	
 		player.s.holdToRodeoState = holdToRodeoState
 	

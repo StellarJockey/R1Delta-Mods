@@ -818,6 +818,32 @@ function Dump( package, depth = 0 )
 	}
 }
 
+function GetEntityOwningPlayer( entity )
+{
+	if ( !IsValid( entity ) )
+		return null
+
+	local current = entity
+	for ( local depth = 0; depth < 4; depth++ )
+	{
+		if ( current.IsPlayer() )
+			return current
+
+		local bossPlayer = current.GetBossPlayer()
+		if ( IsValid( bossPlayer ) && bossPlayer.IsPlayer() )
+			return bossPlayer
+
+		local owner = current.GetOwner()
+		if ( !IsValid( owner ) || owner == current )
+			break
+
+		current = owner
+	}
+
+	return null
+}
+Globalize( GetEntityOwningPlayer )
+
 function GetOtherTeam( guy )
 {
 	local team
@@ -1654,7 +1680,17 @@ function DebugDrawOriginMovement( ent, r, g, b, time = 9999.0, trailTime = 5.0 )
 
 function GetGameState()
 {
-	return GetServerVar( "gameState" )
+	try
+	{
+		return GetServerVar( "gameState" )
+	}
+	catch ( ex )
+	{
+		// Before the first SetGameState (e.g. a dedicated server that has not
+		// started a match), the server var does not exist yet. Bootstrap to the
+		// initial state so the rules think loop can advance it normally.
+		return eGameState.WaitingForCustomStart
+	}
 }
 
 function GamePlaying()
@@ -1963,6 +1999,9 @@ function GetShieldHealthFrac( titan )
 function EvacEnabled()
 {
 	if ( !IsMultiplayer() )
+		return false
+
+	if ( IsFFABased() )
 		return false
 
 	if ( GetCinematicMode() && GetMapName() == "mp_o2" )  //Special case for O2: No evac in campaign mode since EVERYONE DIES
@@ -3674,8 +3713,12 @@ function GetActiveUplinkPoint()
 // For FFA
 function GetWinningPlayer()
 {
-	local players = GetSortedPlayers( GetScoreboardCompareFunc(), null )
+	local compareFunc = GetScoreboardCompareFunc()
+	local players = GetSortedPlayers( compareFunc, null )
 	if ( players.len() == 0 )
+		return null
+
+	if ( players.len() > 1 && compareFunc( players[0], players[1] ) == 0 )
 		return null
 
 	return players[0]

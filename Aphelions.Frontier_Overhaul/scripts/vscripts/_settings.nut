@@ -1,6 +1,6 @@
 //********************************************************************************************
 //
-//	MP Game Settings File
+//	MP Game Settings File FO
 //	Designers: put variables you want to expose to everyone in this file for easy tweaking
 //
 //********************************************************************************************

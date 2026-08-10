@@ -1,5 +1,5 @@
 //********************************************************************************************
-//	Base Gametype
+//	Base Gametype FO
 //********************************************************************************************
 const DEATH_CHAT_DELAY = 0.3
 IncludeScript("_persistentdata")
@@ -93,8 +93,10 @@ function main()
 	RegisterSignal( "BackInBounds" )
 	RegisterSignal( "PlayerKilled" )
 	RegisterSignal( "RespawnMe" )
+	RegisterSignal( "SpawnClassChanged" )
 	RegisterSignal( "SimulateGameScore" )
 	RegisterSignal( "ObserverThread" )
+	RegisterSignal( "TitanSpawnRetryLifecycleInvalid" )
 	FlagInit( "Zipline_Spawning" )
 }
 
@@ -294,18 +296,17 @@ function ScriptCallback_ShouldEntTakeDamage( ent, damageInfo )
 
 	local damageSourceID = damageInfo.GetDamageSourceIdentifier()
 	local suicideSpectreDamage = ( damageSourceID == eDamageSourceId.suicideSpectre || damageSourceID == eDamageSourceId.suicideSpectreAoE )
+	local attackerOwnsEnt = attacker == ent || ent.GetOwner() == attacker || ent.GetBossPlayer() == attacker
 
 	// CHANGED: Removed !suicideSpectreDamage from this condition
-	if ( ( attacker.GetTeam() == ent.GetTeam() ) && ( damageSourceID != eDamageSourceId.switchback_trap ) && !IsFFABased() )
+	if ( attackerOwnsEnt && ( "preventOwnerDamage" in ent.s ) && ent.s.preventOwnerDamage == true && !( damageInfo.GetCustomDamageType() & DF_DOOMED_HEALTH_LOSS ) )
 	{
-		if ( attacker != ent && ent.GetOwner() != attacker && ent.GetBossPlayer() != attacker )
-		{
-			return false
-		}
-		else if ( ("preventOwnerDamage" in ent.s) && (ent.s.preventOwnerDamage == true) && !(damageInfo.GetCustomDamageType() & DF_DOOMED_HEALTH_LOSS) )
-		{
-			return false
-		}
+		return false
+	}
+
+	if ( damageSourceID != eDamageSourceId.switchback_trap && !attackerOwnsEnt && ShouldPreventFriendlyFire( ent, attacker ) )
+	{
+		return false
 	}
 
 	if ( ent.IsTitan() )
@@ -746,7 +747,7 @@ function PlayerOrNPCKilledByEnemy( entity, damageInfo )
 		{
 			local lastOwner = entity.GetTitanSoul().lastOwner;
 
-			if ( attacker.GetTeam() != entity.GetTeam() )
+			if ( !ShouldPreventFriendlyFire( entity, attacker ) )
 			{
 				if ( IsValid(lastOwner) && lastOwner.IsPlayer() )
 				{
@@ -1329,6 +1330,7 @@ function ClientCommand_SelectRespawn( player, index = null )
 		return true
 
 	local index = index.tointeger()
+	local previousSpawnClass = player.IsSpawnAsTitan()
 
 	switch ( index )
 	{
@@ -1340,6 +1342,9 @@ function ClientCommand_SelectRespawn( player, index = null )
 			break
 	}
 
+	if ( player.IsSpawnAsTitan() != previousSpawnClass )
+		player.Signal( "SpawnClassChanged" )
+
 	return true
 }
 
@@ -1348,13 +1353,15 @@ function ClientCommand_RespawnPlayer( player, opParm )
 	if ( IsAlive( player ) )
 		return true
 
-		if ( opParm.find( "burncard" ) != null )
+	if ( opParm.find( "burncard" ) != null )
 	{
 		//local burnCard = opParm.tointeger()
 		//SetPlayerBurnCardSlotToActivate( player, burnCard )
 		return true
 	}
-	else if ( opParm == "Titan" )
+
+	local previousSpawnClass = player.IsSpawnAsTitan()
+	if ( opParm == "Titan" )
 	{
 		player.SetSpawnAsTitan( true )
 	}
@@ -1362,6 +1369,9 @@ function ClientCommand_RespawnPlayer( player, opParm )
 	{
 		player.SetSpawnAsTitan( false )
 	}
+
+	if ( player.IsSpawnAsTitan() != previousSpawnClass )
+		player.Signal( "SpawnClassChanged" )
 
 	local deathTime = GetRespawnButtonCamTime( player ) - 0.1
 	if ( Time() > player.s.postDeathThreadStartTime + deathTime )
@@ -1453,7 +1463,6 @@ function CodeCallback_OnPlayerKilled( player, damageInfo )
 	{
 		callbackInfo.func.acall( [callbackInfo.scope, player, damageInfo] )
 	}
-	
 }
 
 function CodeCallback_OnWeaponAttack(player,weapon,weaponName,ammoUsed) {
@@ -1722,10 +1731,232 @@ function ForceWaveSpawn( team )
 	level.waveSpawnTime[ team ] = Time()
 }
 
+function EnsureSafeSpawnRetryTokens( player )
+{
+	if ( !( "safeSpawnRetryToken" in player.s ) )
+		player.s.safeSpawnRetryToken <- null
+	if ( !( "titanSpawnRetryToken" in player.s ) )
+		player.s.titanSpawnRetryToken <- null
+}
+
+
+function PlayerOwnsSpawnRetryToken( player, token )
+{
+	if ( !IsValid( player ) || token == null )
+		return false
+
+	EnsureSafeSpawnRetryTokens( player )
+	return player.s.safeSpawnRetryToken == token || player.s.titanSpawnRetryToken == token
+}
+
+
+function PlayerHasSpawnRetryReservation( player )
+{
+	EnsureSafeSpawnRetryTokens( player )
+	return player.s.safeSpawnRetryToken != null || player.s.titanSpawnRetryToken != null
+}
+
+
+function SpawnRetryGameStateIsValid()
+{
+	switch ( GetGameState() )
+	{
+		case eGameState.WaitingForPlayers:
+		case eGameState.PickLoadout:
+		case eGameState.Prematch:
+		case eGameState.Playing:
+		case eGameState.SuddenDeath:
+			return true
+	}
+
+	return false
+}
+
+
+function DeadPlayerSpawnRetryLifecycleIsValid( player )
+{
+	if ( !IsValid( player ) || !player.hasConnected || IsAlive( player ) )
+		return false
+
+	if ( !SpawnRetryGameStateIsValid() )
+		return false
+
+	return !PlayerShouldObserve( player ) && !IsPlayerInCinematic( player )
+}
+
+function DeadPlayerCanResumeSpawnDispatch( player )
+{
+	return IsValid( player )
+		&& player.hasConnected
+		&& !IsAlive( player )
+		&& SpawnRetryGameStateIsValid()
+}
+
+
+function CreateSpawnRetryRequest( player )
+{
+	return {
+		spawnAsTitan = ShouldSpawnAsTitan( player ),
+		selectedTitanClass = player.IsBot() ? null : player.IsSpawnAsTitan()
+	}
+}
+
+
+function SpawnRetryRequestClassChanged( player, request )
+{
+	if ( request == null || !IsValid( player ) || player.IsBot() )
+		return false
+
+	return player.IsSpawnAsTitan() != request.selectedTitanClass
+}
+
+
+function PlayerTitanSpawnLifecycleIsValid( player, token, allowAlive, simulationToken = null )
+{
+	if ( !PlayerOwnsSpawnRetryToken( player, token ) || !player.hasConnected )
+		return false
+
+	if ( !SpawnRetryGameStateIsValid() )
+		return false
+
+	if ( allowAlive )
+	{
+		if ( simulationToken == null
+			|| !( "simulationSpawnRetryToken" in player.s )
+			|| player.s.simulationSpawnRetryToken != simulationToken
+			|| !IsAlive( player ) )
+		{
+			return false
+		}
+
+		if ( PlayerShouldObserve( player ) )
+			return false
+
+		if ( IsPlayerInCinematic( player )
+			&& ( !( "playersWatchingIntro" in level ) || !ArrayContains( level.playersWatchingIntro, player ) ) )
+		{
+			return false
+		}
+
+		return true
+	}
+
+	return DeadPlayerSpawnRetryLifecycleIsValid( player )
+}
+
+
+function PlayerCanContinueSpawnRetry( player, token, request, allowAlive = false, simulationToken = null )
+{
+	if ( !PlayerTitanSpawnLifecycleIsValid( player, token, allowAlive, simulationToken ) )
+		return false
+
+	if ( !allowAlive && SpawnRetryRequestClassChanged( player, request ) )
+		return false
+
+	if ( player.isSpawning
+		&& ( !( "titanSpawnRetryToken" in player.s ) || player.s.titanSpawnRetryToken != token ) )
+	{
+		return false
+	}
+
+	return true
+}
+
+
+function TitanSpawnRetryLifecycleWatch( player, token, request, allowAlive, simulationToken )
+{
+	player.EndSignal( "Disconnected" )
+
+	while ( PlayerOwnsSpawnRetryToken( player, token ) )
+	{
+		wait 0.1
+
+		if ( PlayerCanContinueSpawnRetry( player, token, request, allowAlive, simulationToken ) )
+			continue
+
+		if ( IsValid( player ) && PlayerOwnsSpawnRetryToken( player, token ) )
+			player.Signal( "TitanSpawnRetryLifecycleInvalid" )
+		return
+	}
+}
+
+
+function ReserveTitanSpawnRetry( player )
+{
+	if ( !IsValid( player ) )
+		return null
+
+	EnsureSafeSpawnRetryTokens( player )
+	if ( PlayerHasSpawnRetryReservation( player ) )
+		return null
+
+	local token = UniqueString( "titan_spawn_retry" )
+	player.s.titanSpawnRetryToken = token
+	return token
+}
+
+
+function QueueRespawnAfterNoSafeSpawnpoint( player, rematchOrigin, spawnDataIndex, request )
+{
+	if ( !IsValid( player ) )
+		return
+
+	EnsureSafeSpawnRetryTokens( player )
+	if ( PlayerHasSpawnRetryReservation( player ) )
+		return
+
+	local token = UniqueString( "safe_spawn_retry" )
+	player.s.safeSpawnRetryToken = token
+	thread RespawnAfterNoSafeSpawnpoint( player, rematchOrigin, token, spawnDataIndex, request )
+}
+
+
+function RespawnAfterNoSafeSpawnpoint( player, rematchOrigin, token, spawnDataIndex, request )
+{
+	player.EndSignal( "Disconnected" )
+	player.EndSignal( "OnRespawned" )
+	player.EndSignal( "SpawnClassChanged" )
+
+	OnThreadEnd(
+		function() : ( player, rematchOrigin, token, request )
+		{
+			local ownedToken = IsValid( player )
+				&& "safeSpawnRetryToken" in player.s
+				&& player.s.safeSpawnRetryToken == token
+			if ( !ownedToken )
+				return
+
+			player.s.safeSpawnRetryToken = null
+			if ( DeadPlayerCanResumeSpawnDispatch( player )
+				&& ( SpawnRetryRequestClassChanged( player, request )
+					|| PlayerShouldObserve( player )
+					|| IsPlayerInCinematic( player ) ) )
+			{
+				thread DecideRespawnPlayer( player, rematchOrigin )
+			}
+		}
+	)
+
+	while ( PlayerCanContinueSpawnRetry( player, token, request ) )
+	{
+		wait 0.1
+
+		if ( !PlayerCanContinueSpawnRetry( player, token, request ) )
+			return
+
+		if ( RespawnTitanPilot( player, rematchOrigin, token, spawnDataIndex, request ) )
+			return
+	}
+}
+
+
 function DecideRespawnPlayer( player, rematchOrigin = null )
 {
 	Assert( IsValid( player ), player + " is invalid!!" )
 	Assert( !IsAlive( player ), player + " is already alive" )
+
+	if ( PlayerHasSpawnRetryReservation( player ) )
+		return false
 
 	if ( !player.hasConnected )
 	{
@@ -1779,7 +2010,7 @@ function DecideRespawnPlayer( player, rematchOrigin = null )
 		return
 	}
 
-	RespawnTitanPilot( player, rematchOrigin )
+	return RespawnTitanPilot( player, rematchOrigin )
 
 	// if ( GetGameState() <= eGameState.Prematch ) // Once we've gotten to here, any special spawning logic like cinematic spawn and classic MP spawn have already completed if applicable. Freeze controls if in prematch because we don't want players running around in prematch. Controls will be unfrozen when gamestate switches to playing
 	// {
@@ -1855,6 +2086,12 @@ function ShouldSpawnAsTitan( player )
 function RespawnOperator( player )
 {
 	local spawnPoint = FindSpawnPoint( player )
+	if ( !spawnPoint )
+	{
+		QueueRespawnAfterNoSafeSpawnpoint( player, null, null, CreateSpawnRetryRequest( player ) )
+		return false
+	}
+
 	player.SetPlayerSettings( "dronecontroller" )
 
 	DroneController_OnPlayerSpawn( player )
@@ -1866,25 +2103,38 @@ function SetupPostLoaderPlayer( player )
 	FlagSet( "APlayerHasSpawned" )
 }
 
-function RespawnTitanPilot( player, rematchOrigin = null )
+function RespawnTitanPilot( player, rematchOrigin = null, retryToken = null, spawnDataIndex = null, request = null )
 {
-	Assert( PlayerCanSpawn( player ), player + " cant spawn now" )
+	if ( request == null )
+		request = CreateSpawnRetryRequest( player )
+
+	if ( retryToken != null )
+	{
+		if ( !PlayerCanContinueSpawnRetry( player, retryToken, request ) )
+			return false
+	}
+	else if ( !PlayerCanSpawn( player ) )
+	{
+		return false
+	}
+
 	SetupPostLoaderPlayer( player )
 
 	//if ( IsLobby() )
 	//	return false
 
-	if ( ShouldSpawnAsTitan( player ) )
+	if ( retryToken == null && request.spawnAsTitan )
 	{
 		printt( "ShouldSpawnAsTitan" )
 		// clear respawn countdown message
 		if ( GetWaveSpawnType() != eWaveSpawnType.DISABLED && level.waveSpawnByDropship == true )
 			MessageToPlayer( player, eEventNotifications.Clear )
 
-		thread TitanPlayerHotDropsIntoLevel( player, rematchOrigin )
+		local titanSpawnToken = ReserveTitanSpawnRetry( player )
+		if ( titanSpawnToken == null )
+			return false
 
-		TitanDeployed( player )
-
+		thread TitanPlayerHotDropsIntoLevel( player, rematchOrigin, titanSpawnToken, false, null, request )
 		return true
 	}
 
@@ -1894,22 +2144,31 @@ function RespawnTitanPilot( player, rematchOrigin = null )
 	{
 		printt( "!player.IsBot()" )
 
-		// start recording the spawn data for this player
-		RecordSpawnData( player )
+		// Keep one telemetry record for this logical respawn across retries.
+		if ( spawnDataIndex == null )
+			spawnDataIndex = RecordSpawnData( player )
+		ResetSpawnData( spawnDataIndex )
 
 		PerfStart( PerfIndexServer.RespawnTitanPilot )
 
 		if ( ShouldStartSpawn( player ) )
 		{
 			printt( "ShouldStartSpawn( player )" )
-			spawnPoint = FindStartSpawnPoint( player )
+			spawnPoint = FindStartSpawnPoint( player, false, spawnDataIndex )
 		}
 		else
 		{
-			spawnPoint = FindSpawnPoint( player )
+			spawnPoint = FindSpawnPoint( player, false, spawnDataIndex )
 		}
 
 		PerfEnd( PerfIndexServer.RespawnTitanPilot )
+
+		if ( !spawnPoint )
+		{
+			StoreSpawnData( spawnPoint, spawnDataIndex )
+			QueueRespawnAfterNoSafeSpawnpoint( player, rematchOrigin, spawnDataIndex, request )
+			return false
+		}
 
 		foreach ( team, _ in level.forcedToSpawnTogether )
 		{
@@ -1940,8 +2199,11 @@ function RespawnTitanPilot( player, rematchOrigin = null )
 
 
 		// stop recording spawn data
-		StoreSpawnData( spawnPoint )
+		StoreSpawnData( spawnPoint, spawnDataIndex )
 	}
+
+	if ( retryToken != null && !PlayerCanContinueSpawnRetry( player, retryToken, request ) )
+		return false
 
 	if ( IsAlive( player ) )
 	{
@@ -2018,64 +2280,142 @@ function ShouldStartSpawn( player )
 }
 
 
-function TitanPlayerHotDropsIntoLevel( player, rematchOrigin = null )
+function TitanPlayerHotDropsIntoLevel( player, rematchOrigin = null, token = null, allowIntroAlive = false, simulationToken = null, request = null )
 {
 	printl( "TitanPlayerHotDropsIntoLevel" )
 
 	player.EndSignal( "Disconnected" )
-	player.Signal( "ChoseToSpawnAsTitan" )
+	player.EndSignal( "TitanSpawnRetryLifecycleInvalid" )
+	if ( allowIntroAlive )
+		player.EndSignal( "OnDeath" )
+	else
+		player.EndSignal( "SpawnClassChanged" )
 
+	if ( token == null )
+		token = ReserveTitanSpawnRetry( player )
+	if ( token == null )
+		return false
+
+	if ( !allowIntroAlive && request == null )
+		request = CreateSpawnRetryRequest( player )
+
+	local reservation = {
+		spawnPoint = null,
+		camera = null,
+		titan = null,
+		titanCommitted = false
+	}
+	OnThreadEnd(
+		function() : ( player, rematchOrigin, token, request, allowIntroAlive, reservation )
+		{
+			if ( IsValid( reservation.camera ) )
+			{
+				if ( IsValid( player ) )
+					reservation.camera.FireNow( "Disable", "!activator", 0, player )
+				reservation.camera.Kill()
+			}
+
+			if ( !reservation.titanCommitted && IsValid( reservation.titan ) )
+				reservation.titan.Kill()
+
+			local reservedSpawnPoint = reservation.spawnPoint
+			if ( IsValid( reservedSpawnPoint )
+				&& "titanSpawnReservationToken" in reservedSpawnPoint.s
+				&& reservedSpawnPoint.s.titanSpawnReservationToken == token )
+			{
+				reservedSpawnPoint.s.titanSpawnReservationToken = null
+				reservedSpawnPoint.s.inUse = false
+			}
+
+			local ownedToken = IsValid( player )
+				&& "titanSpawnRetryToken" in player.s
+				&& player.s.titanSpawnRetryToken == token
+			if ( !ownedToken )
+				return
+
+			player.ClearSpawnPoint()
+			player.isSpawning = null
+			player.s.titanSpawnRetryToken = null
+
+			if ( !allowIntroAlive
+				&& !reservation.titanCommitted
+				&& DeadPlayerCanResumeSpawnDispatch( player ) )
+			{
+				thread DecideRespawnPlayer( player, rematchOrigin )
+			}
+		}
+	)
+
+	thread TitanSpawnRetryLifecycleWatch( player, token, request, allowIntroAlive, simulationToken )
+
+	if ( !PlayerCanContinueSpawnRetry( player, token, request, allowIntroAlive, simulationToken ) )
+		return false
+
+	player.Signal( "ChoseToSpawnAsTitan" )
 	player.SetPlayerSettings( "spectator" )
 
-	// start recording the spawn data for this player
+	// Keep one telemetry record for this logical titan spawn across retries.
 	local spawnDataIndex = RecordSpawnData( player )
 
 	local spawnPoint
-
-	local startSpawn = ShouldStartSpawn( player )
-
-	if ( startSpawn )
+	while ( true )
 	{
-		spawnPoint = FindStartSpawnPoint( player, true )
-	}
-	else if ( rematchOrigin && Riff_TitanExitIsDisabled() )
+		if ( !PlayerCanContinueSpawnRetry( player, token, request, allowIntroAlive, simulationToken ) )
+			return false
+
+		ResetSpawnData( spawnDataIndex )
+		local startSpawn = ShouldStartSpawn( player )
+
+		if ( startSpawn )
+		{
+			spawnPoint = FindStartSpawnPoint( player, true, spawnDataIndex )
+		}
+		else if ( rematchOrigin && Riff_TitanExitIsDisabled() )
+		{
+			spawnPoint = FindClosestSpawnPoint( player, rematchOrigin, true, spawnDataIndex )
+		}
+		else
+		{
+			spawnPoint = FindSpawnPoint( player, true, spawnDataIndex )
+		}
+
+
+		if ( !spawnPoint )
+		{
+			if ( !PlayerCanContinueSpawnRetry( player, token, request, allowIntroAlive, simulationToken ) )
+				return false
+			wait 0.1
+			continue
+		}
+
+	if ( !PlayerCanContinueSpawnRetry( player, token, request, allowIntroAlive, simulationToken ) )
+		return false
+
+	reservation.spawnPoint = spawnPoint
+	if ( !( "titanSpawnReservationToken" in spawnPoint.s ) )
+		spawnPoint.s.titanSpawnReservationToken <- null
+	spawnPoint.s.titanSpawnReservationToken = token
+	spawnPoint.s.inUse = true
+	player.ReserveSpawnPoint( spawnPoint )
+	player.isSpawning = spawnPoint
+
+	if ( !PlayerCanContinueSpawnRetry( player, token, request, allowIntroAlive, simulationToken )
+		|| spawnPoint.s.titanSpawnReservationToken != token )
 	{
-		spawnPoint = FindClosestSpawnPoint( player, rematchOrigin, true )
-	}
-	else
-	{
-		spawnPoint = FindSpawnPoint( player, true )
+		return false
 	}
 
-	// stop recording spawn data
-	StoreSpawnData( spawnPoint )
+	// stop recording the spawn data
+	StoreSpawnData( spawnPoint, spawnDataIndex )
 
 	Assert( spawnPoint, "No spawn point?!" )
 
 	printl( "spawn point: " + spawnPoint )
 
-	OnThreadEnd(
-		function() : ( spawnPoint, player )
-		{
-
-			Assert( IsValid( spawnPoint ) )
-			spawnPoint.s.inUse = false
-
-			if ( IsValid( player ) )
-			{
-				player.ClearSpawnPoint()
-				player.isSpawning = null
-			}
-		}
-	)
-
 	// first spawn is as a Titan
 		//dropPod = Titan_HotDrop( player )
-	local origin
-	local angles
-
-	origin = spawnPoint.GetOrigin()
-	angles = spawnPoint.GetAngles()
+	local origin = spawnPoint.GetOrigin()
+	local angles = spawnPoint.GetAngles()
 
 	if ( angles == null )
 	{
@@ -2098,20 +2438,43 @@ function TitanPlayerHotDropsIntoLevel( player, rematchOrigin = null )
 	camYaw %= 360
 	local camAng = Vector( 90, camYaw, 0 )
 
-	spawnPoint.s.inUse = true
-	player.ReserveSpawnPoint( spawnPoint )
-
-
 	local delayedCreation = true
 
 	local camera = CreateTitanDropCamera( camOrg, camAng )
+	reservation.camera = camera
 	camera.Fire( "Enable", "!activator", 0, player )
 
-	player.isSpawning = spawnPoint // set this to prevent .isSpawning checks from returning false
 	if ( delayedCreation )
 		wait 0.1
+	if ( !PlayerCanContinueSpawnRetry( player, token, request, allowIntroAlive, simulationToken ) )
+		return false
+		if ( !( "titanSpawnReservationToken" in spawnPoint.s )
+			|| spawnPoint.s.titanSpawnReservationToken != token
+			|| !IsReservedSpawnpointValid( spawnPoint, player.GetTeam(), player ) )
+		{
+			if ( IsValid( camera ) )
+			{
+				camera.FireNow( "Disable", "!activator", 0, player )
+				camera.Kill()
+			}
+			reservation.camera = null
+
+			if ( "titanSpawnReservationToken" in spawnPoint.s
+				&& spawnPoint.s.titanSpawnReservationToken == token )
+			{
+				spawnPoint.s.titanSpawnReservationToken = null
+				spawnPoint.s.inUse = false
+			}
+
+			player.ClearSpawnPoint()
+			player.isSpawning = null
+			reservation.spawnPoint = null
+			spawnPoint = null
+			continue
+		}
 
 	local titan = CreateNPCTitanForPlayer( player, origin, angles, delayedCreation )
+	reservation.titan = titan
 	if ( IsValid( camera ) )
 	{
 		// camera can be invalid for a moment when server shuts down
@@ -2130,6 +2493,9 @@ function TitanPlayerHotDropsIntoLevel( player, rematchOrigin = null )
 		camera.FireNow( "Disable", "!activator", 0, player )
 		camera.Kill()
 	}
+	reservation.camera = null
+	if ( !PlayerCanContinueSpawnRetry( player, token, request, allowIntroAlive, simulationToken ) )
+		return false
 
 	if ( player.IsBot() )
 		Wallrun_EnforceWeaponDefaults( player )
@@ -2147,6 +2513,9 @@ function TitanPlayerHotDropsIntoLevel( player, rematchOrigin = null )
 		player.RespawnPlayer( titan )
 
 	PilotBecomesTitan( player, titan )
+	reservation.titanCommitted = true
+	TitanDeployed( player )
+
 	titanDataTable = GetPlayerClassDataTable( player, "titan" ) //Check again because players can switch loadouts in mid hotdrop
 	local newTitanSettings = titanDataTable.playerSetFile
 	if ( newTitanSettings != titanSettings )
@@ -2173,7 +2542,8 @@ function TitanPlayerHotDropsIntoLevel( player, rematchOrigin = null )
 		player.SetAngles( angles )
 
 	}
-
+		break
+	}
 }
 
 function CreateTitanDropCamera( origin, angles )
@@ -2437,12 +2807,9 @@ function AutoBalancePlayer( player, manualSwitch = false, forceSwitch = false )
 
 		if ( classSettings && IsAlive( player ) )
 		{
-			player.SetPlayerSettings( classSettings ) // Re-apply settings to potentially trigger model updates
+			SetPlayerSetFile( player, classSettings )
 
-			if ( !isTitan )
-				player.SetPlayerPilotSettings( classSettings )
-
-			local modelFieldName
+			local modelFieldName = "bodymodel_imc"
 			if ( newTeam == TEAM_MILITIA )
 			{
 				modelFieldName = "bodymodel_militia"
@@ -3434,6 +3801,9 @@ function CodeCallback_GetWeaponDamageSourceId( weapon )
 
 function CheckForEmptyTeamVictory()
 {
+	if ( IsFFABased() )
+		return
+
 	if ( IsTrainingLevel() )
 		return
 	if ( GetDeveloperLevel() )
@@ -3700,12 +4070,18 @@ function SimulateGameScore( speedMultiplier = 2 )
 	}
 }
 
-function PlayerCanSpawn( player )
+function PlayerCanSpawn( player, spawnToken = null )
 {
 	if ( IsAlive( player ) )
 		return false
 
 	if ( player.isSpawning )
+		return false
+
+	EnsureSafeSpawnRetryTokens( player )
+	if ( player.s.safeSpawnRetryToken != null && player.s.safeSpawnRetryToken != spawnToken )
+		return false
+	if ( player.s.titanSpawnRetryToken != null && player.s.titanSpawnRetryToken != spawnToken )
 		return false
 
 	return true
@@ -3799,7 +4175,12 @@ function ClientCommand_PrivateMatchEndMatch( player, ... )
 	}
 
 	local winningTeam = TEAM_UNASSIGNED
-	if ( !IsRoundBased() )
+	local winningPlayer = null
+	if ( IsFFABased() )
+	{
+		winningPlayer = GetWinningPlayer()
+	}
+	else if ( !IsRoundBased() )
 	{
 		local militiaScore = GameRules.GetTeamScore( TEAM_MILITIA )
 		local imcScore = GameRules.GetTeamScore( TEAM_IMC )
@@ -3811,7 +4192,7 @@ function ClientCommand_PrivateMatchEndMatch( player, ... )
 	}
 
 	SetWinLossReasons( "#GAMEMODE_HOST_ENDED_MATCH", "#GAMEMODE_HOST_ENDED_MATCH" )
-	SetWinner( winningTeam )
+	SetWinner( winningTeam, winningPlayer )
 	return true
 }
 
