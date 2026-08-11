@@ -3,7 +3,7 @@ const SPECTRE_TRIGGER_EXPLODE_DIST = 200
 const SPECTRE_EXPLOSION_RADIUSFALLOFFMAX = 400 // 300
 const SPECTRE_EXPLOSION_RADIUSFULLDMG = 250    // 200
 const SPECTRE_EXPLOSION_TITANDMG = 1500 	   // 500
-const SPECTRE_EXPLOSION_PILOTDMG = 200  	   // 100
+const SPECTRE_EXPLOSION_PILOTDMG = 250  	   // 100
 
 enum eSuicideState
 {
@@ -622,20 +622,31 @@ function SpectreNeutralize( spectre, results )
 	// Kill if normal NPC
 	//----------------------------------
 	if ( spectre.IsNPC() )
-	{
-		ClearDeathFuncName( spectre )
-		SetDeathFuncName( spectre, "SpectreNeutralizeDeath" )
+		{
+			ClearDeathFuncName( spectre )
+			SetDeathFuncName( spectre, "SpectreNeutralizeDeath" )
 
-		local attacker = level.worldspawn
-		local inflictor =  level.worldspawn
+			local attacker = level.worldspawn
+			local inflictor = level.worldspawn
 
-		if ( results && results.activator )
-			attacker = results.activator
-		if ( results && results.inflictor )
-			inflictor =  results.inflictor
+			if ( results && results.activator )
+				attacker = results.activator
+			if ( results && results.inflictor )
+				inflictor = results.inflictor
 
-		spectre.Die( attacker, inflictor, { force = Vector( 0.4, 0.2, 0.3 ) } )
-	}
+			// get damage source id if provided
+			local dmgSrc = null
+			if ( results && results.damageSourceId )
+				dmgSrc = results.damageSourceId
+
+			// build die options and pass damage source through so scoring sees it
+			local dieOptions = {}
+			dieOptions.force <- Vector( 0.4, 0.2, 0.3 )
+			if ( dmgSrc != null )
+				dieOptions.damageSourceId <- dmgSrc
+
+			spectre.Die( attacker, inflictor, dieOptions )
+		}
 
 	else
 	{
@@ -710,7 +721,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 	// CHECK FOR INSTANT-KILL / INSTANT-NEUTRALIZE DAMAGE TYPES FIRST
 	switch( damageSourceId )
 	{
-		// INSTANT EXPLOSION when stepped on, hit by a Titan weapon, or a laser weapon, or smart pistol
+		// INSTANT EXPLOSION when stepped on, hit by a Titan weapon, or a laser weapon
 		case eDamageSourceId.titan_step:
 		case eDamageSourceId.titan_melee:
 		case eDamageSourceId.mp_weapon_sniper:
@@ -727,7 +738,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.mp_weapon_rocket_launcher:
 		case eDamageSourceId.mp_weapon_defender:
 		case eDamageSourceId.mp_weapon_mega4:
-		case eDamageSourceId.mp_weapon_smart_pistol:
+		// case eDamageSourceId.mp_weapon_smart_pistol:
 		case eDamageSourceId.mp_weapon_yh803:
 		case eDamageSourceId.mp_weapon_yh803_bullet:
 		case eDamageSourceId.mp_weapon_mega_turret:

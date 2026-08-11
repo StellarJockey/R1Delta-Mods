@@ -1469,13 +1469,31 @@ function InitScoreEvents()
 		event.SetXPType( XP_TYPE.TITAN_KILL )
 		event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 
-	//COOP Suicide Spectre
+		/// Suicide Spectre
 		event = cScoreEvent( "Killed_Suicide_Spectre" )
 		event.SetPointValue( ScaleScoreForAutoTitan( POINTVALUE_COOP_KILL_SUICIDE_SPECTRE ) )
 		event.SetSplashText( "#SCORE_EVENT_COOP_KILL_SUICIDE_SPECTRE" )
 		event.SetShouldStackDisplay( true )
 		event.SetXPType( XP_TYPE.NPC_KILL )
 		// event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+
+		event = cScoreEvent( "MeleeHumanExecutionVsSuicideSpectre" )
+		event.SetPointValue( POINTVALUE_KILL_SPECTRE )
+		event.SetSplashText( "Executed Suicide Spectre" )
+		event.SetShouldStackDisplay( true )
+		event.SetXPType( XP_TYPE.NPC_KILL )
+
+		event = cScoreEvent( "NeutralizedSuicideSpectre" )
+		event.SetPointValue( POINTVALUE_KILL_SPECTRE )
+		event.SetSplashText( "Neutralized Suicide Spectre" )
+		event.SetShouldStackDisplay( true )
+		event.SetXPType( XP_TYPE.NPC_KILL )
+
+		event = cScoreEvent( "TitanStepCrush_Killed_Suicide_Spectre" )
+		event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH + POINTVALUE_KILL_SPECTRE )
+		event.SetSplashText( "Crushed Suicide Spectre" )
+		event.SetShouldStackDisplay( true )
+		event.SetXPType( XP_TYPE.NPC_KILL )
 
 		event = cScoreEvent( "Auto_Titan_Killed_Suicide_Spectre" )
 		event.SetPointValue( ScaleScoreForAutoTitan( POINTVALUE_COOP_KILL_SUICIDE_SPECTRE ) )
@@ -1498,13 +1516,25 @@ function InitScoreEvents()
 		event.SetXPType( XP_TYPE.NPC_KILL )
 		// event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 
-	//COOP Sniper Spectre
+		/// SNIPER SPECTRE
 		event = cScoreEvent( "Killed_Sniper_Spectre" )
 		event.SetPointValue( ScaleScoreForAutoTitan( POINTVALUE_COOP_KILL_SNIPER_SPECTRE ) )
 		event.SetSplashText( "#SCORE_EVENT_COOP_KILL_SNIPER_SPECTRE" )
 		event.SetShouldStackDisplay( true )
 		event.SetXPType( XP_TYPE.NPC_KILL )
 		// event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+
+		event = cScoreEvent( "MeleeHumanVsSniper_Spectre" )
+		event.SetPointValue( POINTVALUE_KILL_SPECTRE )
+		event.SetSplashText( "Jump Kicked Sniper Spectre" )
+		event.SetShouldStackDisplay( true )
+		event.SetXPType( XP_TYPE.NPC_KILL )
+
+		event = cScoreEvent( "MeleeHumanExecutionVsSniper_Spectre" )
+		event.SetPointValue( POINTVALUE_KILL_SPECTRE )
+		event.SetSplashText( "Executed Sniper Spectre" )
+		event.SetShouldStackDisplay( true )
+		event.SetXPType( XP_TYPE.NPC_KILL )
 
 		event = cScoreEvent( "Auto_Titan_Killed_Sniper_Spectre" )
 		event.SetPointValue( ScaleScoreForAutoTitan( POINTVALUE_COOP_KILL_SNIPER_SPECTRE ) )
@@ -1905,8 +1935,6 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 			return "TitanStepVsReskinnedPilot"
 		else
 			return "KillReskinnedPilot"
-
-		return ScoreEventForMethodOfDeath( npc, damageInfo )
 	}
 
 	if ( "s" in npc && "isGhostPilot" in npc.s && npc.s.isGhostPilot )
@@ -1919,20 +1947,7 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 			return "TitanStepVsGhostPilot"
 		else
 			return "KillGhostPilot"
-
-		return ScoreEventForMethodOfDeath( npc, damageInfo )
 	}
-
-    // Check if this is a Titan with an NPC pilot inside
-	// WIP, DOES NOT WORK YET
-    if ( npc.IsTitan() && TitanHasPilotInTitan( npc ) )
-    {
-        local pilot = GetPilotFromTitan( npc )
-        if ( IsValid( pilot ) && "s" in pilot && "isPilot" in pilot.s && pilot.s.isPilot )
-        {
-            return "KillReskinnedPilot"
-        }
-    }
 
 	////////////////////////////////////////////////////
 	///////////// SAME FOR GRUNT CAPTAINS //////////////
@@ -1947,8 +1962,52 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 			return "TitanStepVsCaptain"
 		else
 			return "KillCaptain"
+	}
+		
+	////////////////////////////////////////////////////
+	///////////// AND THE SPECTRE VARIANTS /////////////
+	////////////////////////////////////////////////////
 
-		return ScoreEventForMethodOfDeath( npc, damageInfo )
+	if ( IsSniperSpectre( npc ) )
+	{
+		if ( damageSourceId == eDamageSourceId.human_execution )
+			return "MeleeHumanExecutionVsSniper_Spectre"
+		else if ( damageSourceId == eDamageSourceId.human_melee )
+			return "MeleeHumanVsSniper_Spectre"
+		else if ( damageSourceId == eDamageSourceId.titan_step )
+			return "TitanStepCrush_Killed_Sniper_Spectre"
+		else
+			return "Killed_Sniper_Spectre"
+	}
+
+	if ( IsSuicideSpectre( npc ) )
+	{
+		switch( damageSourceId )
+		{
+			case eDamageSourceId.mp_weapon_grenade_emp:
+			case eDamageSourceId.mp_weapon_proximity_mine:
+			case eDamageSourceId.mp_titanweapon_arc_cannon:
+			case eDamageSourceId.mp_titanability_smoke:
+			case eDamageSourceId.mp_ability_emp:
+			case eDamageSourceId.mp_titanability_emp:
+			case eDamageSourceId.super_electric_smoke_screen:
+			case eDamageSourceId.human_melee:
+			case eDamageSourceId.grunt_melee:
+			case eDamageSourceId.spectre_melee:
+			case eDamageSourceId.titan_fall:
+			case eDamageSourceId.bubble_shield:
+			case eDamageSourceId.switchback_trap:
+			case eDamageSourceId.titanEmpField:
+			case eDamageSourceId.mp_weapon_mega3:
+			case eModSourceId.burn_mod_titan_xo16:
+				return "NeutralizedSuicideSpectre"
+		}
+		if ( damageSourceId == eDamageSourceId.human_execution )
+			return "MeleeHumanExecutionVsSuicideSpectre"
+		else if ( damageSourceId == eDamageSourceId.titan_step )
+			return "TitanStepCrush_Killed_Suicide_Spectre"
+		else
+			return "Killed_Suicide_Spectre"
 	}
 
 	//////////////////////////////////////////////////////
