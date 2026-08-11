@@ -822,10 +822,22 @@ function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapo
     guy.kv.max_health = 250
     guy.kv.AccuracyMultiplier = 3.75
     guy.kv.WeaponProficiency = 4
+
+	if ( "s" in guy && "isPilot" in guy.s )
+		guy.s.isPilot <- false
+	if ( "s" in guy && "IsSoldier" in guy.s )
+		guy.s.IsSoldier <- false
+		
 	guy.s.isCaptain <- true
 
     return guy
 }
+
+function IsReskinnedPilot( npc )
+{
+    return ( "s" in npc && "isPilot" in npc.s && npc.s.isPilot )
+}
+Globalize( IsReskinnedPilot )
 
 function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {
@@ -859,6 +871,9 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
     guy.SetModel( model )
 
     guy.SetTitle( title )
+
+	if ( "s" in guy && "IsSoldier" in guy.s )
+		guy.s.IsSoldier <- false
     guy.s.isPilot <- true
 
     guy.kv.health = 200
@@ -907,7 +922,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
 
     if ( "s" in ghostPilot && "isPilot" in ghostPilot.s )
 		ghostPilot.s.isPilot <- false
-		
+	
 	ghostPilot.s.isGhostPilot <- true
 
     ghostPilot.TakeActiveWeapon()

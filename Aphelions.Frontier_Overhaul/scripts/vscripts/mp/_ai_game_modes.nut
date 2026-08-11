@@ -430,7 +430,11 @@ function NPCPilotEmbarkTitan( pilot, title, titan )
 		GiveMinionWeapon( newpilot, "mp_weapon_rspn101" )
 	    // newpilot.SetInvulnerable()  // Maybe this is the invincibility bug?
 	    newpilot.SetTitle( title )
+
+		if ( "s" in newpilot && "IsSoldier" in newpilot.s )
+			newpilot.s.IsSoldier <- false
 		newpilot.s.isPilot <- true
+
 		pilot.Destroy()
 		thread FirstPersonSequence( sequence, newpilot, titan )
 	}
@@ -440,6 +444,8 @@ function NPCPilotEmbarkTitan( pilot, title, titan )
 	DecayNPCDomeShield( titan, 0.0 )
 	GiveTitanPilot( titan, true )
 	GiveTitanPilotModel( titan, pilotmodel )
+	SetNPCAsPilot( pilot, true )
+	
 	if ( IsValid( pilot ) )
 	    pilot.Destroy()
 	if ( IsValid( newpilot ) )
@@ -479,6 +485,9 @@ function Spawn_PilotInDroppod( pilot, title, team, spawnPoint )
 	newpilot.SetTeam( pilot.GetTeam() )
 	newpilot.SetModel( pilot.GetModelName() )
 	newpilot.SetTitle( title )
+
+	if ( "s" in newpilot && "IsSoldier" in newpilot.s )
+		newpilot.s.IsSoldier <- false
 	newpilot.s.isPilot <- true
 	
 	GiveMinionWeapon( newpilot, "mp_weapon_rspn101" )
@@ -753,6 +762,11 @@ function SpawnPilotAI( team, squadName, origin, angles, alert = true )
     pilot.SetTeam( team )
     pilot.SetModel( Random( pilotmodels ) )
     SetNPCAsPilot( pilot, true )
+
+	if ( "s" in pilot && "IsSoldier" in pilot.s )
+			pilot.s.IsSoldier <- false
+	pilot.s.isPilot <- true
+	
     GiveMinionWeapon( pilot, "mp_weapon_rspn101" )
     pilot.SetMaxHealth( 200 )
     pilot.SetHealth( 200 )
@@ -931,6 +945,10 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         pilot.SetTeam( team )
         pilot.SetModel( Random( pilotmodels ) )
         SetNPCAsPilot( pilot, true )
+		if ( "s" in pilot && "IsSoldier" in pilot.s )
+			pilot.s.IsSoldier <- false
+		pilot.s.isPilot <- true
+
         GiveMinionWeapon( pilot, "mp_weapon_rspn101" )
         pilot.SetMaxHealth( 200 )
         pilot.SetHealth( 200 )
