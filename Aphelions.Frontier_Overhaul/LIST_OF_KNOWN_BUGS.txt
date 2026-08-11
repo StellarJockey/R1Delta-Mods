@@ -4,11 +4,10 @@
 
 ///// GAMEPLAY BUGS /////
 * Npc Titans sometimes do the stanky leg when standing up.
-* Npc Titans refuse to fire the minigun, so they won't spawn with it until I can get it to work (again, this may be a base game issue).
-* Npc Titans' vortex shield have trouble blocking damage and catching/reflecting projectiles (another base game issue).
-* Npcs (notably those with sniper weapons) sometimes have issues getting their shots on you to register.
-
-///// MENU BUGS... /////
-* Sometimes when logging into a private match lobby, you'll get stuck in an endless "CONNECTING..." loop and have to restart the game.
+* Npc Titans refuse to fire the minigun, so they won't spawn with it until I can get it to work (this is a base game issue).
+* Npc Titans' vortex shields are inconsistent when it comes to blocking damage and catching/reflecting projectiles (another possible base game issue).
+* Npcs sometimes have issues getting their shots on you to register.
+* When executing a Titan with either a npc Pilot or Grunt Captain, it will say "Killed Grunt" instead of "Killed Pilot" or "Killed Grunt Captain."
+* When dooming an NPC Titan, you sometimes don't get the proper XP for it.
 
 Note: These are all being worked on and will hopefully be fixed in the near future!
