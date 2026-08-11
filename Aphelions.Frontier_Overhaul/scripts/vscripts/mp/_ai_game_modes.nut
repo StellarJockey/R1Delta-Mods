@@ -5568,35 +5568,44 @@ function ApplyDroneCloak( drone, target )
 /////////////// NPC GHOST PILOT ENEMIES /////////////////
 /////////////////////////////////////////////////////////
 
-function GhostPilotThink( sniper )
+function GhostPilotThink( ghostPilot )
 {
-    sniper.EndSignal( "OnDeath" )
-    sniper.EndSignal( "OnDestroy" )
+    ghostPilot.EndSignal( "OnDeath" )
+    ghostPilot.EndSignal( "OnDestroy" )
 
     // Script-side state tracking
-    sniper.s.cloaked <- true
+    ghostPilot.s.cloaked <- true
+    SniperCloak( ghostPilot )
 
-    SniperCloak( sniper )
+    // Re-enforce minimap-hide and smart-ammo immunity in case other code tries to show them
+    ghostPilot.Minimap_Hide( TEAM_IMC, null )
+    ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
 
     while ( true )
     {
-        local enemy = sniper.GetEnemy()
+        local enemy = ghostPilot.GetEnemy()
         local shouldDecloak = false
 
-        if ( IsValid( enemy ) && IsAlive( enemy ) && sniper.CanSee( enemy ) )
-        {
+        if ( IsValid( enemy ) && IsAlive( enemy ) && ghostPilot.CanSee( enemy ) )
             shouldDecloak = true
-        }
 
-        if ( shouldDecloak && sniper.s.cloaked )
+        if ( shouldDecloak && ghostPilot.s.cloaked )
         {
-            SniperDeCloak( sniper )
-            sniper.s.cloaked = false
+            SniperDeCloak( ghostPilot )
+            ghostPilot.s.cloaked = false
+
+            // SniperDeCloak calls Minimap_AlwaysShow internally. immediately re-hide and keep smart-ammo immunity.
+            ghostPilot.Minimap_Hide( TEAM_IMC, null )
+            ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
         }
-        else if ( !shouldDecloak && !sniper.s.cloaked )
+        else if ( !shouldDecloak && !ghostPilot.s.cloaked )
         {
-            SniperCloak( sniper )
-            sniper.s.cloaked = true
+            SniperCloak( ghostPilot )
+            ghostPilot.s.cloaked = true
+
+            // re-enforce (defensive)
+            ghostPilot.Minimap_Hide( TEAM_IMC, null )
+            ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
         }
 
         wait 0.25

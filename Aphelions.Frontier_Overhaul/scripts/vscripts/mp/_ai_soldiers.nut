@@ -970,7 +970,6 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
 
 	ghostPilot.Minimap_Hide( TEAM_IMC, null )
     ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
-    ghostPilot.SetNoTarget( true )
 
     // start the ghost cloak behavior thread defined in ai_game_modes
     thread GhostPilotThink( ghostPilot )

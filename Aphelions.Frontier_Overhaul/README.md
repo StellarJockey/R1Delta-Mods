@@ -32,7 +32,7 @@ These come included because, taken separately, they will cause scripting conflic
 How do the NPC Pilots work?
 -
 * Currently, they are just re-skinned Grunts. They have max accuracy, increased movement speed, and can use any Pilot primary. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter). Since they're just Grunt model-swaps, they will only grant 1 point when killed in Attrition. They have 200 HP (same as a human player) but are nowhere near as intelligent.
-* There is also a rare chance for NPC "Ghost Pilots" to spawn that function similarly to Sniper Spectres. The difference is that they're even less common and will have suppressed versions of any primary, not just snipers. They will never appear on the minimap and cannot be targeted by the Smart Pistol.
+* There is also a rare chance for NPC "Ghost Pilots" to spawn that function similarly to Sniper Spectres. The difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and they will never appear on the minimap.
 * Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro. Wall-running seems to be near-impossible to implement… at the present moment, anyways.
 
 
