@@ -62,7 +62,7 @@ WeaponData
 	"damage_far_value_titanarmor" 					"100"
 	"damage_rodeo" 									"900"
 
-	"damage_headshot_scale"							"1.4"
+	"damage_headshot_scale"							"2.0" // "1.4"
 	"damage_torso_scale"							"1.0"
 	"damage_arm_scale"								"1.0"
 	"damage_leg_scale"								"1.0"
@@ -398,13 +398,13 @@ WeaponData
 		{
 			"bodygroup6_set"					"1"
 			"bodygroup1_set"					"0"
-			"damage_near_value"   				"250" // "190"
-			"damage_far_value"					"250" // "190"
+			"damage_near_value"   				"350" // "190"
+			"damage_far_value"					"350" // "190"
 			"damage_near_distance"				"*0.9"
 			"damage_far_distance"				"*0.9"
 
-			"npc_damage_near_value"   			"250" // "190"
-			"npc_damage_far_value"				"250" // "190"
+			"npc_damage_near_value"   			"350" // "190"
+			"npc_damage_far_value"				"350" // "190"
 			"npc_damage_near_distance"			"*0.9"
 			"npc_damage_far_distance"			"*0.9"
 
