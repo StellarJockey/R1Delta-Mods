@@ -4,7 +4,7 @@
 
 SUPPRESSORS:
 * Suppressors have been tweaked across the board to be more viable, especially with secondaries and snipers
-* Getting a kill with a suppressor on an enemy who doesn't have line of sight on you will reward you a +5xp "Stealth Bonus"
+* Getting a kill with a suppressor on an enemy who doesn't have line of sight on you will reward you a +20xp "Stealth Bonus"
 
 R101-C CARBINE:
 * Small increase to ADS recoil

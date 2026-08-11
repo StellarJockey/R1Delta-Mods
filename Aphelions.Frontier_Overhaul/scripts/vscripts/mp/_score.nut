@@ -168,15 +168,32 @@ function GetPlayerXPMultiple( player, targetEnt )
 	if ( targetEnt.IsTitan() && PlayerHasServerFlag( player, SFLAG_HUNTER_TITAN ) )
 		return 2.5
 
-	if ( targetEnt.IsSoldier() && PlayerHasServerFlag( player, SFLAG_HUNTER_GRUNT ) )
-		return 2.5
+	if ( PlayerHasServerFlag( player, SFLAG_HUNTER_GRUNT ) )
+	{
+		if (  targetEnt.IsSoldier() )
+			return 2.5
+
+		else if ( IsValid( targetEnt ) && "s" in targetEnt )
+		{
+			if ( ( "isCaptain" in targetEnt.s && targetEnt.s.isCaptain ) )
+				return 2.5
+		}
+	}
 
 	if ( targetEnt.IsSpectre() && PlayerHasServerFlag( player, SFLAG_HUNTER_SPECTRE ) )
 		return 2.5
 
-	if ( targetEnt.IsPlayer() && PlayerHasServerFlag( player, SFLAG_HUNTER_PILOT ) )
-		return 2.5
+	if ( PlayerHasServerFlag( player, SFLAG_HUNTER_PILOT ) )
+	{
+		if ( targetEnt.IsPlayer() ) // player pilot
+			return 2.5
 
+		else if ( IsValid( targetEnt ) && "s" in targetEnt )
+		{
+			if ( ( "isPilot" in targetEnt.s && targetEnt.s.isPilot ) || ( "isGhostPilot" in targetEnt.s && targetEnt.s.isGhostPilot ) )
+				return 2.5
+		}
+	}
 	return multiplier
 }
 
@@ -514,6 +531,8 @@ function ScoreEvent_NPCKilled( npc, attacker, damageInfo )
 
 	if ( IsValidHeadShot( damageInfo, npc ) )
 		AddPlayerScore( attacker, "NPCHeadshot", npc )
+
+	AwardStealthBonus( npc, damageInfo )
 
 	ScoreCheck_DroppodKill( attacker, damageInfo )
 
@@ -985,3 +1004,99 @@ function _GetWeaponNameFromDamageInfo( damageInfo )
 	return null
 }
 Globalize( _GetWeaponNameFromDamageInfo )
+
+
+function AwardStealthBonus( entity, damageInfo )
+{
+	local attacker = GetAttackerOrLastAttacker( entity, damageInfo )
+	attacker = GetAttackerPlayerOrBossPlayer( attacker )
+
+	if ( IsValid( attacker ) && attacker.IsPlayer() && !attacker.IsTitan() && !entity.IsPlayer() && !entity.IsTitan() )
+	{
+		local weaponFromDI = damageInfo.GetWeapon()
+		local inf = damageInfo.GetInflictor()
+		local gotSilencer = false
+
+		if ( IsValid( weaponFromDI ) ) // Case A: direct weapon entity caused the damage
+		{
+			foreach ( m in weaponFromDI.GetMods() )
+			{
+				if ( m == "silencer" )
+				{
+					gotSilencer = true
+					break
+				}
+			}
+		}
+		else if ( IsValid( inf ) && inf.IsProjectile() ) // Case B: projectile spawned by a weapon
+		{
+			foreach ( m in inf.GetMods() )
+			{
+				if ( m == "silencer" )
+				{
+					gotSilencer = true
+					break
+				}
+			}
+		}
+
+		// Only award if the actual damage-causing entity had a silencer AND victim could NOT see the attacker
+		if ( gotSilencer && !entity.CanSee( attacker ) )
+		{
+			local baseXP = 20
+			local scoreEventName = "StealthBonus"
+
+			// If attacker is a player, check for an active burn card that boosts relevant NPC class XP
+			if ( IsValid( attacker ) && attacker.IsPlayer() )
+			{
+				local activeCard = GetPlayerActiveBurnCard( attacker )
+				if ( activeCard != null )
+				{
+					local srvFlags = GetBurnCardServerFlags( activeCard )
+					local matches = false
+
+					// Match common hunt burn-cards against the victim type.
+					if ( srvFlags == SFLAG_HUNTER_GRUNT )
+					{
+						// human AI infantry (not pilots)
+						if ( entity.GetAIClass() == "human" && !( "isPilot" in entity.s && entity.s.isPilot ) && !( "isGhostPilot" in entity.s && entity.s.isGhostPilot ) )
+							matches = true
+					}
+					else if ( srvFlags == SFLAG_HUNTER_SPECTRE )
+					{
+						if ( entity.GetClassname() == "npc_spectre" )
+							matches = true
+					}
+					else if ( srvFlags == SFLAG_HUNTER_PILOT )
+					{
+						if ( "isPilot" in entity.s && entity.s.isPilot || "isGhostPilot" in entity.s && entity.s.isGhostPilot )
+							matches = true
+					}
+
+					if ( matches )
+					{
+						baseXP *= 2.5
+						if ( "StealthBonus_Burncard" in level.scoreEventsByName )
+							scoreEventName = "StealthBonus_Burncard"
+					}
+				}
+			}
+
+			AddXP( baseXP, attacker )
+
+			if ( scoreEventName in level.scoreEventsByName )
+			{
+				local ev = level.scoreEventsByName[ scoreEventName ]
+				local scoreEventInt = ev.GetInt()
+				Remote.CallFunction_NonReplay( attacker, "ServerCallback_PointSplash", scoreEventInt, null, baseXP )
+			}
+			else if ( "LeechPanel" in level.scoreEventsByName )
+			{
+				local ev = level.scoreEventsByName["LeechPanel"]
+				local scoreEventInt = ev.GetInt()
+				Remote.CallFunction_NonReplay( attacker, "ServerCallback_PointSplash", scoreEventInt, null, baseXP )
+			}
+		}
+	}
+}
+Globalize( AwardStealthBonus )

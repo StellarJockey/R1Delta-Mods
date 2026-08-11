@@ -91,6 +91,13 @@ function InitScoreEvents()
 	event.SetShouldStackDisplay( true )
 	event.SetXPType( XP_TYPE.NPC_KILL )
 
+	event = cScoreEvent( "StealthBonus_Burncard" )
+	event.SetPointValue( 0 )
+	event.SetSplashText( "Stealth Bonus" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.NPC_KILL )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+
 	/// NPC PILOTS
 	event = cScoreEvent( "KillReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_KILL )  
@@ -1686,6 +1693,7 @@ function InitScoreEvents()
 	event.SetPointValue( POINTVALUE_CONTROL_PANEL_ACTIVATE )
 	event.SetSplashText( "#SCORE_EVENT_LEECHED_UPLINK_PANEL" )
 	event.SetXPType( XP_TYPE.HACKING )
+
 }
 
 function ScaleScoreForAutoTitan( eventPoints )
