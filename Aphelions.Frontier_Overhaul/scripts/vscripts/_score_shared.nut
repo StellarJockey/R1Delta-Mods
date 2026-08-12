@@ -98,7 +98,7 @@ function InitScoreEvents()
 	event.SetXPType( XP_TYPE.NPC_KILL )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
 
-	/// NPC PILOTS
+	//////// NPC PILOTS ////////
 	event = cScoreEvent( "KillReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_KILL )  
 	event.SetSplashText( "Killed Pilot" )
@@ -121,14 +121,20 @@ function InitScoreEvents()
 	event.SetXPType( XP_TYPE.PILOT_KILL )
 
 	event = cScoreEvent( "TitanStepVsReskinnedPilot" )
-	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL )
+	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
 	event.SetSplashText( "Crushed Pilot" )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 	event.SetXPType( XP_TYPE.PILOT_KILL )
 
-	/// NPC GHOST PILOTS
+	event = cScoreEvent( "TerminationVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_TITAN_MELEE_EXECUTION )
+	event.SetSplashText( "Terminated Pilot" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
 	event = cScoreEvent( "KillGhostPilot" )
 	event.SetPointValue( POINTVALUE_KILL )  
 	event.SetSplashText( "Killed Ghost Pilot" )
@@ -151,6 +157,139 @@ function InitScoreEvents()
 	event.SetXPType( XP_TYPE.PILOT_KILL )
 
 	event = cScoreEvent( "TitanStepVsGhostPilot" )
+	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
+	event.SetSplashText( "Crushed Ghost Pilot" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+
+	/////// NPC PILOT BURN CARDS ////////
+	event = cScoreEvent( "BurnKillReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL )  
+	event.SetSplashText( "Killed Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.PILOT_KILL )  
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+
+	event = cScoreEvent( "BurnMeleeHumanVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Jump Kicked Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "BurnMeleeHumanExecutionVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Executed Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "BurnTitanStepVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
+	event.SetSplashText( "Crushed Pilot" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "BurnTerminationVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_TITAN_MELEE_EXECUTION )
+	event.SetSplashText( "Terminated Pilot" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "BurnKillGhostPilot" )
+	event.SetPointValue( POINTVALUE_KILL )  
+	event.SetSplashText( "Killed Ghost Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.PILOT_KILL )  
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+
+	event = cScoreEvent( "BurnMeleeHumanVsGhostPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Jump Kicked Ghost Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "BurnMeleeHumanExecutionVsGhostPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Executed Ghost Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "BurnTitanStepVsGhostPilot" )
+	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
+	event.SetSplashText( "Crushed Ghost Pilot" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	/////// PILOT DOUBLE XP /////////
+	event = cScoreEvent( "x2XP_KillReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL )  
+	event.SetSplashText( "Killed Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.PILOT_KILL )  
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+
+	event = cScoreEvent( "x2XP_MeleeHumanVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Jump Kicked Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "x2XP_MeleeHumanExecutionVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Executed Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "x2XP_TitanStepVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL )
+	event.SetSplashText( "Crushed Pilot" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "x2XP_TerminationVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_TITAN_MELEE_EXECUTION )
+	event.SetSplashText( "Terminated Pilot" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "x2XP_KillGhostPilot" )
+	event.SetPointValue( POINTVALUE_KILL )  
+	event.SetSplashText( "Killed Ghost Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.PILOT_KILL )  
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+
+	event = cScoreEvent( "x2XP_MeleeHumanVsGhostPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Jump Kicked Ghost Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "x2XP_MeleeHumanExecutionVsGhostPilot" )
+	event.SetPointValue( POINTVALUE_KILL )
+	event.SetSplashText( "Executed Ghost Pilot" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "x2XP_TitanStepVsGhostPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
 	event.SetSplashText( "Crushed Ghost Pilot" )
 	event.SetSplashTextAppendTargetName( false )
@@ -1930,32 +2069,104 @@ function ScoreEventForNPCKilled(npc, damageInfo)
     local damageSourceId = damageInfo.GetDamageSourceIdentifier()
     local npcClass = npc.GetClassname()
 
-	//////////////////////////////////////////////////
-	////////// SUPER HACKY NPC "PILOT" LOGIC /////////
-	//////////////////////////////////////////////////
-	if ( "s" in npc && "isPilot" in npc.s && npc.s.isPilot )
-	{
-		if ( damageSourceId == eDamageSourceId.human_execution )
-			return "MeleeHumanExecutionVsReskinnedPilot"
-		else if ( damageSourceId == eDamageSourceId.human_melee )
-			return "MeleeHumanVsReskinnedPilot"
-		else if ( damageSourceId == eDamageSourceId.titan_step )
-			return "TitanStepVsReskinnedPilot"
-		else
-			return "KillReskinnedPilot"
-	}
+    //////////////////////////////////////////////////
+    ////////// SUPER HACKY NPC "PILOT" LOGIC /////////
+    //////////////////////////////////////////////////
 
-	if ( "s" in npc && "isGhostPilot" in npc.s && npc.s.isGhostPilot )
-	{
-		if ( damageSourceId == eDamageSourceId.human_execution )
-			return "MeleeHumanExecutionVsGhostPilot"
-		else if ( damageSourceId == eDamageSourceId.human_melee )
-			return "MeleeHumanVsGhostPilot"
-		else if ( damageSourceId == eDamageSourceId.titan_step )
-			return "TitanStepVsGhostPilot"
-		else
-			return "KillGhostPilot"
-	}
+    // Figure out the attacker and any burn-card server flags they have
+    local attacker = GetAttackerOrLastAttacker( npc, damageInfo )
+    attacker = GetAttackerPlayerOrBossPlayer( attacker )
+
+    local activeCard = null
+    local srvFlags = 0    // use 0 as default for bitmask checks
+
+    if ( IsValid( attacker ) && attacker.IsPlayer() )
+    {
+        activeCard = GetPlayerActiveBurnCard( attacker )
+        if ( activeCard != null )
+            srvFlags = GetBurnCardServerFlags( activeCard )
+    }
+
+    // Reskinned NPC Pilots and Ghost Pilots
+    if ( "s" in npc && "isPilot" in npc.s && npc.s.isPilot )
+    {
+        if ( ( srvFlags & SFLAG_HUNTER_PILOT ) != 0 )
+        {
+            if ( damageSourceId == eDamageSourceId.human_execution )
+                return "BurnMeleeHumanExecutionVsReskinnedPilot"
+            else if ( damageSourceId == eDamageSourceId.human_melee )
+                return "BurnMeleeHumanVsReskinnedPilot"
+            else if ( damageSourceId == eDamageSourceId.titan_step )
+                return "BurnTitanStepVsReskinnedPilot"
+			else if ( damageSourceId == eDamageSourceId.titan_execution )
+				return "BurnTerminationVsReskinnedPilot"
+            else
+                return "BurnKillReskinnedPilot"
+        }
+        else if ( ( srvFlags & SFLAG_DOUBLE_XP ) != 0 )
+        {
+            if ( damageSourceId == eDamageSourceId.human_execution )
+                return "x2XP_MeleeHumanExecutionVsReskinnedPilot"
+            else if ( damageSourceId == eDamageSourceId.human_melee )
+                return "x2XP_MeleeHumanVsReskinnedPilot"
+            else if ( damageSourceId == eDamageSourceId.titan_step )
+                return "x2XP_TitanStepVsReskinnedPilot"
+			else if ( damageSourceId == eDamageSourceId.titan_execution )
+				return "x2XP_TerminationVsReskinnedPilot"
+            else
+                return "x2XP_KillReskinnedPilot"
+        }
+        else
+        {
+            if ( damageSourceId == eDamageSourceId.human_execution )
+                return "MeleeHumanExecutionVsReskinnedPilot"
+            else if ( damageSourceId == eDamageSourceId.human_melee )
+                return "MeleeHumanVsReskinnedPilot"
+            else if ( damageSourceId == eDamageSourceId.titan_step )
+                return "TitanStepVsReskinnedPilot"
+			else if ( damageSourceId == eDamageSourceId.titan_execution )
+				return "TerminationVsReskinnedPilot"
+            else
+                return "KillReskinnedPilot"
+        }
+    }
+
+    if ( "s" in npc && "isGhostPilot" in npc.s && npc.s.isGhostPilot )
+    {
+        if ( ( srvFlags & SFLAG_HUNTER_PILOT ) != 0 )
+        {
+            if ( damageSourceId == eDamageSourceId.human_execution )
+                return "BurnMeleeHumanExecutionVsGhostPilot"
+            else if ( damageSourceId == eDamageSourceId.human_melee )
+                return "BurnMeleeHumanVsGhostPilot"
+            else if ( damageSourceId == eDamageSourceId.titan_step )
+                return "BurnTitanStepVsGhostPilot"
+            else
+                return "BurnKillGhostPilot"
+        }
+        else if ( ( srvFlags & SFLAG_DOUBLE_XP ) != 0 )
+        {
+            if ( damageSourceId == eDamageSourceId.human_execution )
+                return "x2XP_MeleeHumanExecutionVsGhostPilot"
+            else if ( damageSourceId == eDamageSourceId.human_melee )
+                return "x2XP_MeleeHumanVsGhostPilot"
+            else if ( damageSourceId == eDamageSourceId.titan_step )
+                return "x2XP_TitanStepVsGhostPilot"
+            else
+                return "x2XP_KillGhostPilot"
+        }
+        else
+        {
+            if ( damageSourceId == eDamageSourceId.human_execution )
+                return "MeleeHumanExecutionVsGhostPilot"
+            else if ( damageSourceId == eDamageSourceId.human_melee )
+                return "MeleeHumanVsGhostPilot"
+            else if ( damageSourceId == eDamageSourceId.titan_step )
+                return "TitanStepVsGhostPilot"
+            else
+                return "KillGhostPilot"
+        }
+    }
 
 	////////////////////////////////////////////////////
 	///////////// SAME FOR GRUNT CAPTAINS //////////////
@@ -1968,6 +2179,8 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 			return "MeleeHumanVsCaptain"
 		else if ( damageSourceId == eDamageSourceId.titan_step )
 			return "TitanStepVsCaptain"
+		else if ( damageSourceId == eDamageSourceId.titan_execution )
+				return "TerminationVsCaptain"
 		else
 			return "KillCaptain"
 	}

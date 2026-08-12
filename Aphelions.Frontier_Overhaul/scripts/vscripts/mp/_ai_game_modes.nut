@@ -2133,8 +2133,8 @@ function GhostPilotWaveThink( team )
         // Wait a set interval before rolling for the next potential wave
        wait RandomFloat( 60.0, 120.0 )
 
-        // 15% chance to spawn a ghost pod
-        if ( RandomFloat( 0.0, 1.0 ) > 0.15 )
+        // 10% chance to spawn a ghost pod
+        if ( RandomFloat( 0.0, 1.0 ) > 0.10 )
             continue
 
         // Find valid spawn points for the wave
@@ -5577,7 +5577,7 @@ function GhostPilotThink( ghostPilot )
     ghostPilot.s.cloaked <- true
     SniperCloak( ghostPilot )
 
-    // Re-enforce minimap-hide and smart-ammo immunity in case other code tries to show them
+    // Re-enforce minimap-hide in case other code tries to show them
     ghostPilot.Minimap_Hide( TEAM_IMC, null )
     ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
 
@@ -5594,7 +5594,7 @@ function GhostPilotThink( ghostPilot )
             SniperDeCloak( ghostPilot )
             ghostPilot.s.cloaked = false
 
-            // SniperDeCloak calls Minimap_AlwaysShow internally. immediately re-hide and keep smart-ammo immunity.
+            // SniperDeCloak calls Minimap_AlwaysShow internally; immediately re-hide
             ghostPilot.Minimap_Hide( TEAM_IMC, null )
             ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
         }
