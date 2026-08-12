@@ -532,7 +532,7 @@ function ScoreEvent_NPCKilled( npc, attacker, damageInfo )
 	if ( IsValidHeadShot( damageInfo, npc ) )
 		AddPlayerScore( attacker, "NPCHeadshot", npc )
 
-	AwardStealthBonus( npc, damageInfo )
+	AwardStealthBonus( npc, damageInfo ) // NEW: Added a Stealth Bonus
 
 	ScoreCheck_DroppodKill( attacker, damageInfo )
 
@@ -1006,6 +1006,8 @@ function _GetWeaponNameFromDamageInfo( damageInfo )
 Globalize( _GetWeaponNameFromDamageInfo )
 
 
+//// STEALTH BONUS: + 20 XP if weapon is silenced AND enemy didn't see you
+
 function AwardStealthBonus( entity, damageInfo )
 {
 	local attacker = GetAttackerOrLastAttacker( entity, damageInfo )
@@ -1071,11 +1073,17 @@ function AwardStealthBonus( entity, damageInfo )
 					{
 						if ( "isPilot" in entity.s && entity.s.isPilot || "isGhostPilot" in entity.s && entity.s.isGhostPilot )
 							matches = true
+
+					else if ( srvFlags == SFLAG_DOUBLE_XP )
+						matches = true
 					}
 
 					if ( matches )
 					{
-						baseXP *= 2.5
+						if ( srvFlags == SFLAG_DOUBLE_XP )
+							baseXP *= 2.0
+						else
+							baseXP *= 2.5
 						if ( "StealthBonus_Burncard" in level.scoreEventsByName )
 							scoreEventName = "StealthBonus_Burncard"
 					}
