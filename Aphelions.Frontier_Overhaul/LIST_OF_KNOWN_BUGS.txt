@@ -8,6 +8,10 @@
 * Npc Titans' vortex shields are inconsistent when it comes to blocking damage and catching/reflecting projectiles (another possible base game issue).
 * Npcs sometimes have issues getting their shots on you to register.
 * When executing a Titan with either a npc Pilot or Grunt Captain, it will say "Killed Grunt" instead of "Killed Pilot" or "Killed Grunt Captain."
-* When dooming an NPC Titan, you sometimes don't get the proper XP for it.
+* When dooming an NPC Titan as a Pilot, you sometimes don't get the proper XP for it.
+
+///// MENU BUGS... /////
+* If you try and open your Titan loadouts after a game, you sometimes get locked into the Burn Cards menu with no way to back out, forcing you to restart the game.
+* If you try and join a public lobby with this mod enabled, you will be stuck in an endless "Connecting to server..." loop and will have to exit the game (this is an issue cause by R1D's 3.0 pre-releases).
 
 Note: These are all being worked on and will hopefully be fixed in the near future!
