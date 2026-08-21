@@ -233,7 +233,9 @@ function InitPersistence()
 		charge_hack = 58
 		guided_missile_0 = 59
 		pump_action = 60
-		cyclic = 61
+		cyclic_receiver = 61
+		titan_piercer = 62
+		double_tap = 63
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -243,6 +245,7 @@ function InitPersistence()
 	    titan_atlas = 1
 	    titan_ogre = 2
 	    titan_stryder = 3
+		// titan_ctt = 4
     }
 
     AddPersistenceEnum("titanSetFile", titanSetFile)
@@ -279,7 +282,7 @@ function InitPersistence()
 	    burn_mod_thunderbolt = 28
 	    burn_mod_charge_cannon = 29
 		hydraulic_launcher = 30
-		semi_converter = 31
+		shredder_rounds = 31
     }
 
     AddPersistenceEnum("titanMod", titanMod)
@@ -638,18 +641,18 @@ function InitPersistence()
 		mp_weapon_dmr_scope_10x = 126,
 		mp_weapon_dmr_scope_12x = 127
 
-		mp_titanweapon_shotgun_semi_converter = 128,
+		mp_titanweapon_shotgun_shredder_rounds = 128,
 		mp_weapon_mega3_extended_ammo = 129,
 		
 		mp_weapon_shotgun_auto_converter = 130,
 		mp_weapon_mgl_extended_ammo = 131,
 		mp_weapon_defender_charge_hack = 132,
-		mp_weapon_mega2_match_trigger = 133,
+		mp_weapon_mega2_double_tap = 133,
 
 		mp_weapon_rocket_launcher_guided_missile_0 = 134,
-		mp_weapon_sniper_tank_buster = 135,	
+		mp_weapon_sniper_titan_piercer = 135,	
 		mp_weapon_shotgun_pump_action = 136,
-		mp_weapon_lmg_cyclic = 137,
+		mp_weapon_lmg_cyclic_receiver = 137,
 
 		// mp_weapon_g2_auto_converter = 127,
 		// mp_weapon_hemlok_auto_converter = 128,

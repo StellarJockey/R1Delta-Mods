@@ -37,7 +37,7 @@ function OnWeaponActivate( activateParams )
 	if ( !IsValid_ThisFrame( weaponOwner ) )
 		return
 
-	if( self.HasMod( "burn_mod_lmg" ) || self.HasMod( "cyclic" ) )
+	if( self.HasMod( "burn_mod_lmg" ) || self.HasMod( "cyclic_receiver" ) )
 	{
 		SetLoopingWeaponSound_1p3p( "Weapon_LMG_FirstShot", "Weapon_LMG_Loop_Fast", "Weapon_LMG_LoopEnd",
 		                            "Weapon_LMG_FirstShot_3P", "Weapon_LMG_Loop_Fast_3P", "Weapon_LMG_LoopEnd_3P" )

@@ -52,7 +52,7 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"buckshot"
-	"damage_near_distance"							"380"  // "270"
+	"damage_near_distance"							"350"  // "270"
 	"damage_far_distance" 							"1000" // "850"
 	"damage_near_value"   							"285"
 	"damage_far_value"								"30"
@@ -392,6 +392,9 @@ WeaponData
 			"damage_rodeo"									"*1.35"
 			"fire_rate" 									"3.0"
 			"rechamber_time"								"1.0"
+
+			"damage_near_distance"							"400"
+			"damage_far_distance" 							"1100"
 		}
 		twin_slug
 		{

@@ -6,6 +6,9 @@ SUPPRESSORS:
 * Suppressors have been tweaked across the board to be more viable, especially with secondaries and snipers
 * Getting a kill with a suppressor on an enemy who doesn't have line of sight on you will reward you a +20xp "Stealth Bonus"
 
+ARC GRENADES:
+* Will only insta-kill grunts, takes two to kill NPC Pilots and Grunt Captains
+
 R101-C CARBINE:
 * Small increase to ADS recoil
 * Small increase to weapon spread
@@ -16,7 +19,7 @@ EVA-8 SHOTGUN:
 * Headshots have been enabled
 * Leadwall mod reduces damage by only 9% instead of 17% (i.e. the Twin-B version)
 * Added a Full-Auto mod (fire rate is a bit slower than the Burn Card version)
-* Added a Pump-Action mod that does more damage but with a slower fire rate
+* Added a Pump-Action mod that does more damage with higher range but with a slower fire rate
 
 R1-S BURRELL SMG:
 * Restored cut SMG version of the R101. Still experimenting with its role and numbers
@@ -46,6 +49,7 @@ P2011:
 
 RE-45:
 * Will 5-shot Pilots at close range instead of 6
+* Starburst now has slightly reduced recoil, better fire rate, and +5 extra mag size
 
 TWIN-B:
 * Does enough damage to one-shot grunt captains (250 health) at close range 
@@ -55,7 +59,7 @@ TWIN-B:
 ///// ANTI-TITAN WEAPONS /////
 //////////////////////////////
 ARCHER:
-* Added Guided Rocket mod
+* Added Guided Missile mod
 
 MAG LAUNCHER:
 * Added an Extended Mag mod
@@ -73,7 +77,7 @@ QUAD ROCKET:
 WYS-0404:
 * Does a bit more damage against Titans
 * Small burst delay decrease
-* Added the Lead Converter mod; increases fire rate, but range is reduced
+* Added the Shredder Rounds mod; increases fire rate, faster reload, but range is reduced
 
 TRIPLE THREAT:
 * Got rid of the fire rate nerf for the hydraulic launcher, the charge time feels like its enough of a fire rate debuff

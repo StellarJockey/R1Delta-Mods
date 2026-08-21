@@ -352,7 +352,7 @@ WeaponData
 			"damage_near_value"   							"/1.1"
 			"damage_far_value"								"/1.1"
 		}
-		"match_trigger"
+		"double_tap"
 		{
 			"spread_stand_hip" 								"9"
 			"spread_stand_hip_run" 							"9"

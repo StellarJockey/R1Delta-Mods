@@ -965,7 +965,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 
     // TITAN CREATION
     local titanDataTable = GetRandomTitanLoadout()
-    local titans = Random([ "titan_stryder", "titan_atlas", "titan_ogre" ])
+    local titans = Random([ "titan_stryder", "titan_atlas", "titan_ogre" ]) // "titan_ctt"
     titanDataTable.setFile = titans
     local settings = titanDataTable.setFile
     titanDataTable.primary = Random([
@@ -996,6 +996,8 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         titan.SetTitle( "#CHASSIS_ATLAS_NAME" )
     else if ( titans == "titan_ogre" )
         titan.SetTitle( "#CHASSIS_OGRE_NAME" )
+	// else if ( titans == "titan_ctt" )
+		// titan.SetTitle( "Destroyer" )
     
 	titan.s.isTitan <- true
 
@@ -1007,7 +1009,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         mp_titanweapon_arc_cannon      = [ null, null, "capacitor", "capacitor", "burn_mod_titan_arc_cannon", ],  
         mp_titanweapon_rocket_launcher = [ null, null, "rapid_fire_missiles", "rapid_fire_missiles", "extended_ammo", "extended_ammo", "burn_mod_titan_rocket_launcher", ],
         mp_titanweapon_triple_threat   = [ null, null, "mine_field", "mine_field", "extended_ammo", "extended_ammo", "burn_mod_titan_triple_threat", ],
-        mp_titanweapon_shotgun         = [ null, "extended_ammo", "semi_converter", ],
+        mp_titanweapon_shotgun         = [ null, "extended_ammo", "shredder_rounds", ],
     }
 
     local primaryWeapon = titanDataTable.primary

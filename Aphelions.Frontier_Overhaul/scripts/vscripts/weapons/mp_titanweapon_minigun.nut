@@ -2,9 +2,9 @@ AMMO_BODYGROUP_COUNT <- 6
 chargeDownSoundDuration <- 1.0
 
 RegisterSignal( "OnDeactivate" )
-const MINIGUN_COOL_DELAY = 0.5
+const MINIGUN_COOL_DELAY = 1.0
 const TITAN_SLOW_SPEED = 0.5
-const MINIGUN_REGEN_RATE = 20.0 
+const MINIGUN_REGEN_RATE = 25.0
 
 function OnWeaponActivate( activateParams )
 {
@@ -69,7 +69,7 @@ function ServerMinigunLogic( weapon, owner )
     local currentTime = Time()
     local hasExtAmmo = weapon.HasMod( "extended_ammo" )
     local maxAmmo = hasExtAmmo ? 120 : 100
-    local reloadTime = hasExtAmmo ? 6.0 : 5.0
+    local reloadTime = hasExtAmmo ? 5.0 : 4.0
 
     // Overheat logic
     if ( currentTime < weapon.s.overheatEndTime )

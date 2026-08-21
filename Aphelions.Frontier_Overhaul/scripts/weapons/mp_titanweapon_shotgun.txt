@@ -300,15 +300,23 @@ WeaponData
 			"ammo_default_total"							"1500"
 		}
 
-		"semi_converter"
+		"shredder_rounds"
 		{
             "fire_rate"                                      "8"
             "burst_fire_delay"								 "0.6"
 
-            "damage_near_distance"                           "*0.65"
-            "damage_far_distance"                            "*0.65"
-            "npc_damage_near_distance"                       "*0.65"
-            "npc_damage_far_distance"                        "*0.65"
+            "damage_near_distance"                           "*0.6"
+            "damage_far_distance"                            "*0.6"
+            "npc_damage_near_distance"                       "*0.6"
+            "npc_damage_far_distance"                        "*0.6"
+
+
+            "reload_time"                                   "*0.9"
+            "reload_time_late1"                             "*0.9"
+            "reload_time_late2" 					    	"*0.9"
+            "reloadempty_time"                              "*0.9"
+            "reloadempty_time_late1"                        "*0.9"
+            "reloadempty_time_late2" 				    	"*0.9"
 		}
 
 		burn_mod_titan_shotgun

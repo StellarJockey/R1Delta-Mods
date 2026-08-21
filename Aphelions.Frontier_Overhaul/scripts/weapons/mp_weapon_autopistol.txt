@@ -63,8 +63,8 @@ WeaponData
 	"damage_type" 									"bullet"
 	"damage_near_distance"							"1050"  // match to search distance and red crosshair range
 	"damage_far_distance" 							"1300"
-	"damage_near_value"   							"40" // "38"
-	"damage_far_value"								"32" // "30"
+	"damage_near_value"   							"42" // "38"
+	"damage_far_value"								"34" // "30"
 	"damage_near_value_titanarmor"					"20"
 	"damage_far_value_titanarmor" 					"10"
 	"damage_rodeo" 									"110"
@@ -372,8 +372,10 @@ WeaponData
 			"burst_fire_sound_end"							"Weapon_RE45Auto_Fire"
 			"fire_rate"   					"20"
 			"burst_fire_count"				"5"
-			"burst_fire_delay"				"0.28"
-			"viewkick_pitch_hardScale"		"1.2"
+			"burst_fire_delay"				"0.22" // "0.28"
+			"viewkick_pitch_hardScale"		"1.1" // "1.2"
+
+			"ammo_clip_size"				"25"
 
 			"viewkick_pitch_base" 							"-0.4"
 			"viewkick_pitch_random"   						"-0.25"
@@ -411,8 +413,8 @@ WeaponData
 		burn_mod_autopistol
 		{
 			"crosshair_index"								"1"
-			"damage_near_value"   							"45"
-			"damage_far_value"								"35"
+			"damage_near_value"   							"52" // "45"
+			"damage_far_value"								"44" // "35"
 			"is_burn_mod"		"1"
 		}
 	}
