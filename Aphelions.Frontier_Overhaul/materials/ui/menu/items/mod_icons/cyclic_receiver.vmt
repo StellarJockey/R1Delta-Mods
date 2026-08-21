@@ -1,6 +1,6 @@
 Basic
 {
-	$basetexture		"ui/menu/items/mod_icons/titan_hunter"
+	$basetexture		"ui/menu/items/mod_icons/cyclic_receiver"
 	$translucent		1
 	$vertexcolor		1
 	$vertexalpha		1
