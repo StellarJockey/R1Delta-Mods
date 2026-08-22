@@ -1968,10 +1968,8 @@ function GetSellCostOfRarity( rarity )
 // The game doesnt like it when you dont sort arrays in a specific way
 function GetSortedBurnCards( deckArray, player = null )
 {
-	deckArray.sort( sortType )
 	local sortType = GetPlayerBurnCardSortFunction( player )
-
-	sortedArray.sort( sortType )
+	deckArray.sort( sortType )
 
 	return deckArray
 }
