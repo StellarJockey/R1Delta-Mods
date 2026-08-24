@@ -34,19 +34,6 @@ function OnWeaponPrimaryAttack( attackParams )
 		return 1
 	}
 
-	if ( self.HasMod( "semi_converter" ) )
-	{
-		self.EmitWeaponSound( "titan_shotgun_mega_fire" )
-		if ( attackParams.firstTimePredicted )
-			thread PlayCasingsSound( 1 )
-
-		self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
-
-		ShotgunBlast( attackParams.pos, attackParams.dir, PELLETS_PER_BARREL, damageTypes.Shotgun, 1 )
-
-		return 1
-	}
-
 	local totalBarrels = self.GetWeaponInfoFileKeyField( "ammo_clip_size" )
 
 	local numBarrelsToFire = 1
@@ -95,19 +82,6 @@ function OnWeaponNpcPrimaryAttack( attackParams )
 	ShotgunBlast( attackParams.pos, attackParams.dir, numPellets, damageTypes.Shotgun, numBarrelsToFire )
 
 	return 1
-
-	if ( self.HasMod( "semi_converter" ) )
-	{
-		self.EmitWeaponSound( "titan_shotgun_mega_fire" )
-		if ( attackParams.firstTimePredicted )
-			thread PlayCasingsSound( 1 )
-
-		self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
-
-		ShotgunBlast( attackParams.pos, attackParams.dir, PELLETS_PER_BARREL, damageTypes.Shotgun, 1 )
-
-		return 3
-	}
 }
 
 function OnClientAnimEvent( name )
