@@ -738,7 +738,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.mp_weapon_rocket_launcher:
 		case eDamageSourceId.mp_weapon_defender:
 		case eDamageSourceId.mp_weapon_mega4:
-		// case eDamageSourceId.mp_weapon_smart_pistol:
+		case eDamageSourceId.mp_weapon_smart_pistol:
 		case eDamageSourceId.mp_weapon_yh803:
 		case eDamageSourceId.mp_weapon_yh803_bullet:
 		case eDamageSourceId.mp_weapon_mega_turret:

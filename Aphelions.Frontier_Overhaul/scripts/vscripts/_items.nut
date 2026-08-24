@@ -105,7 +105,7 @@ const MOD_ACCELERATOR_LONGDESC_V2 = 		"The accelerator slowly ramps up the weapo
 // FRONTIER OVERHAUL EXCLUSIVE MODS
 const MOD_AUTO_CONVERTER_LONGDESC =         "A forced reset trigger makes the EVA-8 fully automatic, increasing your rate of fire to 138 RPM. However, this comes at the cost of a slightly higher recoil."
 const MOD_PUMP_ACTION_LONGDESC = 			"This mod upgrades the EVA-8 with a pump-action receiver that cycles high-impact magnum shells. Shots will deal 35% more damage with a higher range, but at the cost of a slower rate of fire."
-const MOD_SHREDDER_LONGDESC =      			"A lighter alloy increases the burst-fire rate of the WYS, but its effective range will be reduced by 40%. It is optimized for hit-and-run style engagements."
+const MOD_SHREDDER_LONGDESC =      			"This mod increases the damage and burst-fire rate of the WYS, but its effective range will be reduced by 40%. It is optimized for hit-and-run style engagements."
 const MOD_DOUBLE_TAP_LONGDESC =			    "This mod allows you to pull both triggers and fire both barrels at once. Be mindful of your ammo reserve, as you will burn through it much faster."
 
 const MOD_CHARGE_HACK_LONGDESC = 			"This mod retunes the weapon's cavity magnetron, allowing the weapon to reach its full charge 40% faster, but will deal 30% less damage."
@@ -949,7 +949,7 @@ function CreateR1DeltaItems()
 	
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_kills", 				1, 		"mp_titanweapon_shotgun",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 3, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
-	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"shredder_rounds",		"Shredder Rounds",			"Increased burst-fire rate",			MOD_SHREDDER_LONGDESC,			0, 0, -3, 12, 0, 		"../ui/menu/items/mod_icons/shredder_rounds",	 		"../ui/menu/items/mod_icons/shredder_rounds" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"shredder_rounds",		"Shredder Rounds",			"Increased burst-fire rate",			MOD_SHREDDER_LONGDESC,			5, 0, -3, 12, 0, 		"../ui/menu/items/mod_icons/shredder_rounds",	 		"../ui/menu/items/mod_icons/shredder_rounds" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 

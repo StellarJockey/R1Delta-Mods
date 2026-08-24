@@ -310,13 +310,19 @@ WeaponData
             "npc_damage_near_distance"                       "*0.6"
             "npc_damage_far_distance"                        "*0.6"
 
+            "damage_near_value_titanarmor"                   "*1.25"
+            "damage_far_value_titanarmor"                    "*1.25"
 
-            "reload_time"                                   "*0.9"
-            "reload_time_late1"                             "*0.9"
-            "reload_time_late2" 					    	"*0.9"
-            "reloadempty_time"                              "*0.9"
-            "reloadempty_time_late1"                        "*0.9"
-            "reloadempty_time_late2" 				    	"*0.9"
+            "npc_damage_near_value_titanarmor"               "*1.25"
+            "npc_damage_far_value_titanarmor"                "*1.25"
+
+
+            "reload_time"                                   "*0.8"
+            "reload_time_late1"                             "*0.8"
+            "reload_time_late2" 					    	"*0.8"
+            "reloadempty_time"                              "*0.8"
+            "reloadempty_time_late1"                        "*0.8"
+            "reloadempty_time_late2" 				    	"*0.8"
 		}
 
 		burn_mod_titan_shotgun
