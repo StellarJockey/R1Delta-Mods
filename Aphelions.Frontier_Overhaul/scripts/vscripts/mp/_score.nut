@@ -263,7 +263,6 @@ function ScoreEvent_TitanKilled( titan, attacker, inflictor, damageSourceId, wea
 			return	// couldn't find a player to give the score to so we early out.
 	}
 
-
 	if ( ShouldPreventFriendlyFire( titan, attacker ) )
 		return false
 
@@ -299,48 +298,59 @@ function ScoreEvent_TitanKilled( titan, attacker, inflictor, damageSourceId, wea
 
 	if ( attacker.IsPlayer() && !attacker.IsTitan() )
 	{
-		local settings = titan.GetPlayerSettings()
-		local scriptName = GetPlayerSettingsFieldForClassName( settings, "scriptName" )
-
-		if (!scriptName)
-			return
-
-		scoreEvent = "Kill" + scriptName
-
-		switch ( settings )
+		// Check if victim is an NPC Titan
+		if ( titan.IsNPC() )
 		{
-			case "titan_stryder":
-				scoreEvent = "KillStryder"
-				break
-
-			//case "titan_slammer":
-			//	scoreEvent = "KillSlammer"
-			//	break
-
-			case "titan_atlas":
-				scoreEvent = "KillAtlas"
-				break
-
-			case "titan_ogre":
-				scoreEvent = "KillOgre"
-				break
+			// Handle NPC Titan kill
+			scoreEvent = "KillTitan"  // Generic score event for any NPC Titan
+			if ( !IsTitanEliminationBased() )
+				AddPlayerScore( player, scoreEvent, titan )
 		}
-
-		if ( GAMETYPE == COOPERATIVE )
+		else
 		{
-			if ( IsNukeTitan( titan ) )
-				scoreEvent = "Killed_Nuke_Titan"
-			else if ( IsMortarTitan( titan ) )
-				scoreEvent = "Killed_Mortar_Titan"
-			else if ( IsEMPTitan( titan ) )
-				scoreEvent = "Killed_EMP_Titan"
+			local settings = titan.GetPlayerSettings()
+			local scriptName = GetPlayerSettingsFieldForClassName( settings, "scriptName" )
+
+			if (!scriptName)
+				return
+
+			scoreEvent = "Kill" + scriptName
+
+			switch ( settings )
+			{
+				case "titan_stryder":
+					scoreEvent = "KillStryder"
+					break
+
+				//case "titan_slammer":
+				//	scoreEvent = "KillSlammer"
+				//	break
+
+				case "titan_atlas":
+					scoreEvent = "KillAtlas"
+					break
+
+				case "titan_ogre":
+					scoreEvent = "KillOgre"
+					break
+			}
+
+			if ( GAMETYPE == COOPERATIVE )
+			{
+				if ( IsNukeTitan( titan ) )
+					scoreEvent = "Killed_Nuke_Titan"
+				else if ( IsMortarTitan( titan ) )
+					scoreEvent = "Killed_Mortar_Titan"
+				else if ( IsEMPTitan( titan ) )
+					scoreEvent = "Killed_EMP_Titan"
+			}
+
+			if ( !scoreEvent )
+				return
+
+			if ( !IsTitanEliminationBased() )
+				AddPlayerScore( player, scoreEvent, titan )
 		}
-
-		if ( !scoreEvent )
-			return
-
-		if ( !IsTitanEliminationBased() )
-			AddPlayerScore( player, scoreEvent, titan )
 	}
 	else
 	{
@@ -386,9 +396,8 @@ function ScoreEvent_PlayerKilled( player, attacker, damageInfo )
 
 	ScoreCheck_InitStats( attacker )
 	ScoreCheck_InitStats( player )
-
 	player.s.lastKiller = attacker
-
+	
 	if ( ShouldPreventFriendlyFire( player, attacker ) )
 	{
 		//Preventing streaks from continuing after suicides.
@@ -586,13 +595,13 @@ function ScoreCheck_Kill( attacker, killed )
 	// Check for various score bonuses for killing players
 	if ( IsPlayer( killed ) )
 	{
-		ScoreCheck_FirstStrike( attacker, killed )
 		ScoreCheck_KillingSpree( attacker, killed )
 		ScoreCheck_Comeback( attacker )
 		ScoreCheck_VictoryKill( attacker, killed )
 		ScoreCheck_Nemesis( attacker, killed )
 		ScoreCheck_SpotAssist( attacker, killed, currentTime )
 		ScoreCheck_Revenge( attacker, killed, currentTime )
+		ScoreCheck_FirstStrike( attacker, killed )
 		ScoreCheck_KilledMVP( attacker, killed )
 	}
 
@@ -687,7 +696,7 @@ function ScoreCheck_MultiKill( attacker, killed, currentTime )
 	}
 
 //Creating two lists, one with just pilots and one with grunts and pilots.
-	if ( IsPlayer( killed ) )
+	if ( IsPlayer( killed ) || IsReskinnedPilot( killed ) || IsGhostPilot( killed ) )
 	{
 		attacker.s.recentPlayerKilledTimes.append( currentTime )
 		AddRecentAllKilledTime( attacker, currentTime )
