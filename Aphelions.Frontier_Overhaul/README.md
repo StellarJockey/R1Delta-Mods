@@ -1,5 +1,7 @@
 (Thank you to ASILLYNEKO and FRANN for making the original Extended Attrition mod!)
 
+**Mod authors**: ASillyNeko, Frann, 07zj, Nachos, StoneCold, Claude (AI), and Aphelion
+
 Frontier Overhaul is a heavily modified version of Extended Attrition. This is an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
 
@@ -111,5 +113,3 @@ What other quality of life changes are there?
 Good luck, have fun!
 -
 That's an order.
-
-**Mod authors**: ASillyNeko, Frann, 07zj, Nachos, StoneCold, Claude (AI), and Aphelion
