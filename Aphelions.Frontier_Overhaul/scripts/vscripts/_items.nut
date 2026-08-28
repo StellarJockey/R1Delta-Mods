@@ -56,28 +56,29 @@ const mp_weapon_satchel_DESCv2 =      "Satchel Charges are an adhesive-polymer e
 
 // Tactical DESCRIPTIONS
 const mp_ability_cloak_DESCv2 =   "The Cloaking system uses a refractive mesh to bend light around the Pilot. You will become completely invisible to minions and Titans for 9 seconds. However, your general outline is still visible to other Pilots, as are your jump jets."
-const mp_ability_heal_DESCv2 =    "The SE-505 'Stim' compound is a cocktail of synthetic phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
+const mp_ability_heal_DESCv2 =    "The SE-505 'Stim' compound is a blend of phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
 const mp_ability_sonar_DESCv2 =   "Active Radar Pulse emits a burst of low-frequency radio waves, allowing you to see enemies through walls for 7.5 seconds. However, due to scattering latency, you will only see single frames, not full motion."
 
 // PILOT KIT DESCRIPTIONS
-const ENH_PARKOURv2 = "The Enhanced Parkour Kit doubles your maximum wallrun time from 1.75 seconds to 3.5 seconds, and your maximum wallhang from 11 seconds to 22 seconds."
+const ENH_PARKOURv2 =	  "The Enhanced Parkour Kit doubles your max wallrun time from 1.75 to 3.5 seconds and your max wallhang from 11 to 22 seconds. You also take 50% less damage while doing any kind of parkour or ziplining."
 const EXPLOSIVES_PACKv2 = "The Explosives Pack adds +1 extra ordnance to your reserve, allowing you to carry three ordnance items instead of two."
-const POWER_CELLv2 = "The Power Cell reduces the recharge time of your Pilot's Tactical Ability by 33%."
-const QUICK_RELOADv2 = "The Quick Reload Kit reduces the reload time of all Pilot weapons by 30%."
-const SHIELD_BATTERYv2 = "The Dome Shield Battery extends the duration of your Titan's Dome-Shield after Titanfall from 15 seconds to 25 seconds."
-const WARPFALLv2 = "Using short-range jump technology, the Warpfall Transmitter decreases your Titanfall from 6 seconds to 3 seconds."
-const ICEPICKv2 = "The 'Icepick' is a modified Data Knife that increases the speed with which you can hack Spectres and turret control panels by 40%."
+const POWER_CELLv2 = 	  "The Power Cell reduces the recharge time of your Pilot's Tactical Ability by 33%."
+const QUICK_RELOADv2 = 	  "The Quick Reload Kit reduces the reload time of all Pilot weapons by 30%."
+const SHIELD_BATTERYv2 =  "The Dome Shield Battery extends the duration of your Titan's Dome-Shield after Titanfall from 15 seconds to 25 seconds."
+const WARPFALLv2 = 		  "Using short-range jump technology, the Warpfall Transmitter decreases your Titanfall from 6 seconds to 3 seconds."
+const ICEPICKv2 = 		  "The 'Icepick' is a modified Data Knife that increases the speed of hacking Spectres and turret control panels by 40%."
+const STEALTHv2 = 		  "The Stealth Kit makes your footsteps silent, and makes your jump kit exhaust nearly invisible. When paired with Cloak and a suppressed sniper or suppressed sidearm pistol, your Cloak will not break when you fire your weapon."
 
 const GEAR_RUNGUN_KIT_DESCv2 = 		"Pistols, SMGs, and shotguns can be fired while sprinting"
 const GEAR_RUNGUN_KIT_LONGDESCv2 =  "The Run N Gun Kit allows you to fire small arms such as pistols, SMGs, and shotguns while sprinting."
 
 // TITAN KIT DESCRIPTIONS
-const BIG_PUNCHv2 = 		"Your Titan's melee attack power is significantly increased, and knocks enemies back 25% further.\nSTRYDER: 80% Damage Increase\nATLAS: 78% Damage Increase\nOGRE: 23% Damage Increase"
-const DASH_QUICKCHARGERv2 = "Your Titan's dash system recharges at a faster rate, allowing you to dash more frequently. The decrease in time for a single dash goes from:\nSTRYDER: 3.3 to 2.6 seconds\nATLAS: 4.2 to 3.5 seconds\nOGRE: 4.6 to 4.1 seconds"
-const REGEN_BOOSTERv2 = 	"Your Titan is able to regenerate its body shield at a faster rate, decreasing its recharge time from 6 seconds to 3 seconds."
-const CORE_EXTENDERv2 = 	"The Core Extender allows your Titan's Core Ability to remain active for an extended period of time, increasing from 12.6 seconds to 17.9 seconds."
-const CORE_ACCELERATORv2 =  "The Core Accelerator makes your Titan's Core Ability charge more quickly by doubling the amount of Core reduction you get from enemy kills."
-const SURVIVORv2 = 			"When doomed, your Titan's health will decrease at rate 1/3 that of normal, allowing you to stay in the fight longer before having to abandon the Titan."
+const BIG_PUNCHv2 = 				"Your Titan's melee attack power is significantly increased, and knocks enemies back 25% further.\nSTRYDER: 80% Damage Increase\nATLAS: 78% Damage Increase\nOGRE: 23% Damage Increase"
+const DASH_QUICKCHARGERv2 = 		"Your Titan's dash system recharges at a faster rate, allowing you to dash more frequently. The decrease in time for a single dash goes from:\nSTRYDER: 3.3 to 2.6 seconds\nATLAS: 4.2 to 3.5 seconds\nOGRE: 4.6 to 4.1 seconds"
+const REGEN_BOOSTERv2 = 			"Your Titan is able to regenerate its body shield at a faster rate, decreasing its recharge time from 6 seconds to 3 seconds."
+const CORE_EXTENDERv2 = 			"The Core Extender allows your Titan's Core Ability to remain active for an extended period of time, increasing from 12.6 seconds to 17.9 seconds."
+const CORE_ACCELERATORv2 =  		"The Core Accelerator makes your Titan's Core Ability charge more quickly by doubling the amount of Core reduction you get from enemy kills."
+const SURVIVORv2 = 					"Your Titan's doomed state health is tripled, allowing you to take more damage and stay in the fight longer before having to abandon it."
 const TACTICAL_REACTOR_LONGDESCv2 = "This kit reduces the cooldown time of your Titan's Tactical Ability by 25%."
 const FAST_AUTOLOADER_LONGDESCv2 =	"This advanced autoload mechanism replenishes your Titan Ordnance 25% faster than normal, making it available more frequently."
 
@@ -551,7 +552,7 @@ function InitItems()
 	/////////////////////
 	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0,		null, 	null, "pas_power_cell",			"#GEAR_POWER_CELL",					"#GEAR_POWER_CELL_DESC",			POWER_CELLv2,							"../ui/menu/items/passive_icons/power_cell",			"../ui/menu/items/passive_icons/power_cell" )
 	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0, 		null, 	null, "pas_run_and_gun",		"#GEAR_RUNGUN_KIT",					GEAR_RUNGUN_KIT_DESCv2,				GEAR_RUNGUN_KIT_LONGDESCv2,				"../ui/menu/items/passive_icons/run_and_gun",			"../ui/menu/items/passive_icons/run_and_gun" )
-	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0, 		null, 	null, "pas_stealth_movement",	"#GEAR_STEALTH_KIT",				"#GEAR_STEALTH_KIT_DESC",			"#GEAR_STEALTH_KIT_LONGDESC",			"../ui/menu/items/passive_icons/stealth_movement",		"../ui/menu/items/passive_icons/stealth_movement" )
+	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0, 		null, 	null, "pas_stealth_movement",	"#GEAR_STEALTH_KIT",				"#GEAR_STEALTH_KIT_DESC",			STEALTHv2,								"../ui/menu/items/passive_icons/stealth_movement",		"../ui/menu/items/passive_icons/stealth_movement" )
 	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0,		null, 	null, "pas_ordnance_pack",		"#GEAR_EXPLOSIVES_PACK",			"#GEAR_EXPLOSIVES_PACK_DESC",		EXPLOSIVES_PACKv2,						"../ui/menu/items/passive_icons/ordnance_pack",			"../ui/menu/items/passive_icons/ordnance_pack" )
 	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0,		null, 	null, "pas_wall_runner",		"#GEAR_PARKOUR_KIT",				"#GEAR_PARKOUR_KIT_DESC",			ENH_PARKOURv2,							"../ui/menu/items/passive_icons/wall_runner", 			"../ui/menu/items/passive_icons/wall_runner" )
 	CreatePassiveData( itemType.PILOT_PASSIVE1, 	DEV_ENABLED,	0, 		null, 	null, "pas_fast_reload",		"#GEAR_QUICK_RELOAD",				"#GEAR_QUICK_RELOAD_DESC",			QUICK_RELOADv2,							"../ui/menu/items/passive_icons/fast_reload", 			"../ui/menu/items/passive_icons/fast_reload" )
