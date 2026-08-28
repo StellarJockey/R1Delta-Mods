@@ -78,8 +78,8 @@ function main()
 			NPCSetAimPatternFocusParams( 0.5, 0.5, 2 )
 			break
 		case eAILethality.VeryHigh:
-			NPCSetAimConeFocusParams( 2, 0.2 )
-			NPCSetAimPatternFocusParams( 0.5, 0.3, 2 )
+			NPCSetAimConeFocusParams( 1.5, 0.2 ) 		   // ( 2, 0.2 )
+			NPCSetAimPatternFocusParams( 0.5, 0.5, 1.0 )   // ( 0.5, 0.3, 2 )
 			break
 	}
 
