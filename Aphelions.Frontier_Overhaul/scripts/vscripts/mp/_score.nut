@@ -1027,7 +1027,7 @@ function AwardStealthBonus( entity, damageInfo )
 
 	local weaponFromDI = damageInfo.GetWeapon()
 	local inf = damageInfo.GetInflictor()
-	local gotSilencer = false
+	local hasSilencer = false
 
 	if ( IsValid( weaponFromDI ) ) // Case A: direct weapon entity caused the damage
 	{
@@ -1035,7 +1035,7 @@ function AwardStealthBonus( entity, damageInfo )
 		{
 			if ( m == "silencer" )
 			{
-				gotSilencer = true
+				hasSilencer = true
 				break
 			}
 		}
@@ -1046,14 +1046,14 @@ function AwardStealthBonus( entity, damageInfo )
 		{
 			if ( m == "silencer" )
 			{
-				gotSilencer = true
+				hasSilencer = true
 				break
 			}
 		}
 	}
 
 	// Only award if the actual damage-causing entity had a silencer AND victim could NOT see the attacker
-	if ( !gotSilencer || entity.CanSee( attacker ) )
+	if ( !hasSilencer || entity.CanSee( attacker ) )
 		return
 
 	local baseXP = 20.0

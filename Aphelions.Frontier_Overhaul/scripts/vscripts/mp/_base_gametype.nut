@@ -3107,28 +3107,53 @@ function AddEntityDestroyedCallback( entity, callbackFunc )
 
 function CodeCallback_WeaponFireInCloak( player )
 {
-	if ( !WeaponCancelsCloak( player.GetActiveWeapon() ) )
-		return
+    if ( !WeaponCancelsCloak( player.GetActiveWeapon() ) )
+        return
 
-	if ( player.IsTitan() )  // Fix timing issue with auto-eject cloak and firing your weapon as a Titan cancelling it.  This assumes we never want cloaked titans!
-		return
+    if ( player.IsTitan() )  // Fix timing issue with auto-eject cloak and firing your weapon as a Titan cancelling it.  This assumes we never want cloaked titans!
+        return
 
-	if ( player.cloakedForever )
+    if ( player.cloakedForever )
+    {
+        player.SetCloakFlicker( 1.0, 2.0 )
+        return
+    }
+
+    // Check if we are allowed some cloaked shots based on ability selection
+    if ( player.s.cloakedShotsAllowed > 0 )
+    {
+        player.s.cloakedShotsAllowed--
+        return
+    }
+
+	// NEW: Stealth Kit + suppressed sniper/pistol prevents cloak being broken
+	local weapon = player.GetActiveWeapon()
+	local hasSilencer = false
+	if ( IsValid( weapon ) )
 	{
-		player.SetCloakFlicker( 1.0, 2.0 )
-		return
+		local wName = weapon.GetClassname()
+		if ( wName == "mp_weapon_dmr" || wName == "mp_weapon_sniper" || wName == "mp_weapon_mega1" ||
+			wName == "mp_weapon_semipistol" || wName == "mp_weapon_autopistol" || wName == "mp_weapon_wingman" )
+		{
+			foreach ( mod in weapon.GetMods() )
+			{
+				if ( mod == "silencer" )
+				{
+					hasSilencer = true
+					break
+				}
+			}
+		}
 	}
 
-	// Check if we are allowed some cloaked shots based on ability selection
-	if ( player.s.cloakedShotsAllowed > 0 )
+	if ( PlayerHasPassive( player, PAS_STEALTH_MOVEMENT ) && hasSilencer )
 	{
-		player.s.cloakedShotsAllowed--
+		player.SetCloakFlicker( 0.5, 1.0 )
 		return
 	}
 
 	DisableCloak( player, 0.5 )
 }
-
 
 function CodeCallback_OnClientConnectionStarted( player )
 {
