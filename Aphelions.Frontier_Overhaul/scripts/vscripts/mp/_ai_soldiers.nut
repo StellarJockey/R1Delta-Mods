@@ -81,6 +81,9 @@ function main()
 	Globalize( EnemyChanged_Standard )
 	Globalize( EnemyChanged_Rocket )
 	Globalize( ResetNPCs )
+	Globalize( IsGruntCaptain )
+	Globalize( IsReskinnedPilot )
+	Globalize( IsGhostPilot )
 
 	Globalize( Spawn_GruntSquad )
 	Globalize( Spawn_SpectreSquad )
@@ -807,7 +810,6 @@ function IsGruntCaptain( npc )
 {
     return ("s" in npc && "isCaptain" in npc.s && npc.s.isCaptain)
 }
-Globalize( IsGruntCaptain )
 
 function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {
@@ -837,7 +839,6 @@ function IsReskinnedPilot( npc )
 {
     return ( "s" in npc && "isPilot" in npc.s && npc.s.isPilot )
 }
-Globalize( IsReskinnedPilot )
 
 function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {
@@ -893,7 +894,6 @@ function IsGhostPilot( npc )
 {
     return ( "s" in npc && "isGhostPilot" in npc.s && npc.s.isGhostPilot )
 }
-Globalize( IsGhostPilot )
 
 function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
 {
@@ -920,8 +920,10 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
 
     ghostPilot.SetTitle( "Ghost Pilot" )
 
-    if ( "s" in ghostPilot && "isPilot" in ghostPilot.s )
+	if ( "s" in ghostPilot && "isPilot" in ghostPilot.s )
 		ghostPilot.s.isPilot <- false
+	if ( "s" in ghostPilot && "IsSoldier" in ghostPilot.s )
+		ghostPilot.s.IsSoldier <- false
 	
 	ghostPilot.s.isGhostPilot <- true
 
