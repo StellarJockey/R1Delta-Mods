@@ -1052,6 +1052,18 @@ function AwardStealthBonus( entity, damageInfo )
 		}
 	}
 
+	local damageSourceId = damageInfo.GetDamageSourceIdentifier()
+	if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+	{
+		hasSilencer = true
+	}
+
+	local weapon = attacker.GetActiveWeapon()
+	if ( damageSourceId == eDamageSourceId.human_melee && IsValid( weapon ) && weapon.GetClassname() == "mp_weapon_mega5" )
+	{
+		hasSilencer = true
+	}
+	
 	// Only award if the actual damage-causing entity had a silencer AND victim could NOT see the attacker
 	if ( !hasSilencer || entity.CanSee( attacker ) )
 		return

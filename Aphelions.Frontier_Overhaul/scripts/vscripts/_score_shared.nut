@@ -123,6 +123,7 @@ function InitScoreEvents()
 	event = cScoreEvent( "TitanStepVsReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
 	event.SetSplashText( "Crushed Pilot%s1" )
+	event.SetShouldStackDisplay( true )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
@@ -131,6 +132,7 @@ function InitScoreEvents()
 	event = cScoreEvent( "TerminationVsReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_MELEE_EXECUTION )
 	event.SetSplashText( "Terminated Pilot%s1" )
+	event.SetShouldStackDisplay( true )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 	event.SetXPType( XP_TYPE.PILOT_KILL )
@@ -159,11 +161,11 @@ function InitScoreEvents()
 	event = cScoreEvent( "TitanStepVsGhostPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
 	event.SetSplashText( "Crushed Ghost Pilot%s1" )
+	event.SetShouldStackDisplay( true )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 	event.SetXPType( XP_TYPE.PILOT_KILL )
-
 
 	/////// NPC PILOT BURN CARDS ////////
 	event = cScoreEvent( "BurnKillReskinnedPilot" )
@@ -190,6 +192,7 @@ function InitScoreEvents()
 	event = cScoreEvent( "BurnTitanStepVsReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
 	event.SetSplashText( "Crushed Pilot%s1" )
+	event.SetShouldStackDisplay( true )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
@@ -198,6 +201,7 @@ function InitScoreEvents()
 	event = cScoreEvent( "BurnTerminationVsReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_MELEE_EXECUTION )
 	event.SetSplashText( "Terminated Pilot%s1" )
+	event.SetShouldStackDisplay( true )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 	event.SetXPType( XP_TYPE.PILOT_KILL )
@@ -226,6 +230,7 @@ function InitScoreEvents()
 	event = cScoreEvent( "BurnTitanStepVsGhostPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
 	event.SetSplashText( "Crushed Ghost Pilot%s1" )
+	event.SetShouldStackDisplay( true )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
@@ -256,6 +261,7 @@ function InitScoreEvents()
 	event = cScoreEvent( "x2XP_TitanStepVsReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
 	event.SetSplashText( "Crushed Pilot%s1" )
+	event.SetShouldStackDisplay( true )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
@@ -264,6 +270,7 @@ function InitScoreEvents()
 	event = cScoreEvent( "x2XP_TerminationVsReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_MELEE_EXECUTION )
 	event.SetSplashText( "Terminated Pilot%s1" )
+	event.SetShouldStackDisplay( true )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 	event.SetXPType( XP_TYPE.PILOT_KILL )
@@ -292,12 +299,13 @@ function InitScoreEvents()
 	event = cScoreEvent( "x2XP_TitanStepVsGhostPilot" )
 	event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH_PILOT + POINTVALUE_KILL_PILOT )
 	event.SetSplashText( "Crushed Ghost Pilot%s1" )
+	event.SetShouldStackDisplay( true )
 	event.SetSplashTextAppendTargetName( false )
 	event.SetConversation( "TitanStepCrush", EVENT_PRIORITY_CALLOUTMINOR )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 	event.SetXPType( XP_TYPE.PILOT_KILL )
 
-	/// GRUNT CAPTAINS
+	///////// GRUNT CAPTAINS /////////
 	event = cScoreEvent( "KillCaptain" )
 	event.SetPointValue( POINTVALUE_KILL_FIRETEAM_AI )  
 	event.SetSplashText( "Killed Grunt Captain%s1" )
@@ -321,6 +329,79 @@ function InitScoreEvents()
 	event.SetSplashText( "Crushed Grunt Captain%s1" )
 	event.SetShouldStackDisplay( true )
 	event.SetXPType( XP_TYPE.NPC_KILL )
+
+	///////// KNIFE KILLS /////////
+	event = cScoreEvent( "KnifeVsGrunt" )
+	event.SetPointValue( POINTVALUE_KILL_FIRETEAM_AI )
+	event.SetSplashText( "Knifed Grunt%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.NPC_KILL )
+
+	event = cScoreEvent( "KnifeVsCaptain" )
+	event.SetPointValue( POINTVALUE_KILL_FIRETEAM_AI )
+	event.SetSplashText( "Knifed Grunt Captain%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.NPC_KILL )
+
+	event = cScoreEvent( "KnifeVsSpectre" )
+	event.SetPointValue( POINTVALUE_KILL_SPECTRE )
+	event.SetSplashText( "Knifed Spectre%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.NPC_KILL )
+
+	event = cScoreEvent( "KnifeVsSniper_Spectre" )
+	event.SetPointValue( POINTVALUE_KILL_SPECTRE )
+	event.SetSplashText( "Knifed Sniper Spectre%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.NPC_KILL )
+
+	event = cScoreEvent( "KnifeVsSuicide_Spectre" )
+	event.SetPointValue( POINTVALUE_KILL_SPECTRE )
+	event.SetSplashText( "Knifed Suicide Spectre%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetXPType( XP_TYPE.NPC_KILL )
+
+	event = cScoreEvent( "KnifeVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL_PILOT )
+	event.SetSplashText( "Knifed Pilot%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "x2XP_KnifeVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL_PILOT )
+	event.SetSplashText( "Knifed Pilot%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "BurnKnifeVsReskinnedPilot" )
+	event.SetPointValue( POINTVALUE_KILL_PILOT )
+	event.SetSplashText( "Knifed Pilot%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "KnifeVsGhostPilot" )
+	event.SetPointValue( POINTVALUE_KILL_PILOT )
+	event.SetSplashText( "Knifed Ghost Pilot%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "x2XP_KnifeVsGhostPilot" )
+	event.SetPointValue( POINTVALUE_KILL_PILOT )
+	event.SetSplashText( "Knifed Ghost Pilot%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
+
+	event = cScoreEvent( "BurnKnifeVsGhostPilot" )
+	event.SetPointValue( POINTVALUE_KILL_PILOT )
+	event.SetSplashText( "Knifed Ghost Pilot%s1" )
+	event.SetShouldStackDisplay( true )
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
+	event.SetXPType( XP_TYPE.PILOT_KILL )
 
 	/////////////////////////////////////////////////
 
@@ -1677,12 +1758,6 @@ function InitScoreEvents()
 		event.SetShouldStackDisplay( true )
 		event.SetXPType( XP_TYPE.NPC_KILL )
 
-		event = cScoreEvent( "MeleeHumanExecutionVsSniper_Spectre" )
-		event.SetPointValue( POINTVALUE_KILL_SPECTRE )
-		event.SetSplashText( "Executed Sniper Spectre%s1" )
-		event.SetShouldStackDisplay( true )
-		event.SetXPType( XP_TYPE.NPC_KILL )
-
 		event = cScoreEvent( "Auto_Titan_Killed_Sniper_Spectre" )
 		event.SetPointValue( ScaleScoreForAutoTitan( POINTVALUE_COOP_KILL_SNIPER_SPECTRE ) )
 		event.SetSplashText( "#SCORE_EVENT_COOP_AUTO_TITAN_KILL_SNIPER_SPECTRE" )
@@ -1703,6 +1778,12 @@ function InitScoreEvents()
 		event.SetShouldStackDisplay( true )
 		event.SetXPType( XP_TYPE.NPC_KILL )
 		// event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+
+		event = cScoreEvent( "MeleeHumanExecutionVsSniper_Spectre" )
+		event.SetPointValue( POINTVALUE_KILL_SPECTRE )
+		event.SetSplashText( "Executed Sniper Spectre%s1" )
+		event.SetShouldStackDisplay( true )
+		event.SetXPType( XP_TYPE.NPC_KILL )
 
 		event = cScoreEvent( "TitanStepCrush_Killed_Sniper_Spectre" )
 		event.SetPointValue( POINTVALUE_TITAN_STEPCRUSH + POINTVALUE_KILL_SPECTRE )
@@ -2077,6 +2158,7 @@ function ScoreEventForNPCKilled(npc, damageInfo)
     // Figure out the attacker and any burn-card server flags they have
     local attacker = GetAttackerOrLastAttacker( npc, damageInfo )
     attacker = GetAttackerPlayerOrBossPlayer( attacker )
+	local activeWeapon = attacker.GetActiveWeapon()
 
     local activeCard = null
     local srvFlags = 0    // use 0 as default for bitmask checks
@@ -2099,8 +2181,15 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "BurnMeleeHumanExecutionVsReskinnedPilot"
+			else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+				return "BurnKnifeVsReskinnedPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
-                return "BurnMeleeHumanVsReskinnedPilot"
+			{
+				if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+					return "BurnKnifeVsReskinnedPilot"
+				else
+					return "BurnMeleeHumanVsReskinnedPilot"
+			}
             else if ( damageSourceId == eDamageSourceId.titan_step )
                 return "BurnTitanStepVsReskinnedPilot"
 			else if ( damageSourceId == eDamageSourceId.titan_execution )
@@ -2112,8 +2201,15 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "x2XP_MeleeHumanExecutionVsReskinnedPilot"
+			else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+				return "x2XP_KnifeVsReskinnedPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
-                return "x2XP_MeleeHumanVsReskinnedPilot"
+			{
+				if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+					return "x2XP_KnifeVsReskinnedPilot"
+				else
+					return "x2XP_MeleeHumanVsReskinnedPilot"
+			}
             else if ( damageSourceId == eDamageSourceId.titan_step )
                 return "x2XP_TitanStepVsReskinnedPilot"
 			else if ( damageSourceId == eDamageSourceId.titan_execution )
@@ -2125,8 +2221,15 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "MeleeHumanExecutionVsReskinnedPilot"
+			else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+				return "KnifeVsReskinnedPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
-                return "MeleeHumanVsReskinnedPilot"
+			{
+				if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+					return "KnifeVsReskinnedPilot"
+				else
+					return "MeleeHumanVsReskinnedPilot"
+			}
             else if ( damageSourceId == eDamageSourceId.titan_step )
                 return "TitanStepVsReskinnedPilot"
 			else if ( damageSourceId == eDamageSourceId.titan_execution )
@@ -2142,8 +2245,15 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "BurnMeleeHumanExecutionVsGhostPilot"
+			else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+				return "BurnKnifeVsGhostPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
-                return "BurnMeleeHumanVsGhostPilot"
+			{
+				if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+					return "BurnKnifeVsGhostPilot"
+				else
+					return "BurnMeleeHumanVsGhostPilot"
+			}
             else if ( damageSourceId == eDamageSourceId.titan_step )
                 return "BurnTitanStepVsGhostPilot"
             else
@@ -2153,8 +2263,15 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "x2XP_MeleeHumanExecutionVsGhostPilot"
+			else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+				return "x2XP_KnifeVsGhostPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
-                return "x2XP_MeleeHumanVsGhostPilot"
+			{
+				if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+					return "x2XP_KnifeVsGhostPilot"
+				else
+					return "x2XP_MeleeHumanVsGhostPilot"
+			}
             else if ( damageSourceId == eDamageSourceId.titan_step )
                 return "x2XP_TitanStepVsGhostPilot"
             else
@@ -2164,8 +2281,15 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "MeleeHumanExecutionVsGhostPilot"
+			else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+				return "KnifeVsGhostPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
-                return "MeleeHumanVsGhostPilot"
+			{
+				if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+					return "KnifeVsGhostPilot"
+				else
+					return "MeleeHumanVsGhostPilot"
+			}
             else if ( damageSourceId == eDamageSourceId.titan_step )
                 return "TitanStepVsGhostPilot"
             else
@@ -2180,12 +2304,19 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 	{
 		if ( damageSourceId == eDamageSourceId.human_execution )
 			return "MeleeHumanExecutionVsCaptain"
-		else if ( damageSourceId == eDamageSourceId.human_melee )
-			return "MeleeHumanVsCaptain"
 		else if ( damageSourceId == eDamageSourceId.titan_step )
 			return "TitanStepVsCaptain"
 		else if ( damageSourceId == eDamageSourceId.titan_execution )
-				return "TerminationVsCaptain"
+			return "TerminationVsCaptain"
+		else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+			return "KnifeVsCaptain"
+		else if ( damageSourceId == eDamageSourceId.human_melee )
+		{
+			if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+				return "KnifeVsCaptain"
+			else
+				return "MeleeHumanVsCaptain"
+		}
 		else
 			return "KillCaptain"
 	}
@@ -2198,8 +2329,15 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 	{
 		if ( damageSourceId == eDamageSourceId.human_execution )
 			return "MeleeHumanExecutionVsSniper_Spectre"
+		else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+			return "KnifeVsSniper_Spectre"
 		else if ( damageSourceId == eDamageSourceId.human_melee )
-			return "MeleeHumanVsSniper_Spectre"
+		{
+			if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+				return "KnifeVsSniper_Spectre"
+			else
+				return "MeleeHumanVsSniper_Spectre"
+		}
 		else if ( damageSourceId == eDamageSourceId.titan_step )
 			return "TitanStepCrush_Killed_Sniper_Spectre"
 		else
@@ -2217,7 +2355,6 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 			case eDamageSourceId.mp_ability_emp:
 			case eDamageSourceId.mp_titanability_emp:
 			case eDamageSourceId.super_electric_smoke_screen:
-			case eDamageSourceId.human_melee:
 			case eDamageSourceId.grunt_melee:
 			case eDamageSourceId.spectre_melee:
 			case eDamageSourceId.titan_fall:
@@ -2228,8 +2365,18 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 			case eModSourceId.burn_mod_titan_xo16:
 				return "NeutralizedSuicideSpectre"
 		}
+
 		if ( damageSourceId == eDamageSourceId.human_execution )
 			return "MeleeHumanExecutionVsSuicideSpectre"
+		if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+			return "KnifeVsSuicide_Spectre"
+		else if ( damageSourceId == eDamageSourceId.human_melee )
+		{
+			if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+				return "KnifeVsSuicide_Spectre"
+			else
+				return "NeutralizedSuicideSpectre"
+		}
 		else if ( damageSourceId == eDamageSourceId.titan_step )
 			return "TitanStepCrush_Killed_Suicide_Spectre"
 		else
@@ -2338,10 +2485,19 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 				{
 					return  "MeleeHumanExecutionVsSpectre"
 				}
+				
+				if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+					return "KnifeVsSpectre"
 
 				if ( damageSourceId == eDamageSourceId.human_melee )
 				{
-					return  "MeleeHumanAttackVsSpectre"
+					if ( IsValid( attacker ) && attacker.IsPlayer() )
+					{
+						if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+							return "KnifeVsSpectre"
+					}
+					else
+						return  "MeleeHumanAttackVsSpectre"
 				}
 
 			}
@@ -2415,13 +2571,21 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 					scoreEvent = "Electrocute_IMC_Soldier"
 			}
 
+			if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+				return "KnifeVsGrunt"
+
 			if ( damageSourceId == eDamageSourceId.human_melee )
 			{
-				scoreEvent =  "MeleeHumanAttackVsGrunt"
+				if ( IsValid( attacker ) && attacker.IsPlayer() )
+				{
+					if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+						return "KnifeVsGrunt"
+				}
+
+				scoreEvent = "MeleeHumanAttackVsGrunt"
 				if ( npc.GetTeam() == TEAM_IMC )
 					scoreEvent = "MeleeHumanAttackVs_IMC_Soldier"
 			}
-
 			if ( damageSourceId == eDamageSourceId.human_execution )
 			{
 				scoreEvent =  "MeleeHumanExecutionVsGrunt"

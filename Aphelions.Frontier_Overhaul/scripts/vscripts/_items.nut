@@ -18,7 +18,7 @@ const lmg_LONGDESC =          "The M600 Spitfire is a light machine gun made by 
 const hemlok_LONGDESC =       "The M1A1 Hemlok is an assault rifle that fires 7.62mm rounds in three-round bursts. Prior to being acquired by Wonyeon Defense, TW Ordnance managed to deliver one last trifecta of accuracy, damage, and fire rate."
 const car_LONGDESC =          "The C.A.R. (Combat Advanced Round) submachine gun fires heavy 6.19mm rounds at 846 RPM. What it lacks in firing rate, it more than makes up for with greater damage and accuracy at close to mid-range."
 const g2_LONGDESC =           "The G2A4 is a semi-automatic rifle that fires 6.19x97mm LEC rounds. While it was phased out in favor of the R-101C for infantry, it still remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
-const sniper_LONGDESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one-shot, one-kill' for any human-sized target. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
+const sniper_LONGDESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one shot, one kill' for any human-sized target. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
 
 const lmg_SHORTDESC =      "Light machine gun"
 const MEGA1_SHORTDESC =    "Bolt-action sniper rifle"
@@ -66,7 +66,7 @@ const POWER_CELLv2 = 	  "The Power Cell reduces the recharge time of your Pilot'
 const QUICK_RELOADv2 = 	  "The Quick Reload Kit reduces the reload time of all Pilot weapons by 30%."
 const SHIELD_BATTERYv2 =  "The Dome Shield Battery extends the duration of your Titan's Dome-Shield after Titanfall from 15 seconds to 25 seconds."
 const WARPFALLv2 = 		  "Using short-range jump technology, the Warpfall Transmitter decreases your Titanfall from 6 seconds to 3 seconds."
-const ICEPICKv2 = 		  "The 'Icepick' is a modified Data Knife that increases the speed of hacking Spectres and turret control panels by 40%."
+const ICEPICKv2 = 		  "The 'Icepick' is a firmware upgrade for your Data Knife, increasing the speed of hacking Spectres and turret control panels by 40%."
 const STEALTHv2 = 		  "The Stealth Kit makes your footsteps silent, and makes your jump kit exhaust nearly invisible. When paired with Cloak and a suppressed sniper or suppressed sidearm pistol, your Cloak will not break when you fire your weapon."
 
 const GEAR_RUNGUN_KIT_DESCv2 = 		"Pistols, SMGs, and shotguns can be fired while sprinting"
@@ -402,6 +402,7 @@ function main()
 	unlockLevels[ "mp_weapon_mega3" ]                       <- 45
 	unlockLevels[ "mp_weapon_mega1" ]						<- 30
 	unlockLevels[ "mp_weapon_mega2" ]						<- 35
+	unlockLevels[ "mp_weapon_mega5" ]						<- 49
 	// unlockLevels[ "mp_weapon_mega9" ]						<- 10
 }
 
@@ -896,8 +897,7 @@ function CreateR1DeltaItems()
 	
 	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega1", 				"../ui/menu/items/weapon_valkyrie" )
 	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega2", 				"../ui/menu/items/weapon_twinbshotgun" )
-		
-	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_DISABLED,	0, 		null, 	null, "mp_weapon_mega5", 				"../ui/menu/items/weapon_valkyrie", null, null, HideFromMenus )
+	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega5", 				"../ui/menu/items/weapon_knife" )
 	
 	// CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_rspn101_smg" )  
 	

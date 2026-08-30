@@ -3126,7 +3126,7 @@ function CodeCallback_WeaponFireInCloak( player )
         return
     }
 
-	// NEW: Stealth Kit + suppressed sniper/pistol prevents cloak being broken
+	// NEW: Stealth Kit + suppressed sniper/pistol or the knife prevents cloak being broken
 	local weapon = player.GetActiveWeapon()
 	local hasSilencer = false
 	if ( IsValid( weapon ) )
@@ -3144,6 +3144,8 @@ function CodeCallback_WeaponFireInCloak( player )
 				}
 			}
 		}
+		else if ( wName == "mp_weapon_mega5" )
+			hasSilencer = true
 	}
 
 	if ( PlayerHasPassive( player, PAS_STEALTH_MOVEMENT ) && hasSilencer )

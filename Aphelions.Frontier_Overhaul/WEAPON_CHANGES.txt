@@ -55,6 +55,9 @@ TWIN-B:
 * Does enough damage to one-shot grunt captains (250 health) at close range 
 * Added Double Tap mod to fire both barrels (almost) at once
 
+THROWING KNIFE:
+* Added the knife from Gun Game as a secondary, ideal for stealthy builds
+
 //////////////////////////////
 ///// ANTI-TITAN WEAPONS /////
 //////////////////////////////
