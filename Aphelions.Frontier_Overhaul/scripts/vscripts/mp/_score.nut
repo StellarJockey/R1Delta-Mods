@@ -1078,38 +1078,41 @@ function AwardStealthBonus( entity, damageInfo )
 		local srvFlags = GetBurnCardServerFlags( activeCard )
 		local matches = false
 
-		// Use bitmask checks in case server flags combine
-		if ( ( srvFlags & SFLAG_HUNTER_GRUNT ) != 0 )
+		if ( srvFlags != null )
 		{
-			// human AI infantry (not pilots)
-			if ( entity.GetAIClass() == "human" && !( "isPilot" in entity.s && entity.s.isPilot ) && !( "isGhostPilot" in entity.s && entity.s.isGhostPilot ) )
+			// Use bitmask checks in case server flags combine
+			if ( ( srvFlags & SFLAG_HUNTER_GRUNT ) != 0 )
+			{
+				// human AI infantry (not pilots)
+				if ( entity.GetAIClass() == "human" && !( "isPilot" in entity.s && entity.s.isPilot ) && !( "isGhostPilot" in entity.s && entity.s.isGhostPilot ) )
+					matches = true
+			}
+			else if ( ( srvFlags & SFLAG_HUNTER_SPECTRE ) != 0 )
+			{
+				if ( entity.GetClassname() == "npc_spectre" )
+					matches = true
+			}
+			else if ( ( srvFlags & SFLAG_HUNTER_PILOT ) != 0 )
+			{
+				if ( ( "isPilot" in entity.s && entity.s.isPilot ) || ( "isGhostPilot" in entity.s && entity.s.isGhostPilot ) )
+					matches = true
+			}
+			else if ( ( srvFlags & SFLAG_DOUBLE_XP ) != 0 )
+			{
+				// Special-case: double-XP server flag
 				matches = true
-		}
-		else if ( ( srvFlags & SFLAG_HUNTER_SPECTRE ) != 0 )
-		{
-			if ( entity.GetClassname() == "npc_spectre" )
-				matches = true
-		}
-		else if ( ( srvFlags & SFLAG_HUNTER_PILOT ) != 0 )
-		{
-			if ( ( "isPilot" in entity.s && entity.s.isPilot ) || ( "isGhostPilot" in entity.s && entity.s.isGhostPilot ) )
-				matches = true
-		}
-		else if ( ( srvFlags & SFLAG_DOUBLE_XP ) != 0 )
-		{
-			// Special-case: double-XP server flag
-			matches = true
-		}
+			}
 
-		if ( matches )
-		{
-			if ( ( srvFlags & SFLAG_DOUBLE_XP ) != 0 )
-				baseXP *= 2.0
-			else
-				baseXP *= 2.5
+			if ( matches )
+			{
+				if ( ( srvFlags & SFLAG_DOUBLE_XP ) != 0 )
+					baseXP *= 2.0
+				else
+					baseXP *= 2.5
 
-			if ( "StealthBonus_Burncard" in level.scoreEventsByName )
-				scoreEventName = "StealthBonus_Burncard"
+				if ( "StealthBonus_Burncard" in level.scoreEventsByName )
+					scoreEventName = "StealthBonus_Burncard"
+			}
 		}
 	}
 
