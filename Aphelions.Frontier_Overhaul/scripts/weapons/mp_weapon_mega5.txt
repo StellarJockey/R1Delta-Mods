@@ -3,10 +3,11 @@ WeaponData
 	// General
 	"printname"   									"Throwing Knife"
 	"shortprintname"								"Throwing Knife"
-	"description" 									"Stealth blade weapon"
-	"longdesc" 										"The Throwing Knife is a throwable version of the TW-008 Data Knife, now owned by Wonyeon Defense. While it does require some finesse to use, it will silently one-shot any human-sized target."
+	"description" 									"Retrievable stealth blade"
+	"longdesc" 										"The Throwing Knife is a throwable version of the TW-008 Data Knife, now owned by Wonyeon Defense. While it does require some finesse to use, it will silently one-shot any human-sized target and can also be retrieved once thrown."
 	"weaponClass" 									"human"
-	"fire_mode"   									"semi-auto"
+	"fire_mode"   									"offhand"
+	// "offhand_toss"									"1"
 	"server_vscript"  								"weapons/mp_weapon_throwing_knife"
 	"client_vscript"  								"weapons/mp_weapon_throwing_knife"
 	"projectile_vscript"  							"weapons/mp_weapon_throwing_knife"
@@ -22,7 +23,7 @@ WeaponData
 	"viewmodel"   									"models/weapons/data_knife/ptpov_data_knife.mdl"
 	"projectilemodel" 								"models/weapons/data_knife/v_data_knife.mdl"
 	"playermodel"									"models/weapons/empty_handed/w_empty_handed_human.mdl"
-	//"projectilemodel"								"models/weapons/grenades/m20_f_grenade_projectile.mdl"
+	"anim_prefix" 									"Grenade"
 	"activitymodifier"								"offhand"
 
 	// Effects
@@ -81,9 +82,8 @@ WeaponData
 	"critical_hit"									"1"
 
 	// Ammo
-	"ammo_clip_size"   								"1"
-	"ammo_default_total"							"15" // "3"
-	"ammo_stockpile_max"							"15" // "3"
+	"ammo_clip_size"   								"2"
+	"ammo_default_total"							"2"
 	
 
 	// Behavior
@@ -156,8 +156,17 @@ WeaponData
     "clip_bodygroup_index_shown"			"0"
     "clip_bodygroup_index_hidden"			"1"
 
+	"fire_anim_rate"  								"1"
+	"hud_icon"										"HUD/dpad_call_in_throwing_knife"
+
 	Mods
 	{
+		pas_ordnance_pack
+		{
+			"ammo_clip_size"   						"1++"
+			"ammo_default_total"					"1++"
+		}
+
 		dev
 		{
 			"ammo_default_total"							"99"

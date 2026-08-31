@@ -13,9 +13,18 @@ ThrowingKnifePrecache()
 
 function OnWeaponPrimaryAttack( attackParams )
 {
+	if ( self.s.startTime == null )
+		return 0
+
 	self.EmitWeaponSound( "Weapon_FragGrenade_Throw" )
-	//Grenade_Throw( self, attackParams, 99 )
 	Knife_Throw( self, attackParams, 99 )
+}
+
+// Add this function to fire the projectile upon button release
+function OnWeaponTossReleaseAnimEvent( tossParams )
+{
+	Knife_Throw( self, tossParams, 99 )
+	return 1
 }
 
 function Knife_Throw( weapon, attackParams, baseFuseTime = DEFAULT_FUSE_TIME )
@@ -23,10 +32,14 @@ function Knife_Throw( weapon, attackParams, baseFuseTime = DEFAULT_FUSE_TIME )
 	if ( IsClient() && !weapon.ShouldPredictProjectiles() )
 		return
 
+	// If the weapon was deactivated (startTime set to null), abort the throw
+	if ( !( "startTime" in weapon.s ) || weapon.s.startTime == null )
+		return 0
+
 	//TEMP FIX while Deploy anim is added to sprint
 	if ( !( "startTime" in weapon.s ) )
 		weapon.s.startTime <- null
-	self.s.startTime = Time()
+	weapon.s.startTime = Time()
 
 	local weaponOwner = weapon.GetWeaponOwner()
 	local attackOrigin = weaponOwner.EyePosition() // attackParams.pos
@@ -58,7 +71,7 @@ function Knife_Throw( weapon, attackParams, baseFuseTime = DEFAULT_FUSE_TIME )
 	}
 
 	weaponOwner.Signal("ThrowGrenade")
-	//return 1
+	return 1
 }
 
 // Targets that get too close dont get hit by the actual projectile
@@ -76,7 +89,13 @@ function FakeKnifeHit( attackParams, frag )
 	local origin = owner.EyePosition()
 	local angles = owner.EyeAngles()
 	local forward = angles.AnglesToForward()
-	local result = TraceLine( origin, origin + forward * 2000, [owner, self, frag], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_NONE )
+	
+	local ignoreArray = []
+	if ( IsValid( owner ) ) ignoreArray.append( owner )
+	if ( IsValid( self ) ) ignoreArray.append( self )
+	if ( IsValid( frag ) ) ignoreArray.append( frag )
+
+	local result = TraceLine( origin, origin + forward * 2000, ignoreArray, TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_NONE )
 
 	local ent = result.hitEnt
 	if ( ent && ent.IsHumanSized() && Distance( origin, ent.GetOrigin() ) <= 180 )
@@ -95,22 +114,46 @@ function OnWeaponActivate( prepParams )
 
 function OnWeaponDeactivate( deactivateParams )
 {
+	self.s.startTime = null
 	Grenade_Deactivate( self, deactivateParams )
 }
 
 function OnProjectileCollision( collisionParams )
 {
-	local bounceDot = 1.0  // sets the dot of the normals it'll stick to
-	local result = PlantStickyEntity( self, collisionParams, bounceDot )
-
 	local hitEnt = collisionParams.hitent
+	local classname = ""
+	if ( hitEnt != null )
+		classname = hitEnt.GetClassname()
+
+	// Check if it hits a live target OR their newly created ragdoll corpse
+	if ( hitEnt != null && (hitEnt.IsPlayer() || hitEnt.IsNPC() || classname == "prop_ragdoll") )
+	{
+		if ( IsServer() )
+		{
+			self.ClearParent()
+			
+			// Instantly trace straight down to the floor to prevent the physics engine from bouncing it
+			local origin = self.GetOrigin()
+			local trace = TraceLine( origin, origin - Vector(0, 0, 1000), [ self, hitEnt ], TRACE_MASK_SOLID, TRACE_COLLISION_GROUP_NONE )
+			
+			// Teleport it to the ground and freeze it in place
+			self.SetOrigin( trace.endPos + Vector(0, 0, 2) ) 
+			self.SetVelocity( Vector( 0, 0, 0 ) )
+			self.kv.movetype = 0 
+		}
+	}
+	else
+	{
+		local bounceDot = 1.0
+		local result = PlantStickyEntity( self, collisionParams, bounceDot )
+	}
+
 	if ( hitEnt != null && IsServer() )
 	{
 		if ( "playedScans" in self.s )
 			return
 
 		EmitSoundOnEntity( self, "Default.WallCling_Attach" )
-		//self.SetVelocity( Vector( 0, 0, 0 ) )
 
 		local mods = self.GetMods()
 		local owner = self.GetOwner()
@@ -118,24 +161,53 @@ function OnProjectileCollision( collisionParams )
 		if ( owner && owner.IsPlayer() && ArrayContains( mods, "burn_mod_throwing_knife" ) )
 		{
 			LeechSurroundingSpectres( self.GetOrigin(), owner )
-			//ActivateBurnCardSonar( owner, BURNCARD_AUTO_SONAR_IMAGE_DURATION , true, null )
-			//EmitSoundOnEntityToOpponents( owner, "radarpulse_ping" )
 		}
 
 		self.s.playedScans <- true
-		thread DissolveKnife( self )
+		
+		thread MonitorKnifeRetrieval( self, owner )
 	}
 }
 
-function DissolveKnife( self )
+function MonitorKnifeRetrieval( knife, owner )
 {
-	wait 3.0
-	if ( IsValid_ThisFrame( self ) )
-	{
-		self.Destroy()
+	knife.EndSignal( "OnDestroy" )
+	
+	local expireTime = Time() + 60.0 
 
-		//self.Die( level.worldspawn, level.worldspawn, { scriptType = DF_MELEE, damageSourceId = eDamageSourceId.mp_weapon_smart_pistol } )
-		//self.Dissolve( ENTITY_DISSOLVE_CHAR, Vector( 0, 0, 0 ), 0 )
-		//EmitSoundAtPosition( self.GetOrigin(), "Object_Dissolve" )
+	while ( Time() < expireTime )
+	{
+		if ( !IsValid( knife ) ) return
+		
+		if ( !IsValid( owner ) || !IsAlive( owner ) )
+		{
+			knife.Destroy()
+			return
+		}
+
+		if ( Distance( knife.GetOrigin(), owner.GetOrigin() ) <= 75 )
+		{
+			local weapons = owner.GetOffhandWeapons()
+			foreach ( weapon in weapons )
+			{
+				if ( weapon.GetWeaponClassName() == "mp_weapon_mega5" )
+				{
+					local currentAmmo = weapon.GetWeaponPrimaryClipCount()
+					local maxAmmo = PlayerHasPassive( owner, PAS_ORDNANCE_PACK ) ? 3 : 2
+					
+					if ( currentAmmo < maxAmmo )
+					{
+						weapon.SetWeaponPrimaryClipCount( currentAmmo + 1 )
+						EmitSoundOnEntity( owner, "Ammo_Pickup_Grenade_1P" )
+						knife.Destroy()
+						return
+					}
+				}
+			}
+		}
+		wait 0.1
 	}
+
+	if ( IsValid( knife ) )
+		knife.Destroy()
 }

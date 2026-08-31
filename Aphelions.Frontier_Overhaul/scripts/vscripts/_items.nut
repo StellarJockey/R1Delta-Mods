@@ -448,9 +448,10 @@ function InitItems()
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0,		null, 	null, "mp_ability_sonar", 			"../ui/menu/items/ability_icons/sonar", 		"../ui/menu/items/ability_icons/sonar" )
 
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_frag_grenade", 	"../ui/menu/items/weapon_frag_grenade_v2", 		"../ui/menu/items/ability_icons/frag_grenade", 		"../ui/menu/items/weapon_frag_grenade_v2" )
-	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_grenade_emp", 		"../ui/menu/items/weapon_arc_grenade_v2",			"../ui/menu/items/ability_icons/arc_grenade", 		"../ui/menu/items/weapon_arc_grenade_v2" )
-	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_satchel", 			"../ui/menu/items/weapon_satchel",				"../ui/menu/items/ability_icons/satchel", 			"../ui/menu/items/weapon_satchel" )
-	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_proximity_mine", 	"../ui/menu/items/weapon_proximity_mine",		"../ui/menu/items/ability_icons/proximity_mine", 	"../ui/menu/items/weapon_proximity_mine" )
+	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_grenade_emp", 		"../ui/menu/items/weapon_arc_grenade_v2",		"../ui/menu/items/ability_icons/arc_grenade", 		"../ui/menu/items/weapon_arc_grenade_v2" )
+	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_satchel", 			"../ui/menu/items/weapon_satchel_v2",			"../ui/menu/items/ability_icons/satchel", 			"../ui/menu/items/weapon_satchel_v2" )
+	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_proximity_mine", 	"../ui/menu/items/weapon_arcmine_v2",			"../ui/menu/items/ability_icons/proximity_mine", 	"../ui/menu/items/weapon_arcmine_v2" )
+	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega5", 			"../ui/menu/items/weapon_knife",				"../ui/menu/items/ability_icons/throwing_knife", 	"../ui/menu/items/weapon_knife" )
 
 	////////////////////////
 	//PILOT ATTACHMENT DATA
@@ -897,7 +898,7 @@ function CreateR1DeltaItems()
 	
 	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega1", 				"../ui/menu/items/weapon_valkyrie" )
 	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega2", 				"../ui/menu/items/weapon_twinbshotgun" )
-	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega5", 				"../ui/menu/items/weapon_knife" )
+	// CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega5", 				"../ui/menu/items/weapon_knife" )
 	
 	// CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_rspn101_smg" )  
 	
