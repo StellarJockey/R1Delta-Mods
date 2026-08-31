@@ -8,9 +8,9 @@
 	"$additive" "1"
 
 	"$surfaceprop" "default"
-	"$basetexture" "vgui\HUD\dpad_call_in_shoulder_turret"
+	"$basetexture" "vgui\HUD\dpad_call_in_throwing_knife"
 	"$translucent" "1"
-
+	
 	//Start of freehand input from reVaMpT//
 
 	
