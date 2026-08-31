@@ -4,7 +4,7 @@ WeaponData
 	"printname"   									"Throwing Knife"
 	"shortprintname"								"Throwing Knife"
 	"description" 									"Retrievable stealth blade"
-	"longdesc" 										"The Throwing Knife is a throwable version of the TW-008 Data Knife, now owned by Wonyeon Defense. While it does require some finesse to use, it will silently one-shot any human-sized target and can also be retrieved once thrown."
+	"longdesc" 										"The Throwing Knife is a throwable version of the TW-008 Data Knife, now owned by Wonyeon Defense. While it requires some finesse to use, it will silently one-shot any human-sized target and can also be retrieved once thrown."
 	"weaponClass" 									"human"
 	"fire_mode"   									"offhand"
 	// "offhand_toss"									"1"

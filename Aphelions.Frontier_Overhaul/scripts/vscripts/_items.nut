@@ -66,8 +66,8 @@ const POWER_CELLv2 = 	  "The Power Cell reduces the recharge time of your Pilot'
 const QUICK_RELOADv2 = 	  "The Quick Reload Kit reduces the reload time of all Pilot weapons by 30%."
 const SHIELD_BATTERYv2 =  "The Dome Shield Battery extends the duration of your Titan's Dome-Shield after Titanfall from 15 seconds to 25 seconds."
 const WARPFALLv2 = 		  "Using short-range jump technology, the Warpfall Transmitter decreases your Titanfall from 6 seconds to 3 seconds."
-const ICEPICKv2 = 		  "The 'Icepick' is a firmware upgrade for your Data Knife, increasing the speed of hacking Spectres and turret control panels by 40%."
-const STEALTHv2 = 		  "The Stealth Kit makes your footsteps silent, and makes your jump kit exhaust nearly invisible. When paired with Cloak and a suppressed sniper or suppressed sidearm pistol, your Cloak will not break when you fire your weapon."
+const ICEPICKv2 = 		  "The 'Icepick' is a firmware upgrade for your Data Knife, reducing the time needed to hack Spectres and turret control panels by 40%."
+const STEALTHv2 = 		  "The Stealth Kit makes your footsteps silent, and makes your jump kit exhaust nearly invisible. When paired with Cloak and a suppressed sniper or a suppressed sidearm pistol, your Cloak will not break when you fire your weapon."
 
 const GEAR_RUNGUN_KIT_DESCv2 = 		"Pistols, SMGs, and shotguns can be fired while sprinting"
 const GEAR_RUNGUN_KIT_LONGDESCv2 =  "The Run N Gun Kit allows you to fire small arms such as pistols, SMGs, and shotguns while sprinting."
