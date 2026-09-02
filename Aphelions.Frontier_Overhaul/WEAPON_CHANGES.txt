@@ -56,7 +56,7 @@ TWIN-B:
 * Added Double Tap mod to fire both barrels (almost) at once
 
 THROWING KNIFE:
-* Added the knife from Gun Game as a secondary, ideal for stealthy builds
+* Added the knife from Gun Game as an ordnance, ideal for stealthy builds
 
 //////////////////////////////
 ///// ANTI-TITAN WEAPONS /////

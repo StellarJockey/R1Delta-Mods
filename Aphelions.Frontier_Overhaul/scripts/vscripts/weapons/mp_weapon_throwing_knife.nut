@@ -20,7 +20,7 @@ function OnWeaponPrimaryAttack( attackParams )
 	Knife_Throw( self, attackParams, 99 )
 }
 
-// Add this function to fire the projectile upon button release
+// fire the projectile upon button release
 function OnWeaponTossReleaseAnimEvent( tossParams )
 {
 	Knife_Throw( self, tossParams, 99 )
@@ -177,7 +177,8 @@ function MonitorKnifeRetrieval( knife, owner )
 
 	while ( Time() < expireTime )
 	{
-		if ( !IsValid( knife ) ) return
+		if ( !IsValid( knife ) )
+			return
 		
 		if ( !IsValid( owner ) || !IsAlive( owner ) )
 		{
