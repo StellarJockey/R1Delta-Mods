@@ -3150,7 +3150,7 @@ function CodeCallback_WeaponFireInCloak( player )
 
 	if ( PlayerHasPassive( player, PAS_STEALTH_MOVEMENT ) && hasSilencer )
 	{
-		player.SetCloakFlicker( 0.5, 1.0 )
+		player.SetCloakFlicker( 0.4, 0.45 )
 		return
 	}
 
