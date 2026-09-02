@@ -66,7 +66,7 @@ const POWER_CELLv2 = 	  "The Power Cell reduces the recharge time of your Pilot'
 const QUICK_RELOADv2 = 	  "The Quick Reload Kit reduces the reload time of all Pilot weapons by 30%."
 const SHIELD_BATTERYv2 =  "The Dome Shield Battery extends the duration of your Titan's Dome-Shield after Titanfall from 15 seconds to 25 seconds."
 const WARPFALLv2 = 		  "Using short-range jump technology, the Warpfall Transmitter decreases your Titanfall from 6 seconds to 3 seconds."
-const ICEPICKv2 = 		  "The 'Icepick' is a firmware upgrade for your Data Knife, reducing the time needed to hack Spectres and turret control panels by 40%."
+const ICEPICKv2 = 		  "The 'Icepick' is a firmware upgrade for your Data Knife, reducing the time to hack Spectres and turret panels down from 2.8 seconds to 0.85 seconds."
 const STEALTHv2 = 		  "The Stealth Kit makes your footsteps silent, and makes your jump kit exhaust nearly invisible. When paired with Cloak and a suppressed sniper or a suppressed sidearm pistol, your Cloak will not break when you fire your weapon."
 
 const GEAR_RUNGUN_KIT_DESCv2 = 		"Pistols, SMGs, and shotguns can be fired while sprinting"
@@ -401,6 +401,7 @@ function main()
 	unlockLevels[ "mp_titanweapon_shotgun" ]				<- 36
 	unlockLevels[ "mp_weapon_mega3" ]                       <- 45
 	unlockLevels[ "mp_weapon_mega1" ]						<- 30
+	unlockLevels[ "mp_weapon_mega6" ]						<- 34
 	unlockLevels[ "mp_weapon_mega2" ]						<- 35
 	unlockLevels[ "mp_weapon_mega5" ]						<- 49
 	// unlockLevels[ "mp_weapon_mega9" ]						<- 10
@@ -446,6 +447,7 @@ function InitItems()
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0, 		null, 	null, "mp_ability_cloak", 			"../ui/menu/items/ability_icons/cloak", 		"../ui/menu/items/ability_icons/cloak" )
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0,		null, 	null, "mp_ability_heal", 			"../ui/menu/items/ability_icons/heal", 			"../ui/menu/items/ability_icons/heal" )
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0,		null, 	null, "mp_ability_sonar", 			"../ui/menu/items/ability_icons/sonar", 		"../ui/menu/items/ability_icons/sonar" )
+	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega6", 			"../ui/menu/items/ability_icons/deployable_cover", 		"../ui/menu/items/ability_icons/deployable_cover" )
 
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_frag_grenade", 	"../ui/menu/items/weapon_frag_grenade_v2", 		"../ui/menu/items/ability_icons/frag_grenade", 		"../ui/menu/items/weapon_frag_grenade_v2" )
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_grenade_emp", 		"../ui/menu/items/weapon_arc_grenade_v2",		"../ui/menu/items/ability_icons/arc_grenade", 		"../ui/menu/items/weapon_arc_grenade_v2" )

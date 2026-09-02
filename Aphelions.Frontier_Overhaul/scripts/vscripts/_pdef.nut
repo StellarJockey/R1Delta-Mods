@@ -166,6 +166,7 @@ function InitPersistence()
 	    mp_weapon_mega4 = 43 // Charge Cannon
 	    mp_titanweapon_shoulder_turret = 44
 		mp_weapon_mega5 = 45 // Throwing Knife
+		mp_weapon_mega6 = 46 // Deployable Cover
 
 		// mp_weapon_mega9 = 44 // Unfinished R101 SMG
     }
