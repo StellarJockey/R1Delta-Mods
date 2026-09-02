@@ -1051,6 +1051,11 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         titan.GiveOffhandWeapon( "mp_titanability_smoke", TAC_ABILITY_SMOKE, [] )
         titan.SetTacticalAbility( titan.GetOffhandWeapon( TAC_ABILITY_SMOKE ), TTA_SMOKE )
     }
+	/* else if ( tacChoice == 2 )
+	{
+		titan.GiveOffhandWeapon( "mp_weapon_mega4", TAC_ABILITY_RAILGUN, [] )
+        titan.SetTacticalAbility( titan.GetOffhandWeapon( TAC_ABILITY_RAILGUN ), TTA_SMOKE )
+	}*/
     else
     {
         titan.SetTacticalAbility( titan.GetOffhandWeapon( TAC_ABILITY_VORTEX ), TTA_VORTEX )
@@ -5643,121 +5648,96 @@ function DecayNPCDomeShield( titan, delay )
 
 function GetHardpointObjectiveForTeam( team, squadOrigin )
 {
-    local hardpoints = GetEntArrayByClass_Expensive( "info_hardpoint" )
+	local hardpoints = GetEntArrayByClass_Expensive( "info_hardpoint" )
 
-    if ( hardpoints.len() == 0 )
-        return null
+	if ( hardpoints.len() == 0 )
+		return null
 
-    local bestHP = null
-    local bestScore = 999999999.0
+	local players = GetPlayerArray()
+	if ( players.len() == 0 )
+		return null
 
-    foreach ( hp in hardpoints )
-    {
-        local score = sqrt( DistanceSqr( hp.GetOrigin(), squadOrigin ) )
+	local playerTeam = players[0].GetTeam()
+	local isEnemyAI = ( team != playerTeam )
 
-        // Enemy-owned points are highest priority
-        if ( hp.GetTeam() == team )
-            score += 2000        // discourage friendly points
-        else if ( hp.GetTeam() == TEAM_UNASSIGNED )
-            score += 300         // neutral
-        else
-            score -= 500         // enemy
+	local bestHP = null
+	local bestScore = 999999999.0
 
-        // Congestion penalty
-        local idx = hp.GetEncodedEHandle().tostring()
+	foreach ( hp in hardpoints )
+	{
+		local score = DistanceSqr( hp.GetOrigin(), squadOrigin )
+		local npcCount = GetHardpointNPCCount( hp, team )
 
-        if ( idx in level.hardpointAssignments )
-            score += level.hardpointAssignments[idx] * 900
+		if ( isEnemyAI )
+		{
+			if ( hp.GetTeam() == playerTeam )
+				score -= 10000000
+			else if ( hp.GetTeam() == TEAM_UNASSIGNED )
+				score -= 1000000
+			else
+				score += 10000000
 
-        if ( score < bestScore )
-        {
-            bestScore = score
-            bestHP = hp
-        }
-    }
+			score += npcCount * 100000
+		}
+		else
+		{
+			if ( hp.GetTeam() == team )
+				score += 1000000
+			else if ( hp.GetTeam() == TEAM_UNASSIGNED )
+				score += 500000
 
-    return bestHP
+			score += npcCount * 100000
+		}
+
+		if ( score < bestScore )
+		{
+			bestScore = score
+			bestHP = hp
+		}
+	}
+
+	return bestHP
 }
+
 
 function SquadHardpointRunThink( squad, squadIndex )
 {
-    if ( !squad || squad.len() == 0 )
-        return
+	if ( !squad || squad.len() == 0 )
+		return
 
-    local team = squad[0].GetTeam()
-    local currentReservation = null
+	ArrayRemoveInvalid( squad )
 
-    while ( true )
-    {
-        ArrayRemoveInvalid( squad )
+	if ( squad.len() == 0 )
+		return
 
-        if ( squad.len() == 0 )
-            break
+	local team = squad[0].GetTeam()
 
-        // Remove previous reservation
-        if ( currentReservation != null )
-        {
-            local id = currentReservation.GetEncodedEHandle().tostring()
+	local players = GetPlayerArray()
+	if ( players.len() == 0 )
+		return
 
-            if ( id in level.hardpointAssignments )
-            {
-                level.hardpointAssignments[id]--
+	local playerTeam = players[0].GetTeam()
 
-                if ( level.hardpointAssignments[id] <= 0 )
-                    delete level.hardpointAssignments[id]
-            }
+	local squadOrigin = squad[0].GetOrigin()
+	local hp = GetHardpointObjectiveForTeam( team, squadOrigin )
 
-            currentReservation = null
-        }
+	if ( hp == null )
+		return
 
-        local squadOrigin = squad[0].GetOrigin()
+	local hpIndex = GetHardpointIndex( hp )
+	local squadName = GetHardpointSquadName( hp, team )
 
-        local hp = GetHardpointObjectiveForTeam( team, squadOrigin )
+	foreach ( guy in squad )
+	{
+		if ( IsValid( guy ) )
+			SetSquad( guy, squadName )
+	}
 
-        if ( hp == null )
-        {
-            wait 5.0
-            continue
-        }
+	local hardpointSquad = GetNPCArrayBySquad( squadName )
 
-        // Reserve the new objective
-        currentReservation = hp
+	if ( hardpointSquad.len() == 0 )
+		return
 
-        local id = hp.GetEncodedEHandle().tostring()
-
-        if ( !(id in level.hardpointAssignments) )
-            level.hardpointAssignments[id] <- 0
-
-        level.hardpointAssignments[id]++
-
-        local pos = hp.GetOrigin()
-
-        foreach ( npc in squad )
-        {
-            if ( !IsAlive( npc ) )
-                continue
-
-            if ( !("assaultPoint" in npc.s) )
-                continue
-
-            npc.s.assaultPoint.SetOrigin( pos )
-        }
-
-        wait 8.0
-    }
-
-
-    // Release reservation when squad dies
-    if ( currentReservation != null )
-    {
-        local id = currentReservation.GetEncodedEHandle().tostring()
-
-        if ( id in level.hardpointAssignments )
-        {
-            level.hardpointAssignments[id]--
-
-            if ( level.hardpointAssignments[id] <= 0 )
-                delete level.hardpointAssignments[id]
-        }
-    }
+	// Let the existing hardpoint state machine take over.
+	thread SquadCapturePointThink( squadName, hp, team )
 }
