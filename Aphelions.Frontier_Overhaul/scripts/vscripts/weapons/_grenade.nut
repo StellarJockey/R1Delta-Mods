@@ -423,7 +423,7 @@ function EMPGrenade_DamagedPlayerOrNPC( ent, damageInfo )
 	else if ( ent.IsNPC() && !ent.IsTitan() )
 	{
 		// Only apply to captain/pilot NPCs
-		if ( IsGruntCaptain( ent ) || IsPilot( ent ) || IsGhostPilot( ent ) )
+		if ( IsGruntCaptain( ent ) || IsPilot( ent ) || IsReskinnedPilot( ent ) || IsGhostPilot( ent ) )
 		{
 			local inflictor = damageInfo.GetInflictor()
 			if ( IsValid( inflictor ) )
