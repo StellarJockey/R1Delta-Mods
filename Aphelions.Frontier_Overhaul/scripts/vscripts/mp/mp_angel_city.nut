@@ -475,6 +475,7 @@ function IntroMilitiaNPC()
 				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
 				GiveTitanPilotModel( titan, TEAM_MILITIA_CAPTAIN_MDL )
+				titan.s.pilotIsNPCCaptain <- true
 			}
 		}
 	)
@@ -767,6 +768,7 @@ function IntroIMCNPC( restart = false )
 				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
 				GiveTitanPilotModel( titan, TEAM_IMC_CAPTAIN_MDL )
+				titan.s.pilotIsNPCCaptain <- true
 			}
 
 			foreach ( grunt in grunts )

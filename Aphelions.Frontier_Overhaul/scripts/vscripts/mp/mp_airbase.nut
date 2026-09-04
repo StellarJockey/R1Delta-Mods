@@ -321,7 +321,7 @@ function AB_IntroAITitanDrop( name, team, pilotNode, titanNode, flag, weapon = n
 	else
 		GiveTitanPilotModel( titan, TEAM_IMC_CAPTAIN_MDL )
 
-
+	titan.s.pilotIsNPCCaptain <- true
 	titan.SetTitle( name )
 	titan.SetEfficientMode( false )
 	titan.SetTouchTriggers( true )

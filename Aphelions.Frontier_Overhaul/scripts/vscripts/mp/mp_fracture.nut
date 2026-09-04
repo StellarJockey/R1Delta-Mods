@@ -721,6 +721,7 @@ function IntroMilitiaCaptain()
 				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
 				GiveTitanPilotModel( titan, TEAM_MILITIA_CAPTAIN_MDL )
+				titan.s.pilotIsNPCCaptain <- true
 
 				thread IntroCaptainMCORFight( titan )
 			}
@@ -1240,6 +1241,7 @@ function IntroIMCCaptain( test = false )
 				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
 				GiveTitanPilotModel( titan, TEAM_IMC_CAPTAIN_MDL )
+				titan.s.pilotIsNPCCaptain <- true
 
 				thread IntroCaptainIMCFight( titan )
 			}

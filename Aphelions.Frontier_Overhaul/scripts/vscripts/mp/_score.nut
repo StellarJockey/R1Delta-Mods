@@ -170,12 +170,12 @@ function GetPlayerXPMultiple( player, targetEnt )
 
 	if ( PlayerHasServerFlag( player, SFLAG_HUNTER_GRUNT ) )
 	{
-		if (  targetEnt.IsSoldier() && !( "isPilot" in targetEnt.s && targetEnt.s.isPilot ) && !( "isGhostPilot" in targetEnt.s && targetEnt.s.isGhostPilot ) )
+		if (  targetEnt.IsSoldier() && !IsReskinnedPilot( targetEnt ) && !IsGhostPilot( targetEnt ) )
 			return 2.5
 
 		else if ( IsValid( targetEnt ) && "s" in targetEnt )
 		{
-			if ( ( "isCaptain" in targetEnt.s && targetEnt.s.isCaptain ) )
+			if ( IsGruntCaptain( targetEnt ) )
 				return 2.5
 		}
 	}
@@ -185,14 +185,8 @@ function GetPlayerXPMultiple( player, targetEnt )
 
 	if ( PlayerHasServerFlag( player, SFLAG_HUNTER_PILOT ) )
 	{
-		if ( targetEnt.IsPlayer() ) // player pilot
+		if ( targetEnt.IsPlayer() || IsReskinnedPilot( targetEnt ) || IsGhostPilot( targetEnt ) )
 			return 2.5
-
-		else if ( IsValid( targetEnt ) && "s" in targetEnt )
-		{
-			if ( ( "isPilot" in targetEnt.s && targetEnt.s.isPilot ) || ( "isGhostPilot" in targetEnt.s && targetEnt.s.isGhostPilot ) )
-				return 2.5
-		}
 	}
 	return multiplier
 }
@@ -305,6 +299,27 @@ function ScoreEvent_TitanKilled( titan, attacker, inflictor, damageSourceId, wea
 			scoreEvent = "KillTitan"  // Generic score event for any NPC Titan
 			if ( !IsTitanEliminationBased() )
 				AddPlayerScore( player, scoreEvent, titan )
+
+			local settings = titan.GetPlayerSettings()
+			local scriptName = GetPlayerSettingsFieldForClassName( settings, "scriptName" )
+
+			if (!scriptName)
+				return
+
+			switch ( settings )
+			{
+				case "titan_stryder":
+					scoreEvent = "KillStryder"
+					break
+
+				case "titan_atlas":
+					scoreEvent = "KillAtlas"
+					break
+
+				case "titan_ogre":
+					scoreEvent = "KillOgre"
+					break
+			}
 		}
 		else
 		{
@@ -525,6 +540,9 @@ function ScoreEvent_NPCKilled( npc, attacker, damageInfo )
 	Assert( attacker.IsPlayer() )
 	Assert( npc.IsNPC() )
 
+	if ( "isPilotProp" in npc.s || "isCaptainProp" in npc.s )
+      return
+
 	ScoreCheck_InitStats( attacker )
 	ScoreCheck_InitStats( npc )
 
@@ -539,14 +557,30 @@ function ScoreEvent_NPCKilled( npc, attacker, damageInfo )
 	AddPlayerScore( attacker, scoreEvent, npc )
 
 	if ( IsValidHeadShot( damageInfo, npc ) )
-		AddPlayerScore( attacker, "NPCHeadshot", npc )
+	{
+		if ( IsReskinnedPilot( npc ) || IsGhostPilot( npc ) )
+			AddPlayerScore( attacker, "Headshot", npc )
+		else 
+			AddPlayerScore( attacker, "NPCHeadshot", npc )
+	}
 
 	AwardStealthBonus( npc, damageInfo ) // NEW: Added a Stealth Bonus
 
 	ScoreCheck_DroppodKill( attacker, damageInfo )
 
+	// Pilot Beatdown for NPC Pilots, checks for burn cards to give red text
 	if ( damageInfo.GetDamageSourceIdentifier() == eDamageSourceId.titan_melee )
-		AddPlayerScore( attacker, "TitanMelee_VsHumanSizedNPC", npc )
+	{
+		if ( IsReskinnedPilot( npc ) || IsGhostPilot( npc ) )
+		{
+			if ( PlayerHasServerFlag( attacker, SFLAG_DOUBLE_XP ) || PlayerHasServerFlag( attacker, SFLAG_HUNTER_PILOT ) )
+				AddPlayerScore( attacker, "BurnTitanMeleeVsReskinnedPilot", npc )
+			else
+				AddPlayerScore( attacker, "TitanMelee_VsHumanPilot", npc )
+		}
+		else
+			AddPlayerScore( attacker, "TitanMelee_VsHumanSizedNPC", npc )
+	}
 
 	ScoreCheck_Kill( attacker, npc )
 
@@ -1070,50 +1104,40 @@ function AwardStealthBonus( entity, damageInfo )
 
 	local baseXP = 20.0
 	local scoreEventName = "StealthBonus"
+	local matches = false
 
-	// If attacker is a player, check for an active burn card that boosts relevant NPC class XP
-	local activeCard = GetPlayerActiveBurnCard( attacker )
-	if ( activeCard != null )
+	if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_GRUNT ) )
 	{
-		local srvFlags = GetBurnCardServerFlags( activeCard )
-		local matches = false
+		// human AI infantry (not pilots)
+		if ( entity.GetAIClass() == "human" && !IsReskinnedPilot( entity ) && !IsGhostPilot( entity ) )
+			matches = true
+	}
+	else if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_SPECTRE ) )
+	{
+		if ( entity.GetClassname() == "npc_spectre" )
+			matches = true
+	}
 
-		if ( srvFlags != null )
-		{
-			// Use bitmask checks in case server flags combine
-			if ( ( srvFlags & SFLAG_HUNTER_GRUNT ) != 0 )
-			{
-				// human AI infantry (not pilots)
-				if ( entity.GetAIClass() == "human" && !( "isPilot" in entity.s && entity.s.isPilot ) && !( "isGhostPilot" in entity.s && entity.s.isGhostPilot ) )
-					matches = true
-			}
-			else if ( ( srvFlags & SFLAG_HUNTER_SPECTRE ) != 0 )
-			{
-				if ( entity.GetClassname() == "npc_spectre" )
-					matches = true
-			}
-			else if ( ( srvFlags & SFLAG_HUNTER_PILOT ) != 0 )
-			{
-				if ( ( "isPilot" in entity.s && entity.s.isPilot ) || ( "isGhostPilot" in entity.s && entity.s.isGhostPilot ) )
-					matches = true
-			}
-			else if ( ( srvFlags & SFLAG_DOUBLE_XP ) != 0 )
-			{
-				// Special-case: double-XP server flag
-				matches = true
-			}
+	else if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_PILOT ) )
+	{
+		if ( IsReskinnedPilot( entity ) || IsGhostPilot( entity ) )
+			matches = true
+	}
+	else if ( PlayerHasServerFlag( attacker, SFLAG_DOUBLE_XP ) )
+	{
+		// Special-case: double-XP server flag
+		matches = true
+	}
 
-			if ( matches )
-			{
-				if ( ( srvFlags & SFLAG_DOUBLE_XP ) != 0 )
-					baseXP *= 2.0
-				else
-					baseXP *= 2.5
+	if ( matches )
+	{
+		if ( PlayerHasServerFlag( attacker, SFLAG_DOUBLE_XP ) )
+			baseXP *= 2.0
+		else
+			baseXP *= 2.5
 
-				if ( "StealthBonus_Burncard" in level.scoreEventsByName )
-					scoreEventName = "StealthBonus_Burncard"
-			}
-		}
+		if ( "StealthBonus_Burncard" in level.scoreEventsByName )
+			scoreEventName = "StealthBonus_Burncard"
 	}
 
 	AddXP( baseXP, attacker )
@@ -1132,3 +1156,57 @@ function AwardStealthBonus( entity, damageInfo )
 	}
 }
 Globalize( AwardStealthBonus )
+
+
+function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = null )
+{
+	if ( !IsValid_ThisFrame( attacker ) || !attacker.IsPlayer() )
+		return
+
+	if ( hadPilot == null )
+	{
+		hadPilot = false
+
+		if ( IsValid( titan ) && titan.IsTitan() )
+		{
+			if ( typeof( TitanHasPilotInTitan ) == "function" )
+				hadPilot = TitanHasPilotInTitan( titan )
+			else if ( "pilotedtitans" in file )
+				hadPilot = ( titan in file.pilotedtitans )
+		}
+	}
+
+	if ( !hadPilot )
+		return
+
+	// Only fall back to reading the Titan if the caller didn't provide it
+	if ( isCaptain == null )
+	{
+		isCaptain = false
+
+		if ( IsValid( titan ) && "pilotIsNPCCaptain" in titan.s )
+			isCaptain = titan.s.pilotIsNPCCaptain
+	}
+
+	if ( isCaptain )
+	{
+		local eventName = "TerminationVsCaptain"
+
+		if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_GRUNT ) || PlayerHasServerFlag( attacker, SFLAG_DOUBLE_XP ) )
+			eventName = "BurnTerminationVsCaptain"
+
+		local titanParam = IsValid( titan ) ? titan : null
+		AddPlayerScore( attacker, eventName, titanParam )
+	}
+	else
+	{
+		local eventName = "TerminationVsReskinnedPilot"
+
+		if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_PILOT ) || PlayerHasServerFlag( attacker, SFLAG_DOUBLE_XP ) )
+			eventName = "BurnTerminationVsReskinnedPilot"
+
+		local titanParam = IsValid( titan ) ? titan : null
+		AddPlayerScore( attacker, eventName, titanParam )
+	}
+}
+Globalize( AwardPilotTermination )

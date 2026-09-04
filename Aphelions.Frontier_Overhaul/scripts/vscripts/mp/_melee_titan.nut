@@ -113,7 +113,25 @@ function MeleeThread_TitanVsTitan_Internal( actions, action, attacker, target )
 	attacker.PlayerMelee_ExecutionStartAttacker( 0 )
 	target.PlayerMelee_ExecutionStartTarget( attacker )
 
+	local hadPilot = false
+	local isCaptain = false
+
+	if ( typeof( TitanHasPilotInTitan ) == "function" )
+		hadPilot = TitanHasPilotInTitan( target )
+	else if ( "pilotedtitans" in file )
+		hadPilot = ( target in file.pilotedtitans )
+
+	if ( "pilotIsNPCCaptain" in target.s )
+		isCaptain = target.s.pilotIsNPCCaptain
+
 	waitthread func( actions, action, attacker, target )
+
+	thread AwardPilotTermination(
+		attacker,
+		IsValid( target ) ? target : null,
+		hadPilot,
+		isCaptain
+	)
 }
 
 
@@ -385,6 +403,7 @@ function MeleeThread_TitanRipsPilot( e, actions, action, attacker, target )
 	    prop.SetInvulnerable()
 	    prop.SetTeam( target.GetTeam() )
 	    prop.SetModel( attackerViewBody.GetModelName() )
+		prop.s.isPilotProp <- true
 	}
 
 	local soul = targetTitan.GetTitanSoul()
