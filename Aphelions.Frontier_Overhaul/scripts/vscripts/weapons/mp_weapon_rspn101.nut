@@ -69,3 +69,67 @@ function OnWeaponStartZoomOut()
 {
 	HandleWeaponSoundZoomOut( self, "Weapon.r1SMG.ADS" )
 }
+
+
+/////////////////////////////
+//// MAG RELOAD WIP BELOW ///
+/////////////////////////////
+/*
+
+function OnWeaponReload( reloadParams )
+{
+    if ( !IsServer() )
+        return
+
+    local wasEmpty = ( self.GetWeaponPrimaryClipCount() == 0 )
+
+    // prefer empty reload time if present, else fallback to normal reload time
+    local reloadTime = self.GetWeaponModSetting( "reloadempty_time" )
+    if ( !reloadTime || reloadTime <= 0 )
+        reloadTime = self.GetWeaponModSetting( "reload_time" )
+
+    // start named thread (project style)
+    thread HandleEmptyReloadComplete( self, wasEmpty, reloadTime )
+}
+
+function HandleEmptyReloadComplete( weapon, wasEmpty, reloadTime )
+{
+    // Wait for the nominal reload duration first
+    Wait( reloadTime )
+
+    if ( !IsValid( weapon ) )
+        return
+
+    if ( !IsServer() )
+        return
+
+    if ( !wasEmpty )
+        return
+
+    // Poll a short time for the engine to refill the mag (in case it refills slightly after the animation)
+    local attempts = 10
+    local delay = 0.05
+    for ( local i = 0; i < attempts; i++ )
+    {
+        if ( !IsValid( weapon ) )
+            return
+
+        local clip = weapon.GetWeaponPrimaryClipCount()
+
+        // If engine has refilled the mag (clip > 0), decrement one round and exit
+        if ( clip > 0 )
+        {
+            local newClip = max( 0, clip - 1 )
+            weapon.SetWeaponPrimaryClipCount( newClip )
+            printt( "[EmptyReload] adjusted clip from " + clip + " to " + newClip + " for " + weapon.GetClassname() )
+            return
+        }
+
+        Wait( delay )
+    }
+
+    // If we never saw a refill (rare), log for debugging
+    printt( "[EmptyReload] did not observe engine refill for " + weapon.GetClassname() )
+}
+
+*/
