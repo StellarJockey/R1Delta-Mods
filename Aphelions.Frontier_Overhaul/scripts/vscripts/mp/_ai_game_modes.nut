@@ -965,7 +965,11 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 
     // TITAN CREATION
     local titanDataTable = GetRandomTitanLoadout()
-    local titans = Random([ "titan_stryder", "titan_atlas", "titan_ogre" ]) // "titan_ctt"
+    local titans = Random([
+		"titan_stryder", "titan_stryder",
+		"titan_atlas", "titan_atlas",
+		"titan_ogre", "titan_ogre",
+		"titan_ctt", ])
     titanDataTable.setFile = titans
     local settings = titanDataTable.setFile
     titanDataTable.primary = Random([
@@ -996,8 +1000,8 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         titan.SetTitle( "#CHASSIS_ATLAS_NAME" )
     else if ( titans == "titan_ogre" )
         titan.SetTitle( "#CHASSIS_OGRE_NAME" )
-	// else if ( titans == "titan_ctt" )
-		// titan.SetTitle( "Destroyer" )
+	else if ( titans == "titan_ctt" )
+		titan.SetTitle( "Destroyer" )
     
 	titan.s.isTitan <- true
 
