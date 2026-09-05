@@ -966,12 +966,14 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
     // TITAN CREATION
     local titanDataTable = GetRandomTitanLoadout()
     local titans = Random([
-		"titan_stryder", "titan_stryder",
-		"titan_atlas", "titan_atlas",
-		"titan_ogre", "titan_ogre",
-		"titan_ctt", ])
+		"titan_stryder", "titan_stryder", "titan_stryder",
+		"titan_atlas", "titan_atlas", "titan_atlas",
+		"titan_ogre", "titan_ogre", "titan_ogre",
+		"titan_ctt", ]) // weighted distribution to make Destroyers more rare
+
     titanDataTable.setFile = titans
     local settings = titanDataTable.setFile
+
     titanDataTable.primary = Random([
         "mp_titanweapon_arc_cannon",
         "mp_titanweapon_rocket_launcher",
@@ -1042,7 +1044,10 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
     titan.kv.faceEnemyWhileMovingDistSq = 1024 * 1024
 
     GiveTitanRandomShoulderWeapon( titan )
-    AllowTeamRodeo( titan, true )
+	AllowTeamRodeo( titan, true )
+
+	if ( titans == "titan_ctt" )
+    	DisableRodeo( titan ) // Nexon didn't model the rodeo hatch ffs
 
 	local tacChoice = RandomInt( 3 )
     if ( tacChoice == 0 )
