@@ -437,6 +437,33 @@ function ControlMatchmakingServerLobbyLogic()
 	}
 }
 
+function SelectNextVarietyPackMap( previousMap )
+{
+	local availableMaps = DLCFilterMaps( GetPlaylistUniqueMaps( VARIETY_PACK ) )
+	if ( availableMaps.len() == 0 )
+		return previousMap
+
+	local votedMap = GetConVarString( "delta_vote_next_map" )
+	if ( votedMap != "" )
+	{
+		ServerCommand( "delta_vote_next_map \"\"" )
+		if ( ArrayContains( availableMaps, votedMap ) )
+			return votedMap
+	}
+
+	local nextMaps = []
+	foreach ( mapName in availableMaps )
+	{
+		if ( mapName != previousMap )
+			nextMaps.append( mapName )
+	}
+
+	if ( nextMaps.len() == 0 )
+		return availableMaps[0]
+
+	return nextMaps[ RandomInt( 0, nextMaps.len() - 1 ) ]
+}
+
 function PrivateMatchLobbyLogic()
 {
 	OnThreadEnd(
@@ -470,17 +497,20 @@ function PrivateMatchLobbyLogic()
 	local tickTime
 	local lastTickTime
 
-	local mapName = GetLastServerMap()
-	if ( (mapName in getconsttable().ePrivateMatchMaps) )
-		level.ui.privatematch_map = getconsttable().ePrivateMatchMaps[mapName]
-
 	local modeName = GetLastServerGameMode()
 
 	// I don't like ctf
-    if (modeName == null)
+    if ( modeName == null )
 		modeName = "at"
 
-	if ( (modeName in getconsttable().ePrivateMatchModes) )
+	local mapName = GetLastServerMap()
+	if ( modeName == VARIETY_PACK )
+		mapName = SelectNextVarietyPackMap( GetConVarString( "host_mostRecentMap" ) )
+
+	if ( mapName in getconsttable().ePrivateMatchMaps )
+		level.ui.privatematch_map = getconsttable().ePrivateMatchMaps[mapName]
+
+	if ( modeName in getconsttable().ePrivateMatchModes )
 		level.ui.privatematch_mode = getconsttable().ePrivateMatchModes[modeName]
 
 	mapName = GetMapNameForEnum( level.ui.privatematch_map )
@@ -528,11 +558,10 @@ function PrivateMatchLobbyLogic()
 	}
 
 	printt( "Launch it!" )
-	if (modeName == "campaign_carousel") {
+	if ( IsMultiGamemodePlaylist( modeName ) )
 		GameRules_ChangeCampaignMap( mapName, modeName )
-	} else {
+	else
 		GameRules_ChangeMap( mapName, modeName )
-	}
 }
 
 

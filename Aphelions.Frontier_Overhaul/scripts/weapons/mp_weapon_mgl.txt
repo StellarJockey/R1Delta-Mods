@@ -303,6 +303,9 @@ WeaponData
 			"is_burn_mod"		"1"
 		}
 
+		gun_game
+		{
+		}
 	}
 
 
