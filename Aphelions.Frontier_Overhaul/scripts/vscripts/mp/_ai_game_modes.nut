@@ -1046,9 +1046,6 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
     GiveTitanRandomShoulderWeapon( titan )
 	AllowTeamRodeo( titan, true )
 
-	if ( titans == "titan_ctt" )
-    	DisableRodeo( titan ) // Nexon didn't model the rodeo hatch ffs
-
 	local tacChoice = RandomInt( 3 )
     if ( tacChoice == 0 )
     {
