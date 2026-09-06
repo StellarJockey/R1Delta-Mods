@@ -6,9 +6,6 @@ SUPPRESSORS:
 * Suppressors have been tweaked across the board to be more viable, especially with secondaries and snipers
 * Getting a kill with a suppressor on an enemy who doesn't have line of sight on you will reward you a +20xp "Stealth Bonus"
 
-ARC GRENADES:
-* Will only insta-kill grunts, takes two to kill NPC Pilots and Grunt Captains
-
 R101-C CARBINE:
 * Small increase to ADS recoil
 * Small increase to weapon spread
@@ -43,6 +40,7 @@ KRABER:
 //////////////////////////////
 ///// PILOT SECONDARIES //////
 //////////////////////////////
+
 P2011:
 * Will 3-shot Pilots and Grunts at close range instead of 4
 * Burn card version adds an 3 extra rounds to your mag
@@ -55,16 +53,28 @@ TWIN-B:
 * Does enough damage to one-shot grunt captains (250 health) at close range 
 * Added Double Tap mod to fire both barrels (almost) at once
 
+//////////////////////////////
+////// PILOT ORDNANCE ////////
+//////////////////////////////
+
 THROWING KNIFE:
 * Added the knife from Gun Game as an ordnance, ideal for stealthy builds
+
+ARC GRENADES:
+* Will only insta-kill grunts, takes two to kill NPC Pilots and Grunt Captains
+
+DEPLOYABLE COVER:
+* Added Deployable Cover as a new Pilot Tactical
 
 //////////////////////////////
 ///// ANTI-TITAN WEAPONS /////
 //////////////////////////////
+
 ARCHER:
 * Added Guided Missile mod
 
 MAG LAUNCHER:
+* Small damage buff
 * Added an Extended Mag mod
 
 CHARGE RIFLE:
@@ -74,6 +84,7 @@ CHARGE RIFLE:
 //////////////////////////////
 ////// TITAN PRIMARIES ///////
 //////////////////////////////
+
 QUAD ROCKET:
 * Damage buff against Titans
 
@@ -94,6 +105,7 @@ AG-8 THUNDERBOLT:
 //////////////////////////////
 /////// TITAN ORDNANCE ///////
 //////////////////////////////
+
 SLAVED WARHEADS:
 * Small damage buff
 
