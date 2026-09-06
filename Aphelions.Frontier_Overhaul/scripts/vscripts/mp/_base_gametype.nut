@@ -68,7 +68,8 @@ function main()
 
 		AddClientCommandCallback( "PrivateMatchEndMatch", ClientCommand_PrivateMatchEndMatch )
 		AddClientCommandCallback( "SwitchMe", ClientCommand_SwitchMe )
-
+		AddClientCommandCallback( "switchme", ClientCommand_SwitchMe )
+		
 		AddCallback_GameStateEnter( eGameState.Playing, GameStart_AutoBalanceCooldown )
 
 		MarkTeamsAsBalanced_On()
