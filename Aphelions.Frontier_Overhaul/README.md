@@ -8,10 +8,12 @@ Frontier Overhaul is a heavily modified version of Extended Attrition. This is a
 This mod currently includes:
 -
 * Spectre rodeos and grenade-tossing minions
-* Sniper Spectres, Suicide Spectres, Ghost Pilots, and Cloak Drones that spawn in the mid-late game
-* Exclusive weapon mods/attachments
+* Grunt Captains and NPC Pilots
+* Sniper Spectres, Suicide Spectres, Ghost Pilots, and Cloak Drones that spawn mid-late game
+* Exclusive weapon mods/attachments with original icons
 * Works for Attrition, Hardpoint, CTF, Frontier Defense, and Titan Brawl
-* A rework for the Thunderbolt Titan minigun
+* A drastic rework of the Thunderbolt Titan minigun
+* Destroyer Titan as a rare NPC mini-boss
 * Comes bundled with several other mods!
 
 
@@ -28,14 +30,14 @@ What other mods does this include?
 * ASillyNeko's Extended Attrition
 * Aphelion's Enhanced Item Descriptions
 
-These come included because, taken separately, they will cause scripting conflicts with FO and break the game. They've since been integrated, meaning this also serves as an unofficial modpack for R1Delta.
+These come included because, taken separately, they will cause scripting conflicts with FO and break the game; meaning this also serves as an unofficial modpack for R1Delta.
 
 
 How do the NPC Pilots work?
 -
 * Currently, they are just re-skinned Grunts. They have max accuracy, increased movement speed, and can use any Pilot primary. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter). Since they're just Grunt model-swaps, they will only grant 1 point when killed in Attrition. They have 200 HP (same as a human player) but are nowhere near as intelligent.
-* There is also a rare chance for NPC "Ghost Pilots" to spawn that function similarly to Sniper Spectres. The difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and they will never appear on the minimap.
-* Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro. Wall-running seems to be near-impossible to implement… at the present moment, anyways.
+* There is also a rare chance for NPC "Ghost Pilots" to spawn that function similarly to Sniper Spectres. The difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and they will not appear on the minimap.
+* Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro. Wall-running seems to be near-impossible to implement… at the present moment.
 
 
 How does the evac work?
@@ -59,7 +61,7 @@ How do the objective-based modes work?
 -
 Hardpoint Domination:
 
-* Grunts will (kind of) push the objective. The AI is still a work-in-progress. As a player, you will cap points slightly faster than in the base game. Enemies will capture points much faster than yours. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any Grunts/player if it gets inside the capture zone.
+* Grunts will (kind of) push the objective. The AI is still a work-in-progress. As a player, you will cap points slightly faster than in the base game. Enemies will capture points much faster. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any Grunts/player if it gets inside the capture zone.
 
 Capture the Flag:
 
@@ -68,19 +70,12 @@ Capture the Flag:
 
 What weapons have been changed?
 -
-The list is quite extensive, so look at the WEAPON\_CHANGES.txt file. It's mostly weapon buffs for those that needed it, as well as some FO-exclusive mods. All NPC weapons will now do the same damage as player weapons. These FO-exclusive weapon mods will not carry over into regular MP matches.
-
-*DO NOT use the Titan Minigun in MP. It hasn't been fixed in base R1 yet!*
+The list is quite extensive (see the WEAPON\_CHANGES.txt file). It's mostly weapon buffs for those that needed it, as well as some FO-exclusive mods that will not carry over into regular MP matches. All NPC weapons will now do the same damage as player weapons.
 
 
 Can I turn down the difficulty?
 -
 Yes. By default, this mod sets the AI lethality to Very High. Simply bump it down to High or Normal if you find the AI to be too overbearing. They'll still do the same damage as a player; they'll just be less accurate.
-
-
-What enemies does this include?
--
-Grunts, Grunt Captains, Spectres, Spectre variants, NPC "Pilots", Ghost Pilots, NPC Titans, and Cloak Drones. This is basically a fusion of regular MP and Frontier Defense.
 
 
 How do the Spectre variants work?
@@ -91,9 +86,9 @@ SNIPER SPECTRES:
 
 SUICIDE SPECTRES:
 
-* There is a random chance for a wave of them to spawn after 4.5 minutes. They have 1200 HP so that Grunts don't drop them immediately. They will die without exploding if they take enough damage. They also do increased damage to both Pilots and Titans.
-* Any Grunt/Spectre/Pilot melee will instant-kill them without blowing up, as will any kind of electrical damage.
-* Getting stepped on by a Titan or hit by any Titan weapon will blow them up, as will any kind of laser damage.
+* There is a random chance for a wave of them to spawn after 4.5 minutes. They have 1200 HP so that Grunts don't drop them immediately. They do increased damage to both Pilots and Titans, but will die without exploding if they take enough damage. 
+* A Pilot melee will instant-kill them without blowing up, as will any kind of electrical damage.
+* Getting stepped on by a Titan, hit by any Titan weapon, or any laser damage WILL blow them up.
 
 
 Is it possible to use this mod for a server?
