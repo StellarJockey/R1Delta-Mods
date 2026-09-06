@@ -4956,6 +4956,18 @@ function CloakedDroneCloakThink( cloakedDrone )
 	{
 		local origin = cloakedDrone.GetOrigin() + offset
 		local ai = GetNPCArrayEx( "any", cloakedDrone.GetTeam(), origin, radius )
+		
+		local players = GetPlayerArray() // Have to manually add players to the array
+		foreach( player in players )
+		{
+			if ( player.GetTeam() == cloakedDrone.GetTeam() )
+			{
+				if ( Distance( player.GetOrigin(), origin ) <= radius )
+				{
+					ai.append( player )
+				}
+			}
+		}
 		local index = 0
 
 		local waitTime = 1.5
@@ -4980,13 +4992,16 @@ function CloakedDroneCloakThink( cloakedDrone )
 			if ( guy.GetTeam() != droneTeam )
 				continue
 
-			if ( !( guy.IsTitan() || guy.IsSpectre() || guy.IsSoldier() ) )
+			if ( !( guy.IsTitan() || guy.IsSpectre() || guy.IsSoldier() || guy.IsPlayer() ) )
+				continue
+			
+			if ( !guy.IsPlayer() && IsGhostPilot( guy ) )
 				continue
 
-			if ( IsSniperSpectre( guy ) )
+			if ( !guy.IsPlayer() && IsSniperSpectre( guy ) )
 				continue
 
-			if ( IsTitanBeingRodeod( guy ) )
+			if ( !guy.IsPlayer() && IsTitanBeingRodeod( guy ) )
 				continue
 
 			local canSee = guy.IsTitan() ? true : cloakedDrone.CanSee( guy ) // Titans are big, bypass LoS check
@@ -5085,7 +5100,10 @@ function CloakedDronePathThink( cloakedDrone )
 				if ( !IsAlive( guy ) )
 					continue
 
-				if ( !( guy.IsTitan() || guy.IsSpectre() || guy.IsSoldier() ) )
+				if ( !( guy.IsTitan() || guy.IsSpectre() || guy.IsSoldier() || guy.IsPlayer() ) )
+					continue
+				
+				if ( IsGhostPilot( guy ) )
 					continue
 
 				if ( IsSniperSpectre( guy ) )
