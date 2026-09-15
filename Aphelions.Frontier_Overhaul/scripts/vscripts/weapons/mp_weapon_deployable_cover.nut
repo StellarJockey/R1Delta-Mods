@@ -137,6 +137,7 @@ function ManageDeployableCoverCooldown( weapon, player )
 		return
 	
 	// Get cooldown duration from weapon mod settings
+	// Same as *0.66 OG value
 	local cooldown = PlayerHasPassive( player, PAS_POWER_CELL) ? 16.67 : 25.0
 	
 	// Wait for cooldown to expire

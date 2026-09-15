@@ -282,7 +282,8 @@ function GetRandomBurnCardGroup()
 	return Random( level.burnCardGroups )
 }
 
-const frag_flavor = "''In case of ticking sound, evacuate immediately and contact emergency services.''"
+const frag_flavor = "\"In case of ticking sound, evacuate immediately and contact emergency services.\""
+const refurb_atlas = "\"If your Auto-Titan exhibits signs of stress or anxiety, check for enemy riders and then relocate to a calmer environment.\""
 
 function CreateAllBurnCards()
 {
@@ -333,7 +334,7 @@ function CreateAllBurnCards()
 	CreateBurnCardSrvFlag( "bc_hunt_spectre",			BURNCARD_COMMON, 	BCGROUP_BONUS,		CT_HUNT | CT_XP | CT_NPC |	CT_SPECTRE |CT_BUILDTIME	, "burncards/burncard_art_36", 	BC_NEXTDEATH, 		"#BC_HUNT_SPECTRE"		    , "#BC_HUNT_SPECTRE_DESC"		, "#BC_HUNT_SPECTRE_FLAVOR"		   		, "#BC_FLAVOR_SPYGLASS",		SFLAG_HUNTER_SPECTRE, 			null,							null,			null						)
 	CreateBurnCardSrvFlag( "bc_hunt_pilot", 			BURNCARD_COMMON, 	BCGROUP_BONUS,		CT_HUNT | CT_XP | CT_PILOT |	CT_BUILDTIME			, "burncards/burncard_art_37", 	BC_NEXTDEATH, 		"#BC_HUNT_PILOT" 		   	, "#BC_HUNT_PILOT_DESC" 		, "#BC_HUNT_PILOT_FLAVOR" 		   		, "#BC_FLAVOR_GRAVES",			SFLAG_HUNTER_PILOT, 			null,							null,			null						)
 	CreateBurnCardSrvFlag( "bc_hunt_titan", 			BURNCARD_COMMON, 	BCGROUP_BONUS,		CT_HUNT | CT_XP | CT_TITAN |	CT_BUILDTIME			, "burncards/burncard_art_38", 	BC_NEXTDEATH, 		"#BC_HUNT_TITAN" 		   	, "#BC_HUNT_TITAN_DESC" 		, "#BC_HUNT_TITAN_FLAVOR" 		   		, "#BC_FLAVOR_SCRAPYARD",		SFLAG_HUNTER_TITAN, 			null,							null,			null						)
-	CreateBurnCardOnSpawn( "bc_summon_atlas",			BURNCARD_RARE,	 	BCGROUP_BONUS, 		CT_TITAN |		CT_NPC |		CT_BUILDTIME			, "burncards/burncard_art_54", 	BC_NEXTTITAN, 		"#BC_SUMMON_ATLAS"		    , "#BC_SUMMON_ATLAS_DESC"		, "#BC_SUMMON_ATLAS_FLAVOR"		   		, "#BC_FLAVOR_MANUAL",			null,							null,							null,			null						)
+	CreateBurnCardOnSpawn( "bc_summon_atlas",			BURNCARD_RARE,	 	BCGROUP_BONUS, 		CT_TITAN |		CT_NPC |		CT_BUILDTIME			, "burncards/burncard_art_54", 	BC_NEXTTITAN, 		"#BC_SUMMON_ATLAS"		    , "#BC_SUMMON_ATLAS_DESC"		, refurb_atlas					   		, "#BC_FLAVOR_MANUAL",			null,							null,							null,			null						)
 	CreateBurnCardOnSpawn( "bc_summon_ogre",			BURNCARD_RARE,	 	BCGROUP_BONUS, 		CT_TITAN |		CT_NPC |		CT_BUILDTIME			, "burncards/burncard_art_55", 	BC_NEXTTITAN, 		"#BC_SUMMON_OGRE"		   	, "#BC_SUMMON_OGRE_DESC"		, "#BC_SUMMON_OGRE_FLAVOR"		   		, "#BC_FLAVOR_SALESMAN",		null,							null,							null,			null						)
 	CreateBurnCardOnSpawn( "bc_summon_stryder",			BURNCARD_RARE,	 	BCGROUP_BONUS, 		CT_TITAN |		CT_NPC |		CT_BUILDTIME			, "burncards/burncard_art_56", 	BC_NEXTTITAN, 		"#BC_SUMMON_STRYDER"	    , "#BC_SUMMON_STRYDER_DESC"		, "#BC_SUMMON_STRYDER_FLAVOR"			, "#BC_FLAVOR_GRAVES",			null,							null,							null,			null						)
 	//CreateBurnCardOnSpawn( "bc_free_xp",				BURNCARD_RARE, 		BCGROUP_BONUS, 		CT_XP													, "burncards/burncard_art_61", 	BC_NEXTSPAWN, 		"#BC_FREE_XP"	    		, "#BC_FREE_XP_DESC"	    	, "#BC_FREE_XP_FLAVOR"					, "#BC_FLAVOR_ADVOCATE",		null,							null,							null,			null						)
@@ -364,11 +365,11 @@ function CreateAllBurnCards()
 	const minigun_desc = "Replace Titan Weapon with an AG-8 Thunderbolt that fires instantly with no wind up."
 	const chargecannon_desc = "Charge Cannon reaches its maximum charge faster."
 
-	const twinb_flavor = "''Technically, it's only illegal if it's not registered.''"
-	const valk_flavor = "''There are many like it, but this one is mine.''"
-	const wys_flavor = "''We really just said 'screw it' with this one.''"
-	const minigun_flavor = "''A threat in that direction? Solid copy. Removing that direction.''"
-	const chargecannon_flavor = "''To avoid long-term eye damage, do not look directly into the beam.''"
+	const twinb_flavor = "\"Technically, it's only illegal if it's not registered.\""
+	const valk_flavor = "\"There are many like it, but this one is mine.\""
+	const wys_flavor = "\"We really just said 'screw it' with this one.\""
+	const minigun_flavor = "\"A threat in that direction? Solid copy. Removing that direction.\""
+	const chargecannon_flavor = "\"To avoid long-term eye damage, do not look directly into the beam.\""
 
 	const Wonyeon = "-Wonyeon Internal Memo"
 	const danforth = "-Danforth, Arms Dealer"
@@ -378,9 +379,9 @@ function CreateAllBurnCards()
 
 	CreateBurnCardWeapon( "bc_valkyrie_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SNIPER					, "burncards/amped_valkyrie",			BC_NEXTDEATH, 		"#BC_VALKYRIE_M2"				, valk_desc							, valk_flavor							, vaughan, 					"mp_weapon_mega1",			"burn_mod_valkyrie",			"PRIMARY"			)
 	CreateBurnCardWeapon( "bc_twinb_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SMG					, "burncards/amped_twinb",				BC_NEXTDEATH, 		"#BC_TWINB_SHOTGUN_M2"			, twinb_desc						, twinb_flavor							, "#BC_FLAVOR_DANFORTH",	"mp_weapon_mega2",			"burn_mod_twinb",				"SIDEARM"			)
-	//CreateBurnCardWeapon( "bc_titan_shotgun_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_titan_shotgun", 		BC_NEXTTITANDROP, 	"#BC_TITAN_SHOTGUN_M2"			, "#BC_TITAN_SHOTGUN_M2_DESC"		, "#BC_TITAN_SHOTGUN_M2_FLAVOR"			, "#BC_FLAVOR_WONYEON",		"mp_titanweapon_shotgun",	"burn_mod_titan_shotgun", 		"TITAN_PRIMARY"		)
+	CreateBurnCardWeapon( "bc_titan_shotgun_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_titan_shotgun", 		BC_NEXTTITANDROP, 	"#BC_TITAN_SHOTGUN_M2"			, "#BC_TITAN_SHOTGUN_M2_DESC"		, "#BC_TITAN_SHOTGUN_M2_FLAVOR"			, "#BC_FLAVOR_WONYEON",		"mp_titanweapon_shotgun",	"burn_mod_titan_shotgun", 		"TITAN_PRIMARY"		)
 	//CreateBurnCardWeapon( "bc_thunderbolt_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_thunderbolt", 		BC_NEXTTITANDROP, 	"#BC_TITAN_MINIGUN_M2"			, "#BC_TITAN_MINIGUN_M2_DESC"		, "#BC_TITAN_MINIGUN_M2_FLAVOR"			, "#BC_FLAVOR_PILOT",		"mp_weapon_mega3",			"burn_mod_thunderbolt", 		"TITAN_PRIMARY"		)
-	CreateBurnCardWeapon( "bc_titan_charge_cannon_m2",			BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_TACTICAL				, "burncards/amped_charge_cannon", 		BC_NEXTTITANDROP, 	"#BC_TITAN_CHARGE_CANNON_M2"	, "#BC_TITAN_CHARGE_CANNON_M2_DESC"	, chargecannon_flavor					, warninglabel,				"mp_weapon_mega4",			"burn_mod_titan_charge_cannon",	"TITAN_OFFHAND1"	)
+	//CreateBurnCardWeapon( "bc_titan_charge_cannon_m2",			BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_TACTICAL				, "burncards/amped_charge_cannon", 		BC_NEXTTITANDROP, 	"#BC_TITAN_CHARGE_CANNON_M2"	, "#BC_TITAN_CHARGE_CANNON_M2_DESC"	, chargecannon_flavor					, warninglabel,				"mp_weapon_mega4",			"burn_mod_titan_charge_cannon",	"TITAN_OFFHAND1"	)
 
 	if ( IsServer() )
 	{

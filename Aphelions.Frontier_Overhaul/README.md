@@ -1,7 +1,5 @@
 (Thank you to ASILLYNEKO and FRANN for making the original Extended Attrition mod!)
 
-**Mod authors**: ASillyNeko, Frann, 07zj, Nachos, StoneCold, Claude (AI), and Aphelion
-
 Frontier Overhaul is a heavily modified version of Extended Attrition. This is an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
 
@@ -12,7 +10,7 @@ This mod currently includes:
 * Sniper Spectres, Suicide Spectres, Ghost Pilots, and Cloak Drones that spawn mid-late game
 * Exclusive weapon mods/attachments with original icons
 * Works for Attrition, Hardpoint, CTF, Frontier Defense, and Titan Brawl
-* A drastic rework of the Thunderbolt Titan minigun
+* A rework for the Thunderbolt Titan minigun
 * Destroyer Titan as a rare NPC mini-boss
 * Comes bundled with several other mods!
 
@@ -20,17 +18,6 @@ This mod currently includes:
 Does this work for Campaign?
 -
 Yes! With this mod, TF|1's "campaign" is now fully playable offline.
-
-
-What other mods does this include?
--
-* Nachos' One-Handed Wallrun
-* Nachos' Weapon Script Fixes
-* Nachos' Rebreather Masks for Militia Grunts
-* ASillyNeko's Extended Attrition
-* Aphelion's Enhanced Item Descriptions
-
-These come included because, taken separately, they will cause scripting conflicts with FO and break the game; meaning this also serves as an unofficial modpack for R1Delta.
 
 
 How do the NPC Pilots work?
@@ -101,10 +88,12 @@ What other quality of life changes are there?
 * IMC Spectres now use the Militia (Mk.I) model on The Refueling Raid, since the Mk.II model isn't canonically introduced until The Colony.
 * The team you pick in the lobby will always be the team you're assigned to in-game.
 * Campaign mission briefings will now play in full.
-* Cloak drones and Spectre variants will not spawn in campaign, since those are canonically introduced afterwards.
+* Cloak drones, Destroyers, and Spectre variants will not spawn in campaign, since those are canonically introduced afterwards.
 * Titans will have a chance to use any Titan execution, regardless of the chassis, since they were all animated. This makes things less visually repetitive.
 
 
 Good luck, have fun!
 -
 That's an order.
+
+**Mod authors**: ASillyNeko, Frann, 07zj, Nachos, StoneCold, Claude (AI), and Aphelion

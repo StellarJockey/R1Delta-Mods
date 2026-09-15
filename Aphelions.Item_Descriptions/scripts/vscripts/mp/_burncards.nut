@@ -1,4 +1,4 @@
-function main()
+function main() // FO
 {
     RegisterSignal("StartBurnCardEffect")
     IncludeScript( "_burncards_shared" );
@@ -10,8 +10,8 @@ function main()
     PrecacheModel( MILITIA_SPECTRE_MODEL )
     PrecacheModel( IMC_SPECTRE_MODEL )
     AddCallback_OnClientConnected( BCOnClientConnected )
-	
-    AddSpawnCallback( "npc_grenade_frag", BCGrenadeCreatedCallback )
+
+	AddSpawnCallback( "npc_grenade_frag", BCGrenadeCreatedCallback )
 }
 
 function BCOnClientConnected( player )
@@ -242,6 +242,39 @@ function ApplyPilotWeaponBurnCards_Threaded( player, cardRef )
 
         player.SetActiveWeapon(weaponData.weapon)
     }
+
+    // This fucking sucks i hate this bug
+    for ( ;; )
+    {
+        if ( player.IsTitan() && ( cardData.ctFlags & CT_WEAPON ) )
+        {
+            local weapons = player.GetMainWeapons()
+            foreach( weapon in weapons )
+            {
+                local className = weapon.GetClassname()
+                if ( className == weaponData.weapon && weapon.GetMods() == weaponData.mods )
+                {
+                    player.TakeWeapon( className )
+                    printt( "Removed burncard weapon ", className, " from player ", player.GetPlayerName() )
+                }
+            }
+
+            // Dont think this one can actually happen
+            /*
+            local i = 0
+            weapons = player.GetOffhandWeapons()
+            foreach( weapon in weapons )
+            {
+                if ( weapon.GetClassname() == weaponData.weapon && weapon.GetMods() == weaponData.mods )
+                    player.TakeOffhandWeapon( i )
+                i++
+            }
+            */
+
+        }
+
+        wait 0.1
+    }
 }
 
 function DoSummonTitanBurnCard( player, cardRef )
@@ -379,9 +412,13 @@ function ApplyAmpedTactical( player, cardRef )
 // account for edge cases where it makes no sense to actually use the card
 function IsBurnCardEdgeCaseUseValid( player, cardRef )
 {
-    local cardData = GetBurnCardData( cardRef )
+    // Just blanket ban all of them
+	if ( GameRules.GetGameMode() == GUN_GAME )
+		return false
 
-    if ( cardData.ctFlags & CT_TITAN || cardData.ctFlags & CT_BUILDTIME )
+	local cardData = GetBurnCardData( cardRef )
+
+	if ( cardData.ctFlags & CT_TITAN || cardData.ctFlags & CT_BUILDTIME )
     {
         if ( Riff_TitanAvailability() == eTitanAvailability.Never )
             return false
@@ -838,23 +875,23 @@ function BCSpiderSense_Think( player )
             if ( !IsAlive( guy ) )
                 continue
 
-            if ( GetOtherTeam( player ) == guy.GetTeam() )
+            if ( ShouldPreventFriendlyFire( guy, player ) )
+                continue
+
+            local distance = Distance( player.GetOrigin(), guy.GetOrigin() )
+
+            if ( distance < 1000 && distance >= 500 )
             {
-                local distance = Distance( player.GetOrigin(), guy.GetOrigin() )
+                EmitSoundOnEntityOnlyToPlayer( player, player, "BurnCard_SpiderSense_DistantWarn" )
+                Remote.CallFunction_Replay( player, "ServerCallback_SpiderSense" )
+                wait 1.25
+            }
 
-                if ( distance < 1000 && distance >= 500 )
-                {
-                    EmitSoundOnEntityOnlyToPlayer( player, player, "BurnCard_SpiderSense_DistantWarn" )
-                    Remote.CallFunction_Replay( player, "ServerCallback_SpiderSense" )
-                    wait 1.25
-                }
-
-                if ( distance < 500 )
-                {
-                    EmitSoundOnEntityOnlyToPlayer( player, player, "BurnCard_SpiderSense_CloseWarn" )
-                    Remote.CallFunction_Replay( player, "ServerCallback_SpiderSense" )
-                    wait 1.25
-                }
+            if ( distance < 500 )
+            {
+                EmitSoundOnEntityOnlyToPlayer( player, player, "BurnCard_SpiderSense_CloseWarn" )
+                Remote.CallFunction_Replay( player, "ServerCallback_SpiderSense" )
+                wait 1.25
             }
         }
 

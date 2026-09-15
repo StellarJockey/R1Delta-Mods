@@ -17,6 +17,7 @@ FlagSet("Disable_SPECTRE")
 
 IncludeFile( "mp/_sniper_spectres" )
 IncludeFile( "mp/_suicide_spectres" )
+IncludeFile( "mp/_ai_npc_pilots" )
 
 const RPG_USE_RARE = 0
 const RPG_USE_SOMETIMES = 1
@@ -82,8 +83,6 @@ function main()
 	Globalize( EnemyChanged_Rocket )
 	Globalize( ResetNPCs )
 	Globalize( IsGruntCaptain )
-	Globalize( IsReskinnedPilot )
-	Globalize( IsGhostPilot )
 
 	Globalize( Spawn_GruntSquad )
 	Globalize( Spawn_SpectreSquad )
@@ -165,87 +164,6 @@ function main()
 	RegisterSignal("Stop_SimulateGrenadeThink")
 }
 
-function GetRandomPilotName( team )
-{
-	local imcCodeNames = [
-		"Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo",
-		"Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform",
-		"Victor", "Whiskey", "Xray", "Yankee", "Zulu", "Steel", "Raven", "Falcon", "Silver", "Roach",
-		"Io", "Ganymede", "Callisto", "Europa", "Gold", "Red", "Blue", "Indigo", "June", "August",
-		"Beta", "Gamma", "Eta", "Omicron", "Epsilon", "Rho", "Tau", "Zeta",
-	]
-	local militiaNames = [
-		"Jackson", "Rodriguez", "Williams", "Wilson", "Moore", "Asgeirsson", "White", "Lewis", "Clark", "Walker",
-		"Baker", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hanes", "Stokes",
-		"Bohr", "Allen", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr",
-		"Barnes", "Hernandez", "Greene", "Higgins", "Burke", "Rodgers", "Chang", "Gore", "Vargas", "Gruzinsky",
-		"Wood", "Everett", "Namir", "Hale", "Hermann", "Dutch", "Wayans",
-	]
-
-	if ( team == TEAM_IMC )
-		return "Pilot " + Random( imcCodeNames )
-	else
-		return "Pilot " + Random( militiaNames )
-}
-Globalize( GetRandomPilotName )
-
-function ChoosePilotModelForWeapon( team, weapon )
-{
-    local pilotmodels = []
-    local title = ""
-
-    if ( team == TEAM_MILITIA ) {
-        pilotmodels = [
-            "models/Humans/mcor_pilot/male_br/mcor_pilot_male_br.mdl",
-            "models/Humans/mcor_pilot/male_cq/mcor_pilot_male_cq.mdl",
-            "models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl"
-        ]
-        
-		title = GetRandomPilotName( team )
-        
-    } else {
-        pilotmodels = [
-            "models/Humans/imc_pilot/male_br/imc_pilot_male_br.mdl",
-            "models/humans/imc_pilot/male_cq/imc_pilot_male_cq.mdl",
-            "models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
-        ]
-        
-		title = GetRandomPilotName( team )
-    }
-    
-	// Determine the correct model based on the weapon equipped
-    local modelIndex = 0
-    switch ( weapon )
-    {
-        case "mp_weapon_rspn101":
-        case "mp_weapon_car":
-        case "mp_weapon_lmg":
-        case "mp_weapon_hemlok":
-            modelIndex = 0 // br
-            break
-
-        case "mp_weapon_shotgun":
-        case "mp_weapon_r97":
-        case "mp_weapon_smart_pistol":
-            modelIndex = 1 // cq
-            break
-
-        case "mp_weapon_dmr":
-        case "mp_weapon_sniper":
-        case "mp_weapon_g2":
-        case "mp_weapon_mega1":
-            modelIndex = 2 // dm
-            break
-
-        default:
-            // fallback to first model if unknown weapon
-            modelIndex = 0
-            break
-    }
-
-    return pilotmodels[ modelIndex ]
-}
-Globalize( ChoosePilotModelForWeapon )
 
 function ClientCommand_SpawnViewGrunt( player, ... )
 {
@@ -835,150 +753,6 @@ function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapo
     return guy
 }
 
-function IsReskinnedPilot( npc )
-{
-    return ( "s" in npc && "isPilot" in npc.s && npc.s.isPilot )
-}
-
-function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
-{
-    local pilotWeapons = [
-		"mp_weapon_rspn101",
-		"mp_weapon_shotgun",
-		"mp_weapon_dmr",
-		"mp_weapon_r97",
-		"mp_weapon_hemlok",
-		"mp_weapon_g2",
-		"mp_weapon_car",
-		"mp_weapon_mega1",
-		"mp_weapon_lmg",
-		"mp_weapon_sniper",
-		"mp_weapon_smart_pistol",
-	]
-
-    if ( weapon == null )
-        weapon = pilotWeapons[ RandomInt( pilotWeapons.len() ) ]
-
-    local guy = SpawnGrunt( team, squadName, origin, angles, alert, weapon, hidden, false )
-
-    local title = ""
-    if ( team == TEAM_MILITIA )
-        title = GetRandomPilotName( team )
-    else
-        title = GetRandomPilotName( team )
-
-    // Determine the correct model based on the weapon equipped using centralized helper
-    local model = ChoosePilotModelForWeapon( team, weapon )
-    guy.SetModel( model )
-
-    guy.SetTitle( title )
-
-	if ( "s" in guy && "IsSoldier" in guy.s )
-		guy.s.IsSoldier <- false
-    guy.s.isPilot <- true
-
-    guy.kv.health = 200
-    guy.kv.max_health = 200
-    guy.kv.AccuracyMultiplier = 4
-    guy.kv.WeaponProficiency = 4
-	guy.s.useRPGPreference = RPG_USE_SOMETIMES
-	guy.SetMoveSpeedScale( 1.15 )
-	guy.PreferSprint( true )
-	guy.SetHearingSensitivity( 10 )
-
-    return guy
-}
-Globalize( SpawnPilotInfantry )
-
-function IsGhostPilot( npc )
-{
-    return ( "s" in npc && "isGhostPilot" in npc.s && npc.s.isGhostPilot )
-}
-
-function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
-{
-    // LMG intentionally excluded because it has no silencer 
-    local pilotWeapons = [
-        "mp_weapon_rspn101",
-        "mp_weapon_shotgun",
-        "mp_weapon_dmr",
-        "mp_weapon_r97",
-        "mp_weapon_hemlok",
-        "mp_weapon_g2",
-        "mp_weapon_car",
-        "mp_weapon_mega1",
-        "mp_weapon_sniper",
-        "mp_weapon_smart_pistol",
-    ]
-
-    local chosenWeapon = Random( pilotWeapons )
-
-    // Spawn with SpawnPilotInfantry so the model is chosen consistently for the weapon
-    local ghostPilot = SpawnPilotInfantry( team, squadName, origin, angles, alert, chosenWeapon, false )
-    if ( !IsAlive( ghostPilot ) )
-        return null
-
-    ghostPilot.SetTitle( "Ghost Pilot" )
-
-	if ( "s" in ghostPilot && "isPilot" in ghostPilot.s )
-		ghostPilot.s.isPilot <- false
-	if ( "s" in ghostPilot && "IsSoldier" in ghostPilot.s )
-		ghostPilot.s.IsSoldier <- false
-	
-	ghostPilot.s.isGhostPilot <- true
-
-    ghostPilot.TakeActiveWeapon()
-    local sightMod = "iron_sights"
-    switch ( chosenWeapon )
-    {
-        case "mp_weapon_shotgun":
-        case "mp_weapon_mega2":
-        case "mp_weapon_autopistol":
-        case "mp_weapon_semipistol":
-        case "mp_weapon_smart_pistol":
-        case "mp_weapon_wingman":
-            sightMod = ""
-            break
-
-        case "mp_weapon_dmr":
-        case "mp_weapon_sniper":
-        case "mp_weapon_mega1":
-            sightMod = "scope_6x"
-            break
-    }
-
-    local mods = []
-    if ( sightMod != "" )
-        mods.append( sightMod )
-    mods.append( "silencer" )
-
-    if ( mods.len() > 0 )
-        ghostPilot.GiveWeapon( chosenWeapon, mods )
-    else
-        ghostPilot.GiveWeapon( chosenWeapon )
-
-    ghostPilot.kv.health = 220
-    ghostPilot.kv.max_health = 220
-    ghostPilot.kv.AccuracyMultiplier = 4
-    ghostPilot.kv.WeaponProficiency = 4
-
-    ghostPilot.SetAISettings( "fireteam_soldier" )
-    CommonInit( ghostPilot )
-    SetupSoldierForRPGs( ghostPilot, ghostPilot.GetTeam() )
-
-    ghostPilot.SetMoveSpeedScale( 1.15 )
-    ghostPilot.PreferSprint( true )
-    ghostPilot.SetHearingSensitivity( 10 )
-
-	ghostPilot.Minimap_Hide( TEAM_IMC, null )
-    ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
-
-    // start the ghost cloak behavior thread defined in ai_game_modes
-    thread GhostPilotThink( ghostPilot )
-
-    return ghostPilot
-}
-Globalize( SpawnGhostPilot )
 
 function SpawnGruntPropDynamic( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {
@@ -1168,7 +942,7 @@ function UpdateAILethality( soldier, enemy )
 					break
 				case eAILethality.TD_High:
 				case eAILethality.High:
-					accuracyMultiplier = 1.0
+					accuracyMultiplier = 2.0
 					weaponProficiency = 3
 					accuracyMultiplierSniper = 1000
 					weaponProficiencySniper = 1000
@@ -1303,7 +1077,7 @@ function TrySpottedCallout( guy, enemy )
 			else
 				PlaySpectreChatterToAll( "spectre_gs_spotfartitan_1_1", guy )
 		}
-		else //Grunt callouts
+		else if ( !IsReskinnedPilot( guy ) || !IsGhostPilot( guy ) ) // Grunt callouts
 		{
 			if ( Distance( guy.GetOrigin(), enemy.GetOrigin() ) < 1000 )
 				PlaySquadConversationToAll( "aichat_spot_titan_close", guy )
@@ -1323,7 +1097,7 @@ function TrySpottedCallout( guy, enemy )
 				PlaySpectreChatterToAll( "spectre_gs_spotenemypilot_01_1", guy )
 
 		}
-		else //Grunt callouts
+		else if ( !IsReskinnedPilot( guy ) || !IsGhostPilot( guy ) ) // Grunt callouts
 		{
 			if ( Distance( guy.GetOrigin(), enemy.GetOrigin() ) < 1000 )
 			{
@@ -2233,7 +2007,8 @@ function SimulateGrenadeThink(npc, onlyRooftopCombat, targetGrunts) {
 	}
 }
 
-function NPCGrenadeThrow(npc) {
+function NPCGrenadeThrow( npc )
+{
 	Assert(IsValid(npc))
 
 	local id = npc.LookupAttachment("R_HAND")
@@ -2260,11 +2035,11 @@ function NPCGrenadeThrow(npc) {
 	Grenade_Init(frag, weapon)
 	thread TrapExplodeOnDamage(frag, 20, 0.0, 0.0)
 
-	if (npc.IsSpectre())
-		EmitSoundOnEntity(npc, SPECTRE_GRENADE_OUT)
-	else
+	if ( npc.IsSpectre() )
+		EmitSoundOnEntity( npc, SPECTRE_GRENADE_OUT )
+	else if ( !IsReskinnedPilot( npc ) || !IsGhostPilot( npc ) ) // Grunt callouts
 		PlaySquadConversationToAll( "aichat_grenade_incoming", npc )
-		//EmitSoundOnEntity(npc, GRUNT_GRENADE_OUT)
+		//EmitSoundOnEntity( npc, GRUNT_GRENADE_OUT )
 }
 
 //HACK! -> DO NOT SHIP - this should be in code

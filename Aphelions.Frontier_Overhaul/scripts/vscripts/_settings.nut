@@ -467,6 +467,10 @@ const POINTVALUE_KILL_HEAVY_TURRET					= 50		// Player kills a heavy turret
 const POINTVALUE_KILL_LIGHT_TURRET					= 25		// Player kills a light turret
 const POINTVALUE_KILL_DRONE							= 50		// Player kills a hover drone ( dropped by an operator )
 
+// Frontier Overhaul AI
+const POINTVALUE_KILL_GRUNT_CAPTAIN					= 30
+const POINTVALUE_KILL_GUNSHIP						= 200
+
 //coop specific minions
 const POINTVALUE_COOP_KILL_SUICIDE_SPECTRE				= 15
 const POINTVALUE_COOP_KILL_SNIPER_SPECTRE				= 40

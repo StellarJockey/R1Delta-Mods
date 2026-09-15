@@ -46,7 +46,7 @@
 	{
 		name 			"titan_ctt"
 
-		health			13000 // 10500 is the default Ogre
+		health			13000 	// 10500 is the default Ogre
 								// 8000 is Atlas   (-2500)
 								// 5500 is Stryder (-2500)
 

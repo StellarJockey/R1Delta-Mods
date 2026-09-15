@@ -104,7 +104,7 @@ const MOD_HYDRAULIC_LAUNCHER_LONGDESC =     "This mod allows you to launch grena
 const MOD_ACCELERATOR_LONGDESC_V2 = 		"The accelerator slowly ramps up the weapon's rate of fire as you shoot. The firing rate starts at 300 RPM, but after five seconds of sustained fire, it will reach a maximum of 1,020 RPM."
 
 // FRONTIER OVERHAUL EXCLUSIVE MODS
-const MOD_AUTO_CONVERTER_LONGDESC =         "A forced reset trigger makes the EVA-8 fully automatic, increasing your rate of fire to 138 RPM. However, this comes at the cost of a slightly higher recoil."
+const MOD_AUTO_CONVERTER_LONGDESC =         "A forced reset trigger makes the EVA-8 fully automatic, increasing your rate of fire to 138 RPM. However, this comes at the cost of reduced damage and a higher recoil."
 const MOD_PUMP_ACTION_LONGDESC = 			"This mod upgrades the EVA-8 with a pump-action receiver that cycles high-impact magnum shells. Shots will deal 35% more damage with a higher range, but at the cost of a slower rate of fire."
 const MOD_SHREDDER_LONGDESC =      			"This mod increases the damage and burst-fire rate of the WYS, but its effective range will be reduced by 40%. It is optimized for hit-and-run style engagements."
 const MOD_DOUBLE_TAP_LONGDESC =			    "This mod allows you to pull both triggers and fire both barrels at once. Be mindful of your ammo reserve, as you will burn through it much faster."
@@ -921,7 +921,7 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_kills", 				1, 		"mp_weapon_mega2",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_sg_LONGDESC,				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega2",			"burn_mod_twinb", 			"#BC_TWINB_SHOTGUN_M2",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
-	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_shotgun_grunt_kills", 		0, 	"mp_weapon_shotgun",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 0, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_shotgun_grunt_kills", 		0, 	"mp_weapon_shotgun",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			-15, -5, 0, 10, 2, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_shotgun_grunt_kills", 		0, 	"mp_weapon_shotgun",				"pump_action",			"Pump Action",				"Pump-action weapon fire",				MOD_PUMP_ACTION_LONGDESC,				2, 0, 5,-8, 0, 			"../ui/menu/items/mod_icons/pump_action",	 			"../ui/menu/items/mod_icons/pump_action" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_sniper_hours_used", 		1, 	"mp_weapon_sniper",				"titan_piercer",		"Titan Piercer",			"Fires anti-Titan rounds",			MOD_AT_ROUNDS_LONGDESC,			0, 0, 0, -3, -1, 		"../ui/menu/items/mod_icons/titan_piercer",	 		"../ui/menu/items/mod_icons/titan_piercer" )
 	

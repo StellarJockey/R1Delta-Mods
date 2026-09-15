@@ -18,7 +18,7 @@ const lmg_LONGDESC =          "The M600 Spitfire is a light machine gun made by 
 const hemlok_LONGDESC =       "The M1A1 Hemlok is an assault rifle that fires 7.62mm rounds in three-round bursts. Prior to being acquired by Wonyeon Defense, TW Ordnance managed to deliver one last trifecta of accuracy, damage, and fire rate."
 const car_LONGDESC =          "The C.A.R. (Combat Advanced Round) submachine gun fires heavy 6.19mm rounds at 846 RPM. What it lacks in firing rate, it more than makes up for with greater damage and accuracy at close to mid-range."
 const g2_LONGDESC =           "The G2A4 is a semi-automatic rifle that fires 6.19x97mm LEC rounds. While it was phased out in favor of the R-101C for infantry, it still remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
-const sniper_LONGDESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one-shot, one-kill' for any human-sized target. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
+const sniper_LONGDESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one shot, one kill' for any human-sized target. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
 
 const lmg_SHORTDESC =      "Light machine gun"
 const MEGA1_SHORTDESC =    "Bolt-action sniper rifle"
@@ -36,8 +36,8 @@ const autopistol_LONGDESC =   "The Lastimosa Armory RE-45 is a fully automatic .
 const wingman_LONGDESC =      "The B3 Wingman is a high-caliber revolver that fires .45 Long Colt rounds. Due to its range and high stopping power, it is known as the 'pocket sniper' to veterans of the Frontier."
 
 const MOD_EXPLOSIVE_ROUNDS_LONGDESCv2 =         "Explosive agents have been smuggled into your Wingman's rounds. Shots will deal splash damage around the point of impact, though they will deal less direct damage."
-const MOD_STARBURST_AUTOPISTOL_LONGDESCv2 = 	"Based on the Hemlok mod of the same name, this changes the RE-45's firing mode to a five-round burst."
-const MOD_RECOIL_COMPENSATOR_LONGDESCv2 =   	"The compensator modifies the weapon's gas system to reduce recoil when firing, improving shot-to-shot accuracy by 50%."
+const MOD_STARBURST_AUTOPISTOL_LONGDESCv2 = 	"Based on the Hemlok mod of the same name, this changes the RE-45's firing mode to a five-round burst. This increases the weapon's damage output, but at the cost of a higher recoil."
+const MOD_RECOIL_COMPENSATOR_LONGDESCv2 =   	"The compensator modifies the weapon's gas system to reduce muzzle climb when firing, improving shot-to-shot accuracy by 50%."
 
 // AT Weapon DESCRIPTIONS
 const rocket_launcher_LONGDESC = "The SRAM 153 'Archer' is a powerful rocket launcher made by Brockhaurd Manufacturing. Aiming the weapon will activate the targeting window and begin the lock-on. The targeting reticle must be fully locked before it can fire."
@@ -55,25 +55,25 @@ const mp_weapon_satchel_DESCv2 =      "Satchel Charges are an adhesive-polymer e
 
 // Tactical DESCRIPTIONS
 const mp_ability_cloak_DESCv2 =   "The Cloaking system uses a refractive mesh to bend light around the Pilot. You will become completely invisible to minions and Titans for 9 seconds. However, your general outline is still visible to other Pilots, as are your jump jets."
-const mp_ability_heal_DESCv2 =    "The SE-505 'Stim' compound is a cocktail of synthetic phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
+const mp_ability_heal_DESCv2 =    "The SE-505 'Stim' compound is a blend of phenethylamines and coagulants. Upon injection, your movement speed increases by 35% and your health regeneration doubles for 5 seconds."
 const mp_ability_sonar_DESCv2 =   "Active Radar Pulse emits a burst of low-frequency radio waves, allowing you to see enemies through walls for 7.5 seconds. However, due to scattering latency, you will only see single frames, not full motion."
 
 // PILOT KIT DESCRIPTIONS
-const ENH_PARKOURv2 = "The Enhanced Parkour Kit doubles your maximum wallrun time from 1.75 seconds to 3.5 seconds, and your maximum wallhang from 11 seconds to 22 seconds."
+const ENH_PARKOURv2 =	  "The Enhanced Parkour Kit doubles your max wallrun time from 1.75 to 3.5 seconds and your max wallhang from 11 to 22 seconds. You also take 50% less damage while doing any kind of parkour or ziplining."
 const EXPLOSIVES_PACKv2 = "The Explosives Pack adds +1 extra ordnance to your reserve, allowing you to carry three ordnance items instead of two."
-const POWER_CELLv2 = "The Power Cell reduces the recharge time of your Pilot's Tactical Ability by 33%."
-const QUICK_RELOADv2 = "The Quick Reload Kit reduces the reload time of all Pilot weapons by 30%."
-const SHIELD_BATTERYv2 = "The Dome Shield Battery extends the duration of your Titan's Dome-Shield after Titanfall from 15 seconds to 25 seconds."
-const WARPFALLv2 = "Using short-range jump technology, the Warpfall Transmitter decreases your Titanfall from 6 seconds to 3 seconds."
-const ICEPICKv2 = "The 'Icepick' is a modified Data Knife that increases the speed with which you can hack Spectres and turret control panels by 40%."
+const POWER_CELLv2 = 	  "The Power Cell reduces the recharge time of your Pilot's Tactical Ability by 33%."
+const QUICK_RELOADv2 = 	  "The Quick Reload Kit reduces the reload time of all Pilot weapons by 30%."
+const SHIELD_BATTERYv2 =  "The Dome Shield Battery extends the duration of your Titan's Dome-Shield after Titanfall from 15 seconds to 25 seconds."
+const WARPFALLv2 = 		  "Using short-range jump technology, the Warpfall Transmitter decreases your Titanfall from 6 seconds to 3 seconds."
+const ICEPICKv2 = 		  "The 'Icepick' is a firmware upgrade for your Data Knife, reducing the time to hack Spectres and turret panels down from 2.8 seconds to 0.85 seconds."
 
 // TITAN KIT DESCRIPTIONS
-const BIG_PUNCHv2 = 		"Your Titan's melee attack power is significantly increased, and knocks enemies back 25% further.\nSTRYDER: 80% Damage Increase\nATLAS: 78% Damage Increase\nOGRE: 23% Damage Increase"
-const DASH_QUICKCHARGERv2 = "Your Titan's dash system recharges at a faster rate, allowing you to dash more frequently. The decrease in time for a single dash goes from:\nSTRYDER: 3.3 to 2.6 seconds\nATLAS: 4.2 to 3.5 seconds\nOGRE: 4.6 to 4.1 seconds"
-const REGEN_BOOSTERv2 = 	"Your Titan is able to regenerate its body shield at a faster rate, decreasing its recharge time from 6 seconds to 3 seconds."
-const CORE_EXTENDERv2 = 	"The Core Extender allows your Titan's Core Ability to remain active for an extended period of time, increasing from 12.6 seconds to 17.9 seconds."
-const CORE_ACCELERATORv2 =  "The Core Accelerator makes your Titan's Core Ability charge more quickly by doubling the amount of Core reduction you get from enemy kills."
-const SURVIVORv2 = 			"When doomed, your Titan's health will decrease at rate 1/3 that of normal, allowing you to stay in the fight longer before having to abandon the Titan."
+const BIG_PUNCHv2 = 				"Your Titan's melee attack power is significantly increased, and knocks enemies back 25% further.\nSTRYDER: 80% Damage Increase\nATLAS: 78% Damage Increase\nOGRE: 23% Damage Increase"
+const DASH_QUICKCHARGERv2 = 		"Your Titan's dash system recharges at a faster rate, allowing you to dash more frequently. The decrease in time for a single dash goes from:\nSTRYDER: 3.3 to 2.6 seconds\nATLAS: 4.2 to 3.5 seconds\nOGRE: 4.6 to 4.1 seconds"
+const REGEN_BOOSTERv2 = 			"Your Titan is able to regenerate its body shield at a faster rate, decreasing its recharge time from 6 seconds to 3 seconds."
+const CORE_EXTENDERv2 = 			"The Core Extender allows your Titan's Core Ability to remain active for an extended period of time, increasing from 12.6 seconds to 17.9 seconds."
+const CORE_ACCELERATORv2 =  		"The Core Accelerator makes your Titan's Core Ability charge more quickly by doubling the amount of Core reduction you get from enemy kills."
+const SURVIVORv2 = 					"Your Titan's doomed state health is tripled, allowing you to take more damage and stay in the fight longer before having to abandon it."
 const TACTICAL_REACTOR_LONGDESCv2 = "This kit reduces the cooldown time of your Titan's Tactical Ability by 25%."
 const FAST_AUTOLOADER_LONGDESCv2 =	"This advanced autoload mechanism replenishes your Titan Ordnance 25% faster than normal, making it available more frequently."
 

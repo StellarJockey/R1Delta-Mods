@@ -2,13 +2,13 @@
 * N/A (...for now)
 
 ///// GAMEPLAY BUGS /////
-* Npc Titans sometimes do the stanky leg when standing up.
-* Npc Titans refuse to fire the minigun, so they won't spawn with it until I can get it to work (this is a base game issue).
-* Npc Titans' vortex shields are inconsistent when it comes to blocking damage and catching/reflecting projectiles (another possible base game issue).
-* Npcs sometimes have issues getting their shots on you to register (base game issue).
+* NPC Titans sometimes do the stanky leg when standing up.
+* NPC Titans' vortex shields are inconsistent when it comes to blocking damage and catching/reflecting projectiles (possible base game issue).
+* NPCs sometimes have issues getting their shots on you to register (another possible base game issue).
+* As an Atlas, you cannot use the Ogre termination; something about the anim not being found.
 
 ///// MENU BUGS... /////
 * If you try and open your Titan loadouts after a game, you sometimes get locked into the Burn Cards menu with no way to back out, forcing you to restart the game.
-* If you try and join a public lobby with this mod enabled, you will be stuck in an endless "Connecting to server..." loop and will have to exit the game (this is an issue cause by R1D's 3.0 pre-releases).
+* If you try and join a public lobby with this mod enabled, you will be stuck in an endless "Connecting to server..." loop and will have to exit the game (this is an issue cause by R1D's 3.0 pre-releases and has something to do with the _items.nut file).
 
 Note: These are all being worked on and will hopefully be fixed in the near future!
