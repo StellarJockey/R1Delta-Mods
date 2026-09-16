@@ -103,8 +103,8 @@ function main()
 		RegisterSignal( "SquadHardpointRunThink_squad_militia" + i )
 	}
 
-	level.max_npc_per_side <- 28
-	level.max_npc_per_side_small <- 24
+	level.max_npc_per_side <- 24
+	level.max_npc_per_side_small <- 20
 
 	// NEW: Initialize AI behavior system (works for all game modes)
 	level.aiSpottingEnabled <- true  // Can be disabled per-mode
@@ -609,8 +609,8 @@ function RestoreAICount() // FOR FRACTURE
 
 	wait 15.0
 
-	SetLevelAICount( 28, TEAM_MILITIA )
-	SetLevelAICount( 28, TEAM_IMC )
+	SetLevelAICount( level.max_npc_per_side, TEAM_MILITIA )
+	SetLevelAICount( level.max_npc_per_side, TEAM_IMC )
 }
 
 function GetMaxAICount( team )
@@ -2113,8 +2113,8 @@ function SniperSpectreWaveThink( team )
         // Wait a set interval before rolling for the next potential wave
         wait RandomFloat( 60.0, 150.0 )
 
-        // 15% chance to spawn the sniper pods
-        if ( RandomFloat( 0.0, 1.0 ) > 0.15 )
+        // 10% chance to spawn the sniper pods
+        if ( RandomFloat( 0.0, 1.0 ) > 0.10 )
             continue
 
         // Find valid spawn points for the wave
@@ -2152,8 +2152,8 @@ function GhostPilotWaveThink( team )
         // Wait a set interval before rolling for the next potential wave
        wait RandomFloat( 60.0, 120.0 )
 
-        // 10% chance to spawn a ghost pod
-        if ( RandomFloat( 0.0, 1.0 ) > 0.10 )
+        // 5% chance to spawn a ghost pod
+        if ( RandomFloat( 0.0, 1.0 ) > 0.05 )
             continue
 
         // Find valid spawn points for the wave
