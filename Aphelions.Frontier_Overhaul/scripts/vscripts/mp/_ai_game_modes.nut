@@ -2119,6 +2119,10 @@ function GunshipWaveThink( team )
         // Wait between 1 to 2.5 min between ship waves
         wait RandomFloat( 60.0, 150.0 )
 
+		// 50% chance for spawn event to pass/fail
+        if ( RandomFloat( 0.0, 1.0 ) > 0.50 )
+            continue
+
         // Find valid spawn points for the wave using existing drop pod points
         local spawnPoints = SpawnPoints_GetDropPodStart( team ) 
 		if ( spawnPoints.len() == 0 )
