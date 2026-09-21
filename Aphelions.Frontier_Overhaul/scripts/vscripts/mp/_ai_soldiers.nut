@@ -25,10 +25,15 @@ const RPG_USE_ALWAYS = 2
 
 const STANDARDGOALRADIUS = 100
 
-const AI_SPECTRE_ACCURACY = 1.0 // 4
-const AI_SOLDIER_ACCURACY = 0.6 // 3.5
-const AI_SPECTRE_PROFICIENCY = 2 // 4
-const AI_SOLDIER_PROFICIENCY = 2 // 4
+const AI_SPECTRE_ACCURACY_DEFAULT = 1.0
+const AI_SOLDIER_ACCURACY_DEFAULT = 0.6 
+const AI_CAPTAIN_ACCURACY_DEFAULT = 1.0
+const AI_PILOT_ACCURACY_DEFAULT   = 4.0
+
+const AI_SPECTRE_PROFICIENCY_DEFAULT = 2
+const AI_SOLDIER_PROFICIENCY_DEFAULT = 2
+const AI_CAPTAIN_PROFICIENCY_DEFAULT = 2.5
+const AI_PILOT_PROFICIENCY_DEFAULT   = 4.0
 
 const CAPTAIN_NAME_FREQUENCY = 0.35
 
@@ -484,14 +489,14 @@ function CreateGrunt( team, model, weapon, alert = true, captain = false )
 
 	npc_soldier = CreateEntity( "npc_soldier" )
 	npc_soldier.kv.spawnflags = 131072 | 512 | 4 // don't drop grenade, fall to ground, fade corpse
-	npc_soldier.kv.AccuracyMultiplier = AI_SOLDIER_ACCURACY
+	npc_soldier.kv.AccuracyMultiplier = AI_SOLDIER_ACCURACY_DEFAULT
 	npc_soldier.kv.alwaysalert = alertVal
 	npc_soldier.kv.reactChance = 20
 	npc_soldier.kv.reactFriendlyChance = 100
 	npc_soldier.kv.health = 160 	// 120
 	npc_soldier.kv.max_health = 160 // 120
 	npc_soldier.kv.physdamagescale = 1.0
-	npc_soldier.kv.WeaponProficiency = AI_SOLDIER_PROFICIENCY
+	npc_soldier.kv.WeaponProficiency = AI_SOLDIER_PROFICIENCY_DEFAULT
 	npc_soldier.kv.NumGrenades = 0
 	npc_soldier.kv.teamnumber = team
 	npc_soldier.kv.additionalequipment = weapon
@@ -740,8 +745,8 @@ function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapo
 
     guy.kv.health = 250
     guy.kv.max_health = 250
-    guy.kv.AccuracyMultiplier = 3.75
-    guy.kv.WeaponProficiency = 4
+    guy.kv.AccuracyMultiplier = AI_CAPTAIN_ACCURACY_DEFAULT
+    guy.kv.WeaponProficiency = AI_CAPTAIN_PROFICIENCY_DEFAULT
 
 	if ( "s" in guy && "isPilot" in guy.s )
 		guy.s.isPilot <- false
@@ -917,10 +922,17 @@ function DisableRockets( soldier )
 //////////////////////////////////////////////////////////
 function UpdateAILethality( soldier, enemy )
 {
-	local accuracyMultiplier = soldier.IsSpectre() ? AI_SPECTRE_ACCURACY : AI_SOLDIER_ACCURACY
-	local weaponProficiency = soldier.IsSpectre() ? AI_SPECTRE_PROFICIENCY : AI_SOLDIER_PROFICIENCY
-	local accuracyMultiplierSniper = 100
-	local weaponProficiencySniper = 4
+	local accuracyMultiplier = AI_SOLDIER_ACCURACY_DEFAULT
+	local weaponProficiency = AI_SOLDIER_PROFICIENCY_DEFAULT
+	local accuracyMultiplierSpectre = AI_SPECTRE_ACCURACY_DEFAULT
+	local weaponProficiencySpectre = AI_SPECTRE_PROFICIENCY_DEFAULT
+	local accuracyMultiplierCaptain = AI_CAPTAIN_ACCURACY_DEFAULT
+	local weaponProficiencyCaptain = AI_CAPTAIN_PROFICIENCY_DEFAULT
+	local accuracyMultiplierPilot = AI_PILOT_ACCURACY_DEFAULT
+	local weaponProficiencyPilot = AI_PILOT_PROFICIENCY_DEFAULT
+
+	local accuracyMultiplierSniper = 1000
+	local weaponProficiencySniper = 1000
 
 	if ( enemy && enemy.IsPlayer() && !enemy.IsTitan() )
 	{
@@ -930,47 +942,101 @@ function UpdateAILethality( soldier, enemy )
 			{
 				case eAILethality.TD_Low:
 					accuracyMultiplier = 0.75
-					weaponProficiency = 2
+					accuracyMultiplierSpectre = 0.75
+					accuracyMultiplierCaptain = 0.75
+					accuracyMultiplierPilot = 0.75
 					accuracyMultiplierSniper = 500
+
+					weaponProficiency = 2
+					weaponProficiencySpectre = 2
+					weaponProficiencyCaptain = 2
+					weaponProficiencyPilot = 2
 					weaponProficiencySniper = 4
 					break
+
 				case eAILethality.TD_Medium:
 					accuracyMultiplier = 1.0
+					accuracyMultiplierSpectre = 1.0
+					accuracyMultiplierCaptain = 1.0
+					accuracyMultiplierPilot = 1.0
+
 					weaponProficiency = 2
-					accuracyMultiplierSniper = 1000
-					weaponProficiencySniper = 1000
+					weaponProficiencySpectre = 2
+					weaponProficiencyCaptain = 2
+					weaponProficiencyPilot = 2
 					break
+
 				case eAILethality.TD_High:
 				case eAILethality.High:
-					accuracyMultiplier = 2.0
+					accuracyMultiplier = 1.0
+					accuracyMultiplierSpectre = 1.0
+					accuracyMultiplierCaptain = 3.0
+					accuracyMultiplierPilot = 1.0
+
 					weaponProficiency = 3
-					accuracyMultiplierSniper = 1000
-					weaponProficiencySniper = 1000
+					weaponProficiencySpectre = 3
+					weaponProficiencyCaptain = 3
+					weaponProficiencyPilot = 3
 					break
+
 				case eAILethality.VeryHigh:
-					accuracyMultiplier = 4.0
+					accuracyMultiplier = 3.5
+					accuracyMultiplierSpectre = 4.0
+					accuracyMultiplierCaptain = 3.75
+					accuracyMultiplierPilot = 4.0
+
 					weaponProficiency = 4
-					accuracyMultiplierSniper = 1000
-					weaponProficiencySniper = 1000
+					weaponProficiencySpectre = 4
+					weaponProficiencyCaptain = 4
+					weaponProficiencyPilot = 4
 					break
 			}
 		}
 	}
 
-	//especially accurate snipers for coop tower defense
-	local activeWeapon = soldier.GetActiveWeapon()
-	if ( activeWeapon == null )
-		return
+	local targetAccuracy
+	local targetProficiency
 
-	local activeWeaponClassname = activeWeapon.GetClassname()
-	if ( activeWeaponClassname == "mp_weapon_dmr" || activeWeaponClassname == "mp_weapon_defender" || activeWeaponClassname == "mp_weapon_sniper" || activeWeaponClassname == "mp_weapon_mega1" )
+	if ( soldier.IsSpectre() )
 	{
-		accuracyMultiplier = accuracyMultiplierSniper
-		weaponProficiency = weaponProficiencySniper
+		targetAccuracy = accuracyMultiplierSpectre
+		targetProficiency = weaponProficiencySpectre
+	}
+	else if ( IsGruntCaptain( soldier ) )
+	{
+		targetAccuracy = accuracyMultiplierCaptain
+		targetProficiency = weaponProficiencyCaptain
+	}
+	else if ( IsReskinnedPilot( soldier ) || IsGhostPilot( soldier ) )
+	{
+		targetAccuracy = accuracyMultiplierPilot
+		targetProficiency = weaponProficiencyPilot
+	}
+	else
+	{
+		targetAccuracy = accuracyMultiplier
+		targetProficiency = weaponProficiency
 	}
 
-	soldier.kv.AccuracyMultiplier = accuracyMultiplier
-	soldier.kv.WeaponProficiency = weaponProficiency
+	// Override with sniper settings if using snipers or smart pistol
+	local activeWeapon = soldier.GetActiveWeapon()
+	if ( activeWeapon != null )
+	{
+		local activeWeaponClassname = activeWeapon.GetClassname()
+		switch ( activeWeaponClassname )
+		{
+			case "mp_weapon_dmr":
+			case "mp_weapon_defender":
+			case "mp_weapon_sniper":
+			case "mp_weapon_mega1":
+			case "mp_weapon_smart_pistol":
+				targetAccuracy = accuracyMultiplierSniper
+				targetProficiency = weaponProficiencySniper
+				break
+		}
+	}
+	soldier.kv.AccuracyMultiplier = targetAccuracy
+	soldier.kv.WeaponProficiency = targetProficiency
 }
 Globalize( UpdateAILethality )
 
@@ -1359,12 +1425,12 @@ function SpawnSpectre( team, squadName, origin, angles, alert = true, weapon = n
 
 	local spectre = CreateEntity( "npc_spectre" )
 	spectre.kv.spawnflags = 131072 | 512 | 4 // don't drop grenade, fall to ground, fade corpse
-	spectre.kv.AccuracyMultiplier = AI_SPECTRE_ACCURACY
+	spectre.kv.AccuracyMultiplier = AI_SPECTRE_ACCURACY_DEFAULT
 	spectre.kv.alwaysalert = alertVal
 	spectre.kv.reactChance = 0
 	spectre.kv.reactFriendlyChance = 0
 	spectre.kv.physdamagescale = 1.0
-	spectre.kv.WeaponProficiency = AI_SPECTRE_PROFICIENCY
+	spectre.kv.WeaponProficiency = AI_SPECTRE_PROFICIENCY_DEFAULT
 	spectre.kv.NumGrenades = 0
 	spectre.kv.teamnumber = team
 	spectre.kv.additionalequipment = weapon
@@ -1382,6 +1448,7 @@ function SpawnSpectre( team, squadName, origin, angles, alert = true, weapon = n
 
     spectre.ConnectOutput( "OnGainEnemyLOS", OnSpectreSeeEnemy )
 
+	spectre.SetEnemyChangeCallback( "EnemyChanged_Standard" )
 	CommonInit( spectre )
 
     return spectre
@@ -1442,6 +1509,7 @@ function disable_npcs()
 			continue
 		if ( guy.GetClassname() == "npc_titan" )
 			continue
+		if (guy.GetClassname() == "npc_dropship" && "isDogfighter" in guy.s )
 
 		guy.Kill()
 	}

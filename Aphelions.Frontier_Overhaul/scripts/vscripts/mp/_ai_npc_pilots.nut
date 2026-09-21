@@ -18,14 +18,14 @@ function GetRandomPilotName( team )
 		"Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform",
 		"Victor", "Whiskey", "Xray", "Yankee", "Zulu", "Steel", "Raven", "Falcon", "Silver", "Roach",
 		"Io", "Ganymede", "Callisto", "Europa", "Gold", "Red", "Blue", "Indigo", "June", "August",
-		"Beta", "Gamma", "Eta", "Omicron", "Epsilon", "Rho", "Tau", "Zeta",
+		"Beta", "Gamma", "Eta", "Omicron", "Epsilon", "Rho", "Tau", "Zeta", "Seven", "Nine", "Six",
 	]
 	local militiaNames = [
 		"Jackson", "Rodriguez", "Williams", "Wilson", "Moore", "Asgeirsson", "White", "Lewis", "Clark", "Walker",
 		"Baker", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hanes", "Stokes",
 		"Bohr", "Allen", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr",
 		"Barnes", "Hernandez", "Greene", "Higgins", "Burke", "Rodgers", "Chang", "Gore", "Vargas", "Gruzinsky",
-		"Wood", "Everett", "Namir", "Hale", "Hermann", "Dutch", "Wayans", "Griffith",
+		"Woods", "Everett", "Namir", "Hale", "Hermann", "Dutch", "Wayans", "Griffith", "Tanhausser",
 	]
 
 	if ( team == TEAM_IMC )
@@ -138,8 +138,8 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 
     guy.kv.health = 200
     guy.kv.max_health = 200
-    guy.kv.AccuracyMultiplier = 4
-    guy.kv.WeaponProficiency = 4
+    // guy.kv.AccuracyMultiplier = 4
+    // guy.kv.WeaponProficiency = 4
 	guy.s.useRPGPreference = RPG_USE_SOMETIMES
 	guy.SetMoveSpeedScale( 1.15 )
 	guy.PreferSprint( true )

@@ -90,7 +90,7 @@ function SpawnCloakDrone( team, origin, angles )
 	cloakedDrone.Minimap_SetObjectScale( MINIMAP_CLOAKED_DRONE_SCALE )
 	cloakedDrone.Minimap_SetZOrder( 10 )
 
-	ShowName( cloakedDrone )
+	// ShowName( cloakedDrone )
 	mover.SetMoveToPosition( mover.GetOrigin() )//without this the drone will just start dropping until it finds a valid path
 
 	AddToGlobalCloakedDroneList( cloakedDrone )
