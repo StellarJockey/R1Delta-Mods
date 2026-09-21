@@ -2814,6 +2814,7 @@ function ShouldEnterSuddenDeath( winningTeam )
 
 const ATTRITION_SCORE_TITAN   = 5
 const ATTRITION_SCORE_PILOT   = 4
+const ATTRITION_SCORE_GUNSHIP = 3
 const ATTRITION_SCORE_GRUNT   = 1
 const ATTRITION_SCORE_SPECTRE = 1
 const ATTRITION_SCORE_MARVIN  = 0
@@ -2822,8 +2823,12 @@ function AttritionScoreValueForVictim( victim )
 {
 	if ( victim.IsPlayer() )
 		return ATTRITION_SCORE_PILOT
+	// else if ( victim.IsNPC() && ( IsReskinnedPilot( victim ) || IsGhostPilot( victim ) ) )
+		// const ATTRITION_SCORE_PILOT = 4
 	else if ( victim.IsTitan() && !victim.IsPlayer() )
 		return ATTRITION_SCORE_TITAN
+	else if ( victim.IsNPC() && victim.IsDropship() && ( "dogfighter" in victim.s ) )
+		return ATTRITION_SCORE_GUNSHIP
 	else if ( victim.IsNPC() && victim.IsSpectre() )
 		return ATTRITION_SCORE_SPECTRE
 	else if ( victim.IsNPC() && victim.IsMarvin() )

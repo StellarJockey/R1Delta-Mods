@@ -72,6 +72,8 @@ function main()
 	PrecacheModel( "models/robots/agp/agp_hemlok_larger.mdl" )
 	Minimap_PrecacheMaterial( "vgui/hud/cloak_drone_minimap_orange" )
 	Minimap_PrecacheMaterial( "vgui/hud/cloak_drone_minimap" )
+	Minimap_PrecacheMaterial( "vgui/hud/gunship_minimap_orange" )
+	Minimap_PrecacheMaterial( "vgui/hud/gunship_minimap" )
 
 	Globalize( GetIndexSmallestSquad )
 	Globalize( TryGetSmallestValidSquad )
@@ -247,7 +249,7 @@ function main()
 	if ( mode != COOPERATIVE && mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING && mode != PILOT_SKIRMISH )
 	{
 		IncludeFile( "mp/_cloak_drone_alt" )
-
+		IncludeFile( "mp/_ai_gunship" )
 		level.cloakedDronesManagedEntArrayID <- CreateScriptManagedEntArray()
 		level.cloakedDroneClaimedSquadList <- {}
 		RegisterSignal( "DroneCleanup" )
@@ -963,9 +965,9 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 
     // TITAN CREATION
     local titanDataTable = GetRandomTitanLoadout()
-    local titans
+    local titans = Random(["titan_stryder", "titan_atlas", "titan_ogre", ])
 	
-	if ( GetCurrentPlaylistName() == "campaign_carousel" )
+	/* if ( GetCurrentPlaylistName() == "campaign_carousel" )
 	{
 		titans = Random(["titan_stryder", "titan_atlas", "titan_ogre", ])
 	}
@@ -975,7 +977,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 		"titan_atlas", "titan_atlas", "titan_atlas",
 		"titan_ogre", "titan_ogre", "titan_ogre",
 		"titan_ctt", ] )   // weighted distribution to make Destroyers more rare (10% chance)
-	}
+	} */
 
     titanDataTable.setFile = titans
     local settings = titanDataTable.setFile
@@ -1623,7 +1625,6 @@ function SuperHotDropGenericTitan_DropIn( titan, origin, angles )
 	waitthread PlayAnimTeleport( titan, animation, origin, angles )
 
 	titan.ClearInvulnerable() //Make Titan vulnerable again once he's landed
-
 }
 
 function OnReplacementTitanSecondStage( titan, origin )
@@ -1871,6 +1872,7 @@ function TeamDeathmatchSpawnNPCsThink()
 			thread CloakDroneWaveThink( TEAM_IMC )
 			thread SniperSpectreWaveThink( TEAM_IMC )
 			thread GhostPilotWaveThink( TEAM_IMC )
+			thread GunshipWaveThink( TEAM_IMC )
 		}
 		if ( !Flag( "Disable_MILITIA" ) )
 		{
@@ -1878,6 +1880,7 @@ function TeamDeathmatchSpawnNPCsThink()
 			thread CloakDroneWaveThink( TEAM_MILITIA )
 			thread SniperSpectreWaveThink( TEAM_MILITIA )
 			thread GhostPilotWaveThink( TEAM_MILITIA )
+			thread GunshipWaveThink( TEAM_MILITIA )
 		}
 	}
     
@@ -2093,6 +2096,44 @@ function CloakDroneWaveThink( team )
 				// Pick a random spawn point instead of using 'i'
 				local sp = spawnPoints[ RandomInt( spawnPoints.len() ) ]
 				SpawnCloakDrone( team, sp.GetOrigin(), sp.GetAngles() )
+				wait RandomFloat( 0.5, 1.5 ) 
+			}
+        }
+    }
+}
+
+function GunshipWaveThink( team )
+{
+	// Prevent Gunships from spawning in the early Campaign
+	if ( GetCurrentPlaylistName() == "campaign_carousel" )
+	{
+		if ( GetMapName() == "mp_fracture" || GetMapName() == "mp_colony" || GetMapName() == "mp_relic" )
+			return
+	}
+
+    // Wait until the 2-minute mark before starting waves, can spawn as soon as 3 minutes
+    wait 120.0 + RandomFloat( 0.0, 45.0 )
+
+    while ( IsNPCSpawningEnabled() )
+    {
+        // Wait between 1 to 2.5 min between ship waves
+        wait RandomFloat( 60.0, 150.0 )
+
+        // Find valid spawn points for the wave using existing drop pod points
+        local spawnPoints = SpawnPoints_GetDropPodStart( team ) 
+		if ( spawnPoints.len() == 0 )
+			spawnPoints = SpawnPoints_GetDropPod()
+        
+        // Define how many ships you want per wave
+        local shipsToSpawn = RandomIntRange( 0, 2 )
+
+		for ( local i = 0; i < shipsToSpawn; i++ )
+		{
+			if ( spawnPoints.len() > 0 )
+			{
+				// Pick a random spawn point instead of using 'i'
+				local sp = spawnPoints[ RandomInt( spawnPoints.len() ) ]
+				SpawnAIGunship( team, sp.GetOrigin(), sp.GetAngles() )
 				wait RandomFloat( 0.5, 1.5 ) 
 			}
         }

@@ -6,8 +6,5 @@ List of features currently on the docket:
 * Make enemy NPCs more aggressive for games of Hardpoint
 * Implement magazine bullet chambering (e.g., for a 24 round mag, an empty reload give should 24 bullets, or 25 if one is already in the chamber)
 * Fully restore the cut R-101 SMG
-* Reverse-engineer the gunship NPCs from VoyageDB's Grunt Mode mod for TF|2
 * Support for languages other than English
 * Implement a Mass Effect-style Codex for lore and character entries.
-
-I'm still getting the hang of coding in Squirrel, so I'm not sure how feasible some of these features are (Claude was included as a co-author for a reason).

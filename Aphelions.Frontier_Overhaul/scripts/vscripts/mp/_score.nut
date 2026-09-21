@@ -1056,7 +1056,7 @@ function AwardStealthBonus( entity, damageInfo )
 	local attacker = GetAttackerOrLastAttacker( entity, damageInfo )
 	attacker = GetAttackerPlayerOrBossPlayer( attacker )
 
-	if ( !IsValid( attacker ) || !attacker.IsPlayer() || attacker.IsTitan() || entity.IsPlayer() || entity.IsTitan() )
+	if ( !IsValid( attacker ) || !attacker.IsPlayer() || attacker.IsTitan() || entity.IsPlayer() || entity.IsTitan() || entity.IsDropship() )
 		return
 
 	local weaponFromDI = damageInfo.GetWeapon()

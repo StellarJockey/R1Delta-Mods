@@ -8,6 +8,7 @@ This mod currently includes:
 * Spectre rodeos and grenade-tossing minions
 * Grunt Captains and NPC Pilots
 * Sniper Spectres, Suicide Spectres, Ghost Pilots, and Cloak Drones that spawn mid-late game
+* New Gunship enemy type
 * Exclusive weapon mods/attachments with original icons
 * Works for Attrition, Hardpoint, CTF, Frontier Defense, and Titan Brawl
 * A rework for the Thunderbolt Titan minigun
