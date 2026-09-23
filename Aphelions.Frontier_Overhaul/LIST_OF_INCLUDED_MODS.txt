@@ -1,9 +1,0 @@
-The Frontier Overhaul mod currently includes:
-
-* Nachos' One-Handed Wallrun
-* Nachos' Weapon Script Fixes
-* Nachos' Rebreather Masks for Militia Grunts
-* ASillyNeko's Extended Attrition
-* Aphelion's Enhanced Item Descriptions
-
-These come included because, taken separately, they will cause scripting conflicts with FO and break the game; meaning this also serves as an unofficial modpack for R1Delta.

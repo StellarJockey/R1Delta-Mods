@@ -6,6 +6,8 @@
 * NPC Titans' vortex shields are inconsistent when it comes to blocking damage and catching/reflecting projectiles (possible base game issue).
 * NPCs sometimes have issues getting their shots on you to register (another possible base game issue).
 * As an Atlas, you cannot use the Ogre termination; something about the anim not being found.
+* Shoulder turret is very janky and makes no noise when firing.
+* Gunships have a tendancy to clip inside of cliffs/high walls.
 
 ///// MENU BUGS... /////
 * If you try and open your Titan loadouts after a game, you sometimes get locked into the Burn Cards menu with no way to back out, forcing you to restart the game.

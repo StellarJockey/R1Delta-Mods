@@ -7,4 +7,4 @@ List of features currently on the docket:
 * Implement magazine bullet chambering (e.g., for a 24 round mag, an empty reload give should 24 bullets, or 25 if one is already in the chamber)
 * Fully restore the cut R-101 SMG
 * Support for languages other than English
-* Implement a Mass Effect-style Codex for lore and character entries.
+* Implement a Mass Effect-style Codex for lore and character entries

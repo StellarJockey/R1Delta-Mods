@@ -1,0 +1,54 @@
+//////////////////////////
+/// MAX NUMBER OF NPCS ///
+//////////////////////////
+
+* Go into \scripts\vscripts\mp\_ai_game_modes
+* ctrl + f to find:
+ 	level.max_npc_per_side       <- 24
+	level.max_npc_per_side_small <- 20
+
+* To me, 24 feels about right for most maps, but you can raise or lower it to whatever you feel like.
+* 20 is for smaller maps that feel overcrowded with lots of minions.
+
+///////////////////////
+/// ADJUST ENEMY AI ///
+///////////////////////
+
+* Go into \scripts\vscripts\mp\_ai_soldiers
+* ctrl + f to find:
+    function UpdateAILethality( soldier, enemy )
+
+* The enemy accuracy and proficiency will change depending on the difficulty.
+* As far as I can tell, 4 seems to be the highest meaningful value.
+
+//////////////////////////
+/// AI TITANS PER TEAM ///
+//////////////////////////
+
+* Go into \scripts\vscripts\mp\_ai_game_modes
+* ctrl + f to find:
+ 	function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
+
+* The limits will be inside the function.
+* Your team will have a different number of NPC Titans in Attrition & Hardpoint depending on the AI Lethality.
+* Including you, Normal is a 3v3, High is a 3v4, and Very High is 3v5
+
+* You can also go into \scripts\vscripts\mp\_ai_game_modes
+* ctrl + f to find:
+	wait RandomFloat( 20, 90 )  // Titan spawn delay in seconds
+
+This makes it so that Titans don't immediately spawn when the game starts or when they are killed.
+
+/////////////////////////
+/// SPECIAL NPC WAVES ///
+/////////////////////////
+
+* Sniper Spectres, Suicide Spectres, Cloak Drones, Ghost Pilots, Gunships have a chance to spawn in waves.
+
+* Go into \scripts\vscripts\mp\_ai_game_modes
+* ctrl + f to find:
+    function SuicideSpectreWaveThink( team )
+    function GunshipWaveThink( team )
+    And so on...
+
+* From here, you can adjust how often waves happen and how many NPCs they spawn
