@@ -11,8 +11,10 @@ HOW TO INSTALL MODS
 READ THIS BEFORE INSTALLING FRONTIER OVERHAUL
 -
 * If you install the Frontier Overhaul mod, know that it comes built-in with FO-friendly versions of several other mods, including the Item Descriptions mod. This is because, taken separately, those other mods will cause scripting conflicts and may break the game.
-* Frontier Overhaul has a full list of mods that it comes built-in with.
-* IF YOU ATTEMPT TO USE ANY OF THOSE MODS ALONGSIDE FO, IT MAY BREAK THE GAME.
+
+* See "Aphelions.Frontier_Overhaul\FAQ\LIST_OF_INCLUDED_MODS.txt" for the complete list.
+
+* You can simply disable any of these incompatible mods from the in-game `ADDONS` menu.
 
 * Other than that, Custom Backgrounds, Extra Music, and Low-Gravity Moons will work just fine alongside FO.
 
