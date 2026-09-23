@@ -1163,6 +1163,7 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 	if ( !IsValid_ThisFrame( attacker ) || !attacker.IsPlayer() )
 		return
 
+	// FIRST: Does this Titan have an NPC Pilot?
 	if ( hadPilot == null )
 	{
 		hadPilot = false
@@ -1170,16 +1171,15 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 		if ( IsValid( titan ) && titan.IsTitan() )
 		{
 			if ( typeof( TitanHasPilotInTitan ) == "function" )
-				hadPilot = TitanHasPilotInTitan( titan )
+				hadPilot = TitanHasPilotInTitan( titan )   // preferred path
 			else if ( "pilotedtitans" in file )
-				hadPilot = ( titan in file.pilotedtitans )
+				hadPilot = ( titan in file.pilotedtitans ) // fallback
 		}
 	}
-
 	if ( !hadPilot )
 		return
 
-	// Only fall back to reading the Titan if the caller didn't provide it
+	// ELSE: Does this Titan have a Grunt Captain?
 	if ( isCaptain == null )
 	{
 		isCaptain = false
@@ -1187,6 +1187,7 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 		if ( IsValid( titan ) && "pilotIsNPCCaptain" in titan.s )
 			isCaptain = titan.s.pilotIsNPCCaptain
 	}
+
 
 	if ( isCaptain )
 	{

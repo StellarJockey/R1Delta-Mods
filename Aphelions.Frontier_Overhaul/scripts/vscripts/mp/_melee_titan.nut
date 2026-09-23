@@ -126,12 +126,7 @@ function MeleeThread_TitanVsTitan_Internal( actions, action, attacker, target )
 
 	waitthread func( actions, action, attacker, target )
 
-	thread AwardPilotTermination(
-		attacker,
-		IsValid( target ) ? target : null,
-		hadPilot,
-		isCaptain
-	)
+	thread AwardPilotTermination( attacker,	IsValid( target ) ? target : null, hadPilot, isCaptain )
 }
 
 
@@ -823,7 +818,6 @@ function MeleeThread_OgreVsTitan( actions, action, attacker, target )
 	if ( !target.IsNPC() )
 		target.DisableWeaponViewModel()
 
-	// attacker.SetInvulnerable()
 	target.SetInvulnerable()
 
 	local soul = target.GetTitanSoul()
@@ -834,8 +828,23 @@ function MeleeThread_OgreVsTitan( actions, action, attacker, target )
 
 	target.s.isRodeoEnabled = false
 
+	// DeepSeek came in clutch and fixed the Ogre termination
+	// --- NEW: spawn a hidden pilot prop for NPC targets so the kill is credited ---
+	local pilotProp = null
+	if ( target.IsNPC() )
+	{
+		pilotProp = CreateEntity( "npc_soldier" )
+		DispatchSpawn( pilotProp )
+		pilotProp.SetOrigin( target.GetOrigin() )
+		pilotProp.SetInvulnerable()
+		pilotProp.SetTeam( target.GetTeam() )
+		pilotProp.s.isPilotProp <- true
+		pilotProp.kv.VisibilityFlags = 0   // invisible
+	}
+	e.pilotProp <- pilotProp
+
 	OnThreadEnd(
-		function() : ( ref, attacker, target, e  )
+		function() : ( ref, attacker, target, e )
 		{
 			if ( IsValid( ref ) )
 			{
@@ -862,7 +871,6 @@ function MeleeThread_OgreVsTitan( actions, action, attacker, target )
 
 				if ( IsAlive( attacker ) )
 				{
-					// if we got into solid, teleport back to safe place
 					UnStuck( attacker, e.attackerStartOrg )
 				}
 			}
@@ -895,6 +903,12 @@ function MeleeThread_OgreVsTitan( actions, action, attacker, target )
 					UnStuck( target, e.targetStartOrg )
 				}
 			}
+
+			// --- NEW: kill the hidden pilot prop to trigger Attrition credit ---
+			if ( IsValid( e.pilotProp ) && IsAlive( e.pilotProp ) )
+			{
+				e.pilotProp.Die( attacker, attacker, { scriptType = DF_GIB, damageSourceId = eDamageSourceId.titan_execution } )
+			}
 		}
 	)
 
@@ -905,7 +919,6 @@ function MeleeThread_OgreVsTitan( actions, action, attacker, target )
 	EmitDifferentSoundsOnEntityForPlayerAndWorld( "Ogre_1p_Sync_Melee", "Ogre_3p_Sync_Melee", attacker, attacker )
 
 	AddAnimEvent( target, "lost_arm", TitanLostArm, e )
-
 
 	thread FirstPersonSequence( targetSequence, target, ref )
 	waitthread FirstPersonSequence( attackerSequence, attacker, ref )
