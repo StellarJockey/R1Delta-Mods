@@ -42,6 +42,12 @@ COOP_AT_WEAPON_RATES[ "mp_weapon_rocket_launcher" ] <- 0.5
 COOP_AT_WEAPON_RATES[ "mp_weapon_smr" ] <- 0.4
 COOP_AT_WEAPON_RATES[ "mp_weapon_mgl" ] <- 0.1
 
+PILOT_AT_WEAPON_RATES <- {}
+PILOT_AT_WEAPON_RATES[ "mp_weapon_rocket_launcher" ] <- 0.35
+PILOT_AT_WEAPON_RATES[ "mp_weapon_smr" ] <- 0.25
+PILOT_AT_WEAPON_RATES[ "mp_weapon_mgl" ] <- 0.2
+PILOT_AT_WEAPON_RATES[ "mp_weapon_defender" ] <- 0.2
+
 const SPECTRE_GRENADE_OUT = "diag_spectre_gs_GrenadeOut_01_1"
 
 function main()
@@ -164,7 +170,7 @@ function main()
 		AddClientCommandCallback( "spawnviewsniperspectre", ClientCommand_SpawnViewSniperSpectre )
 	}
 
-	InitCaptainNames()
+	// InitCaptainNames()
 
 	RegisterSignal("Stop_SimulateGrenadeThink")
 }
@@ -515,22 +521,31 @@ function CreateGrunt( team, model, weapon, alert = true, captain = false )
 
 function SetGruntTitleFromTeam( grunt, team, captain = false )
 {
+
+	local captainRanks = [ "Captain", "Captain", "Captain", "Captain",
+		"Lance Cpl.", "Cpl.", "Cpl.", "Sgt.", "Sgt.", 
+    	"Staff Sgt.", "Gunnery Sgt.", "2nd Lt.", "1st Lt."
+	]
+	local rank = Random( captainRanks )
+	local captainName = ""
+	
 	if ( team == TEAM_IMC )
 	{
+		captainName = GetRandomCaptainName( team )
 		if ( captain )
-			grunt.SetTitle( GetCaptainName() )
+			grunt.SetTitle( "Captain " + captainName ) // grunt.SetTitle( rank + " " + captainName )
 		else
 			grunt.SetTitle( "#NPC_GRUNT_IMC" )
 	}
 	else
 	{
+		captainName = GetRandomCaptainName( team )
 		if ( captain )
-			grunt.SetTitle( GetCaptainName() )
+			grunt.SetTitle( "Captain " + captainName ) // grunt.SetTitle( rank + " " + captainName )
 		else
 			grunt.SetTitle( "#NPC_GRUNT_MILITIA" )
 	}
 }
-
 
 //////////////////////////////////////////////////////////
 // common init for grunts and spectres
@@ -931,8 +946,8 @@ function UpdateAILethality( soldier, enemy )
 	local accuracyMultiplierPilot = AI_PILOT_ACCURACY_DEFAULT
 	local weaponProficiencyPilot = AI_PILOT_PROFICIENCY_DEFAULT
 
-	local accuracyMultiplierSniper = 1000
-	local weaponProficiencySniper = 1000
+	local accuracyMultiplierSniper = 100
+	local weaponProficiencySniper = 2
 
 	if ( enemy && enemy.IsPlayer() && !enemy.IsTitan() )
 	{
@@ -959,11 +974,13 @@ function UpdateAILethality( soldier, enemy )
 					accuracyMultiplierSpectre = 1.0
 					accuracyMultiplierCaptain = 1.0
 					accuracyMultiplierPilot = 1.0
+					accuracyMultiplierSniper = 1000
 
 					weaponProficiency = 2
 					weaponProficiencySpectre = 2
 					weaponProficiencyCaptain = 2
 					weaponProficiencyPilot = 2
+					weaponProficiencySniper = 1000
 					break
 
 				case eAILethality.TD_High:
@@ -972,11 +989,13 @@ function UpdateAILethality( soldier, enemy )
 					accuracyMultiplierSpectre = 1.0
 					accuracyMultiplierCaptain = 3.0
 					accuracyMultiplierPilot = 1.0
+					accuracyMultiplierSniper = 1000
 
 					weaponProficiency = 3
 					weaponProficiencySpectre = 3
 					weaponProficiencyCaptain = 3
 					weaponProficiencyPilot = 3
+					weaponProficiencySniper = 1000
 					break
 
 				case eAILethality.VeryHigh:
@@ -984,11 +1003,13 @@ function UpdateAILethality( soldier, enemy )
 					accuracyMultiplierSpectre = 4.0
 					accuracyMultiplierCaptain = 3.75
 					accuracyMultiplierPilot = 4.0
+					accuracyMultiplierSniper = 1000
 
 					weaponProficiency = 4
 					weaponProficiencySpectre = 4
 					weaponProficiencyCaptain = 4
 					weaponProficiencyPilot = 4
+					weaponProficiencySniper = 1000
 					break
 			}
 		}
@@ -1034,6 +1055,12 @@ function UpdateAILethality( soldier, enemy )
 				targetProficiency = weaponProficiencySniper
 				break
 		}
+
+		if ( IsGhostPilot( soldier ) )
+		{
+			targetAccuracy = accuracyMultiplierSniper
+			targetProficiency = weaponProficiencySniper
+		}
 	}
 	soldier.kv.AccuracyMultiplier = targetAccuracy
 	soldier.kv.WeaponProficiency = targetProficiency
@@ -1048,7 +1075,7 @@ function EnemyChanged_Standard( soldier )
 
 function EnemyChanged_Rocket( soldier )
 {
-	if ( EnemyChangedSwitchWeapon( soldier ) )
+	if ( EnemyChangedSwitchWeapon( soldier ) && !( IsReskinnedPilot( soldier ) || IsGhostPilot( soldier ) ) )
 		UpdateAILethality( soldier, null ) // standard accuracy when using rockets
 	else
 		UpdateAILethality( soldier, soldier.GetEnemy() )
@@ -1064,7 +1091,10 @@ function EnemyChangedSwitchWeapon( soldier )
 	}
 	else
 	{
-		atWeapon = GetRandomKeyFromWeightedTable( COOP_AT_WEAPON_RATES, 1.0 )
+		if ( IsReskinnedPilot( soldier ) || IsGhostPilot( soldier ) )
+			atWeapon = GetRandomKeyFromWeightedTable( PILOT_AT_WEAPON_RATES, 1.0 )
+		else
+			atWeapon = GetRandomKeyFromWeightedTable( COOP_AT_WEAPON_RATES, 1.0 )
 		soldier.s.atWeapon <- atWeapon
 	}
 	
@@ -1803,119 +1833,34 @@ function SendAIToAssaultPoint( guy, origin, angles, radius = STANDARDGOALRADIUS,
 }
 Globalize( SendAIToAssaultPoint )
 
-function GetCaptainName()
+function GetRandomCaptainName( team )
 {
-	level.captainNamesIndex++
-	if ( level.captainNamesIndex >= level.captainNames.len() )
-		level.captainNamesIndex = 0
-
-	return level.captainNames[ level.captainNamesIndex ]
-}
-
-function InitCaptainNames()
-{
-	level.captainNames <- [
-		"#NPC_CUSTOM_CAPTAIN_0",
-		"#NPC_CUSTOM_CAPTAIN_1",
-		"#NPC_CUSTOM_CAPTAIN_2",
-		"#NPC_CUSTOM_CAPTAIN_3",
-		"#NPC_CUSTOM_CAPTAIN_4",
-		"#NPC_CUSTOM_CAPTAIN_5",
-		"#NPC_CUSTOM_CAPTAIN_6",
-		"#NPC_CUSTOM_CAPTAIN_7",
-		"#NPC_CUSTOM_CAPTAIN_8",
-		"#NPC_CUSTOM_CAPTAIN_9",
-		"#NPC_CUSTOM_CAPTAIN_10",
-		"#NPC_CUSTOM_CAPTAIN_11",
-		"#NPC_CUSTOM_CAPTAIN_12",
-		"#NPC_CUSTOM_CAPTAIN_13",
-		"#NPC_CUSTOM_CAPTAIN_14",
-		"#NPC_CUSTOM_CAPTAIN_15",
-		"#NPC_CUSTOM_CAPTAIN_16",
-		"#NPC_CUSTOM_CAPTAIN_17",
-		"#NPC_CUSTOM_CAPTAIN_18",
-		"#NPC_CUSTOM_CAPTAIN_19",
-		"#NPC_CUSTOM_CAPTAIN_20",
-		"#NPC_CUSTOM_CAPTAIN_21",
-		"#NPC_CUSTOM_CAPTAIN_22",
-		"#NPC_CUSTOM_CAPTAIN_23",
-		"#NPC_CUSTOM_CAPTAIN_24",
-		"#NPC_CUSTOM_CAPTAIN_25",
-		"#NPC_CUSTOM_CAPTAIN_26",
-		"#NPC_CUSTOM_CAPTAIN_27",
-		"#NPC_CUSTOM_CAPTAIN_28",
-		"#NPC_CUSTOM_CAPTAIN_29",
-		"#NPC_CUSTOM_CAPTAIN_30",
-		"#NPC_CUSTOM_CAPTAIN_31",
-		"#NPC_CUSTOM_CAPTAIN_32",
-		"#NPC_CUSTOM_CAPTAIN_33",
-		"#NPC_CUSTOM_CAPTAIN_34",
-		"#NPC_CUSTOM_CAPTAIN_35",
-		"#NPC_CUSTOM_CAPTAIN_36",
-		"#NPC_CUSTOM_CAPTAIN_37",
-		"#NPC_CUSTOM_CAPTAIN_38",
-		"#NPC_CUSTOM_CAPTAIN_39",
-		"#NPC_CUSTOM_CAPTAIN_40",
-		"#NPC_CUSTOM_CAPTAIN_41",
-		"#NPC_CUSTOM_CAPTAIN_42",
-		"#NPC_CUSTOM_CAPTAIN_43",
-		"#NPC_CUSTOM_CAPTAIN_44",
-		"#NPC_CUSTOM_CAPTAIN_45",
-		"#NPC_CUSTOM_CAPTAIN_46",
-		"#NPC_CUSTOM_CAPTAIN_47",
-		"#NPC_CUSTOM_CAPTAIN_48",
-		"#NPC_CUSTOM_CAPTAIN_49",
-		"#NPC_CUSTOM_CAPTAIN_50",
-		"#NPC_CUSTOM_CAPTAIN_51",
-		"#NPC_CUSTOM_CAPTAIN_52",
-		"#NPC_CUSTOM_CAPTAIN_53",
-		"#NPC_CUSTOM_CAPTAIN_54",
-		"#NPC_CUSTOM_CAPTAIN_55",
-		"#NPC_CUSTOM_CAPTAIN_56",
-		"#NPC_CUSTOM_CAPTAIN_57",
-		"#NPC_CUSTOM_CAPTAIN_58",
-		"#NPC_CUSTOM_CAPTAIN_59",
-		"#NPC_CUSTOM_CAPTAIN_60",
-		"#NPC_CUSTOM_CAPTAIN_61",
-		"#NPC_CUSTOM_CAPTAIN_62",
-		"#NPC_CUSTOM_CAPTAIN_63",
-		"#NPC_CUSTOM_CAPTAIN_64",
-		"#NPC_CUSTOM_CAPTAIN_65",
-		"#NPC_CUSTOM_CAPTAIN_66",
-		"#NPC_CUSTOM_CAPTAIN_67",
-		"#NPC_CUSTOM_CAPTAIN_68",
-		"#NPC_CUSTOM_CAPTAIN_69",
-		"#NPC_CUSTOM_CAPTAIN_70",
-		"#NPC_CUSTOM_CAPTAIN_71",
-		"#NPC_CUSTOM_CAPTAIN_72",
-		"#NPC_CUSTOM_CAPTAIN_73",
-		"#NPC_CUSTOM_CAPTAIN_74",
-		"#NPC_CUSTOM_CAPTAIN_75",
-		"#NPC_CUSTOM_CAPTAIN_76",
-		"#NPC_CUSTOM_CAPTAIN_77",
-		"#NPC_CUSTOM_CAPTAIN_78",
-		"#NPC_CUSTOM_CAPTAIN_79",
-		"#NPC_CUSTOM_CAPTAIN_80",
-		"#NPC_CUSTOM_CAPTAIN_81",
-		"#NPC_CUSTOM_CAPTAIN_82",
-		"#NPC_CUSTOM_CAPTAIN_83",
-		"#NPC_CUSTOM_CAPTAIN_84",
-		"#NPC_CUSTOM_CAPTAIN_85",
-		"#NPC_CUSTOM_CAPTAIN_86",
-		"#NPC_CUSTOM_CAPTAIN_87",
-		"#NPC_CUSTOM_CAPTAIN_88",
-		"#NPC_CUSTOM_CAPTAIN_89",
-		"#NPC_CUSTOM_CAPTAIN_90",
-		"#NPC_CUSTOM_CAPTAIN_91",
-		"#NPC_CUSTOM_CAPTAIN_92",
-		"#NPC_CUSTOM_CAPTAIN_93",
-		"#NPC_CUSTOM_CAPTAIN_94",
-		"#NPC_CUSTOM_CAPTAIN_95"
+	local imcCaptainNames = [
+		"Heppe", "Roycewicz", "Dickinger", "Hackathorn", "Arnett", "Diamand", "Allen", "Snyder", "Sullivan",
+		"McLeod", "Ferriz", "Ichige", "Barb", "Grenier", "Lor", "Chong", "Dionne", "Yuen", "Sun-Kwon", "Pulaski",
+		"Hughes", "Lambert", "Sosnowski", "Wilson", "Burbridge", "McCoy", "Cangiano", "McCarthy", "Barcalay",
+		"Hammon", "Deerson", "Mecklenburg", "Felton", "Lerma", "Smith", "Fiedler", "Richter", "Winslow", "Sizemore", 
+		"Keefe", "Keating", "Virginia", "McCord", "Schanz", "Thurman", "McCann", "Adoti", "Calhoun", "Takenouchi",
+		"Song", "Conger", "Emslie", "Gompert", "Persson", "Haggerty", "Faust", "Shiring", "Duvall", "Rahm",
+		"Lipstock", "Zavala", "Byrne", "Nelson", "Lang", "Dietrich", "Mendoza", "Slater", "Bowden", "Voight",
+	]
+	
+	local militiaCaptainNames = [
+		"Hendry", "Cotterell", "Ramirez", "Walden", "Stone", "McCandlish", "Capparelli", "Perez", "Bennett", "Palmer",
+		"Grigsby", "Biancalana", "Altamirano", "Kalas", "Miller", "Tullis", "Barfield", "Fresnel", "Rutledge", "Bryant", 
+		"Glenn", "Vinson", "Baker", "Shoberg", "Gaines", "Powers", "Abrahamsson", "Roebuck", "Bell", "Nakamura", "Payne",
+		"Papouban", "Ehrenberg", "Hakik", "Meas", "Redetzke", "Slayback", "DeRose", "Fukuda", "Rico", "Sommers", "Reynolds", 
+		"Wong", "Oliveira", "Sue", "Minx", "Bui", "Parsons", "Zampella", "Reyes", "Delacourt", "Stroud", "Harris", 
+		"Cho", "Kim", "Aki", "Medina", "Fujita", "Grimenstein", "Mitchell", "Cole", "Beck", "Carlyle", "Webber", 
+		"Burrell", "Braxton", "Landinger", "Ibrahim", "Cruz", "Daniels", "Nguyen", "Aramaki", "Pryce", "Roberts",
 	]
 
-	ArrayRandomize( level.captainNames )
-	level.captainNamesIndex <- 0
+	if ( team == TEAM_IMC )
+		return Random( imcCaptainNames )
+	else
+		return Random( militiaCaptainNames )
 }
+Globalize( GetRandomCaptainName )
 
 
 function SetGlobalNPCHealth( healthValue ) //Debug, for trailer team

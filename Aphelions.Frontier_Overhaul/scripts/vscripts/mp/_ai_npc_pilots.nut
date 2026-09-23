@@ -11,21 +11,26 @@ function main()
 	Globalize( SpawnGhostPilot )
 }
 
+
 function GetRandomPilotName( team )
 {
 	local imcCodeNames = [
-		"Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo",
-		"Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform",
-		"Victor", "Whiskey", "Xray", "Yankee", "Zulu", "Steel", "Raven", "Falcon", "Silver", "Roach",
-		"Io", "Ganymede", "Callisto", "Europa", "Gold", "Red", "Blue", "Indigo", "June", "August",
-		"Beta", "Gamma", "Eta", "Omicron", "Epsilon", "Rho", "Tau", "Zeta", "Seven", "Nine", "Six",
+		"Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
+		"Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey",
+		"Xray", "Yankee", "Zulu", "Steel","Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Roach",
+		"Io", "Ganymede", "Callisto", "Europa", "Phobos", "Demos", "Red", "Blue", "Indigo", "White", "Black",
+		"June", "August", "Seven", "Nine", "Six", "Case", "Knight", "Bishop", "Rook", "Ward", "Cross",
+		"Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu", "Nu",
+		"Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega", 
 	]
 	local militiaNames = [
-		"Jackson", "Rodriguez", "Williams", "Wilson", "Moore", "Asgeirsson", "White", "Lewis", "Clark", "Walker",
-		"Baker", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hanes", "Stokes",
-		"Bohr", "Allen", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr",
+		"Adams", "Jackson", "Rodriguez", "Williams", "Dennings", "Moore", "Asgeirsson", "Lewis", "Clark", "Irons",
+		"Radford", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hayes", "Stokes", "Osman",
+		"Bohr", "Crane", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr", "Walker",
 		"Barnes", "Hernandez", "Greene", "Higgins", "Burke", "Rodgers", "Chang", "Gore", "Vargas", "Gruzinsky",
-		"Woods", "Everett", "Namir", "Hale", "Hermann", "Dutch", "Wayans", "Griffith", "Tanhausser",
+		"Woods", "Everett", "Namir", "Hale", "Hermann", "Dutch", "Wayans", "Griffith", "Tanhausser", "Rooker",
+		"Fisher", "Drake", "Saito", "Hawthorne", "Tomar", "Rivers", "Saunders", "Shepard", "Asadi", "Howe",
+		"Winters", "Crowe", "Omar", "Maynard", "Easton", "Rao", "Jankowski", "Reed", 
 	]
 
 	if ( team == TEAM_IMC )
@@ -140,10 +145,13 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
     guy.kv.max_health = 200
     // guy.kv.AccuracyMultiplier = 4
     // guy.kv.WeaponProficiency = 4
-	guy.s.useRPGPreference = RPG_USE_SOMETIMES
+	guy.s.useRPGPreference = RPG_USE_ALWAYS
 	guy.SetMoveSpeedScale( 1.15 )
 	guy.PreferSprint( true )
 	guy.SetHearingSensitivity( 10 )
+
+    guy.AllowFlee( false )
+	guy.AllowHandSignals( true )
 
     return guy
 }
@@ -222,9 +230,9 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
 
     ghostPilot.kv.health = 250
     ghostPilot.kv.max_health = 250
-    ghostPilot.kv.AccuracyMultiplier = 4
-    ghostPilot.kv.WeaponProficiency = 4
-
+    // ghostPilot.kv.AccuracyMultiplier = 4
+    // ghostPilot.kv.WeaponProficiency = 4
+    ghostPilot.s.useRPGPreference = RPG_USE_ALWAYS
     ghostPilot.SetAISettings( "fireteam_soldier" )
     CommonInit( ghostPilot )
     SetupSoldierForRPGs( ghostPilot, ghostPilot.GetTeam() )
@@ -232,6 +240,9 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
     ghostPilot.SetMoveSpeedScale( 1.15 )
     ghostPilot.PreferSprint( true )
     ghostPilot.SetHearingSensitivity( 10 )
+
+    ghostPilot.AllowFlee( false )
+	ghostPilot.AllowHandSignals( true )
 
 	ghostPilot.Minimap_Hide( TEAM_IMC, null )
     ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
