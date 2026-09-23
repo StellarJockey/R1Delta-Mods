@@ -2327,9 +2327,13 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 			limit = ( team == playerTeam ) ? 3 : 0   // 3 for your team in Frontier Defense
 			break
 			
-		default:
-			// Attrition, Hardpoint, Campaign, etc.
-			limit = ( team == playerTeam ) ? 2 : 5   // 2 for your team, 5 for enemy team
+		default: // Attrition, Hardpoint, Campaign, etc.
+			if ( Riff_AILethality() == eAILethality.Default )
+				limit = ( team == playerTeam ) ? 2 : 3   // 2 for your team, 3 for enemy team
+			else if ( Riff_AILethality() == eAILethality.High )
+				limit = ( team == playerTeam ) ? 2 : 4  
+			else if ( Riff_AILethality() == eAILethality.VeryHigh )
+				limit = ( team == playerTeam ) ? 2 : 5 
 			break
 	}
 
