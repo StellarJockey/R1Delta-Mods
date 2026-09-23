@@ -581,6 +581,16 @@ function SpawnLosingTeamTitan( titanNode, name, team )
 	titan.SetEfficientMode( false )
 	titan.DisableArrivalOnce( true )
 
+	AllowTeamRodeo( titan, true )
+	GiveTitanPilot( titan, true )
+
+	if ( team == TEAM_MILITIA )
+		GiveTitanPilotModel( titan, TEAM_MILITIA_CAPTAIN_MDL )
+	else
+		GiveTitanPilotModel( titan, TEAM_IMC_CAPTAIN_MDL )
+
+	titan.s.pilotIsNPCCaptain <- true
+
 	local target = GetEnt( node.GetTarget() )
 
 	while ( target )
