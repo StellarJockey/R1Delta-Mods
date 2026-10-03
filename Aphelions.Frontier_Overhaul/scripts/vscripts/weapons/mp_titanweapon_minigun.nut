@@ -12,10 +12,18 @@ function OnWeaponActivate( activateParams )
     
     // Initialize tracking variables if they don't exist
     local vars = ["lastFireTime", "overheatEndTime", "lastRegenTime", "partialAmmo"]
-    foreach( v in vars ) if ( !( v in self.s ) ) self.s[v] <- 0
+    foreach( v in vars )
+    {
+        if ( !( v in self.s ) )
+            self.s[v] <- 0
+    }
     
     local bools = ["overheatNotificationShown", "clientOverheatNotified", "wasOverheating"]
-    foreach( b in bools ) if ( !( b in self.s ) ) self.s[b] <- false
+    foreach( b in bools )
+    {
+        if ( !( b in self.s ) )
+            self.s[b] <- false
+    }
 
     thread MinigunMovementThink( self )
 }
@@ -27,7 +35,8 @@ function OnWeaponDeactivate( deactivateParams )
     if ( IsServer() )
     {
         local owner = self.GetWeaponOwner()
-        if ( IsValid( owner ) ) owner.SetMoveSpeedScale( 1.0 )
+        if ( IsValid( owner ) )
+            owner.SetMoveSpeedScale( 1.0 )
     }
 
     if ( IsClient() )
@@ -68,7 +77,7 @@ function ServerMinigunLogic( weapon, owner )
 {
     local currentTime = Time()
     local hasExtAmmo = weapon.HasMod( "extended_ammo" )
-    local maxAmmo = hasExtAmmo ? 120 : 100
+    local maxAmmo = self.GetWeaponModSetting( "ammo_clip_size" )
     local reloadTime = hasExtAmmo ? 5.0 : 4.0
 
     // Overheat logic
@@ -141,12 +150,15 @@ function ClientMinigunLogic( weapon, owner )
 
 function OnWeaponPrimaryAttack( attackParams )
 {
+    self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
+
     self.s.lastFireTime = Time()
-    self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageTypes.Electric | DF_STOPS_TITAN_REGEN )
+    self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageTypes.LargeCaliber | DF_STOPS_TITAN_REGEN )
+    // self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageTypes.Electric | DF_STOPS_TITAN_REGEN )
 
     if ( self.GetWeaponPrimaryClipCount() <= 1 )
     {
-        self.s.overheatEndTime = Time() + (self.HasMod( "extended_ammo" ) ? 6.0 : 5.0)
+        self.s.overheatEndTime = Time() + 5.0
         if ( IsServer() )
         {
             self.SetNextAttackAllowedTime( self.s.overheatEndTime )
@@ -157,12 +169,9 @@ function OnWeaponPrimaryAttack( attackParams )
 
 function OnWeaponNpcPrimaryAttack( attackParams )
 {
-    self.s.lastFireTime = Time()
-    self.SetNextAttackAllowedTime( Time() + (1.0 / 15.0) )
-    self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageTypes.Electric | DF_STOPS_TITAN_REGEN )
-    self.SetWeaponPrimaryClipCount( 100 )
-
-    return 1
+    self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageTypes.LargeCaliber | DF_STOPS_TITAN_REGEN )
+	// self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageTypes.Electric | DF_STOPS_TITAN_REGEN )
+	self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS, 0.2 )
 }
 
 function OnWeaponChargeBegin( chargeParams )
@@ -183,6 +192,9 @@ function OnWeaponStartZoomOut() { HandleWeaponSoundZoomOut( self, "Weapon_40mm.A
 
 function OnWeaponOwnerChanged( changeParams )
 {
-	if ( IsClient() && changeParams.newOwner == GetLocalViewPlayer() )
-		UpdateViewmodelAmmo()
+	if ( IsClient() )
+	{
+		if ( changeParams.newOwner != null && changeParams.newOwner == GetLocalViewPlayer() )
+			UpdateViewmodelAmmo()
+	}
 }

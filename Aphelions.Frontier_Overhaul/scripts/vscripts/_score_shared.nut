@@ -2412,7 +2412,6 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 			case eDamageSourceId.bubble_shield:
 			case eDamageSourceId.switchback_trap:
 			case eDamageSourceId.titanEmpField:
-			case eDamageSourceId.mp_weapon_mega3:
 			case eModSourceId.burn_mod_titan_xo16:
 				return "NeutralizedSuicideSpectre"
 		}
