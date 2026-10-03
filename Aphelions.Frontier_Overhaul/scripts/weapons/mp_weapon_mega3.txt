@@ -14,9 +14,9 @@ WeaponData
 	"minimap_reveal_distance"						"32000"
 
 	// Menu Stats
-	"stat_damage" 									"65"
-	"stat_range"  									"65"
-	"stat_accuracy"   								"75"
+	"stat_damage" 									"75"
+	"stat_range"  									"55"
+	"stat_accuracy"   								"70"
 	"stat_rof"										"80"
 
 	// Models
@@ -26,8 +26,8 @@ WeaponData
 	"anim_prefix" 									"ar2"
 
 	// Effects
-	"tracer_effect"   								"P_wpn_tracer_xo16_elec" //""
-	"tracer_effect_first_person"  					"P_wpn_tracer_xo16_elec" //""
+	"tracer_effect"   								"weapon_tracers_xo16" // "P_wpn_tracer_xo16_elec"
+	"tracer_effect_first_person"  					"weapon_tracers_xo16" // "P_wpn_tracer_xo16_elec"
 	"impact_effect_table" 							"titan_bullet" // "titan_bullet_elec"
 
 	"vortex_absorb_effect"							"wpn_vortex_projectile_20mm_FP"
@@ -40,8 +40,8 @@ WeaponData
 	"fx_shell_eject_world"							"wpn_shelleject_20mm"
 	"fx_shell_eject_attach"							"shell"
 
-	"fx_muzzle_flash_view"							"wpn_muzzleflash_xo_elec_FP"
-	"fx_muzzle_flash_world"							"wpn_muzzleflash_xo_elec" 
+	"fx_muzzle_flash_view"							"wpn_muzzleflash_xo_FP" // "wpn_muzzleflash_xo_elec_FP"
+	"fx_muzzle_flash_world"							"wpn_muzzleflash_xo"	// "wpn_muzzleflash_xo_elec" 
 	"fx_muzzle_flash_attach"						"muzzle_flash"
 
 	// Sound
@@ -55,23 +55,23 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
-	"damage_near_distance"							"2700"
-	"damage_far_distance" 							"3200"
-	"damage_near_value"   							"100"
-	"damage_far_value"								"85"
-	"damage_near_value_titanarmor"					"96"
-	"damage_far_value_titanarmor" 					"90"
+	"damage_near_distance"							"1800"
+	"damage_far_distance" 							"3000"
+	"damage_near_value"   							"80"
+	"damage_far_value"								"75"
+	"damage_near_value_titanarmor"					"130" // "96"
+	"damage_far_value_titanarmor" 					"100" // "90"
 
 	// Damage - When Used by NPCs
-	"npc_damage_near_distance"						"2700"
-	"npc_damage_far_distance" 						"3200"
-	"npc_damage_near_value"   						"100"
-	"npc_damage_far_value"							"85"
+	"npc_damage_near_distance"						"1800"
+	"npc_damage_far_distance" 						"3000"
+	"npc_damage_near_value"   						"80"
+	"npc_damage_far_value"							"75"
 	"npc_damage_near_value_titanarmor"				"96"
 	"npc_damage_far_value_titanarmor" 				"90"
 
-	"impulse_force"   								"2500"
-	"critical_hit_damage_scale"						"2.0" 
+	"impulse_force"   								"5000"
+	"critical_hit_damage_scale"						"2.5" 
 
 	// Ammo
 	"ammo_stockpile_max"							"50000"
@@ -79,10 +79,10 @@ WeaponData
 	"ammo_default_total"							"50000"
 
 	// Behavior
-	"fire_rate"										"5"
-	"fire_rate_max"									"15"
-	"fire_rate_max_time_speedup"					"2.0"
-	"fire_rate_max_time_cooldown"					"2.0"
+	"fire_rate"										"15"
+	// "fire_rate_max"									"25"
+	// "fire_rate_max_time_speedup"					"2.0"
+	// "fire_rate_max_time_cooldown"					"2.0"
 	"zoom_time_in"									"0.2"
 	"zoom_time_out"   								"0.2"
 	"zoom_fov"										"33"
@@ -108,9 +108,6 @@ WeaponData
 	"ads_move_speed_scale"							"0.5"
 	// "move_speed_modifier"							"0.65"
 	
-	"vortex_drain"									".15"
-
-
 
 	// Charge Behavior
 	"charge_time" 						 			"0.5" //	"0.01"
@@ -118,15 +115,15 @@ WeaponData
 	"charge_cooldown_delay"   						"0.1"
 	"charge_end_forces_fire"						 "1"
 
-	// Spread //tfo-556
-	"spread_stand_hip"								"1" //"4"
-	"spread_stand_hip_run"							"1" //"8.0"
-	"spread_stand_hip_sprint"                       "1" //"25"
-	"spread_stand_ads"								"0.3" //"0.7"
-	"spread_crouch_hip"   							"1" //"4"
-	"spread_crouch_ads"   							"0.3" //"0.7"
-	"spread_air_hip"  								"1" //"8.0"
-	"spread_air_ads"  								"0.3" //"0.7"
+	// Spread
+	"spread_stand_hip"								"8"
+	"spread_stand_hip_run"							"16.0"
+	"spread_stand_hip_sprint"                       "25"
+	"spread_stand_ads"								"4"
+	"spread_crouch_hip"   							"4"
+	"spread_crouch_ads"   							"2"
+	"spread_air_hip"  								"24.0"
+	"spread_air_ads"  								"8"
 
 	"spread_npc"  									"1"
 
@@ -137,12 +134,11 @@ WeaponData
 	"spread_kick_on_fire_air_hip" 					"0.3"
 	"spread_kick_on_fire_air_ads" 					"0.3"
 
-	//tfo-556
-	//"spread_max_kick_stand_hip"						"8.0"
+	"spread_max_kick_stand_hip"						"8.0"
 	"spread_max_kick_stand_ads"						"0.0"
-	//"spread_max_kick_crouch_hip"  					"8.0"
+	"spread_max_kick_crouch_hip"  					"8.0"
 	"spread_max_kick_crouch_ads"  					"0.0"
-	//"spread_max_kick_air_hip" 						"8.0"
+	"spread_max_kick_air_hip" 						"8.0"
 	"spread_max_kick_air_ads" 						"0.0"
 
 	"spread_decay_rate"   							"4.5"
@@ -151,15 +147,15 @@ WeaponData
 	// View Kick
 	"viewkick_spring" 								"titan_xo16"
 
-	"viewkick_pitch_base" 							"-0.05"
-	"viewkick_pitch_random"   						"0.65"
+	"viewkick_pitch_base" 							"-0.2"
+	"viewkick_pitch_random"   						"0.5"
 	"viewkick_pitch_softScale"						"1.5"
-	"viewkick_pitch_hardScale"						"1.5"
+	"viewkick_pitch_hardScale"						"1.0"
 
-	"viewkick_yaw_base"   							"0.05"
-	"viewkick_yaw_random" 							"0.30"
+	"viewkick_yaw_base"   							"0.2"
+	"viewkick_yaw_random" 							"0.15"
 	"viewkick_yaw_softScale"  						"1.0"
-	"viewkick_yaw_hardScale"  						"1.5"
+	"viewkick_yaw_hardScale"  						"1.0"
 
 	"viewkick_roll_base"  							"0.0"
 	"viewkick_roll_randomMin" 						"0.15"
@@ -172,13 +168,13 @@ WeaponData
 	"viewkick_ads_weaponFraction" 					"0.6"
 	"viewkick_ads_weaponFraction_vmScale" 			"0.7"
 
-	"viewkick_scale_min_hipfire"  					"1.5"
-	"viewkick_scale_max_hipfire"  					"2.0"
-	"viewkick_scale_min_ads"  						"0.6"
-	"viewkick_scale_max_ads"  						"1.6"
+	"viewkick_scale_min_hipfire"  					"0.6"
+	"viewkick_scale_max_hipfire"  					"1.0"
+	"viewkick_scale_min_ads"  						"0.3"
+	"viewkick_scale_max_ads"  						"0.8"
 	"viewkick_scale_valuePerShot" 					"1"
-	"viewkick_scale_valueLerpStart"   				"50"
-	"viewkick_scale_valueLerpEnd" 					"150"
+	"viewkick_scale_valueLerpStart"   				"5"
+	"viewkick_scale_valueLerpEnd" 					"50"
 	"viewkick_scale_valueDecayDelay"  				"0.20"
 	"viewkick_scale_valueDecayRate"   				"30"
 
@@ -245,7 +241,6 @@ WeaponData
 	"sway_turn_right_rotate_yaw"  					"1"
 	"sway_turn_up_rotate_pitch"   					"1"
 	"sway_turn_down_rotate_pitch" 					"-1"
-	"sway_enable_zoomed"							"0" // Actually does the opposite lmao, should have been called sway_disable_zoomed
 
 	// NPC
 	"proficiency_poor_spreadscale"					"6.0"
@@ -263,8 +258,8 @@ WeaponData
 	"rest_time_between_bursts_max"					"1.5"
 	"npc_min_range"   								"0"
 	"npc_max_range"   								"8000"
-	"npc_min_burst"   								"20"
-	"npc_max_burst"   								"25"
+	"npc_min_burst"   								"25"
+	"npc_max_burst"   								"100"
 
 	// Crosshair
 	"red_crosshair_range" 							"3200"
@@ -292,6 +287,14 @@ WeaponData
 		"extended_ammo"
 		{
 			"ammo_clip_size"   								"120"
+		}
+
+		"accelerator" 
+		{
+			"fire_rate"										"10"
+			
+			"npc_damage_near_value_titanarmor"				"90"
+			"npc_damage_far_value_titanarmor" 				"84"
 		}
 
 

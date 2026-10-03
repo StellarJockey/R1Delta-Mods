@@ -22,6 +22,6 @@
 	"$specularboost" "2"
 	"$speculartint" "[1 1 1]"
 	"$shininess" "models\weapons\titan_minigun\titan_minigun_exp"
-	"$selfillum" "1"
-	"$selfillummask" "models\weapons\titan_minigun\titan_minigun_glw"
+	"$selfillum" "0"
+	// "$selfillummask" "models\weapons\titan_minigun\titan_minigun_glw"
 }
