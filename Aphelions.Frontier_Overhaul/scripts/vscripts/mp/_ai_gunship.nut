@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////
 // This thing was vibe-coded to hell and back... but it works for now
 
-const AI_GUNSHIP_HEALTH = 10000
+const AI_GUNSHIP_HEALTH = 7000
 const AI_GUNSHIP_AIRSPEED = 2000
 const AI_GUNSHIP_ACCEL = 1.75
 const AI_GUNSHIP_YAWRATE = 90
@@ -22,12 +22,33 @@ PrecacheModel( STRATON_MODEL )
 PrecacheModel( HORNET_MODEL )
 PrecacheWeapon( "mp_weapon_yh803_bullet" )
 
+function main()
+{
+	Globalize( SpawnAIGunship )
+	Globalize( AIGunshipWarpIn )
+	Globalize( AI_GunshipCanTarget )
+	Globalize( AI_GunshipStopMover )
+	Globalize( AI_GunshipHuntThink )
+	Globalize( AI_GunshipPathIsClear )
+
+	Globalize( AI_GunshipMoveTo )
+	Globalize( AI_GunshipSelectTarget )
+	Globalize( AI_GunshipFindClosestValid )
+	Globalize( OnAIGunshipDeath )
+	Globalize( AIGunshipDestroyMoverAfterDeath )
+	Globalize( AI_GunshipAddTurrets )
+	Globalize( AI_GunshipDestroyTurrets )
+	Globalize( AI_GunshipCreateTurret )
+
+	AddDeathCallback( "npc_dropship", OnAIGunshipDeath )
+}
+
 function SpawnAIGunship( team, origin, angles = Vector( 0, 0, 0 ), squadname = null, health = AI_GUNSHIP_HEALTH, warpAnimation = null )
 {
 	local spawnOrigin = origin + Vector( 0, 0, AI_GUNSHIP_HOVER_HEIGHT )
 
 	local shipModel
-	local title
+	local title = ""
 
 	switch ( team )
 	{
@@ -126,7 +147,6 @@ function SpawnAIGunship( team, origin, angles = Vector( 0, 0, 0 ), squadname = n
 
 	return gunship
 }
-Globalize( SpawnAIGunship )
 
 function AIGunshipWarpIn( gunship, animation, origin, angles )
 {
@@ -136,7 +156,7 @@ function AIGunshipWarpIn( gunship, animation, origin, angles )
 	WarpinEffect( gunship.GetModelName(), animation, origin, angles )
 	gunship.Anim_Play( animation )
 }
-Globalize( AIGunshipWarpIn )
+
 
 function AI_GunshipCanTarget( gunship, target )
 {
@@ -177,7 +197,6 @@ function AI_GunshipStopMover( gunship )
 	gunship.s.gunshipIdleAngles = lockedAngles
 	gunship.s.gunshipIsIdle = true
 }
-Globalize( AI_GunshipStopMover )
 
 function AI_GunshipHuntThink( gunship, team = null )
 {
@@ -234,8 +253,9 @@ function AI_GunshipHuntThink( gunship, team = null )
 		wait 0.25
 	}
 }
-Globalize( AI_GunshipHuntThink )
 
+
+// Replaced AI_GunshipPathIsClear with a multi-segment hull-trace version
 function AI_GunshipPathIsClear( gunship, start, destination, scale = 1.0 )
 {
 	local mins = gunship.GetBoundingMins()
@@ -255,22 +275,46 @@ function AI_GunshipPathIsClear( gunship, start, destination, scale = 1.0 )
 	if ( "gunshipMover" in gunship.s )
 		ignoreArray.append( gunship.s.gunshipMover )
 
-	local trace = TraceHull(
-		start,
-		destination,
-		mins,
-		maxs,
-		ignoreArray,
-		TRACE_MASK_NPCWORLDSTATIC,
-		TRACE_COLLISION_GROUP_NONE
-	)
+	// Segment the trace so we check intermediate geometry (prevents clipping through geometry between start/dest)
+	local delta = destination - start
+	local dist = delta.Length()
+	if ( dist <= 0.0 )
+		return true
 
-	if ( trace.startSolid || trace.allSolid )
-		return false
+	// Determine number of segments (cap to avoid excessive traces)
+	local maxSegmentLength = 800.0
+	local steps = ceil( dist / maxSegmentLength )
+	if ( steps < 1 ) steps = 1
+	if ( steps > 30 ) steps = 30
 
-	return trace.fraction >= 0.99
+	for ( local i = 0; i < steps; i++ )
+	{
+		// Use multiplication by 1.0 to force float division (Squirrel has no (float) cast)
+		local t0 = ( i / (steps * 1.0) )
+		local t1 = ( (i+1) / (steps * 1.0) )
+
+		local segStart = start + delta * t0
+		local segEnd   = start + delta * t1
+
+		local trace = TraceHull(
+			segStart,
+			segEnd,
+			mins,
+			maxs,
+			ignoreArray,
+			TRACE_MASK_NPCWORLDSTATIC,
+			TRACE_COLLISION_GROUP_NONE
+		)
+
+		// If any segment starts in solid or is blocked, path is not clear
+		if ( trace.startSolid || trace.allSolid ) return false
+		if ( trace.fraction < 0.99 ) return false
+	}
+
+	return true
 }
 
+// Improved AI_GunshipMoveTo: try alternate waypoints before giving up, and stop mover when no safe route found
 function AI_GunshipMoveTo( gunship, target )
 {
 	if ( !( "gunshipMover" in gunship.s ) )
@@ -357,11 +401,42 @@ function AI_GunshipMoveTo( gunship, target )
 		}
 	}
 
+	// If still no direct clear path, try sampling nearby candidate waypoints (radial + heights)
 	if ( validDest == null )
 	{
-		// Last resort: hand the destination to the mover anyway and let its
-		// physics slide us along geometry. Better than being frozen at spawn.
-		validDest = destination
+		local found = false
+		local sampleRadii = [300, 600, 1000, 1500]
+		local angleStep = 45.0 * 0.0174532925
+		foreach ( radius in sampleRadii )
+		{
+			local i = 0
+			while ( i < 8 && !found )
+			{
+				local ang = i * angleStep
+				local candidateBase = destination + Vector( cos( ang ) * radius, sin( ang ) * radius, 0 )
+
+				// Try same set of heights for each candidate
+				foreach ( heightOffset in heightOffsets )
+				{
+					local candidate = candidateBase + Vector( 0, 0, heightOffset )
+					if ( AI_GunshipPathIsClear( gunship, start, candidate ) )
+					{
+						validDest = candidate
+						found = true
+						break
+					}
+				}
+				i += 1
+			}
+			if ( found ) break
+		}
+	}
+
+	// If we still couldn't find a safe destination, stop mover instead of forcing a clipped path.
+	if ( validDest == null )
+	{
+		AI_GunshipStopMover( gunship )
+		return
 	}
 
 	// While travelling, let the mover rotate toward its direction of travel.
@@ -387,7 +462,7 @@ function AI_GunshipSelectTarget( gunship, team )
 	infantry.extend( GetNPCArrayEx( "npc_spectre", enemyTeam, origin, AI_GUNSHIP_MAX_ENEMY_DIST ) )
 	return AI_GunshipFindClosestValid( gunship, infantry, origin )
 }
-Globalize( AI_GunshipSelectTarget )
+
 
 function AI_GunshipFindClosestValid( gunship, candidates, origin )
 {
@@ -421,8 +496,6 @@ function OnAIGunshipDeath( gunship, damageInfo )
 			thread AIGunshipDestroyMoverAfterDeath( mover )
 	}
 }
-Globalize( OnAIGunshipDeath )
-AddDeathCallback( "npc_dropship", OnAIGunshipDeath )
 
 function AIGunshipDestroyMoverAfterDeath( mover )
 {
