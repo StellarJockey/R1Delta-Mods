@@ -28,12 +28,12 @@ const STANDARDGOALRADIUS = 100
 const AI_SPECTRE_ACCURACY_DEFAULT = 1.0
 const AI_SOLDIER_ACCURACY_DEFAULT = 0.6 
 const AI_CAPTAIN_ACCURACY_DEFAULT = 1.0
-const AI_PILOT_ACCURACY_DEFAULT   = 4.0
+const AI_PILOT_ACCURACY_DEFAULT   = 2.0
 
 const AI_SPECTRE_PROFICIENCY_DEFAULT = 2
 const AI_SOLDIER_PROFICIENCY_DEFAULT = 2
 const AI_CAPTAIN_PROFICIENCY_DEFAULT = 2.5
-const AI_PILOT_PROFICIENCY_DEFAULT   = 4.0
+const AI_PILOT_PROFICIENCY_DEFAULT   = 2.5
 
 const CAPTAIN_NAME_FREQUENCY = 0.35
 
@@ -949,7 +949,7 @@ function UpdateAILethality( soldier, enemy )
 	local accuracyMultiplierSniper = 100
 	local weaponProficiencySniper = 2
 
-	if ( enemy && enemy.IsPlayer() && !enemy.IsTitan() )
+	if ( enemy && ( enemy.IsPlayer() && !enemy.IsTitan() ) || ( IsReskinnedPilot ( soldier ) || IsGhostPilot( soldier ) ) )
 	{
 		if ( Riff_AILethality() != eAILethality.Default )
 		{
@@ -988,7 +988,7 @@ function UpdateAILethality( soldier, enemy )
 					accuracyMultiplier = 1.0
 					accuracyMultiplierSpectre = 1.0
 					accuracyMultiplierCaptain = 3.0
-					accuracyMultiplierPilot = 1.0
+					accuracyMultiplierPilot = 3.0
 					accuracyMultiplierSniper = 1000
 
 					weaponProficiency = 3

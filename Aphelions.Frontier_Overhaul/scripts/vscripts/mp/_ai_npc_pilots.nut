@@ -18,8 +18,8 @@ function GetRandomPilotName( team )
 		"Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
 		"Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey",
 		"Xray", "Yankee", "Zulu", "Steel","Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Roach",
-		"Io", "Ganymede", "Callisto", "Europa", "Phobos", "Demos", "Red", "Blue", "Indigo", "White", "Black",
-		"June", "August", "Seven", "Nine", "Six", "Case", "Knight", "Bishop", "Rook", "Ward", "Cross",
+		"Io", "Ganymede", "Callisto", "Europa", "Phobos", "Deimos", "Red", "Blue", "Indigo", "White", "Black",
+		"June", "August", "Four," "Five", "Six", "Seven", "Nine", "Case", "Knight", "Bishop", "Rook", "Ward", "Cross",
 		"Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu", "Nu",
 		"Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega", 
 	]
@@ -134,7 +134,6 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
     // Determine the correct model based on the weapon equipped using centralized helper
     local model = ChoosePilotModelForWeapon( team, weapon )
     guy.SetModel( model )
-
     guy.SetTitle( title )
 
 	if ( "s" in guy && "IsSoldier" in guy.s )
@@ -143,10 +142,9 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 
     guy.kv.health = 200
     guy.kv.max_health = 200
-    // guy.kv.AccuracyMultiplier = 4
-    // guy.kv.WeaponProficiency = 4
 	guy.s.useRPGPreference = RPG_USE_ALWAYS
-	guy.SetMoveSpeedScale( 1.15 )
+	guy.SetMoveSpeedScale( 1.20 ) // 1.15
+    guy.SetAISettings( "fireteam_pilot" )
 	guy.PreferSprint( true )
 	guy.SetHearingSensitivity( 10 )
 
@@ -230,14 +228,12 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
 
     ghostPilot.kv.health = 250
     ghostPilot.kv.max_health = 250
-    // ghostPilot.kv.AccuracyMultiplier = 4
-    // ghostPilot.kv.WeaponProficiency = 4
     ghostPilot.s.useRPGPreference = RPG_USE_ALWAYS
-    ghostPilot.SetAISettings( "fireteam_soldier" )
+    ghostPilot.SetAISettings( "fireteam_pilot" )
     CommonInit( ghostPilot )
     SetupSoldierForRPGs( ghostPilot, ghostPilot.GetTeam() )
 
-    ghostPilot.SetMoveSpeedScale( 1.15 )
+    ghostPilot.SetMoveSpeedScale( 1.20 )
     ghostPilot.PreferSprint( true )
     ghostPilot.SetHearingSensitivity( 10 )
 
