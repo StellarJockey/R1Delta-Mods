@@ -1,0 +1,58 @@
+fireteam_pilot
+{
+	DefaultModelName		"models/humans/imc_grunt/battle_rifle/imc_grunt_battle_rifle.mdl"
+	DefaultWeapon			"mp_weapon_rspn101"
+
+	FOV_Vert_Offset			10
+	FOV_Near_Dist			150
+	FOV_Far_Dist			2000
+
+	FOV_Idle_Near_Horz		130
+	FOV_Idle_Near_Vert		180
+	FOV_Idle_Far_Horz		60
+	FOV_Idle_Far_Vert		60
+
+	FOV_Alert_Near_Horz		130
+	FOV_Alert_Near_Vert		180
+	FOV_Alert_Far_Horz		60
+	FOV_Alert_Far_Vert		60
+
+	FOV_Combat_Near_Horz	130
+	FOV_Combat_Near_Vert	180
+	FOV_Combat_Far_Horz		60
+	FOV_Combat_Far_Vert		60
+
+	YawSpeed				35
+	MoveYawSpeed			30
+	AimAngularSpeed			10
+
+	MeleeDamageMin			200
+	MeleeDamageMax			200
+	MeleeDamageRadius		32
+
+	// FO: pilots do not flinch/surrender near Titans.
+	// Grunt pain values cause the drop-weapon-kneel reaction.
+	// Matches spectre.txt's pain suppression.
+	HeavyDamageThresholdAmt		300
+	PainOnRepeatDamageThreshold	1
+	PainOnSurpriseHit		0
+	PainWhileRunning		0
+
+	MinStartMoveDist		100
+	MaxArrivalDist			150
+	MinForceWalkDist		150
+
+	showFriendlyIcon		1
+
+	AimAngleBackwardEnd		-120
+	AimAngleForwardStart	-60
+	AimAngleForwardEnd		60
+	AimAngleBackwardStart	120
+
+	AIClass					human
+	BodyType				human
+	ArmorType				normal
+
+	aiEnemy_usePriorityDist	1000
+	aiEnemy_priority		10
+}
