@@ -60,7 +60,7 @@ WeaponData
 
 	// Damage - When Used by NPCs
 	"npc_damage_near_distance"						"1050" // "800"
-	"npc_damage_far_distance" 						"1500" // "1000"
+	"npc_damage_far_distance" 						"1200" // "1000"
 	"npc_damage_near_value"   						"67"
 	"npc_damage_far_value"							"67"
 	"npc_damage_near_value_titanarmor"				"40"
@@ -267,7 +267,7 @@ WeaponData
 	"npc_min_range_secondary" 						"0"
 	"npc_max_range_secondary" 						"2500"
 	"npc_min_burst"   								"2"
-	"npc_max_burst"   								"5"
+	"npc_max_burst"   								"4"
 	"rest_time_between_bursts_min"					"0.2"
 	"rest_time_between_bursts_max"					"1.0"
 

@@ -239,7 +239,7 @@ WeaponData
 	"npc_min_range_secondary" 						"0"
 	"npc_max_range_secondary" 						"2500"
 	"npc_min_burst"   								"1"
-	"npc_max_burst"   								"1"
+	"npc_max_burst"   								"3" // "1"
 	"rest_time_between_bursts_min"					"0.5"
 	"rest_time_between_bursts_max"					"1"
 
