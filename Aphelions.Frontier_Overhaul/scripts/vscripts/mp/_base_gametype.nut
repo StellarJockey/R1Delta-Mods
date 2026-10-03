@@ -1049,7 +1049,8 @@ function PostDeathThread( player, damageInfo )
 	}
 
 
-	if( player.IsBot() && GetConVarBool( "bot_kick_on_death" ) )
+	// Bots managed by _bot_manager stay in the match and respawn like players.
+	if( player.IsBot() && GetConVarBool( "bot_kick_on_death" ) && !IsManagedBot( player ) )
 	{
 		wait 5.0
 		// 봇은 죽으면 kick
@@ -2202,6 +2203,23 @@ function RespawnTitanPilot( player, rematchOrigin = null, retryToken = null, spa
 		// stop recording spawn data
 		StoreSpawnData( spawnPoint, spawnDataIndex )
 	}
+	else if ( IsManagedBot( player ) )
+	{
+		// Without a spawn point RespawnPlayer falls back to the map's default spawn, which is the
+		// same for both teams. Give pilot bots their team's spawn like humans get.
+		// A bot's first spawn (including bots added mid-match) is at its team's base; later
+		// respawns use the normal dynamic spawns, like humans.
+		if ( ShouldStartSpawn( player ) || !player.s.respawnCount )
+			spawnPoint = FindStartSpawnPoint( player, false )
+		if ( !spawnPoint )
+			spawnPoint = FindSpawnPoint( player, false )
+
+		if ( !spawnPoint )
+		{
+			QueueRespawnAfterNoSafeSpawnpoint( player, rematchOrigin, null, request )
+			return false
+		}
+	}
 
 	if ( retryToken != null && !PlayerCanContinueSpawnRetry( player, retryToken, request ) )
 		return false
@@ -2529,7 +2547,8 @@ function TitanPlayerHotDropsIntoLevel( player, rematchOrigin = null, token = nul
 	// save post drop spawn data
 	PostDropSpawnData( player, spawnDataIndex )
 
-	if ( player.IsBot() )
+	// Debug bots get moved next to the first player; managed bots keep the spawn they were given.
+	if ( player.IsBot() && !IsManagedBot( player ) )
 	{
 		local botCaller = GetPlayerArray()[0]
 		local spot = GetTitanReplacementPoint(botCaller)
@@ -2943,7 +2962,7 @@ function ShouldAutoBalancePlayer( player, manualSwitch, forceSwitch = false )
 
 	// Prevent the player controlling the titan in ctt from changing teams
 	// level.teamFlag = the titans soul
-	if ( GameRules.GetGameMode() == CAPTURE_THE_TITAN && level.teamFlag && level.teamFlag.GetBossPlayer() == player )
+	if ( GameRules.GetGameMode() == CAPTURE_THE_TITAN && IsValid( level.teamFlag ) && level.teamFlag.GetBossPlayer() == player )
 		return false
 
 	// Cant be evacing
@@ -3157,6 +3176,7 @@ function CodeCallback_WeaponFireInCloak( player )
 
 	DisableCloak( player, 0.5 )
 }
+
 
 function CodeCallback_OnClientConnectionStarted( player )
 {
@@ -3421,6 +3441,8 @@ function CodeCallback_OnClientConnectionCompleted( player )
 	{
 		SetBotTitanLoadout( player )
 		SetBotPilotLoadout( player )
+		if ( IsManagedBot( player ) )
+			BotRandomizeLoadouts( player )
 	}
 
 	UpdateMinimapStatus( player )
@@ -3485,14 +3507,18 @@ function CodeCallback_OnClientConnectionCompleted( player )
 
 			DecideRespawnPlayer( player )
 
-			local botCaller = GetPlayerArray()[0]
-			local spot = GetTitanReplacementPoint(botCaller)
-			local origin = spot.origin
-			local dir =  botCaller.GetOrigin() - origin
-			local angles = dir.GetAngles()//Vector(0,0,0)
+			// Debug bots get moved next to the first player; managed bots keep their team spawn.
+			if ( !IsManagedBot( player ) )
+			{
+				local botCaller = GetPlayerArray()[0]
+				local spot = GetTitanReplacementPoint(botCaller)
+				local origin = spot.origin
+				local dir =  botCaller.GetOrigin() - origin
+				local angles = dir.GetAngles()//Vector(0,0,0)
 
-			player.SetOrigin( origin )
-			player.SetAngles( angles )
+				player.SetOrigin( origin )
+				player.SetAngles( angles )
+			}
 			return
 		}
 
