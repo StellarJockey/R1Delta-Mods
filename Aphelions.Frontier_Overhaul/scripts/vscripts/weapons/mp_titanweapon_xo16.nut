@@ -12,7 +12,6 @@ function OnWeaponActivate( weapon, player = null )
 			if ( self.HasMod( "burst" ) )
 			{
 				self.s.burstFireCount <- self.GetWeaponModSetting("burst_fire_count")
-				self.SetWeaponPrimaryClipCount( 56 )  // DELETE WHEN UPDATE IS LIVE
 			}
 		}
 	}
@@ -25,7 +24,7 @@ function OnWeaponActivate( weapon, player = null )
 		}
 	}
 
-	if ( !self.HasMod( "accelerator" ) && !self.HasMod( "burst" ) ) 
+	if ( !self.HasMod( "accelerator" ) ) 
 	{
 		SetLoopingWeaponSound_1p3p( "Weapon.XO16_fire_first", "Weapon.XO16_fire_loop", "Weapon.XO16_fire_last",
 		                            "Weapon.XO16_fire_first_3P", "Weapon.XO16_fire_loop_3P", "Weapon.XO16_fire_last_3P" ) 
@@ -55,15 +54,13 @@ function OnWeaponPrimaryAttack( attackParams )
 		damageType = damageType | damageTypes.Electric
 
 	self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageType )
-
 }
 
 function OnWeaponNpcPrimaryAttack( attackParams )
 {
-	Assert( IsServer() )
-
-	// EXTREMELY HACKY WAY TO GET NPC TITANS TO ACTUALLY USE THE BURST MOD
-	if ( self.HasMod( "burst" ) )
+	self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS, 0.2 )
+	
+	if ( self.HasMod( "burst" ) ) // EXTREMELY HACKY WAY TO GET NPC TITANS TO ACTUALLY USE THE BURST MOD
 	{
 		if ( "npcNextFireTime" in self.s && Time() < self.s.npcNextFireTime )
 			return
@@ -75,16 +72,12 @@ function OnWeaponNpcPrimaryAttack( attackParams )
 			self.s.burstActive <- false
 	}
 
-	self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS, 0.2 )
-
 	local damageType = damageTypes.LargeCaliber | DF_STOPS_TITAN_REGEN
 
 	if ( self.HasMod( "burn_mod_titan_xo16" ) )
 		damageType = damageType | damageTypes.Electric
 
 	self.FireWeaponBullet( attackParams.pos, attackParams.dir, 1, damageType )
-
-	self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS, 0.2 )
 
 	if ( self.HasMod( "burst" ) )
 	{

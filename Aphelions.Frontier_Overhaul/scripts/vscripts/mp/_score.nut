@@ -552,6 +552,12 @@ function ScoreEvent_NPCKilled( npc, attacker, damageInfo )
 	if ( npc.IsMarvin() )
 		return
 
+	if ( ( IsReskinnedPilot( npc ) || IsGhostPilot( npc ) ) && GetConVarBool( "delta_play_killsounds" ) )
+	{
+		if ( attacker.IsPlayer() )
+			EmitSoundOnEntityOnlyToPlayer( attacker, attacker, "Pilot_Killed_Indicator" )
+	}
+		
 	local scoreEvent = ScoreEventForNPCKilled(npc, damageInfo)
 
 	AddPlayerScore( attacker, scoreEvent, npc )
@@ -1208,6 +1214,9 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 
 		local titanParam = IsValid( titan ) ? titan : null
 		AddPlayerScore( attacker, eventName, titanParam )
+
+		if ( GetConVarBool( "delta_play_killsounds" ) && attacker.IsPlayer() )
+			EmitSoundOnEntityOnlyToPlayer( attacker, attacker, "Pilot_Killed_Indicator" )
 	}
 }
 Globalize( AwardPilotTermination )

@@ -147,6 +147,7 @@ function ManageDeployableCoverCooldown( weapon, player )
 	if ( IsValid( weapon ) && IsValid( player ) )
 	{
 		weapon.SetWeaponPrimaryClipCount( 1 )
+		EmitSoundOnEntityOnlyToPlayer( player, player, "pilot_specialability_replenished" )
 	}
 }
 
@@ -208,6 +209,7 @@ function ProximityMineSpawnShield( mine, lifetime )
 	vortexSphere.SetMaxHealth( 32000 )
 	vortexSphere.SetHealth( 32000 )
 	DispatchSpawn( vortexSphere, true )
+	EmitSoundOnEntity( mine, "ShieldWall_Deploy" )
 	vortexSphere.Fire( "Enable" )
 
 	// Control-point helper
