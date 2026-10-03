@@ -37,6 +37,7 @@ SPITFIRE:
 KRABER:
 * Added Anti-Titan Rounds mod (has less ammo than the burn card version)
 
+
 //////////////////////////////
 ///// PILOT SECONDARIES //////
 //////////////////////////////
@@ -49,13 +50,17 @@ RE-45:
 * Will 5-shot Pilots at close range instead of 6
 * Starburst now has slightly reduced recoil, better fire rate, and +5 extra mag size
 
+WINGMAN:
+* Added Gunslinger mod
+
 TWIN-B:
 * Does enough damage to one-shot grunt captains (250 health) at close range 
 * Added Double Tap mod to fire both barrels (almost) at once
 
-//////////////////////////////
-////// PILOT ORDNANCE ////////
-//////////////////////////////
+
+////////////////////////////////////////
+////// PILOT ORDNANCE + TACTICAL ///////
+////////////////////////////////////////
 
 THROWING KNIFE:
 * Added the knife from Gun Game as an ordnance, ideal for stealthy builds
@@ -65,6 +70,7 @@ ARC GRENADES:
 
 DEPLOYABLE COVER:
 * Added Deployable Cover as a new Pilot Tactical
+
 
 //////////////////////////////
 ///// ANTI-TITAN WEAPONS /////
@@ -91,16 +97,18 @@ QUAD ROCKET:
 WYS-0404:
 * Does a bit more damage against Titans
 * Small burst delay decrease
-* Added the Shredder Rounds mod; increases fire rate, faster reload, but range is reduced
+* Added the Shredder Rounds mod; increases fire rate and damage, faster reload, but range is reduced
 
 TRIPLE THREAT:
 * Got rid of the fire rate nerf for the hydraulic launcher, the charge time feels like its enough of a fire rate debuff
 
 AG-8 THUNDERBOLT:
 * Ammo is no longer infinite, will passively regenerate when not firing
+* Bullets are no longer electrified, no more fire rate ramp-up
 * Gun will "overheat" if ammo depletes, locking you out of firing until all ammo has regenerated
 * 50% movement speed penalty is applied when firing
 * Added the dark mode skin, since its base skin doesn't fit TF1's art style
+
 
 //////////////////////////////
 /////// TITAN ORDNANCE ///////
@@ -110,4 +118,4 @@ SLAVED WARHEADS:
 * Small damage buff
 
 SHOULDER TURRET:
-* Added in the Titan Shoulder Turret
+* Restored the Titan Shoulder Turret
