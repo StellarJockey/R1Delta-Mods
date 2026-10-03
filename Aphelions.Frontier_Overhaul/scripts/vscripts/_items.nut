@@ -17,7 +17,7 @@ const dmr_LONGDESC =          "The D-101 Longbow is a semi-automatic sniper rifl
 const lmg_LONGDESC =          "The M600 Spitfire is a light machine gun made by Siwhan Industries. It fires heavy 7.62mm rounds at 540 RPM. The recoil is strong at first, but will stabilize as the weapon fires. As such, the manufacturers recommend a sustained fire."
 const hemlok_LONGDESC =       "The M1A1 Hemlok is an assault rifle that fires 7.62mm rounds in three-round bursts. Prior to being acquired by Wonyeon Defense, TW Ordnance managed to deliver one last trifecta of accuracy, damage, and fire rate."
 const car_LONGDESC =          "The C.A.R. (Combat Advanced Round) submachine gun fires heavy 6.19mm rounds at 846 RPM. What it lacks in firing rate, it more than makes up for with greater damage and accuracy at close to mid-range."
-const g2_LONGDESC =           "The G2A4 is a semi-automatic rifle that fires 6.19x97mm LEC rounds. While it was phased out in favor of the R-101C for infantry, it still remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
+const g2_LONGDESC =           "The G2A4 is a semi-automatic rifle that fires 6.19x51mm LEC rounds. While it was phased out in favor of the R-101C for infantry, it still remains a favorite among special forces due to its damage and precision - a testament to its high level of craftsmanship."
 const sniper_LONGDESC =       "The Kraber-AP is a bolt-action sniper that fires devastating 14.5x114mm rounds, ensuring a 'one shot, one kill' for any human-sized target. Due to the bullet's travel time, the shooter must be skilled in leading their shots."
 
 const lmg_SHORTDESC =      "Light machine gun"
@@ -43,7 +43,7 @@ const MOD_RECOIL_COMPENSATOR_LONGDESCv2 =   	"The compensator modifies the weapo
 // AT Weapon DESCRIPTIONS
 const rocket_launcher_LONGDESC = "The SRAM 153 'Archer' is a powerful rocket launcher made by Brockhaurd Manufacturing. Aiming the weapon will activate the targeting window and begin the lock-on. The targeting reticle must be fully locked before it can fire."
 const smr_LONGDESC =             "The Sidewinder AT-SMR rapid-fires micro-missiles at 540 RPM. Due to its spread, it is most effective against larger targets. The missiles are tipped with shaped-charges, yielding a small area of effect on detonation."
-const mgl_LONGDESC =             "The Mag Launcher fires magnetic 40mm grenades with a strong neodymium casing. When fired, the grenades will be attracted to nearby metallic enemies, such as Titans and Spectres, and will detonate on contact."
+const mgl_LONGDESC =             "The Mag Launcher fires 40mm grenades with a strong neodymium casing. When fired, the grenades will be attracted to nearby metallic enemies, such as Titans and Spectres, and will detonate on contact."
 const defender_LONGDESC =        "The Charge Rifle fires a directed energy beam to inflict massive damage to enemy armor. It is most effective at long range. Holding down the trigger will charge the weapon, and will only fire once it is fully charged."
 
 const MOD_LONG_FUSE_DESCv2 =                "This mod increases the grenades' fuse timer from 2.5 to 5 seconds, allowing more time for enemies to get close and trigger the explosion."
@@ -91,8 +91,8 @@ const arc_cannon_LONGDESC =      "The Arc Cannon fires a bolt of electricity at 
 const titan_shotgun_LONGDESC =   "The WYS-0404 Shotgun is the predecessor to the Plasma Railgun, making it one of the earliest known Titan weapons. It fires in three-round bursts for devastating CQB firepower."
 const titan_sniper_LONGDESC =    "The PR-01 Plasma Railgun is a sniper weapon that fires hypersonic tungsten. When zoomed, the weapon's power will charge up over several stages. The weapon may be fired at any stage, even zero."
 
-const MEGA3_SHORTDESC =    "Arc-powered minigun"
-const MEGA3_LONGDESC =     "The AG-8 Thunderbolt is a Titan minigun that fires rounds at a steady 900 RPM after a brief wind-up. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
+const MEGA3_SHORTDESC =    "Titan rotary cannon"
+const MEGA3_LONGDESC =     "The AG-8 Thunderbolt is a six-barreled autocannon that fires 30mm rounds at 900 RPM. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
 
 const vortex_LONGDESC =    "The Vortex Shield captures incoming projectiles and fires them back at the enemy upon release. It can only reflect ballistics and projectile weapons, though it will still protect you against most forms of damage."
 const mega4_Desc_v2 = 		"Fires a directed energy beam"
@@ -112,9 +112,10 @@ const MOD_DOUBLE_TAP_LONGDESC =			    "This mod allows you to pull both triggers
 
 const MOD_CHARGE_HACK_LONGDESC = 			"This mod retunes the weapon's cavity magnetron, allowing the weapon to reach its full charge 40% faster, but will deal 30% less damage."
 const MOD_GUIDED_MISSILE_LONGDESC = 		"This mod allows the Archer to be fired freely without locking on. The missile will follow your line of sight, meaning you have to manually guide it. Reloading will also take slightly longer."
-const MOD_AT_ROUNDS_LONGDESC = 				"This mod gives the Kraber-AP 20mm anti-materiel rounds, greatly increasing its damage against Titan armor. However, due to the increased ammo weight, aiming, reloading, and rechambering will take longer."
+const MOD_AT_ROUNDS_LONGDESC = 				"This mod gives the Kraber-AP 20mm anti-materiel rounds, greatly increasing its damage against Titan armor. However, due to the increased ammo weight, reloading and rechambering will take longer."
 const lmg_SCATTER_LONGDESC =  				"This mod maximizes the Spitfire's rate of fire at 780 RPM. However, this heavy bolt carrier means that reloading, aiming, and handling will take longer, and also reduces rodeo damage by 35%."
 const r101_BURST_LONGDESC =  				"This mod makes the weapon fire in three-round bursts, allowing for more controlled and precise damage output."
+const wingman_GUNSLINGER_LONGDESC = 		"This mod improves the weapon's rifling, removing all damage drop-off within its effective range. It also increases the amount of zoom when you ADS, but slightly reduces your rate of fire."
 
 const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
 const STRYDER_DESC = "The Stryder is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
@@ -926,8 +927,9 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_shotgun_grunt_kills", 		0, 	"mp_weapon_shotgun",				"pump_action",			"Pump Action",				"Pump-action weapon fire",				MOD_PUMP_ACTION_LONGDESC,				2, 0, 5,-8, 0, 			"../ui/menu/items/mod_icons/pump_action",	 			"../ui/menu/items/mod_icons/pump_action" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_sniper_hours_used", 		1, 	"mp_weapon_sniper",				"titan_piercer",		"Titan Piercer",			"Fires anti-Titan rounds",			MOD_AT_ROUNDS_LONGDESC,			0, 0, 0, -3, -1, 		"../ui/menu/items/mod_icons/titan_piercer",	 		"../ui/menu/items/mod_icons/titan_piercer" )
 	
-	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_mega2",				"double_tap",		"Double Tap",			"Fire both barrels",			MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 		"../ui/menu/items/mod_icons/double_tap",	 		"../ui/menu/items/mod_icons/double_tap" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_headshots", 			1, 		"mp_weapon_lmg",			"cyclic_receiver",				"Cyclic Receiver",		"Maximum fire rate",		lmg_SCATTER_LONGDESC,			    -5, -10, 0, 15, 0, 		"../ui/menu/items/mod_icons/cyclic_receiver", 			"../ui/menu/items/mod_icons/cyclic_receiver" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_mega2",			"double_tap",					"Double Tap",			"Fire both barrels",		MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 			"../ui/menu/items/mod_icons/double_tap",	 			"../ui/menu/items/mod_icons/double_tap" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_headshots", 			1, 	"mp_weapon_lmg",			"cyclic_receiver",				"Cyclic Receiver",		"Maximum fire rate",		lmg_SCATTER_LONGDESC,			    -5, -10, 0, 15, 0, 			"../ui/menu/items/mod_icons/cyclic_receiver", 			"../ui/menu/items/mod_icons/cyclic_receiver" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_headshots", 		1, 	"mp_weapon_wingman",		"gunslinger",					"Gunslinger",			"No damage drop-off",		wingman_GUNSLINGER_LONGDESC,	    0, 0, 15, -4, 0,	 		"../ui/menu/items/mod_icons/gunslinger", 				"../ui/menu/items/mod_icons/gunslinger" )
 	
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_g2",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_hemlok",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )

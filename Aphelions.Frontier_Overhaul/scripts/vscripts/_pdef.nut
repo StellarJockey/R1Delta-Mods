@@ -238,6 +238,7 @@ function InitPersistence()
 		cyclic_receiver = 61
 		titan_piercer = 62
 		double_tap = 63
+		gunslinger = 64
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -655,6 +656,7 @@ function InitPersistence()
 		mp_weapon_sniper_titan_piercer = 135,	
 		mp_weapon_shotgun_pump_action = 136,
 		mp_weapon_lmg_cyclic_receiver = 137,
+		mp_weapon_wingman_gunslinger = 138,
 
 		// mp_weapon_g2_auto_converter = 127,
 		// mp_weapon_hemlok_auto_converter = 128,

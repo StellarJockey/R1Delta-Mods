@@ -367,6 +367,12 @@ WeaponData
 			"primary_fire_does_not_block_sprint"			"1"
 			"crosshair_force_sprint_fade_disabled"          "1"
 		}
+		"gunslinger"
+		{
+			"damage_far_value"								"135"
+			"zoom_fov"										"45"
+			"fire_rate"   									"2.4"
+		}
 		burn_mod_wingman
 		{
 			"crosshair_index"								"1" //Matching weaponHUDColor .s variable in wingman.nut
