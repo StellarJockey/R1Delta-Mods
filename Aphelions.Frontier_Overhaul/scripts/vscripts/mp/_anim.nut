@@ -335,12 +335,18 @@ function __PlayAnim( guy, animation_name, reference = null, optionalTag = null, 
     }
 
     guy.SetNextThinkNow()
-	if ( guy.IsNPC() )
-	{
-		guy.EndSignal( "OnDeath" )
-		Assert( IsAlive( guy ), "Guy " + guy + " tried to play an anim, but it is not alive." )
-	}
-
+    if ( guy.IsNPC() )
+    {
+        guy.EndSignal( "OnDeath" )
+        Assert( IsAlive( guy ), "Guy " + guy + " tried to play an anim, but it is not alive." )
+		
+        if ( !guy.IsInterruptable() )
+        {
+            printt( "Skipping scripted animation '" + animation_name + "' because " + guy + " is not interruptable." )
+            return
+        }
+    }
+	
 	if ( reference )
 	{
 		if ( reference == guy )
