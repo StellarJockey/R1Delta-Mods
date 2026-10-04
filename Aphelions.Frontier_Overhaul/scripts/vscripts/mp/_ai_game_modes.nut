@@ -66,10 +66,6 @@ function main()
 	FlagInit( "FrontlineInitiated" )
 	FlagInit( "IntroMilitiaNPCsSpawned" )
 	RegisterSignal( "FreeAISlotsUpdated" )
-	RegisterSignal( "TitanHotDropComplete" )
-	RegisterSignal( "DisableRocketPods" )
-	RegisterSignal( "OnLostTarget" )
-	RegisterSignal( "BubbleShieldStatusUpdate" )
 
 	// Per-squad signals for SquadFlagRunThink. level.aiSquadCount is 3 by default; register
 	// a safe upper bound of 8 per team to accommodate any future bump without code changes.
