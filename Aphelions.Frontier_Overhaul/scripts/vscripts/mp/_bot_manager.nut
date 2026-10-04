@@ -195,7 +195,7 @@ function ChooseBotToRemove( bots )
 
 function AddManagedBot( team )
 {
-	local requestedName = GenerateBotName()
+	local requestedName = GenerateBotName( team )
 	level.pendingBotNames[ requestedName ] <- true
 	local name = BotCreate( team, requestedName )
 	delete level.pendingBotNames[ requestedName ]
@@ -235,81 +235,35 @@ function PickRandom( array )
 	return array[ RandomInt( array.len() ) ]
 }
 
-function GenerateBotName()
+function GenerateBotName( team )
 {
-	local name = RandomInt( 2 ) == 0 ? GenerateGamertag() : GenerateCallsign()
-	for ( local attempt = 0; attempt < 10 && !BotNameAvailable( name ); attempt++ )
-		name = RandomInt( 2 ) == 0 ? GenerateGamertag() : GenerateCallsign()
+	local name = ""
 
-	if ( !BotNameAvailable( name ) )
-		name = name + RandomInt( 1000 )
+	local imcCodeNames = [
+		"Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
+		"Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey",
+		"Xray", "Yankee", "Zulu", "Steel","Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Raptor", "Roach",
+		"Io", "Ganymede", "Callisto", "Europa", "Phobos", "Deimos", "Red", "Blue", "Indigo", "White", "Black",
+		"June", "August", "Four," "Five", "Six", "Seven", "Nine", "Case", "Knight", "Bishop", "Rook", "Ward", "Cross",
+		"Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mako",
+		"Hammer", "Omicron", "Jester", "Rho", "Sigma", "Tau", "Upsilon", "Saber", "Hydra", "Psi", "Omega", 
+	]
+	local militiaNames = [
+		"Adams", "Jackson", "Rodriguez", "Williams", "Dennings", "Moore", "Asgeirsson", "Lewis", "Clark", "Irons",
+		"Radford", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hayes", "Stokes", "Osman",
+		"Bohr", "Crane", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr", "Walker",
+		"Barnes", "Hernandez", "Greene", "Higgins", "Burke", "Rodgers", "Chang", "Gore", "Vargas", "Gruzinsky",
+		"Woods", "Everett", "Namir", "Hale", "Hermann", "Dutch", "Wayans", "Griffith", "Tanhausser", "Rooker",
+		"Fisher", "Drake", "Saito", "Hawthorne", "Tomar", "Rivers", "Saunders", "Shepard", "Asadi", "Howe",
+		"Winters", "Crowe", "Omar", "Maynard", "Easton", "Rao", "Jankowski", "Reed", 
+	]
 
-	if ( name.len() > BOT_NAME_MAX_LEN )
-		name = name.slice( 0, BOT_NAME_MAX_LEN )
+	if ( team == TEAM_IMC )
+		name == "Pilot " + Random( imcCodeNames )
+	else
+		name == "Pilot " + Random( militiaNames )
+
 	return name
-}
-
-function BotNameAvailable( name )
-{
-	if ( name in level.pendingBotNames )
-		return false
-
-	foreach ( player in GetPlayerArray() )
-	{
-		if ( player.GetPlayerName() == name )
-			return false
-	}
-	return true
-}
-
-// Online-player style: xNightHawk, Viper_77, darkghost99, TheRaptorTV
-function GenerateGamertag()
-{
-	local prefixes = [ "x", "The", "Dark", "Lil", "Mr", "Big", "Its", "Real", "Pro", "Sir", "Hyper", "Toxic" ]
-	local words = [ "Viper", "NightHawk", "Ghost", "Raptor", "Shadow", "Blaze", "Phantom", "Reaper", "Falcon", "Havoc",
-		"Venom", "Nova", "Striker", "Wolf", "Cobra", "Titan", "Pulse", "Rogue", "Frost", "Onyx", "Specter", "Bandit",
-		"Jackal", "Nomad", "Hunter", "Sniper", "Rocket", "Ninja", "Panda", "Tornado", "Kraken", "Vortex", "Glitch",
-		"Pixel", "Blitz", "Comet", "Fury", "Banshee", "Cyclone", "Wraith" ]
-	local seconds = [ "Runner", "Slayer", "King", "Hawk", "Fox", "Storm", "Shot", "Byte", "Strike", "Rider", "Main", "Gamer" ]
-	local suffixes = [ "77", "99", "01", "13", "420", "1337", "007", "TV", "YT", "BR", "Pro", "X", "2k", "_GG" ]
-
-	local name = PickRandom( words )
-	if ( RandomInt( 3 ) == 0 )
-		name = name + PickRandom( seconds )
-	if ( RandomInt( 3 ) == 0 )
-		name = PickRandom( prefixes ) + name
-
-	local roll = RandomInt( 4 )
-	if ( roll == 0 )
-		name = name + "_" + PickRandom( suffixes )
-	else if ( roll == 1 )
-		name = name + PickRandom( suffixes )
-	else if ( roll == 2 )
-		name = name + RandomInt( 100 )
-
-	if ( RandomInt( 5 ) == 0 )
-		name = name.tolower()
-	return name
-}
-
-// Titanfall style: Sgt. Blackwood, Raptor-6, Lt. Kane, Echo Mercer
-function GenerateCallsign()
-{
-	local ranks = [ "Pvt.", "Cpl.", "Sgt.", "SSgt.", "Lt.", "Capt.", "Maj.", "Col.", "Cmdr." ]
-	local surnames = [ "Blackwood", "Kane", "Mercer", "Graves", "Reyes", "Voss", "Hale", "Bishop", "Cross", "Steele",
-		"Ward", "Drake", "Rourke", "Navarro", "Okafor", "Sato", "Ivanov", "Novak", "Silva", "Holt", "Briggs", "Vance",
-		"Kowalski", "Mbeki", "Larsen", "Ortega", "Costa", "Fischer", "Tanaka", "Ramos" ]
-	local codenames = [ "Raptor", "Echo", "Bravo", "Hammer", "Anvil", "Talon", "Saber", "Vulture", "Jester", "Warden",
-		"Halo", "Zulu", "Sierra", "Kilo", "Mako", "Bolt", "Ranger", "Outlaw", "Hydra", "Lancer" ]
-
-	switch ( RandomInt( 3 ) )
-	{
-		case 0:
-			return PickRandom( ranks ) + " " + PickRandom( surnames )
-		case 1:
-			return PickRandom( codenames ) + "-" + ( RandomInt( 9 ) + 1 )
-	}
-	return PickRandom( codenames ) + " " + PickRandom( surnames )
 }
 
 //---------------------------------------------------------
