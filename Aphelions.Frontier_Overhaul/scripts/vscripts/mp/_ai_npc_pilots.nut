@@ -17,9 +17,9 @@ function GetRandomPilotName( team )
 	local imcCodeNames = [
 		"Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
 		"Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey",
-		"Xray", "Yankee", "Zulu", "Steel","Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Raptor", "Roach",
+		"Xray", "Yankee", "Zulu", "Steel", "Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Raptor", "Roach",
 		"Io", "Ganymede", "Callisto", "Europa", "Phobos", "Deimos", "Red", "Blue", "Indigo", "White", "Black",
-		"June", "August", "Four," "Five", "Six", "Seven", "Nine", "Case", "Knight", "Bishop", "Rook", "Ward", "Cross",
+		"June", "August", "Four", "Five", "Six", "Seven", "Nine", "Case", "Knight", "Bishop", "Rook", "Ward", "Cross",
 		"Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mako",
 		"Hammer", "Omicron", "Jester", "Rho", "Sigma", "Tau", "Upsilon", "Saber", "Hydra", "Psi", "Omega", 
 	]
