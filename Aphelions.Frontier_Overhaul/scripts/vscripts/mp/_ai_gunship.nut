@@ -16,6 +16,14 @@ const AI_GUNSHIP_SEPARATION_RADIUS = 500
 const AI_GUNSHIP_SEPARATION_RADIUS_SQR = 250000
 const AI_GUNSHIP_SEPARATION_STRENGTH = 250
 
+const AI_GUNSHIP_HULL_HALF_WIDTH = 450
+const AI_GUNSHIP_HULL_HALF_HEIGHT = 175
+const AI_GUNSHIP_HULL_PADDING = 100          // safety margin on every trace
+const AI_GUNSHIP_ROUTE_ALT_STEP = 250        // how much higher to try each time
+const AI_GUNSHIP_ROUTE_ALT_MAX = 3500        // highest cruise altitude above start/dest
+const AI_GUNSHIP_WAYPOINT_RADIUS_SQR = 90000 // 300 units: "reached the waypoint"
+const AI_GUNSHIP_REPLAN_DEST_DIST_SQR = 640000 // 800 units: target moved enough to replan
+
 const MINIMAP_GUNSHIP_SCALE = 0.12
 
 PrecacheModel( STRATON_MODEL )
@@ -39,6 +47,11 @@ function main()
 	Globalize( AI_GunshipAddTurrets )
 	Globalize( AI_GunshipDestroyTurrets )
 	Globalize( AI_GunshipCreateTurret )
+
+    Globalize( AI_GunshipTraceHull )
+    Globalize( AI_GunshipLegIsClear )
+    Globalize( AI_GunshipBuildRoute )
+    Globalize( AI_GunshipEscapeIfStuck )
 
 	AddDeathCallback( "npc_dropship", OnAIGunshipDeath )
 }
@@ -104,6 +117,7 @@ function SpawnAIGunship( team, origin, angles = Vector( 0, 0, 0 ), squadname = n
 	gunship.SetModel( shipModel )
 	gunship.SetOrigin( spawnOrigin )
 	gunship.SetAngles( angles )
+	gunship.SetName( title )
 	gunship.SetTitle( title )
 
 	// Must happen after the entity's keyvalues/model are prepared
@@ -119,6 +133,8 @@ function SpawnAIGunship( team, origin, angles = Vector( 0, 0, 0 ), squadname = n
 	gunship.s.gunshipTargetOffset <- null
 	gunship.s.gunshipIsIdle <- false
 	gunship.s.gunshipIdleAngles <- angles
+	gunship.s.gunshipRoute <- []
+    gunship.s.gunshipRouteDest <- null
 
 	// The dropship is the authoritative entity. The mover owns translation
 	gunship.SetParent( mover, "", true, 0 )
@@ -190,12 +206,27 @@ function AI_GunshipStopMover( gunship )
 	local lockedAngles = mover.GetAngles()
 
 	mover.SetMoveToPosition( mover.GetOrigin() )
-	mover.SetYawRate( 0 )
+	mover.SetYawRate( 0.01 )
 	mover.SetAngularVelocity( 0, 0, 0 )
 	mover.SetAngles( lockedAngles )
 
 	gunship.s.gunshipIdleAngles = lockedAngles
 	gunship.s.gunshipIsIdle = true
+}
+
+function AI_GunshipHoldHeading( gunship )
+{
+	if ( !IsValid( gunship ) || !( "gunshipMover" in gunship.s ) )
+		return
+
+	local mover = gunship.s.gunshipMover
+	if ( !IsValid( mover ) )
+		return
+
+	mover.SetMoveToPosition( mover.GetOrigin() )
+	mover.SetYawRate( 0.01 )
+	mover.SetAngularVelocity( 0, 0, 0 )
+	mover.SetAngles( gunship.s.gunshipIdleAngles )
 }
 
 function AI_GunshipHuntThink( gunship, team = null )
@@ -231,90 +262,150 @@ function AI_GunshipHuntThink( gunship, team = null )
 			gunship.SetEnemy( target )
 			AI_GunshipMoveTo( gunship, target )
 		}
-		else if ( "gunshipMover" in gunship.s )
+		else
 		{
-			local mover = gunship.s.gunshipMover
-			if ( IsValid( mover ) )
-			{
-				if ( !gunship.s.gunshipIsIdle )
-					AI_GunshipStopMover( gunship )
-				else if ( "gunshipIdleAngles" in gunship.s )
-				{
-					// Keep the idle heading rigid. This prevents the physics mover
-					// from accumulating or retaining a residual yaw rotation.
-					mover.SetMoveToPosition( mover.GetOrigin() )
-					mover.SetYawRate( 0 )
-					mover.SetAngularVelocity( 0, 0, 0 )
-					mover.SetAngles( gunship.s.gunshipIdleAngles )
-				}
-			}
+			if ( !gunship.s.gunshipIsIdle )
+				AI_GunshipStopMover( gunship )
 		}
+
+		// Re-assert the locked heading every tick while idle, target or not.
+		if ( gunship.s.gunshipIsIdle )
+			AI_GunshipHoldHeading( gunship )
 
 		wait 0.25
 	}
 }
 
 
-// Replaced AI_GunshipPathIsClear with a multi-segment hull-trace version
-function AI_GunshipPathIsClear( gunship, start, destination, scale = 1.0 )
+function AI_GunshipTraceHull( gunship, start, end )
 {
-	local mins = gunship.GetBoundingMins()
-	local maxs = gunship.GetBoundingMaxs()
-
-	local halfExtent = fabs( mins.x )
-	if ( fabs( maxs.x ) > halfExtent ) halfExtent = fabs( maxs.x )
-	if ( fabs( mins.y ) > halfExtent ) halfExtent = fabs( mins.y )
-	if ( fabs( maxs.y ) > halfExtent ) halfExtent = fabs( maxs.y )
-
-	halfExtent *= scale
-
-	mins = Vector( -halfExtent, -halfExtent, mins.z * scale )
-	maxs = Vector(  halfExtent,  halfExtent, maxs.z * scale )
+	local w = AI_GUNSHIP_HULL_HALF_WIDTH + AI_GUNSHIP_HULL_PADDING
+	local h = AI_GUNSHIP_HULL_HALF_HEIGHT + AI_GUNSHIP_HULL_PADDING
 
 	local ignoreArray = [ gunship ]
 	if ( "gunshipMover" in gunship.s )
 		ignoreArray.append( gunship.s.gunshipMover )
 
-	// Segment the trace so we check intermediate geometry (prevents clipping through geometry between start/dest)
-	local delta = destination - start
-	local dist = delta.Length()
-	if ( dist <= 0.0 )
-		return true
-
-	// Determine number of segments (cap to avoid excessive traces)
-	local maxSegmentLength = 800.0
-	local steps = ceil( dist / maxSegmentLength )
-	if ( steps < 1 ) steps = 1
-	if ( steps > 30 ) steps = 30
-
-	for ( local i = 0; i < steps; i++ )
-	{
-		// Use multiplication by 1.0 to force float division (Squirrel has no (float) cast)
-		local t0 = ( i / (steps * 1.0) )
-		local t1 = ( (i+1) / (steps * 1.0) )
-
-		local segStart = start + delta * t0
-		local segEnd   = start + delta * t1
-
-		local trace = TraceHull(
-			segStart,
-			segEnd,
-			mins,
-			maxs,
-			ignoreArray,
-			TRACE_MASK_NPCWORLDSTATIC,
-			TRACE_COLLISION_GROUP_NONE
-		)
-
-		// If any segment starts in solid or is blocked, path is not clear
-		if ( trace.startSolid || trace.allSolid ) return false
-		if ( trace.fraction < 0.99 ) return false
-	}
-
-	return true
+	return TraceHull(
+		start,
+		end,
+		Vector( -w, -w, -h ),
+		Vector(  w,  w,  h ),
+		ignoreArray,
+		TRACE_MASK_NPCWORLDSTATIC,
+		TRACE_COLLISION_GROUP_NONE
+	)
 }
 
-// Improved AI_GunshipMoveTo: try alternate waypoints before giving up, and stop mover when no safe route found
+
+// Is the straight line a -> b clear for the full hull?
+// A swept hull trace already covers everything between a and b,
+// so no segmenting is needed.
+function AI_GunshipLegIsClear( gunship, a, b )
+{
+	local trace = AI_GunshipTraceHull( gunship, a, b )
+
+	if ( trace.startSolid || trace.allSolid )
+		return false
+
+	return trace.fraction >= 0.999
+}
+
+
+// Kept so anything else that calls the old name still works.
+// (The old "scale" argument is gone on purpose: shrinking the hull is
+// what let the ships squeeze into walls.)
+function AI_GunshipPathIsClear( gunship, start, destination, scale = 1.0 )
+{
+	return AI_GunshipLegIsClear( gunship, start, destination )
+}
+
+
+// Build a list of waypoints the mover will visit IN ORDER.
+// Returns an array of positions, or null if nothing safe was found.
+//
+// The key point: the mover only flies in a straight line to whatever
+// SetMoveToPosition it is given. So every leg we validate must be a leg the
+// mover will actually fly, which means we have to hand it the waypoints one
+// at a time instead of only the final point.
+
+
+function AI_GunshipBuildRoute( gunship, start, dest )
+{
+	// 1. Straight shot
+	if ( AI_GunshipLegIsClear( gunship, start, dest ) )
+		return [ dest ]
+
+	// 2. Climb straight up, cruise level, then descend onto the destination.
+	//    Try the lowest cruise altitude first so we don't fly higher than needed.
+	local baseZ = start.z > dest.z ? start.z : dest.z
+
+	for ( local alt = AI_GUNSHIP_ROUTE_ALT_STEP; alt <= AI_GUNSHIP_ROUTE_ALT_MAX; alt += AI_GUNSHIP_ROUTE_ALT_STEP )
+	{
+		local z = baseZ + alt
+		local up   = Vector( start.x, start.y, z )
+		local over = Vector( dest.x,  dest.y,  z )
+
+		// If we can't climb this high, we can't climb any higher either
+		// (ceiling / overhang), so stop searching.
+		if ( !AI_GunshipLegIsClear( gunship, start, up ) )
+			break
+
+		if ( !AI_GunshipLegIsClear( gunship, up, over ) )
+			continue
+
+		if ( !AI_GunshipLegIsClear( gunship, over, dest ) )
+			continue
+
+		return [ up, over, dest ]
+	}
+
+	return null
+}
+
+
+// If the (padded) hull is currently overlapping geometry, nothing else can
+// work: every trace starts in solid and fails. Pull the ship out first.
+// The mover is NotSolid, so it can fly straight out through the wall.
+function AI_GunshipEscapeIfStuck( gunship, mover )
+{
+	local origin = mover.GetOrigin()
+	local here = AI_GunshipTraceHull( gunship, origin, origin )
+
+	if ( !here.startSolid && !here.allSolid )
+		return false
+
+	local dirs = [
+		Vector( 0, 0, 1 ),
+		Vector( 1, 0, 0 ),  Vector( -1, 0, 0 ),
+		Vector( 0, 1, 0 ),  Vector( 0, -1, 0 ),
+		Vector( 0.7, 0.7, 0 ),  Vector( -0.7, 0.7, 0 ),
+		Vector( 0.7, -0.7, 0 ), Vector( -0.7, -0.7, 0 )
+	]
+
+	for ( local d = 150; d <= 1800; d += 150 )
+	{
+		foreach ( dir in dirs )
+		{
+			local p = origin + dir * d
+			local t = AI_GunshipTraceHull( gunship, p, p )
+
+			if ( t.startSolid || t.allSolid )
+				continue
+
+			gunship.s.gunshipRoute = []
+			gunship.s.gunshipRouteDest = null
+			gunship.s.gunshipIsIdle = false
+			mover.SetYawRate( AI_GUNSHIP_YAWRATE )
+			mover.SetMoveToPosition( p )
+			return true
+		}
+	}
+
+	return false
+}
+
+
 function AI_GunshipMoveTo( gunship, target )
 {
 	if ( !( "gunshipMover" in gunship.s ) )
@@ -329,7 +420,11 @@ function AI_GunshipMoveTo( gunship, target )
 
 	local start = mover.GetOrigin()
 
-	// Calculate target destination with offset
+	// If we're already inside something, get out before planning anything.
+	if ( AI_GunshipEscapeIfStuck( gunship, mover ) )
+		return
+
+	// ---- Destination with per-ship offset (unchanged) ----
 	if ( gunship.s.gunshipTargetOffset == null )
 	{
 		local angle = ( gunship.GetEntIndex() % 8 ) * 45.0 * 0.0174532925
@@ -342,7 +437,7 @@ function AI_GunshipMoveTo( gunship, target )
 
 	local destination = target.GetOrigin() + Vector( 0, 0, AI_GUNSHIP_HOVER_HEIGHT ) + gunship.s.gunshipTargetOffset
 
-	// Apply separation
+	// ---- Separation from other gunships (unchanged) ----
 	local nearby = GetNPCArrayEx( "npc_dropship", TEAM_IMC, gunship.GetOrigin(), AI_GUNSHIP_SEPARATION_RADIUS )
 	nearby.extend( GetNPCArrayEx( "npc_dropship", TEAM_MILITIA, gunship.GetOrigin(), AI_GUNSHIP_SEPARATION_RADIUS ) )
 	foreach ( other in nearby )
@@ -361,88 +456,65 @@ function AI_GunshipMoveTo( gunship, target )
 		destination += delta * ( AI_GUNSHIP_SEPARATION_STRENGTH * strength )
 	}
 
-	if ( DistanceSqr( start, destination ) <= 65536 )
+	// Once idle, require the destination to drift well away (450 units)
+	// before moving again, so we don't flip-flop at the 256 boundary.
+	local arriveDistSqr = gunship.s.gunshipIsIdle ? 202500 : 65536
+
+	if ( DistanceSqr( start, destination ) <= arriveDistSqr )
 	{
+		gunship.s.gunshipRoute = []
 		if ( !gunship.s.gunshipIsIdle )
 			AI_GunshipStopMover( gunship )
 		return
 	}
 
-	// Try finding a clear path (normal, or elevated)
-	local heightOffsets = [0, -150, -300, 150, 300, 600, 1000, 1500]
-	local validDest = null
+	// ---- Follow the current route if it's still valid ----
+	local route = gunship.s.gunshipRoute
+	local needsReplan = route.len() == 0
+		|| gunship.s.gunshipRouteDest == null
+		|| DistanceSqr( gunship.s.gunshipRouteDest, destination ) > AI_GUNSHIP_REPLAN_DEST_DIST_SQR
 
-	foreach ( heightOffset in heightOffsets )
+	if ( !needsReplan )
 	{
-		local elevatedDestination = destination + Vector( 0, 0, heightOffset )
-		local verticalStart = start + Vector( 0, 0, heightOffset )
+		// Drop waypoints we've already reached (always keep the last one)
+		while ( route.len() > 1 && DistanceSqr( start, route[0] ) < AI_GUNSHIP_WAYPOINT_RADIUS_SQR )
+			route.remove( 0 )
 
-		if ( heightOffset != 0 && !AI_GunshipPathIsClear( gunship, start, verticalStart ) )
-			continue
-
-		if ( AI_GunshipPathIsClear( gunship, verticalStart, elevatedDestination ) )
-		{
-			validDest = elevatedDestination
-			break
-		}
+		// Re-check the leg we're about to fly every tick
+		if ( !AI_GunshipLegIsClear( gunship, start, route[0] ) )
+			needsReplan = true
 	}
 
-	if ( validDest == null )
+	// ---- Replan ----
+	if ( needsReplan )
 	{
-		// Retry with a shrunken hull, lets us squeeze through tight canyons.
-		foreach ( heightOffset in heightOffsets )
+		route = null
+
+		// If the ideal hover spot is inside geometry, try a few spots above it.
+		foreach ( lift in [ 0, 300, 600, 1000 ] )
 		{
-			local elevatedDestination = destination + Vector( 0, 0, heightOffset )
-			if ( AI_GunshipPathIsClear( gunship, start, elevatedDestination, 0.5 ) )
-			{
-				validDest = elevatedDestination
+			route = AI_GunshipBuildRoute( gunship, start, destination + Vector( 0, 0, lift ) )
+			if ( route != null )
 				break
-			}
 		}
-	}
 
-	// If still no direct clear path, try sampling nearby candidate waypoints (radial + heights)
-	if ( validDest == null )
-	{
-		local found = false
-		local sampleRadii = [300, 600, 1000, 1500]
-		local angleStep = 45.0 * 0.0174532925
-		foreach ( radius in sampleRadii )
+		if ( route == null )
 		{
-			local i = 0
-			while ( i < 8 && !found )
-			{
-				local ang = i * angleStep
-				local candidateBase = destination + Vector( cos( ang ) * radius, sin( ang ) * radius, 0 )
-
-				// Try same set of heights for each candidate
-				foreach ( heightOffset in heightOffsets )
-				{
-					local candidate = candidateBase + Vector( 0, 0, heightOffset )
-					if ( AI_GunshipPathIsClear( gunship, start, candidate ) )
-					{
-						validDest = candidate
-						found = true
-						break
-					}
-				}
-				i += 1
-			}
-			if ( found ) break
+			// No safe route: hold position rather than fly into a wall.
+			gunship.s.gunshipRoute = []
+			gunship.s.gunshipRouteDest = null
+			AI_GunshipStopMover( gunship )
+			return
 		}
+
+		gunship.s.gunshipRoute = route
+		gunship.s.gunshipRouteDest = destination
 	}
 
-	// If we still couldn't find a safe destination, stop mover instead of forcing a clipped path.
-	if ( validDest == null )
-	{
-		AI_GunshipStopMover( gunship )
-		return
-	}
-
-	// While travelling, let the mover rotate toward its direction of travel.
+	// ---- Fly to the next waypoint only ----
 	mover.SetYawRate( AI_GUNSHIP_YAWRATE )
 	gunship.s.gunshipIsIdle = false
-	mover.SetMoveToPosition( validDest )
+	mover.SetMoveToPosition( route[0] )
 }
 
 function AI_GunshipSelectTarget( gunship, team )
