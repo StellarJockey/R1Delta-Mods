@@ -23,9 +23,9 @@ Yes! With this mod, TF|1's "campaign" is now fully playable offline.
 
 How do the NPC Pilots work?
 -
-* Currently, they are just re-skinned Grunts. They have max accuracy, increased movement speed, and can use any Pilot primary. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter). Essentially, they're just Grunt model-swaps. They have 200 HP (same as a human player) but are nowhere near as intelligent.
+* Currently, they are just re-skinned Grunts. They have max accuracy, increased movement speed, and can use any Pilot primary. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter). They have 200 HP (same as a human player) but are nowhere near as intelligent.
 * There is also a rare chance for NPC "Ghost Pilots" to spawn. They function almost identically to Sniper Spectres. The only difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and will not appear on the minimap.
-* Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro. Wall-running seems to be near-impossible to implement… at the present moment.
+* Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro. Wall-running and jumping seem near-impossible to implement… at the present moment.
 
 
 How does the evac work?

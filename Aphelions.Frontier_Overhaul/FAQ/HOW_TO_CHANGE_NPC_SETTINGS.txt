@@ -33,7 +33,7 @@
 
 * The limits will be inside the function.
 * Your team will have a different number of NPC Titans in Attrition & Hardpoint depending on the AI Lethality.
-* Including you, Normal and High are a 4v4, Very High is a 4v5
+* Including you, Normal is a 4v4, High and Very High are a 4v5
 
 * You can also go into \scripts\vscripts\mp\_ai_npc_titans
 * ctrl + f to find:
