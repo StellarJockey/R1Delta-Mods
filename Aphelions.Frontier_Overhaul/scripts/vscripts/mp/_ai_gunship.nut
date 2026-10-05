@@ -2,6 +2,7 @@
 ////////////// BEHOLD, FRANKENSTEIN'S GUNSHIP //////////////
 ////////////////////////////////////////////////////////////
 // This thing was vibe-coded to hell and back... but it works for now
+// Everybody say "Thank you, Claude!"
 
 const AI_GUNSHIP_HEALTH = 7000
 const AI_GUNSHIP_AIRSPEED = 2000
@@ -16,12 +17,15 @@ const AI_GUNSHIP_SEPARATION_RADIUS = 500
 const AI_GUNSHIP_SEPARATION_RADIUS_SQR = 250000
 const AI_GUNSHIP_SEPARATION_STRENGTH = 250
 
+const AI_GUNSHIP_ARRIVE_DIST_SQR = 65536       // 256 units: close enough, stop and hover
+const AI_GUNSHIP_RESUME_DIST_SQR = 202500      // 450 units: once idle, target must drift this far before moving again
+
 const AI_GUNSHIP_HULL_HALF_WIDTH = 450
 const AI_GUNSHIP_HULL_HALF_HEIGHT = 175
-const AI_GUNSHIP_HULL_PADDING = 100          // safety margin on every trace
-const AI_GUNSHIP_ROUTE_ALT_STEP = 250        // how much higher to try each time
-const AI_GUNSHIP_ROUTE_ALT_MAX = 3500        // highest cruise altitude above start/dest
-const AI_GUNSHIP_WAYPOINT_RADIUS_SQR = 90000 // 300 units: "reached the waypoint"
+const AI_GUNSHIP_HULL_PADDING = 100            // safety margin on every trace
+const AI_GUNSHIP_ROUTE_ALT_STEP = 250          // how much higher to try each time
+const AI_GUNSHIP_ROUTE_ALT_MAX = 3500          // highest cruise altitude above start/dest
+const AI_GUNSHIP_WAYPOINT_RADIUS_SQR = 90000   // 300 units: "reached the waypoint"
 const AI_GUNSHIP_REPLAN_DEST_DIST_SQR = 640000 // 800 units: target moved enough to replan
 
 const MINIMAP_GUNSHIP_SCALE = 0.12
@@ -37,7 +41,6 @@ function main()
 	Globalize( AI_GunshipCanTarget )
 	Globalize( AI_GunshipStopMover )
 	Globalize( AI_GunshipHuntThink )
-	Globalize( AI_GunshipPathIsClear )
 
 	Globalize( AI_GunshipMoveTo )
 	Globalize( AI_GunshipSelectTarget )
@@ -48,10 +51,9 @@ function main()
 	Globalize( AI_GunshipDestroyTurrets )
 	Globalize( AI_GunshipCreateTurret )
 
-    Globalize( AI_GunshipTraceHull )
-    Globalize( AI_GunshipLegIsClear )
-    Globalize( AI_GunshipBuildRoute )
-    Globalize( AI_GunshipEscapeIfStuck )
+	Globalize( AI_GunshipLegIsClear )
+	Globalize( AI_GunshipBuildRoute )
+	Globalize( AI_GunshipEscapeIfStuck )
 
 	AddDeathCallback( "npc_dropship", OnAIGunshipDeath )
 }
@@ -128,13 +130,20 @@ function SpawnAIGunship( team, origin, angles = Vector( 0, 0, 0 ), squadname = n
 	gunship.SetMaxHealth( health )
 	gunship.Solid()
 
-	// Store movement state on the real npc_dropship.
+	// Movement state lives on the real npc_dropship.
+	// Each ship hovers at its own spot around the target so they don't all stack up.
+	local offsetAngle = ( gunship.GetEntIndex() % 8 ) * 45.0 * 0.0174532925
+
 	gunship.s.gunshipMover <- mover
-	gunship.s.gunshipTargetOffset <- null
+	gunship.s.gunshipTargetOffset <- Vector(
+		cos( offsetAngle ) * AI_GUNSHIP_TARGET_OFFSET_RADIUS,
+		sin( offsetAngle ) * AI_GUNSHIP_TARGET_OFFSET_RADIUS,
+		RandomFloat( -AI_GUNSHIP_TARGET_OFFSET_HEIGHT, AI_GUNSHIP_TARGET_OFFSET_HEIGHT )
+	)
 	gunship.s.gunshipIsIdle <- false
-	gunship.s.gunshipIdleAngles <- angles
+	gunship.s.gunshipIdleYaw <- angles.y
 	gunship.s.gunshipRoute <- []
-    gunship.s.gunshipRouteDest <- null
+	gunship.s.gunshipRouteDest <- null
 
 	// The dropship is the authoritative entity. The mover owns translation
 	gunship.SetParent( mover, "", true, 0 )
@@ -192,41 +201,53 @@ function AI_GunshipCanTarget( gunship, target )
 }
 
 
-function AI_GunshipStopMover( gunship )
+// Returns the gunship's mover, or null if the gunship or mover is gone.
+function AI_GunshipGetMover( gunship )
 {
 	if ( !IsValid( gunship ) || !( "gunshipMover" in gunship.s ) )
-		return
+		return null
 
 	local mover = gunship.s.gunshipMover
-	if ( !IsValid( mover ) )
-		return
-
-	// Preserve the heading the gunship had when it stopped.
-	// The mover is the authoritative entity, so lock the mover itself.
-	local lockedAngles = mover.GetAngles()
-
-	mover.SetMoveToPosition( mover.GetOrigin() )
-	mover.SetYawRate( 0.01 )
-	mover.SetAngularVelocity( 0, 0, 0 )
-	mover.SetAngles( lockedAngles )
-
-	gunship.s.gunshipIdleAngles = lockedAngles
-	gunship.s.gunshipIsIdle = true
+	return IsValid( mover ) ? mover : null
 }
 
-function AI_GunshipHoldHeading( gunship )
+
+// Fly toward dest, turning to face it first.
+// Yaw only follows the horizontal part of the leg, so the straight-up climb
+// (or a destination almost directly overhead) keeps the current heading.
+function AI_GunshipFlyTo( gunship, mover, dest )
 {
-	if ( !IsValid( gunship ) || !( "gunshipMover" in gunship.s ) )
+	local flat = dest - mover.GetOrigin()
+	flat.z = 0
+
+	if ( flat.LengthSqr() >= 10000 )
+		mover.SetDesiredYaw( VectorToAngles( flat ).y )
+
+	gunship.s.gunshipIsIdle = false
+	mover.SetMoveToPosition( dest )
+}
+
+
+// Hover in place and lock the current heading. Also drops any route.
+// Safe to call every tick: the hold is only set up the first time, after that
+// it just re-asserts the locked heading.
+function AI_GunshipStopMover( gunship )
+{
+	local mover = AI_GunshipGetMover( gunship )
+	if ( mover == null )
 		return
 
-	local mover = gunship.s.gunshipMover
-	if ( !IsValid( mover ) )
-		return
+	gunship.s.gunshipRoute = []
+	gunship.s.gunshipRouteDest = null
 
-	mover.SetMoveToPosition( mover.GetOrigin() )
-	mover.SetYawRate( 0.01 )
-	mover.SetAngularVelocity( 0, 0, 0 )
-	mover.SetAngles( gunship.s.gunshipIdleAngles )
+	if ( !gunship.s.gunshipIsIdle )
+	{
+		gunship.s.gunshipIdleYaw = mover.GetAngles().y
+		gunship.s.gunshipIsIdle = true
+		mover.SetMoveToPosition( mover.GetOrigin() )
+	}
+
+	mover.SetDesiredYaw( gunship.s.gunshipIdleYaw )
 }
 
 function AI_GunshipHuntThink( gunship, team = null )
@@ -241,18 +262,13 @@ function AI_GunshipHuntThink( gunship, team = null )
 
 	while ( true )
 	{
-		if ( !IsValid( gunship ) || !IsAlive( gunship ) )
-			return
+		local target = gunship.GetEnemy()
 
-		local currentTarget = gunship.GetEnemy()
-
-		if ( IsValid( currentTarget ) && !AI_GunshipCanTarget( gunship, currentTarget ) )
+		if ( IsValid( target ) && !AI_GunshipCanTarget( gunship, target ) )
 		{
 			gunship.SetEnemy( null )
-			currentTarget = null
+			target = null
 		}
-
-		local target = currentTarget
 
 		if ( !IsValid( target ) )
 			target = AI_GunshipSelectTarget( gunship, gunshipTeam )
@@ -264,46 +280,37 @@ function AI_GunshipHuntThink( gunship, team = null )
 		}
 		else
 		{
-			if ( !gunship.s.gunshipIsIdle )
-				AI_GunshipStopMover( gunship )
+			AI_GunshipStopMover( gunship )
 		}
-
-		// Re-assert the locked heading every tick while idle, target or not.
-		if ( gunship.s.gunshipIsIdle )
-			AI_GunshipHoldHeading( gunship )
 
 		wait 0.25
 	}
 }
 
 
-function AI_GunshipTraceHull( gunship, start, end )
+// Is the straight line a -> b clear for the full (padded) hull?
+// A swept hull trace already covers everything between a and b, so no
+// segmenting is needed. With a == b this tells you if the hull is currently
+// overlapping geometry.
+function AI_GunshipLegIsClear( gunship, a, b )
 {
 	local w = AI_GUNSHIP_HULL_HALF_WIDTH + AI_GUNSHIP_HULL_PADDING
 	local h = AI_GUNSHIP_HULL_HALF_HEIGHT + AI_GUNSHIP_HULL_PADDING
 
 	local ignoreArray = [ gunship ]
-	if ( "gunshipMover" in gunship.s )
-		ignoreArray.append( gunship.s.gunshipMover )
+	local mover = AI_GunshipGetMover( gunship )
+	if ( mover != null )
+		ignoreArray.append( mover )
 
-	return TraceHull(
-		start,
-		end,
+	local trace = TraceHull(
+		a,
+		b,
 		Vector( -w, -w, -h ),
 		Vector(  w,  w,  h ),
 		ignoreArray,
 		TRACE_MASK_NPCWORLDSTATIC,
 		TRACE_COLLISION_GROUP_NONE
 	)
-}
-
-
-// Is the straight line a -> b clear for the full hull?
-// A swept hull trace already covers everything between a and b,
-// so no segmenting is needed.
-function AI_GunshipLegIsClear( gunship, a, b )
-{
-	local trace = AI_GunshipTraceHull( gunship, a, b )
 
 	if ( trace.startSolid || trace.allSolid )
 		return false
@@ -311,25 +318,12 @@ function AI_GunshipLegIsClear( gunship, a, b )
 	return trace.fraction >= 0.999
 }
 
-
-// Kept so anything else that calls the old name still works.
-// (The old "scale" argument is gone on purpose: shrinking the hull is
-// what let the ships squeeze into walls.)
-function AI_GunshipPathIsClear( gunship, start, destination, scale = 1.0 )
-{
-	return AI_GunshipLegIsClear( gunship, start, destination )
-}
-
-
 // Build a list of waypoints the mover will visit IN ORDER.
 // Returns an array of positions, or null if nothing safe was found.
 //
-// The key point: the mover only flies in a straight line to whatever
-// SetMoveToPosition it is given. So every leg we validate must be a leg the
-// mover will actually fly, which means we have to hand it the waypoints one
-// at a time instead of only the final point.
-
-
+// The mover only flies in a straight line to whatever SetMoveToPosition it is
+// given, so every leg we validate must be a leg it will actually fly. That's
+// why waypoints are handed over one at a time instead of only the final point.
 function AI_GunshipBuildRoute( gunship, start, dest )
 {
 	// 1. Straight shot
@@ -370,9 +364,8 @@ function AI_GunshipBuildRoute( gunship, start, dest )
 function AI_GunshipEscapeIfStuck( gunship, mover )
 {
 	local origin = mover.GetOrigin()
-	local here = AI_GunshipTraceHull( gunship, origin, origin )
 
-	if ( !here.startSolid && !here.allSolid )
+	if ( AI_GunshipLegIsClear( gunship, origin, origin ) )
 		return false
 
 	local dirs = [
@@ -388,16 +381,13 @@ function AI_GunshipEscapeIfStuck( gunship, mover )
 		foreach ( dir in dirs )
 		{
 			local p = origin + dir * d
-			local t = AI_GunshipTraceHull( gunship, p, p )
 
-			if ( t.startSolid || t.allSolid )
+			if ( !AI_GunshipLegIsClear( gunship, p, p ) )
 				continue
 
 			gunship.s.gunshipRoute = []
 			gunship.s.gunshipRouteDest = null
-			gunship.s.gunshipIsIdle = false
-			mover.SetYawRate( AI_GUNSHIP_YAWRATE )
-			mover.SetMoveToPosition( p )
+			AI_GunshipFlyTo( gunship, mover, p )
 			return true
 		}
 	}
@@ -408,42 +398,24 @@ function AI_GunshipEscapeIfStuck( gunship, mover )
 
 function AI_GunshipMoveTo( gunship, target )
 {
-	if ( !( "gunshipMover" in gunship.s ) )
+	local mover = AI_GunshipGetMover( gunship )
+	if ( mover == null )
 		return
-
-	local mover = gunship.s.gunshipMover
-	if ( !IsValid( mover ) )
-		return
-
-	if ( !AI_GunshipCanTarget( gunship, target ) )
-		return
-
-	local start = mover.GetOrigin()
 
 	// If we're already inside something, get out before planning anything.
 	if ( AI_GunshipEscapeIfStuck( gunship, mover ) )
 		return
 
-	// ---- Destination with per-ship offset (unchanged) ----
-	if ( gunship.s.gunshipTargetOffset == null )
-	{
-		local angle = ( gunship.GetEntIndex() % 8 ) * 45.0 * 0.0174532925
-		gunship.s.gunshipTargetOffset = Vector(
-			cos( angle ) * AI_GUNSHIP_TARGET_OFFSET_RADIUS,
-			sin( angle ) * AI_GUNSHIP_TARGET_OFFSET_RADIUS,
-			RandomFloat( -AI_GUNSHIP_TARGET_OFFSET_HEIGHT, AI_GUNSHIP_TARGET_OFFSET_HEIGHT )
-		)
-	}
-
+	local start = mover.GetOrigin()
 	local destination = target.GetOrigin() + Vector( 0, 0, AI_GUNSHIP_HOVER_HEIGHT ) + gunship.s.gunshipTargetOffset
 
-	// ---- Separation from other gunships (unchanged) ----
-	local nearby = GetNPCArrayEx( "npc_dropship", TEAM_IMC, gunship.GetOrigin(), AI_GUNSHIP_SEPARATION_RADIUS )
-	nearby.extend( GetNPCArrayEx( "npc_dropship", TEAM_MILITIA, gunship.GetOrigin(), AI_GUNSHIP_SEPARATION_RADIUS ) )
+	// ---- Separation from other gunships ----
+	local nearby = GetNPCArrayEx( "npc_dropship", TEAM_IMC, start, AI_GUNSHIP_SEPARATION_RADIUS )
+	nearby.extend( GetNPCArrayEx( "npc_dropship", TEAM_MILITIA, start, AI_GUNSHIP_SEPARATION_RADIUS ) )
 	foreach ( other in nearby )
 	{
 		if ( other == gunship || !IsValid( other ) || !IsAlive( other ) ) continue
-		local delta = gunship.GetOrigin() - other.GetOrigin()
+		local delta = start - other.GetOrigin()
 		local distanceSqr = delta.LengthSqr()
 		if ( distanceSqr >= AI_GUNSHIP_SEPARATION_RADIUS_SQR ) continue
 
@@ -456,22 +428,19 @@ function AI_GunshipMoveTo( gunship, target )
 		destination += delta * ( AI_GUNSHIP_SEPARATION_STRENGTH * strength )
 	}
 
-	// Once idle, require the destination to drift well away (450 units)
-	// before moving again, so we don't flip-flop at the 256 boundary.
-	local arriveDistSqr = gunship.s.gunshipIsIdle ? 202500 : 65536
+	// Close enough: hover. Once idle, the destination has to drift much
+	// further away before we move again, so we don't flip-flop at the boundary.
+	local arriveDistSqr = gunship.s.gunshipIsIdle ? AI_GUNSHIP_RESUME_DIST_SQR : AI_GUNSHIP_ARRIVE_DIST_SQR
 
 	if ( DistanceSqr( start, destination ) <= arriveDistSqr )
 	{
-		gunship.s.gunshipRoute = []
-		if ( !gunship.s.gunshipIsIdle )
-			AI_GunshipStopMover( gunship )
+		AI_GunshipStopMover( gunship )
 		return
 	}
 
 	// ---- Follow the current route if it's still valid ----
 	local route = gunship.s.gunshipRoute
 	local needsReplan = route.len() == 0
-		|| gunship.s.gunshipRouteDest == null
 		|| DistanceSqr( gunship.s.gunshipRouteDest, destination ) > AI_GUNSHIP_REPLAN_DEST_DIST_SQR
 
 	if ( !needsReplan )
@@ -498,11 +467,9 @@ function AI_GunshipMoveTo( gunship, target )
 				break
 		}
 
+		// No safe route: hold position rather than fly into a wall.
 		if ( route == null )
 		{
-			// No safe route: hold position rather than fly into a wall.
-			gunship.s.gunshipRoute = []
-			gunship.s.gunshipRouteDest = null
 			AI_GunshipStopMover( gunship )
 			return
 		}
@@ -512,9 +479,7 @@ function AI_GunshipMoveTo( gunship, target )
 	}
 
 	// ---- Fly to the next waypoint only ----
-	mover.SetYawRate( AI_GUNSHIP_YAWRATE )
-	gunship.s.gunshipIsIdle = false
-	mover.SetMoveToPosition( route[0] )
+	AI_GunshipFlyTo( gunship, mover, route[0] )
 }
 
 function AI_GunshipSelectTarget( gunship, team )
@@ -561,12 +526,9 @@ function OnAIGunshipDeath( gunship, damageInfo )
 
 	AI_GunshipDestroyTurrets( gunship )
 
-	if ( "gunshipMover" in gunship.s )
-	{
-		local mover = gunship.s.gunshipMover
-		if ( IsValid( mover ) )
-			thread AIGunshipDestroyMoverAfterDeath( mover )
-	}
+	local mover = AI_GunshipGetMover( gunship )
+	if ( mover != null )
+		thread AIGunshipDestroyMoverAfterDeath( mover )
 }
 
 function AIGunshipDestroyMoverAfterDeath( mover )
@@ -629,7 +591,7 @@ function AI_GunshipCreateTurret( gunship, team, attachment, weaponName = "mp_wea
 	switch ( Riff_AILethality() )
 	{
 		case eAILethality.Default:
-			accuracyMultiplier = 1.0
+			accuracyMultiplier = 2.0
 			weaponProficiency = 2
 			break
 
@@ -639,13 +601,13 @@ function AI_GunshipCreateTurret( gunship, team, attachment, weaponName = "mp_wea
 			break
 
 		case eAILethality.TD_Medium:
-			accuracyMultiplier = 1.0
-			weaponProficiency = 2
+			accuracyMultiplier = 2.5
+			weaponProficiency = 2.5
 			break
 
 		case eAILethality.TD_High:
 		case eAILethality.High:
-			accuracyMultiplier = 2.0
+			accuracyMultiplier = 3.0
 			weaponProficiency = 3
 			break
 
