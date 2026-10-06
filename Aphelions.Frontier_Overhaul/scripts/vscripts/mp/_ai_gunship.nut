@@ -28,6 +28,10 @@ const AI_GUNSHIP_ROUTE_ALT_MAX = 3500          // highest cruise altitude above 
 const AI_GUNSHIP_WAYPOINT_RADIUS_SQR = 90000   // 300 units: "reached the waypoint"
 const AI_GUNSHIP_REPLAN_DEST_DIST_SQR = 640000 // 800 units: target moved enough to replan
 
+const AI_GUNSHIP_TURN_MIN_DIST_SQR = 90000     // 300 units: leg must be at least this long (horizontally) before heading may change
+const AI_GUNSHIP_TURN_DEADBAND = 10            // degrees: new travel direction must differ by more than this before we turn
+const AI_GUNSHIP_DEBUG_YAW = false             // true = print mover vs gunship yaw every think tick
+
 const MINIMAP_GUNSHIP_SCALE = 0.12
 
 PrecacheModel( STRATON_MODEL )
@@ -121,6 +125,7 @@ function SpawnAIGunship( team, origin, angles = Vector( 0, 0, 0 ), squadname = n
 	gunship.SetAngles( angles )
 	gunship.SetName( title )
 	gunship.SetTitle( title )
+	// gunship.SetShortTitle( title )
 
 	// Must happen after the entity's keyvalues/model are prepared
 	DispatchSpawn( gunship, true )
@@ -141,7 +146,7 @@ function SpawnAIGunship( team, origin, angles = Vector( 0, 0, 0 ), squadname = n
 		RandomFloat( -AI_GUNSHIP_TARGET_OFFSET_HEIGHT, AI_GUNSHIP_TARGET_OFFSET_HEIGHT )
 	)
 	gunship.s.gunshipIsIdle <- false
-	gunship.s.gunshipIdleYaw <- angles.y
+	gunship.s.gunshipHeading <- AI_GunshipNormalizeYaw( angles.y )
 	gunship.s.gunshipRoute <- []
 	gunship.s.gunshipRouteDest <- null
 
@@ -212,25 +217,56 @@ function AI_GunshipGetMover( gunship )
 }
 
 
-// Fly toward dest, turning to face it first.
-// Yaw only follows the horizontal part of the leg, so the straight-up climb
-// (or a destination almost directly overhead) keeps the current heading.
+// Wrap a yaw into -180..180. VectorToAngles returns 0..360 while GetAngles can
+// return negative values, so mixing them can make a mover think it is far from
+// its target yaw and keep turning.
+function AI_GunshipNormalizeYaw( yaw )
+{
+	while ( yaw > 180 )
+		yaw -= 360
+	while ( yaw <= -180 )
+		yaw += 360
+	return yaw
+}
+
+
+// Smallest angle between two yaws, in degrees (0..180).
+function AI_GunshipYawDifference( a, b )
+{
+	return fabs( AI_GunshipNormalizeYaw( a - b ) )
+}
+
+
+// Fly toward dest.
+// gunshipHeading is the ONE stored heading for this ship, and the only thing
+// that ever gets sent to SetDesiredYaw. It only changes when the leg is long
+// enough horizontally and points meaningfully away from the current heading.
+// That means the straight-up climb, short hops, and jitter from separation or
+// a moving target never rotate the ship. When it stops, it keeps this heading,
+// i.e. the direction it was most recently travelling.
 function AI_GunshipFlyTo( gunship, mover, dest )
 {
 	local flat = dest - mover.GetOrigin()
 	flat.z = 0
 
-	if ( flat.LengthSqr() >= 10000 )
-		mover.SetDesiredYaw( VectorToAngles( flat ).y )
+	if ( flat.LengthSqr() >= AI_GUNSHIP_TURN_MIN_DIST_SQR )
+	{
+		local wanted = AI_GunshipNormalizeYaw( VectorToAngles( flat ).y )
+
+		if ( AI_GunshipYawDifference( wanted, gunship.s.gunshipHeading ) > AI_GUNSHIP_TURN_DEADBAND )
+			gunship.s.gunshipHeading = wanted
+	}
+
+	mover.SetDesiredYaw( gunship.s.gunshipHeading )
 
 	gunship.s.gunshipIsIdle = false
 	mover.SetMoveToPosition( dest )
 }
 
 
-// Hover in place and lock the current heading. Also drops any route.
+// Hover in place and keep the last travel heading. Also drops any route.
 // Safe to call every tick: the hold is only set up the first time, after that
-// it just re-asserts the locked heading.
+// it just re-asserts the stored heading.
 function AI_GunshipStopMover( gunship )
 {
 	local mover = AI_GunshipGetMover( gunship )
@@ -242,12 +278,11 @@ function AI_GunshipStopMover( gunship )
 
 	if ( !gunship.s.gunshipIsIdle )
 	{
-		gunship.s.gunshipIdleYaw = mover.GetAngles().y
 		gunship.s.gunshipIsIdle = true
 		mover.SetMoveToPosition( mover.GetOrigin() )
 	}
 
-	mover.SetDesiredYaw( gunship.s.gunshipIdleYaw )
+	mover.SetDesiredYaw( gunship.s.gunshipHeading )
 }
 
 function AI_GunshipHuntThink( gunship, team = null )
@@ -281,6 +316,13 @@ function AI_GunshipHuntThink( gunship, team = null )
 		else
 		{
 			AI_GunshipStopMover( gunship )
+		}
+
+		if ( AI_GUNSHIP_DEBUG_YAW )
+		{
+			local m = AI_GunshipGetMover( gunship )
+			if ( m != null )
+				printt( "[AI_GUNSHIP] idle:", gunship.s.gunshipIsIdle, "heading:", gunship.s.gunshipHeading, "mover yaw:", m.GetAngles().y, "gunship yaw:", gunship.GetAngles().y )
 		}
 
 		wait 0.25
