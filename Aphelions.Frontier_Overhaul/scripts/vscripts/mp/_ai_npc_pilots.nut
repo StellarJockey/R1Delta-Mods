@@ -20,7 +20,7 @@ function GetRandomPilotName( team )
 		"Xray", "Yankee", "Zulu", "Steel", "Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Raptor", "Roach",
 		"Io", "Ganymede", "Callisto", "Europa", "Phobos", "Deimos", "Red", "Blue", "Indigo", "White", "Black",
 		"June", "August", "Four", "Five", "Six", "Seven", "Nine", "Case", "Knight", "Bishop", "Rook", "Ward", "Cross",
-		"Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mako",
+		"Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mako", "Blackwell",
 		"Hammer", "Omicron", "Jester", "Rho", "Sigma", "Tau", "Upsilon", "Saber", "Hydra", "Psi", "Omega", 
 	]
 	local militiaNames = [
@@ -135,6 +135,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
     local model = ChoosePilotModelForWeapon( team, weapon )
     guy.SetModel( model )
     guy.SetTitle( title )
+    guy.SetName( title )
 
 	if ( "s" in guy && "IsSoldier" in guy.s )
 		guy.s.IsSoldier <- false
