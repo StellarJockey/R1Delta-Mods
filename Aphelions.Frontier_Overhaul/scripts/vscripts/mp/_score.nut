@@ -1062,7 +1062,7 @@ function AwardStealthBonus( entity, damageInfo )
 	local attacker = GetAttackerOrLastAttacker( entity, damageInfo )
 	attacker = GetAttackerPlayerOrBossPlayer( attacker )
 
-	if ( !IsValid( attacker ) || !attacker.IsPlayer() || attacker.IsTitan() || entity.IsPlayer() || entity.IsTitan() || entity.IsDropship() )
+	if ( !IsValid( attacker ) || !attacker.IsPlayer() || attacker.IsTitan() || entity.IsTitan() || entity.IsDropship() || entity.IsMarvin() )
 		return
 
 	local weaponFromDI = damageInfo.GetWeapon()
@@ -1093,12 +1093,12 @@ function AwardStealthBonus( entity, damageInfo )
 	}
 
 	local damageSourceId = damageInfo.GetDamageSourceIdentifier()
-	if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+	if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 ) // Knife counts as stealth
 	{
 		hasSilencer = true
 	}
 
-	local weapon = attacker.GetActiveWeapon()
+	local weapon = attacker.GetActiveWeapon() // Knife melee counts as stealth
 	if ( damageSourceId == eDamageSourceId.human_melee && IsValid( weapon ) && weapon.GetClassname() == "mp_weapon_mega5" )
 	{
 		hasSilencer = true
@@ -1164,7 +1164,7 @@ function AwardStealthBonus( entity, damageInfo )
 Globalize( AwardStealthBonus )
 
 
-function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = null )
+function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = null, awardAttrition = false )
 {
 	if ( !IsValid_ThisFrame( attacker ) || !attacker.IsPlayer() )
 		return
@@ -1194,6 +1194,9 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 			isCaptain = titan.s.pilotIsNPCCaptain
 	}
 
+	// Only credit the pilot kill once the Titan is actually dead (skips interrupted executions)
+	if ( awardAttrition && ( !IsValid( titan ) || !IsAlive( titan ) ) )
+		Attrition_AwardPilotTermination( attacker, titan, isCaptain )
 
 	if ( isCaptain )
 	{

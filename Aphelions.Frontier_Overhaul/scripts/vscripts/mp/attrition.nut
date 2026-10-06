@@ -1,4 +1,4 @@
-function main()
+function main() // FO
 {
 	Globalize( ScriptCallback_OnClientConnecting )
 	Globalize( Attrition_OnPlayerOrNPCKilled )
@@ -79,7 +79,7 @@ function MatchProgressThink()
 
 function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
 {
-    // Solo jugadores o NPCs pueden otorgar puntos
+    // Only players or NPCs can grant points
     if ( !( attacker.IsPlayer() ) && !( attacker.IsNPC() ) )
         return
 
@@ -103,7 +103,7 @@ function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
 
     local scoreVal = GetAttritionScore( attacker, victim )
 
-    // Mostrar splash solo a jugadores o a su "boss player"
+    // Show splash only to players or to their "boss player"
     if ( attacker.IsPlayer() )
     {
         ShowPlayerAttritionScoreEvent( attacker, scoreVal )
@@ -117,11 +117,42 @@ function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
 
     GameScore.AddTeamScore( attackerTeam, scoreVal )
 
-    // Solo los jugadores tienen AssaultScore
+    // Only players have AssaultScore
     if ( attacker.IsPlayer() )
         attacker.SetAssaultScore( attacker.GetAssaultScore() + scoreVal )
 }
 
+/* ORIGINAL FUNCTION FOR NON-SCORING NPCS
+function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
+{
+	if ( !( attacker.IsPlayer() ) )
+		return
+
+	local attackerTeam = attacker.GetTeam()
+	local victimTeam = victim.GetTeam()
+
+	if ( victim.GetTeam() == attackerTeam )
+		return
+
+	if ( victimTeam != TEAM_MILITIA && victimTeam != TEAM_IMC )
+		return
+
+	if ( GetGameState() != eGameState.Playing )
+		return
+
+	if ( victim.IsTitan() && !victim.IsPlayer() )
+		return
+
+	if ( victim.IsMarvin() )
+		return
+
+ 	local scoreVal = GetAttritionScore( attacker, victim )
+	ShowPlayerAttritionScoreEvent( attacker, scoreVal )
+
+	GameScore.AddTeamScore( attacker.GetTeam(), scoreVal )
+	attacker.SetAssaultScore( attacker.GetAssaultScore() + scoreVal )
+}
+*/
 
 function ShowPlayerAttritionScoreEvent( player, value )
 {
@@ -130,3 +161,35 @@ function ShowPlayerAttritionScoreEvent( player, value )
 
 	Remote.CallFunction_NonReplay( player, "ServerCallback_PointSplash", scoreEventInt, null, value )
 }
+
+function Attrition_AwardPilotTermination( attacker, titan, isCaptain = false )
+{
+	if ( GameRules.GetGameMode() != ATTRITION )
+		return
+
+	if ( GetGameState() != eGameState.Playing )
+		return
+
+	if ( !IsValid( attacker ) )
+		return
+
+	local attackerTeam = attacker.GetTeam()
+
+	if ( IsValid( titan ) && titan.GetTeam() == attackerTeam )
+		return
+
+	// Use whatever GetAttritionScore returns for a grunt/pilot victim. Swap in the
+	// real constants from your constants file; set the captain value if it differs.
+	local scoreVal = ATTRITION_SCORE_GRUNT
+	// if ( isCaptain )
+	//	scoreVal = ATTRITION_SCORE_GRUNT
+
+	if ( attacker.IsPlayer() )
+	{
+		ShowPlayerAttritionScoreEvent( attacker, scoreVal )
+		attacker.SetAssaultScore( attacker.GetAssaultScore() + scoreVal )
+	}
+
+	GameScore.AddTeamScore( attackerTeam, scoreVal )
+}
+Globalize( Attrition_AwardPilotTermination )

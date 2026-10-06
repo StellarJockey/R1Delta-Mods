@@ -124,9 +124,12 @@ function MeleeThread_TitanVsTitan_Internal( actions, action, attacker, target )
 	if ( "pilotIsNPCCaptain" in target.s )
 		isCaptain = target.s.pilotIsNPCCaptain
 
+	local awardAttrition = ( func == MeleeThread_OgreVsTitan )
+
 	waitthread func( actions, action, attacker, target )
 
-	thread AwardPilotTermination( attacker,	IsValid( target ) ? target : null, hadPilot, isCaptain )
+	printt( "Titan execution finished: hadPilot=" + hadPilot + " isCaptain=" + isCaptain + " attackerValid=" + IsValid( attacker ) )
+	thread AwardPilotTermination( attacker, IsValid( target ) ? target : null, hadPilot, isCaptain, awardAttrition )
 }
 
 
@@ -828,21 +831,6 @@ function MeleeThread_OgreVsTitan( actions, action, attacker, target )
 
 	target.s.isRodeoEnabled = false
 
-	// DeepSeek came in clutch and fixed the Ogre termination
-	// --- NEW: spawn a hidden pilot prop for NPC targets so the kill is credited ---
-	local pilotProp = null
-	if ( target.IsNPC() )
-	{
-		pilotProp = CreateEntity( "npc_soldier" )
-		DispatchSpawn( pilotProp )
-		pilotProp.SetOrigin( target.GetOrigin() )
-		pilotProp.SetInvulnerable()
-		pilotProp.SetTeam( target.GetTeam() )
-		pilotProp.s.isPilotProp <- true
-		pilotProp.kv.VisibilityFlags = 0   // invisible
-	}
-	e.pilotProp <- pilotProp
-
 	OnThreadEnd(
 		function() : ( ref, attacker, target, e )
 		{
@@ -883,6 +871,7 @@ function MeleeThread_OgreVsTitan( actions, action, attacker, target )
 				if ( "meleeExecutionAttacker" in target.s )
 					delete target.s.meleeExecutionAttacker
 
+
 				target.ClearParent()
 				target.ClearInvulnerable()
 				if ( target.IsPlayer() )
@@ -902,12 +891,6 @@ function MeleeThread_OgreVsTitan( actions, action, attacker, target )
 				{
 					UnStuck( target, e.targetStartOrg )
 				}
-			}
-
-			// --- NEW: kill the hidden pilot prop to trigger Attrition credit ---
-			if ( IsValid( e.pilotProp ) && IsAlive( e.pilotProp ) )
-			{
-				e.pilotProp.Die( attacker, attacker, { scriptType = DF_GIB, damageSourceId = eDamageSourceId.titan_execution } )
 			}
 		}
 	)

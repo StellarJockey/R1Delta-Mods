@@ -214,6 +214,13 @@ function NPCPilotEmbarkTitan( pilot, title, titan )
     pilot.DisableBehavior( "Assault" )
     pilot.DisableBehavior( "Follow" )
     pilot.SetInvulnerable()
+
+    // A pilot can still be mid-traverse (ledge climb / jump) when told to embark.
+    // Scripted anims are rejected during a traverse, so let it finish first.
+    // No timeout needed: the OnDeath/OnDestroy EndSignals above end this thread if the pilot or Titan dies.
+    while ( !pilot.IsInterruptable() )
+        wait 0
+
     pilot.Anim_Stop()
 
     local embarkSet = FindBestEmbark( pilot, titan )
