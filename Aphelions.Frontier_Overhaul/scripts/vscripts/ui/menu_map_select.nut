@@ -205,7 +205,7 @@ function MapButton_Focused( button )
 			mp_box = "-LOCATION UNAVAILABLE-\nHammond Robotics' \"Dev-Box\" Environment was an early proof of concept for using VR in combat simulations. It is now used for debugging and stress testing new features.",
 			mp_npe = "MCS Alexandria, en route to Horizon Station\nSimulation Training Pods are used for Pilot certification exams, though many have been cracked and distributed by criminal networks. Remember, piracy is a crime.",
 			mp_nest2 = "Planet Meridian, Everglades System\nFollowing a massive data breach, IMC operatives must infiltrate one of their own facilities to destroy critical information related to Project PERISCOPE before it can be leaked.",
-			mp_mia = "Southern continent, Planet Demeter\nA group of IMC and Militia forces make their last stand on the outskirts of Demeter, near the crash site of the IMS Rubicon. After several days of holding out in the desert, rescue teams have finally arrived.",
+			mp_mia = "Southern continent, Planet Demeter\nA group of IMC and Militia forces make their last stand near the crash site of the MCS Rubicon. After several days of holding out in the desert, rescue teams have finally arrived.",
 		}
 
 		if ( mapName in customDescriptions ) {
