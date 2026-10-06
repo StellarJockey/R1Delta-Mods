@@ -10,7 +10,7 @@ HOW TO INSTALL MODS
 
 READ THIS BEFORE INSTALLING FRONTIER OVERHAUL
 -
-* If you install the Frontier Overhaul mod, know that it comes built-in with FO-friendly versions of several other mods, including the Item Descriptions mod. This is because, taken separately, those other mods will cause scripting conflicts and may break the game.
+* If you install the Frontier Overhaul mod, know that it comes built-in with FO-friendly versions of several other mods. This is because, taken separately, those other mods will cause scripting conflicts and may break the game.
 
 * See "Aphelions.Frontier_Overhaul\FAQ\LIST_OF_INCLUDED_MODS.txt" for the complete list.
 

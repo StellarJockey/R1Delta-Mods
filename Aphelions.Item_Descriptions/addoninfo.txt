@@ -1,9 +1,0 @@
-"AddonInfo"
-{
-	"addontitle"			"Aphelion's Item Descriptions"
-	"addonDescription"		"New in-game descriptions that have more information"
-	"addonversion"			"1.0.0"
-	"addonauthor"			"Aphelion"
-
-	"addonContent_Script"	"1"
-}
