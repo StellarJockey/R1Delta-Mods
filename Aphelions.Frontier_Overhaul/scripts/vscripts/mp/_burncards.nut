@@ -6,6 +6,8 @@ function main() // FO
     AddCallback_OnPlayerRespawned( BCPlayerRespawned )
     AddCallback_OnPlayerKilled( BCOnPlayerKilled )
     Globalize( ChangeOnDeckBurnCardToActive )
+    Globalize( BCSpiderSense )
+    Globalize( ApplyTitanWeaponBurnCard )
     Globalize( ApplyTitanBurnCards_Threaded )
     PrecacheModel( MILITIA_SPECTRE_MODEL )
     PrecacheModel( IMC_SPECTRE_MODEL )
@@ -476,6 +478,10 @@ function IsBurnCardEdgeCaseUseValid( player, cardRef )
         if ( cardRef == "bc_summon_atlas" || cardRef == "bc_summon_ogre" || cardRef == "bc_summon_stryder" )
             return false
     }
+
+	// This burncard is always enabled on ffa
+	if ( IsFFABased() && cardRef == "bc_minimap_scan" )
+		return false
 
     return true
 }
@@ -950,6 +956,8 @@ function ApplyTitanWeaponBurnCard( titan, cardRef )
     local cardData = GetBurnCardData(cardRef);
     local weaponToTake = null
     local weaponData = GetBurnCardWeapon(cardRef)
+    if ( !IsValid( titan ) )
+        return
     local weapons = titan.GetMainWeapons()
 
     if ( !( cardData.ctFlags & CT_TITAN_WPN ) )
@@ -963,8 +971,12 @@ function ApplyTitanWeaponBurnCard( titan, cardRef )
             weaponToTake = weapon;
         }
 
-        if(cardData.ctFlags & CT_TITAN_WPN) {
-            Assert( IsValid( titan ) )
+        if ( cardData.ctFlags & CT_TITAN_WPN )
+        {
+            // The titan can be destroyed during the waits below; every entity
+            // call after a wait must re-check or it throws on a dead instance.
+            if ( !IsValid( titan ) )
+                return
             if(!weaponData) {
                 return;
             }
@@ -974,18 +986,26 @@ function ApplyTitanWeaponBurnCard( titan, cardRef )
                 case "TITAN_PRIMARY":
                     titan.TakeWeapon(weaponToTake.GetClassname())
                     wait 0.5;
+                    if ( !IsValid( titan ) )
+                        return
                     titan.GiveWeapon(weaponData.weapon, weaponData.mods)
                     wait 0.1;
+                    if ( !IsValid( titan ) )
+                        return
                     titan.SetActiveWeapon(weaponData.weapon)
                     break;
                 case "TITAN_OFFHAND0":
                     titan.TakeOffhandWeapon(0)
                     wait 0.1;
+                    if ( !IsValid( titan ) )
+                        return
                     titan.GiveOffhandWeapon(weaponData.weapon, 0, weaponData.mods)
                     break;
                 case "TITAN_OFFHAND1":
                     titan.TakeOffhandWeapon(1);
                     wait 0.1;
+                    if ( !IsValid( titan ) )
+                        return
                     titan.GiveOffhandWeapon(weaponData.weapon, 1, weaponData.mods)
                     break;
                 default:

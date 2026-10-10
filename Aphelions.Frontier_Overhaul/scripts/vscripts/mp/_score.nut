@@ -1062,7 +1062,8 @@ function AwardStealthBonus( entity, damageInfo )
 	local attacker = GetAttackerOrLastAttacker( entity, damageInfo )
 	attacker = GetAttackerPlayerOrBossPlayer( attacker )
 
-	if ( !IsValid( attacker ) || !attacker.IsPlayer() || attacker.IsTitan() || entity.IsTitan() || entity.IsDropship() || entity.IsMarvin() )
+	if ( !IsValid( attacker ) || !attacker.IsPlayer() || attacker.IsTitan() ||
+			entity.IsTitan() || entity.IsDropship() || entity.IsMarvin() )
 		return
 
 	local weaponFromDI = damageInfo.GetWeapon()
@@ -1108,7 +1109,12 @@ function AwardStealthBonus( entity, damageInfo )
 	if ( !hasSilencer || entity.CanSee( attacker ) )
 		return
 
-	local baseXP = 20.0
+	local baseXP
+	if ( entity.IsPlayer() || entity.IsBot() || IsReskinnedPilot( entity ) || IsGhostPilot( entity ) )
+		baseXP = 30.0
+	else
+		baseXP = 20.0
+
 	local scoreEventName = "StealthBonus"
 	local matches = false
 
