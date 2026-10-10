@@ -71,6 +71,11 @@ ARC GRENADES:
 DEPLOYABLE COVER:
 * Added Deployable Cover as a new Pilot Tactical
 
+ENHANCED PARKOUR KIT:
+* You take 50% less damage while doing parkour
+
+STEALTH KIT:
+* Suppressed snipers and suppressed sidearm pistols will not break cloak
 
 //////////////////////////////
 ///// ANTI-TITAN WEAPONS /////
