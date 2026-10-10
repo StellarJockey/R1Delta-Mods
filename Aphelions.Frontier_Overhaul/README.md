@@ -1,69 +1,39 @@
 (Thank you to ASILLYNEKO and FRANN for making the original Extended Attrition mod!)
 
-Frontier Overhaul is a heavily modified version of Extended Attrition. This is an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
+Frontier Overhaul is a heavily modified version of Extended Attrition. This is meant to be an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. This was NOT designed for multiplayer servers. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
 
-This mod currently includes:
+Supported Game Modes:
 -
-* Spectre rodeos and grenade-tossing minions
+Campaign, Attrition, Hardpoint, Frontier Defense, and Titan Brawl. Friends can also join your games.
+
+
+NPC Features:
+-
+* Spectre rodeos and grenade-tossing minions outside Frontier Defense
 * Grunt Captains and NPC Pilots
-* Sniper Spectres, Suicide Spectres, Ghost Pilots, and Cloak Drones that spawn mid-late game
+* Sniper Spectres, Suicide Spectres, Ghost Pilots, and Cloak Drones will spawn mid-late game
 * New Gunship enemy type
-* Exclusive weapon mods/attachments with original icons
-* Works for Attrition, Hardpoint, CTF, Frontier Defense, and Titan Brawl
-* A rework for the AG-8 Thunderbolt Titan minigun
 * Destroyer Titan as a rare NPC mini-boss (temporarily disabled)
-* Comes bundled with several other mods!
+* All NPC weapons will do the same damage as the player's
+* Grunts will capture points faster in Hardpoint
 
 
-Does this work for Campaign?
+Weapon Features:
 -
-Yes! With this mod, TF|1's "campaign" is now fully playable offline.
+* New Ordnance: Throwing Knife
+* New Tactical: Deployable Cover
+* New Titan Weapon: AG-8 Thunderbolt minigun (re-worked)
+* Restored Titan Ordnance: Shoulder Turret
+* Exclusive weapon mods/attachments with handmade icons
+* Added XP Stealth Bonus for getting kills with certain suppressed weapons or the throwing knife on an enemy who doesn't have LOS on you
+* Extensive weapon rebalancing (see Aphelions.Frontier_Overhaul\FAQ\WEAPON\_CHANGES.txt)
 
 
 How do the NPC Pilots work?
 -
-* Currently, they are just re-skinned Grunts. They have max accuracy, increased movement speed, and can use any Pilot primary. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter). They have 200 HP (same as a human player) but are nowhere near as intelligent.
-* There is also a rare chance for NPC "Ghost Pilots" to spawn. They function almost identically to Sniper Spectres. The only difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and will not appear on the minimap.
-* Grunts also only have male voice lines, so only male Pilot models are used. I'm hoping to *eventually* get some to spawn in the dropship with you for the intro. Wall-running and jumping seem near-impossible to implement… at the present moment.
-
-
-How does the evac work?
--
-In Attrition, CTF, and Hardpoint:
-
-* If you win, there is no epilogue segment, since there are no enemy players to hunt.
-* If you lose, the epilogue + evac will trigger just like in MP. Dropship will also take off as soon as you get in!
-
-In Campaign:
-
-* The epilogue will trigger regardless of if you win or lose, since the post-game cutscenes/dialogue require it to run.
-
-
-What about Frontier Defense?
--
-Haha... yeah no, this turns FD into nightmare-difficulty. But you will have up to 3 friendly NPC Titans that will spawn after 1-2 in-game minutes, so you won't be alone. I also increased the Harvester's HP. But it is still quite difficult. So be ready.
-
-
-How do the objective-based modes work?
--
-Hardpoint Domination:
-
-* Grunts will (kind of) push the objective. The AI is still a work-in-progress. As a player, you will cap points slightly faster than in the base game. Enemies will capture points much faster. You must clear a point of all enemies before capturing can begin. A single Titan is enough to override any Grunts/player if it gets inside the capture zone.
-
-Capture the Flag:
-
-* This one is still quite janky... But basically, if a Grunt gets close to an enemy flag, it will automatically capture it. Grunts are *supposed* to have attacker/defender AI, but it can be inconsistent. I'll be ironing it out in the future.
-
-
-What weapons have been changed?
--
-The list is quite extensive (see Aphelions.Frontier_Overhaul\FAQ\WEAPON\_CHANGES.txt). It's mostly weapon buffs for those that needed it, as well as some FO-exclusive mods that will not carry over into regular MP matches. All NPC weapons will now do the same damage as player weapons.
-
-
-Can I turn down the difficulty?
--
-Yes. By default, this mod sets the AI lethality to Very High. Simply bump it down to High or Normal if you find the AI to be too overbearing. They'll still do the same damage as a player; they'll just be less accurate.
+* Currently, they are just re-skinned Grunts. They have max accuracy, increased movement speed, and can use any Pilot primary. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter). They have 200 HP (same as a human player) but are nowhere near as intelligent. Grunts also only have male voice lines, so only male Pilot models are used. 
+* There is also a rare chance for NPC "Ghost Pilots" to spawn. They function almost identically to Sniper Spectres. The only difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and will not appear on the minimap. 
 
 
 How do the Spectre variants work?
@@ -74,24 +44,32 @@ SNIPER SPECTRES:
 
 SUICIDE SPECTRES:
 
-* There is a random chance for a wave of them to spawn after 4.5 minutes. They have 1200 HP so that Grunts don't drop them immediately. They do increased damage to both Pilots and Titans, but will die without exploding if they take enough damage. 
+* There is a random chance for a wave of them to spawn after 4.5 minutes. They have 1200 HP so that Grunts don't drop them immediately. They do increased damage to both Pilots and Titans, but will die without exploding if they take enough damage.
 * A Pilot melee will instant-kill them without blowing up, as will any kind of electrical damage.
 * Getting stepped on by a Titan, hit by any Titan weapon, or any laser damage WILL blow them up.
 
 
+Can I turn down the difficulty?
+-
+Yes. By default, this mod sets the AI lethality to Very High. Simply bump it down to High or Normal if you find the AI to be too overbearing. They'll still do the same damage as a player; they'll just be less accurate.
+
+
 Is it possible to use this mod for a server?
 -
-Yes... but I would strongly advise against it. The main threat in a MP match is the other players. But in this mod, the AI is the main threat. And you have to shift your playstyle accordingly. It would be like trying to merge Halo 2 on Legendary into the regular MP sessions. The two styles of gameplay will clash heavily, and the end result is just not very fun.
+Yes... but I would strongly advise against it. The main threat in a MP match is the other players. But in this mod, the AI is the main threat. And you have to shift your playstyle accordingly. It would be like trying to merge Halo 2 on Legendary into the regular MP sessions. The two styles of gameplay will clash heavily, and the end result is very frustrating instead of being fun.
 
 
-What other quality of life changes are there?
+Other quality of life changes:
 -
-* IMC Spectres now use the Militia (Mk.I) model on The Refueling Raid, since the Mk.II model isn't canonically introduced until The Colony.
-* The team you pick in the lobby will always be the team you're assigned to in-game.
-* Campaign mission briefings will now play in full.
-* Cloak drones, Destroyers, and Spectre variants will not spawn in campaign, since those are canonically introduced afterwards.
-* Titans will have a chance to use any Titan execution, regardless of the chassis, since they were all animated. This makes things less visually repetitive.
-
+* Map, weapon, and item descriptions contain more information
+* Dropship will take off as soon as all living players are in
+* IMC Spectres now use the Militia (Mk.I) model on The Refueling Raid, since the Mk.II model isn't canonically introduced until The Colony
+* The team you pick in the lobby will always be the team you're assigned to in-game
+* Campaign mission briefings will now play in full
+* Cloak drones, Destroyers, and Spectre variants will not spawn in campaign, since those are canonically introduced afterwards
+* Titans will have a chance to use any Titan execution, regardless of the chassis, since they were (almost) all animated
+* Harvester in Frontier Defense has been given increased HP
+* Comes bundled with several other mods!
 
 
 Good luck, have fun!
