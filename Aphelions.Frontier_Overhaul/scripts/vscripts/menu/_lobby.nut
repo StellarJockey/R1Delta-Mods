@@ -917,22 +917,16 @@ function UpdateTeamReadyStatus()
 			local playerCount = GetTeamPlayerCount( team )
 
 			if ( IsPrivateMatch() )
-            {
-                // Allow solo private matches - don't force team balance
-                local totalPlayers = GetTeamPlayerCount( TEAM_IMC ) + GetTeamPlayerCount( TEAM_MILITIA )
-                
-                if ( IsAnyPlayerMMDebug() || GetConVarBool( "developer" ) )
-                    file.teamReady[team] = true
-                else if ( totalPlayers == 1 )
-                {
-                    // Solo match - both teams ready regardless of which team has the player
-                    file.teamReady[team] = true
-                }
-                else if ( (playerCount > file.maxTeamSize) || (playerCount < 1) || (totalPlayers < minPlayers) )
-                    file.teamReady[team] = false
-                else
-                    file.teamReady[team] = true
-            }
+			{
+				local totalPlayers = GetTeamPlayerCount( TEAM_IMC ) + GetTeamPlayerCount( TEAM_MILITIA )
+
+				if ( IsAnyPlayerMMDebug() || GetConVarBool( "developer" ) )
+					file.teamReady[team] = true
+				else if ( totalPlayers >= 1 && playerCount <= file.maxTeamSize )
+					file.teamReady[team] = true      // any split (2v0, 1v1, 0v2) is fine
+				else
+					file.teamReady[team] = false
+			}
 			else
 			{
 				if ( (playerCount < file.minTeamSize) || (playerCount > file.maxTeamSize) )
