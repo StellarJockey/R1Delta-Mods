@@ -470,6 +470,7 @@ function IntroMilitiaNPC()
 		{
 			if ( IsAlive( titan ) )
 			{
+				titan.SetName( "#NPC_CAPTAIN_HAINEY" )
 				titan.SetEfficientMode( false )
 				EnableRodeo( titan )
 				AllowTeamRodeo( titan, true )
@@ -763,6 +764,7 @@ function IntroIMCNPC( restart = false )
 
 			if ( IsAlive( titan ) )
 			{
+				titan.SetName( "#NPC_CAPTAIN_BRACKEN" )
 				titan.SetEfficientMode( false )
 				EnableRodeo( titan )
 				AllowTeamRodeo( titan, true )

@@ -3021,6 +3021,7 @@ function IntroTitan_MCOR( isDev = false )
 				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
     			GiveTitanPilotModel( titan, TEAM_MILITIA_CAPTAIN_MDL )
+				titan.SetName( "#NPC_LT_RIGGINS" )
 				titan.s.pilotIsNPCCaptain <- true
 				
 				local assaultPos = Vector( 240, 665, -333 )
@@ -3328,6 +3329,7 @@ function IntroTitan_IMC( isDev = false )
 				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
     			GiveTitanPilotModel( titan, TEAM_IMC_GRUNT_MDL )
+				titan.SetName( "#NPC_SGT_MESSERLY" )
 				titan.s.pilotIsNPCCaptain <- true
 
 

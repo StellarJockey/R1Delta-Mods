@@ -589,6 +589,7 @@ function SpawnLosingTeamTitan( titanNode, name, team )
 	else
 		GiveTitanPilotModel( titan, TEAM_IMC_CAPTAIN_MDL )
 
+	titan.SetName( name )
 	titan.s.pilotIsNPCCaptain <- true
 
 	local target = GetEnt( node.GetTarget() )

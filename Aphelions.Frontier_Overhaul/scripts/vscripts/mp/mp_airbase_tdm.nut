@@ -598,6 +598,7 @@ function IntroIMCTitanGates()
 
 	if ( IsAlive( pilot ) )
 		pilot.Kill()
+	titan.SetName( name )
 	AllowTeamRodeo( titan, true )
 	GiveTitanPilot( titan, true )
 	GiveTitanPilotModel( titan, TEAM_IMC_CAPTAIN_MDL  )

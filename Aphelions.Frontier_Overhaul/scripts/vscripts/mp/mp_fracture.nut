@@ -716,6 +716,7 @@ function IntroMilitiaCaptain()
 
 			if ( IsAlive( titan ) )
 			{
+				titan.SetName( "#NPC_CAPTAIN_DUNNAM" )
 				titan.SetEfficientMode( false )
 				DeleteAnimEvent( titan, "cockpitOpen", ChangCockpitOpen )
 				AllowTeamRodeo( titan, true )
@@ -1236,7 +1237,7 @@ function IntroIMCCaptain( test = false )
 			if( IsAlive( titan ) )
 			{
 				titan.SetTitle( "#NPC_CAPTAIN_RIGGS" )
-				titan.SetShortTitle( "#NPC_CAPTAIN_RIGGS" )
+				titan.SetName( "#NPC_CAPTAIN_RIGGS" )
 				titan.SetEfficientMode( false )
 				AllowTeamRodeo( titan, true )
 				GiveTitanPilot( titan, true )
