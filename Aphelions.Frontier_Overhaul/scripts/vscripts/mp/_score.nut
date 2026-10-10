@@ -1110,7 +1110,7 @@ function AwardStealthBonus( entity, damageInfo )
 		return
 
 	local baseXP
-	if ( entity.IsPlayer() || entity.IsBot() || IsReskinnedPilot( entity ) || IsGhostPilot( entity ) )
+	if ( entity.IsPlayer() || IsReskinnedPilot( entity ) || IsGhostPilot( entity ) )
 		baseXP = 30.0
 	else
 		baseXP = 20.0
