@@ -98,6 +98,12 @@ function InitScoreEvents()
 	event.SetXPType( XP_TYPE.NPC_KILL )
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_BURNCARDS )
 
+	event = cScoreEvent( "SavedFromRodeo_Spectre" )
+	event.SetPointValue( POINTVALUE_KILL_SPECTRE )
+	event.SetSplashText( "Killed Rodeo Spectre" )
+	event.SetConversation( "RodeoRake", EVENT_PRIORITY_CALLOUTMINOR )
+	event.SetXPType( XP_TYPE.RODEO_RAKE )
+
 	//////// NPC PILOTS ////////
 
 	event = cScoreEvent( "KillReskinnedPilot" )
@@ -2137,9 +2143,11 @@ function ScoreEventForMethodOfDeath( player, damageInfo )
 	local inflictor = damageInfo.GetInflictor()
 	inflictor = InflictorOwner( inflictor ) // turns env_explosion into a player or npc
 
-	local attacker = GetAttackerOrLastAttacker( npc, damageInfo )
+	local attacker = GetAttackerOrLastAttacker( player, damageInfo )
     attacker = GetAttackerPlayerOrBossPlayer( attacker )
-	local activeWeapon = attacker.GetActiveWeapon()
+	local activeWeapon = null
+	if ( IsValid( attacker ) )
+		activeWeapon = attacker.GetActiveWeapon()
 
 	if ( inflictor )
 	{
@@ -2215,7 +2223,9 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 
     local attacker = GetAttackerOrLastAttacker( npc, damageInfo )
     attacker = GetAttackerPlayerOrBossPlayer( attacker )
-	local activeWeapon = attacker.GetActiveWeapon()
+	local activeWeapon = null
+	if ( IsValid( attacker ) )
+		activeWeapon = attacker.GetActiveWeapon()
 
     if ( IsReskinnedPilot( npc ) )
     {

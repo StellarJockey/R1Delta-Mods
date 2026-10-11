@@ -570,7 +570,7 @@ function ScoreEvent_NPCKilled( npc, attacker, damageInfo )
 			AddPlayerScore( attacker, "NPCHeadshot", npc )
 	}
 
-	AwardStealthBonus( npc, damageInfo ) // NEW: Added a Stealth Bonus
+	AwardStealthBonus( npc, damageInfo ) // Added Stealth Bonus
 
 	ScoreCheck_DroppodKill( attacker, damageInfo )
 
@@ -589,6 +589,12 @@ function ScoreEvent_NPCKilled( npc, attacker, damageInfo )
 	}
 
 	ScoreCheck_Kill( attacker, npc )
+
+	// Award bonus for killing a rodeo-ing spectre
+	if ( npc.IsSpectre() && SavedFromRodeoSpectre( npc, attacker ) )
+	{
+		AddPlayerScore( attacker, "SavedFromRodeo_Spectre", npc )
+	}
 
 	if ( "recentDamageHistory" in npc.s )
 		ScoreEvent_KillAssists( npc, attacker, scoreEvent )
@@ -1229,3 +1235,29 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 	}
 }
 Globalize( AwardPilotTermination )
+
+
+function SavedFromRodeoSpectre( spectreEntity, attacker )
+{
+	if ( !IsValid( spectreEntity ) || !IsValid( attacker ) )
+		return false
+
+	// A rodeoing spectre is parented to the titan it's riding
+	local titan = spectreEntity.GetParent()
+	if ( !IsValid( titan ) || !titan.IsTitan() || !IsAlive( titan ) )
+		return false
+
+	// No bonus for killing a spectre riding the attacker's own titan
+	if ( titan == attacker )
+		return false
+
+	if ( attacker.IsPlayer() )
+	{
+		local petTitan = attacker.GetPetTitan()
+		if ( IsAlive( petTitan ) && titan == petTitan )
+			return false
+	}
+
+	return true
+}
+Globalize( SavedFromRodeoSpectre )
