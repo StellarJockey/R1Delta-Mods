@@ -7,10 +7,8 @@
 * NPCs sometimes have issues getting their shots on you to register (another possible base game issue).
 * As an Atlas, you cannot use the Ogre termination; 'ogpov_melee_armrip_attacker' does not exist for it.
 * Shoulder turret is very janky and makes no noise when firing.
-* Gunships have a tendancy to clip inside of cliffs/high walls.
 
 ///// MENU BUGS... /////
 * If you try and open your Titan loadouts after a game, you sometimes get locked into the Burn Cards menu with no way to back out, forcing you to restart the game.
-* If you try and join a public lobby with this mod enabled, you will be stuck in an endless "Connecting to server..." loop and will have to exit the game (this is an issue cause by R1D's 3.0 pre-releases and has something to do with the _items.nut file).
 
 Note: These are all being worked on and will hopefully be fixed in the near future!
