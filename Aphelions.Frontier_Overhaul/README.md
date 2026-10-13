@@ -1,6 +1,6 @@
 (Thank you to ASILLYNEKO and FRANN for making the original Extended Attrition mod!)
 
-Frontier Overhaul is a heavily modified version of Extended Attrition. This is meant to be an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. This was NOT designed for multiplayer servers. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
+**Frontier Overhaul** is a heavily modified version of Extended Attrition. This is meant to be an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. This was NOT designed for PvP servers. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
 
 Supported Game Modes:
@@ -21,8 +21,8 @@ NPC Features:
 
 Weapon Features:
 -
-* New Ordnance: Throwing Knife
-* New Tactical: Deployable Cover
+* New Pilot Ordnance: Throwing Knife
+* New Pilot Tacticals: Deployable Cover and Hologram
 * New Titan Weapon: AG-8 Thunderbolt minigun (re-worked)
 * Restored Titan Ordnance: Shoulder Turret
 * Exclusive weapon mods/attachments with handmade icons
@@ -30,10 +30,10 @@ Weapon Features:
 * Extensive weapon rebalancing (see Aphelions.Frontier_Overhaul\FAQ\WEAPON\_CHANGES.txt)
 
 
-How do the NPC Pilots work?
+FO's Legacy NPC Pilots and Titans
 -
-* Currently, they are just re-skinned Grunts. They have max accuracy, increased movement speed, and can use any Pilot primary. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter). They have 200 HP (same as a human player) but are nowhere near as intelligent. Grunts also only have male voice lines, so only male Pilot models are used. 
-* There is also a rare chance for NPC "Ghost Pilots" to spawn. They function almost identically to Sniper Spectres. The only difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and will not appear on the minimap. 
+* Bot players have been created for R1Delta outside of this mod. However, if there are no bots in the match, FO's NPC Pilots and Titans will spawn instead. The NPC "Pilots" are essentially just re-skinned Grunts I tricked the game into treating like players, although the bots' advanced movement was never possible to program for them. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter).
+* There is also a rare chance for a squad of spec-ops variants to spawn called Ghost Pilots. They function almost identically to Sniper Spectres. The only difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and will not appear on the minimap.
 
 
 How do the Spectre variants work?
@@ -63,6 +63,7 @@ Other quality of life changes:
 -
 * Map, weapon, and item descriptions contain more information
 * Dropship will take off as soon as all living players are in
+* All Titans have been given the increased health of their TF|2 counterparts
 * IMC Spectres now use the Militia (Mk.I) model on The Refueling Raid, since the Mk.II model isn't canonically introduced until The Colony
 * The team you pick in the lobby will always be the team you're assigned to in-game
 * Campaign mission briefings will now play in full
