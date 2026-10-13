@@ -1964,6 +1964,7 @@ function ApplyIronsights( npc, weapon )
 	npc.TakeActiveWeapon()
 	npc.GiveWeapon( weapon, [ sightMod ] )	
 }
+Globalize( ApplyIronsights )
 
 // Somewhat hacky way to get AI to throw grenades. Good enough for now.
 function SimulateGrenadeThrowing( npc, onlyRooftopCombat = true, targetGrunts = false )

@@ -3146,34 +3146,6 @@ function CodeCallback_WeaponFireInCloak( player )
         return
     }
 
-	// NEW: Stealth Kit + suppressed sniper/pistol or the knife prevents cloak being broken
-	local weapon = player.GetActiveWeapon()
-	local hasSilencer = false
-	if ( IsValid( weapon ) )
-	{
-		local wName = weapon.GetClassname()
-		if ( wName == "mp_weapon_dmr" || wName == "mp_weapon_sniper" || wName == "mp_weapon_mega1" ||
-			wName == "mp_weapon_semipistol" || wName == "mp_weapon_autopistol" || wName == "mp_weapon_wingman" )
-		{
-			foreach ( mod in weapon.GetMods() )
-			{
-				if ( mod == "silencer" )
-				{
-					hasSilencer = true
-					break
-				}
-			}
-		}
-		else if ( wName == "mp_weapon_mega5" )
-			hasSilencer = true
-	}
-
-	if ( PlayerHasPassive( player, PAS_STEALTH_MOVEMENT ) && hasSilencer )
-	{
-		player.SetCloakFlicker( 0.4, 0.45 )
-		return
-	}
-
 	DisableCloak( player, 0.5 )
 }
 

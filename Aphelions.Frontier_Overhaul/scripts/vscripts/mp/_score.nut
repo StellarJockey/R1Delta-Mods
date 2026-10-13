@@ -549,7 +549,7 @@ function ScoreEvent_NPCKilled( npc, attacker, damageInfo )
 	if ( ShouldPreventFriendlyFire( npc, attacker ) )
 		return false
 
-	if ( npc.IsMarvin() )
+	if ( npc.IsMarvin() || "isHologram" in npc.s )
 		return
 
 	if ( ( IsReskinnedPilot( npc ) || IsGhostPilot( npc ) ) && GetConVarBool( "delta_play_killsounds" ) )

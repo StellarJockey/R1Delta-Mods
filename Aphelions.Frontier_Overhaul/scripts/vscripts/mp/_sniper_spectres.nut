@@ -262,7 +262,7 @@ function SniperCloak( sniper )
 
 	sniper.s.cloaked <- true  // Added state tracking here
 	sniper.kv.allowshoot = 0
-	sniper.SetCloakDuration( 3.0, -1, 0 )
+	sniper.SetCloakDuration( 2.0, -1, 0 )
 	sniper.Minimap_Hide( TEAM_IMC, null )
 	sniper.Minimap_Hide( TEAM_MILITIA, null )
 }
@@ -275,7 +275,7 @@ function SniperDeCloak( sniper )
 
 	sniper.s.cloaked <- false // Added state tracking here
 	sniper.kv.allowshoot = 1
-	sniper.SetCloakDuration( 0, 0, 1.5 )
+	sniper.SetCloakDuration( 0, 0, 1.0 )
 	sniper.Minimap_AlwaysShow( TEAM_IMC, null )
 	sniper.Minimap_AlwaysShow( TEAM_MILITIA, null )
 }

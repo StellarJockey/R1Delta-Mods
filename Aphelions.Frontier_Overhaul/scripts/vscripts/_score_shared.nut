@@ -100,7 +100,7 @@ function InitScoreEvents()
 
 	event = cScoreEvent( "SavedFromRodeo_Spectre" )
 	event.SetPointValue( POINTVALUE_KILL_SPECTRE )
-	event.SetSplashText( "Killed Rodeo Spectre" )
+	event.SetSplashText( "Killed Rodeo Spectre%s1" )
 	event.SetConversation( "RodeoRake", EVENT_PRIORITY_CALLOUTMINOR )
 	event.SetXPType( XP_TYPE.RODEO_RAKE )
 
