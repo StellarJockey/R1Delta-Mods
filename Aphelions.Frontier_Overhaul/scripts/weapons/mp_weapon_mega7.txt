@@ -4,7 +4,7 @@ WeaponData
 	"printname"   									"Hologram"
 	"shortprintname"   								"Hologram"
 	"description"   								"Creates a fake Pilot to distract enemies"
-	"longdesc"   									"The Hologram is a real-time deepfake that infects cameras and enemy optics, creating a digital clone of you that lasts for 10 seconds. Upon activation, you will briefly cloak as the Hologram runs forward."
+	"longdesc"   									"The Hologram is a real-time deepfake that infects enemy HUDs, creating a digital clone of you that lasts for 10 seconds. Upon activation, you will briefly cloak as the Hologram runs forward."
 	"weaponClass" 									"human"
 	"fire_mode"   									"offhand_instant"
 	"server_vscript"  								"weapons/mp_weapon_hologram"

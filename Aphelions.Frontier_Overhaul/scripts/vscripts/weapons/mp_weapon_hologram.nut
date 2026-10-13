@@ -1,5 +1,5 @@
 const HOLOGRAM_DEFAULT_WEAPON = "mp_weapon_rspn101"
-const HOLOGRAM_RUN_DISTANCE = 500   // units; Tune to taste (1 ft is about 16 units)
+const HOLOGRAM_RUN_DISTANCE = 1024   // units; Tune to taste (1 ft is about 16 units)
 
 function OnWeaponPrimaryAttack( attackParams )
 {
@@ -80,7 +80,7 @@ function CreateHologram( player )
 
 	hologram.s.isHologram <- true
 	hologram.s.IsSoldier <- false
-	hologram.s.isPilot <- false
+	hologram.s.isPilot <- true
 	SetNPCAsPilot( hologram, true )
 	hologram.kv.allowshoot = 0
 
@@ -94,20 +94,42 @@ function CreateHologram( player )
 		hologram.s.useRPGPreference = RPG_USE_ALWAYS   // set after, since SetupSoldierForRPGs overwrites it
 	}
 
-	hologram.SetMaxHealth( 1000 )
-	hologram.SetHealth( 1000 )
+	hologram.SetMaxHealth( 32000 )
+	hologram.SetHealth( 32000 )
 	hologram.SetInvulnerable()
 	hologram.SetMoveSpeedScale( 1.20 )
 	hologram.SetAISettings( "fireteam_pilot" )
 	hologram.PreferSprint( true )
 	hologram.SetHearingSensitivity( 10 )
 	hologram.AllowFlee( false )
-	hologram.AllowHandSignals( true )
+	hologram.AllowHandSignals( false )
+
+	hologram.NotSolid()
 
 	DispatchSpawn( hologram )
 
+	thread RandomFlicker( hologram )
 	thread HologramRushForward( hologram, player )
+
 	return hologram
+}
+
+function RandomFlicker( hologram )
+{
+	hologram.EndSignal( "OnDestroy" )
+	hologram.EndSignal( "OnDeath" )
+
+	local flicker = RandomFloat( 0.2, 0.4 )
+	wait 1.0
+	
+    while ( IsValid( hologram ) && !( "dying" in hologram.s ) )
+    {
+		if ( RandomFloat( 0.0, 1.0 ) < 0.10 ) // small chance to flicker like they're a HUD glitch
+			SniperCloak( hologram )
+			hologram.SetCloakDuration( flicker, 0, flicker )
+
+		wait RandomFloat( 1.0, 5.0 )
+	}
 }
 
 function PlayerTempCloakOn( player )
@@ -120,50 +142,49 @@ function PlayerTempCloakOn( player )
 	thread HandleCloakEnd( player )
 }
 
+function FindForwardPoint( hologram, player )
+{
+	local origin = hologram.GetOrigin()
+	local forward = Vector( 0, player.GetAngles().y, 0 ).AnglesToForward()
+	local eyeOffset = Vector( 0, 0, 32 )
+
+	// walk from far to near; first valid, unobstructed node wins
+	for ( local dist = HOLOGRAM_RUN_DISTANCE; dist >= 150; dist -= 75 )
+	{
+		local target = origin + forward * dist
+		local node = GetNearestNodeToPos( target )
+		if ( node == null || node < 0 )
+			continue
+
+		local pos = GetNodePos( node, HULL_HUMAN )
+		if ( Distance( pos, target ) > 150 )
+			continue   // snapped too far from where we wanted to go
+
+		local dx = pos.x - origin.x
+		local dy = pos.y - origin.y
+		local flat = sqrt( dx * dx + dy * dy )
+		if ( flat < 100 || ( dx * forward.x + dy * forward.y ) / flat < 0.85 )
+			continue   // not actually in front
+
+		// reject if a wall is in the way (swap in whatever trace helper your other files use)
+		if ( TraceLineSimple( origin + eyeOffset, pos + eyeOffset, hologram ) < 1.0 )
+			continue
+
+		return pos
+	}
+	return null
+}
+
 function HologramRushForward( hologram, player )
 {
 	hologram.EndSignal( "OnDestroy" )
 	hologram.EndSignal( "OnDeath" )
 
-	local yaw = player.GetAngles().y
-	local forward = Vector( 0, yaw, 0 ).AnglesToForward()
-	local origin = hologram.GetOrigin()
+	wait 0.1   // let the AI finish spawning before giving orders
 
-	local startNode = GetNearestNodeToPos( origin )
-	if ( startNode == null || startNode < 0 )
-		return   // nowhere reachable in front: just let normal AI take over
-
-	local neighbors = GetNeighborNodes( startNode, 5, HULL_HUMAN )
-	local best = null
-	local bestDist = 0
-
-	foreach ( index in neighbors )
-	{
-		if ( index == null || index < 0 )
-			continue
-
-		local pos = GetNodePos( index, HULL_HUMAN )
-		local dist = Distance( origin, pos )
-		if ( dist < 100 || dist > HOLOGRAM_RUN_DISTANCE * 1.3 )
-			continue
-
-		// how closely this node lines up with the player's facing (flat, -1 to 1)
-		local dx = pos.x - origin.x
-		local dy = pos.y - origin.y
-		local alignment = ( dx * forward.x + dy * forward.y ) / dist
-		if ( alignment < 0.5 )
-			continue
-
-		// prefer the farthest node that is still in front
-		if ( dist > bestDist )
-		{
-			best = pos
-			bestDist = dist
-		}
-	}
-
+	local best = FindForwardPoint( hologram, player )
 	if ( best == null )
-		return   // nowhere reachable in front: just let normal AI take over
+		best = hologram.GetOrigin()   // hold position rather than let AI wander off
 
 	hologram.AssaultPoint( best )
 
@@ -171,7 +192,9 @@ function HologramRushForward( hologram, player )
 	while ( Time() < timeout && Distance( hologram.GetOrigin(), best ) > 80 )
 		wait 0.2
 
-	hologram.DisableBehavior( "Assault" )
+	// do NOT DisableBehavior("Assault"): re-issue the point at where we ended up so it holds
+	if ( IsValid( hologram ) )
+		hologram.AssaultPoint( hologram.GetOrigin() )
 }
 
 function GetHologramWeaponName( player )
