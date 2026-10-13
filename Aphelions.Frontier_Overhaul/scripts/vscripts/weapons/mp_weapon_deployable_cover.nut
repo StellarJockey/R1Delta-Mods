@@ -2,6 +2,7 @@ const MAX_PROXIMITY_MINES_IN_WORLD = 3  // if more than this are thrown, the old
 const THROW_POWER = 620
 const ATTACH_SFX = "Weapon_ProximityMine_Land"
 const WARNING_SFX = "Weapon_ProximityMine_ArmedBeep"
+const COVER_SHIELD_HEALTH = 2500
 
 function ProximityMinePrecache()
 {
@@ -206,8 +207,8 @@ function ProximityMineSpawnShield( mine, lifetime )
 		vortexSphere.SetOwner( mine )
 	}
 
-	vortexSphere.SetMaxHealth( 32000 )
-	vortexSphere.SetHealth( 32000 )
+	vortexSphere.SetMaxHealth( COVER_SHIELD_HEALTH )
+	vortexSphere.SetHealth( COVER_SHIELD_HEALTH )
 	DispatchSpawn( vortexSphere, true )
 	EmitSoundOnEntity( mine, "ShieldWall_Deploy" )
 	vortexSphere.Fire( "Enable" )
@@ -280,9 +281,13 @@ function ProximityMineSpawnShield( mine, lifetime )
 
 		if ( !IsValid( mine ) )
 			return
+		
+		// Shield broke from damage
+		if ( !IsValid( vortexSphere ) || vortexSphere.GetHealth() <= 0 )
+			return
 
 		local curOwner = mine.GetOwner()
 		if ( !IsValid( curOwner ) || (curOwner.IsPlayer() && !IsAlive( curOwner )) )
-			return // Break out, let OnThreadEnd handle cleanup
+			return
 	}
 }
