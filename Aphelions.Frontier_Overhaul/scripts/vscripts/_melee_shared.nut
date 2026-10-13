@@ -137,6 +137,9 @@ function CodeCallback_IsValidMeleeExecutionTarget( attacker, target )
 	if ( !IsAlive( target ) )
 		return false
 
+	if ( "isHologram" in target.s )
+		return false
+
 	if ( !CanBeMeleed( target ) )
 		return false
 

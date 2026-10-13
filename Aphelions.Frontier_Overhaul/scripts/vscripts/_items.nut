@@ -27,7 +27,7 @@ const MEGA2_SHORTDESC =    "Sawn-off shotgun"
 const MEGA2_LONGDESC =     "The TWIN-B is a 12-gauge break-action shotgun. Originally used by colonists for game hunting, the barrel has been sawed down for easier concealment - making it highly illegal to own in most IMC districts."
 
 const r97_SCATTER_LONGDESC =  "This mod increases the R-97's rate of fire even further to 1,260 RPM, tightens the hipfire spread, and grants a small boost to rodeo damage. However, this also comes with a 25% increase to the weapon's recoil."
-const slammer_LONGDESCv2 =    "This mod upgrades the Spitfire with high-power anti-Titan rounds, giving it a 50% increase in rodeo damage against enemy Titans."
+const slammer_LONGDESCv2 =    "This mod upgrades the Spitfire with high-powered anti-Titan rounds, giving it a 50% increase in rodeo damage against enemy Titans."
 const suppressor_LONGDESC =   "The suppressor minimizes the weapon's firing noise and muzzle flash, ensuring that enemies will not detect you on their minimap when you fire. However, due to also using subsonic rounds, your damage and range are slightly reduced."
 const suppressor_sg_LONGDESC =  "The suppressor minimizes the weapon's firing noise and muzzle flash, ensuring that enemies will not detect you on their minimap when you fire. While your damage and range are slightly lower, this also reduces shotgun recoil."
 
@@ -67,7 +67,7 @@ const QUICK_RELOADv2 = 	  "The Quick Reload Kit reduces the reload time of all P
 const SHIELD_BATTERYv2 =  "The Dome Shield Battery extends the duration of your Titan's Dome-Shield from 15 seconds to 25 seconds."
 const WARPFALLv2 = 		  "Using short-range jump technology, the Warpfall Transmitter accelerates your Titan's orbital drop from 6 seconds to 3 seconds."
 const ICEPICKv2 = 		  "The 'Icepick' is a firmware upgrade for your Data Knife, reducing the time to hack Spectres and turret panels down from 2.8 seconds to 0.85 seconds."
-const STEALTHv2 = 		  "The Stealth Kit makes your footsteps silent, and makes your jump kit exhaust nearly invisible. When paired with Cloak and a suppressed sniper or a suppressed sidearm pistol, your Cloak will not break when you fire your weapon."
+const STEALTHv2 = 		  "The Stealth Kit makes your footsteps silent and makes your jump kit exhaust nearly invisible. When performing a rodeo on an enemy Titan, they will not be notified until you begin firing."
 const DEADMANSv2 =        "The Dead Man's Trigger auto-detonates all of your planted explosives (i.e., Arc Mines and Satchel Charges) when you are killed." 
 
 const GEAR_RUNGUN_KIT_DESCv2 = 		"Pistols, SMGs, and shotguns can be fired while sprinting"
@@ -405,6 +405,7 @@ function main()
 	unlockLevels[ "mp_weapon_mega1" ]						<- 30
 	unlockLevels[ "mp_weapon_mega6" ]						<- 34
 	unlockLevels[ "mp_weapon_mega2" ]						<- 35
+	unlockLevels[ "mp_weapon_mega7" ]						<- 40
 	unlockLevels[ "mp_weapon_mega5" ]						<- 49
 	// unlockLevels[ "mp_weapon_mega9" ]						<- 10
 }
@@ -450,6 +451,7 @@ function InitItems()
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0,		null, 	null, "mp_ability_heal", 			"../ui/menu/items/ability_icons/heal", 			"../ui/menu/items/ability_icons/heal" )
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0,		null, 	null, "mp_ability_sonar", 			"../ui/menu/items/ability_icons/sonar", 		"../ui/menu/items/ability_icons/sonar" )
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega6", 			"../ui/menu/items/ability_icons/deployable_cover", 		"../ui/menu/items/ability_icons/deployable_cover" )
+	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega7", 			"../ui/menu/items/ability_icons/hologram", 		"../ui/menu/items/ability_icons/hologram" )
 
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_frag_grenade", 	"../ui/menu/items/weapon_frag_grenade_v2", 		"../ui/menu/items/ability_icons/frag_grenade", 		"../ui/menu/items/weapon_frag_grenade_v2" )
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_grenade_emp", 		"../ui/menu/items/weapon_arc_grenade_v2",		"../ui/menu/items/ability_icons/arc_grenade", 		"../ui/menu/items/weapon_arc_grenade_v2" )

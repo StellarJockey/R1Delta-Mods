@@ -1,0 +1,59 @@
+WeaponData
+{
+	// General
+	"printname"   									"Hologram"
+	"shortprintname"   								"Hologram"
+	"description"   								"Creates a fake Pilot to distract enemies"
+	"longdesc"   									"The Hologram is a real-time deepfake that infects cameras and enemy optics, creating a digital clone of you that lasts for 10 seconds. Upon activation, you will briefly cloak as the Hologram runs forward."
+	"weaponClass" 									"human"
+	"fire_mode"   									"offhand_instant"
+	"server_vscript"  								"weapons/mp_weapon_hologram"
+	"client_vscript"  								"weapons/mp_weapon_hologram"
+
+	"damage_type" 									"none"
+
+	// Ammo
+	"ammo_stockpile_max"							"200"
+	"ammo_clip_size"   								"200"
+	"ammo_default_total"							"200"
+
+	// Behavior
+	"fire_rate"   									"0.1"
+	"fire_duration"									"10.0"
+	"breaks_cloak"									"0"
+
+	"hud_icon"										"HUD/dpad_call_in_hologram"
+
+	Mods
+	{
+		pas_power_cell
+		{
+			"fire_rate"	"*1.5"
+		}
+
+		// burn card: Replace Pilot Tactical Ability with longer lasting Hologram.
+		/*
+		bc_super_hologram
+		{
+			"fire_rate"	"*2.0"
+			"fire_duration"	"*2.0"
+			"is_burn_mod"		"1"
+		}
+		"If a Pilot claims to see deepfakes outside of their HUD, refer them to a psychiatric technician."
+		-Spyglass
+		*/
+	}
+
+	TextureData
+	{
+		"crosshair"
+		{
+		}
+		"crosshair_zoom"
+		{
+		}
+		"autoaim"
+		{
+		}
+	}
+}
