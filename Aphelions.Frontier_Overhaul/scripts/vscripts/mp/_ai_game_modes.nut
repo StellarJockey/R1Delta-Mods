@@ -75,8 +75,8 @@ function main()
 		RegisterSignal( "SquadHardpointRunThink_squad_militia" + i )
 	}
 
-	level.max_npc_per_side <- 24
-	level.max_npc_per_side_small <- 20
+	level.max_npc_per_side <- 24          // 12
+	level.max_npc_per_side_small <- 20    // 9
 
 	// NEW: Initialize AI behavior system (works for all game modes)
 	level.aiSpottingEnabled <- true  // Can be disabled per-mode
@@ -202,7 +202,7 @@ function main()
 	{
 		IncludeFile( "mp/_ai_capture_the_flag" )
 	}
-	if ( mode == COOPERATIVE )
+	if ( mode == COOPERATIVE && GetPlayerArray().len() == 1 )
 	{
 		thread Coop_SpawnTitansAfterDelay()
 	}
@@ -782,14 +782,17 @@ function TeamDeathmatchSpawnNPCsThink()
 		return false
 	}
 
-	if ( !Flag("Disable_IMC") && IsTitanMode(mode) )
+	if ( GetPlayerArray().len() <= 4 )
 	{
-		thread SpawnPilotWithTitans( TEAM_IMC )
-	}
+		if ( !Flag("Disable_IMC") && IsTitanMode(mode) )
+		{
+			thread SpawnPilotWithTitans( TEAM_IMC )
+		}
 
-	if ( !Flag( "Disable_MILITIA" ) && IsTitanMode(mode) ) 
-	{
-		thread SpawnPilotWithTitans( TEAM_MILITIA )
+		if ( !Flag( "Disable_MILITIA" ) && IsTitanMode(mode) ) 
+		{
+			thread SpawnPilotWithTitans( TEAM_MILITIA )
+		}
 	}
 
 	// WAVE SPAWNING (Spectre variants and cloak drones won't spawn in Titan-based modes)
@@ -1009,8 +1012,8 @@ function CloakDroneWaveThink( team )
         // Wait between 1 to 2.5 min between drone waves
         wait RandomFloat( 60.0, 150.0 )
 
-		// 60% chance for drones spawn
-        if ( RandomFloat( 0.0, 1.0 ) > 0.60 )
+		// 50% chance for drones spawn
+        if ( RandomFloat( 0.0, 1.0 ) > 0.50 )
             continue
 
         // Find valid spawn points for the wave using existing drop pod points
@@ -1051,8 +1054,8 @@ function GunshipWaveThink( team )
         // Wait between 1 to 2.5 min between ship waves
         wait RandomFloat( 60.0, 150.0 )
 
-		// 40% chance for gunships spawn
-        if ( RandomFloat( 0.0, 1.0 ) > 0.40 )
+		// 35% chance for gunships spawn
+        if ( RandomFloat( 0.0, 1.0 ) > 0.35 )
             continue
 
         // Find valid spawn points for the wave using existing drop pod points
