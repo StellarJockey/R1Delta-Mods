@@ -1927,21 +1927,6 @@ function ClientCommand_PrivateMatchSwitchTeams( player, ... )
         newMilitiaCount--
     }
 
-    // If auto-balance is enabled, prevent manual switches that increase imbalance.
-    if ( GetConVarBool( "delta_autoBalanceTeams" ) )
-    {
-        local currentImbalance = abs(currentIMCCount - currentMilitiaCount)
-        local newImbalance = abs(newIMCCount - newMilitiaCount)
-        if ( newImbalance > currentImbalance )
-        {
-             printt( "AutoBalance enabled: Preventing manual team switch that would increase imbalance." )
-             return false
-        }
-    }
-    // Original check (commented out): Don't allow the switch if it would create an imbalance of more than 1 player
-    // if (abs(newIMCCount - newMilitiaCount) > 1)
-    //    return false
-
     player.TrueTeamSwitch()
     UpdatePrivateMatchReadyStatus( true )
     return true
