@@ -82,7 +82,7 @@ function CreateHologram( player )
 	hologram.s.IsSoldier <- false
 	hologram.s.isPilot <- false
 	SetNPCAsPilot( hologram, true )
-	// hologram.kv.allowshoot = 0
+	hologram.kv.allowshoot = 0
 
 	GiveMinionWeapon( hologram, weaponName )
 	if ( atWeaponName )
