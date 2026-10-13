@@ -1293,15 +1293,10 @@ function NPCSpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, 
 Globalize( NPCSpawnFuncWrapper )
 
 
-// Real pilot bots (_bot_manager.nut / _bot_ai.nut) replace the fake NPC Pilots whenever the bot
-// manager is running for this mode and set to fill the match. Otherwise (other modes, stock DLL
-// without the bot natives, delta_bot_fill_target 0) the NPC Pilots are still used.
+// Fake NPC Pilots spawn if there are no players/bots
 function ShouldUseNPCPilots()
 {
-	local root = getroottable()
-	if ( !( "BotManagerEnabledForMode" in root ) || !( "GetBotFillTarget" in root ) )
-		return true
-	return !( BotManagerEnabledForMode() && GetBotFillTarget() > 0 )
+	return GetPlayerArray().len() <= 1
 }
 Globalize( ShouldUseNPCPilots )
 
@@ -1312,7 +1307,6 @@ function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, a
 	local guy
 
 	// 10% Chance for an NPC Pilot inside Grunt Pods, but only when bots aren't present
-	// (see ShouldUseNPCPilots)
 	if ( spawnFunc.getinfos().name == "SpawnGrunt" && ShouldUseNPCPilots() && RandomFloat( 0.0, 1.0 ) <= 0.10 )
 	{
 		guy = SpawnPilotInfantry( team, squadName, origin, angles )

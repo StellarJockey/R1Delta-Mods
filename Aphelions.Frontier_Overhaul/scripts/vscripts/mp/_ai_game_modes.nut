@@ -202,7 +202,7 @@ function main()
 	{
 		IncludeFile( "mp/_ai_capture_the_flag" )
 	}
-	if ( mode == COOPERATIVE && GetPlayerArray().len() == 1 )
+	if ( mode == COOPERATIVE )
 	{
 		thread Coop_SpawnTitansAfterDelay()
 	}
@@ -782,17 +782,14 @@ function TeamDeathmatchSpawnNPCsThink()
 		return false
 	}
 
-	if ( GetPlayerArray().len() <= 4 )
+	if ( !Flag("Disable_IMC") && IsTitanMode(mode) )
 	{
-		if ( !Flag("Disable_IMC") && IsTitanMode(mode) )
-		{
-			thread SpawnPilotWithTitans( TEAM_IMC )
-		}
+		thread SpawnPilotWithTitans( TEAM_IMC )
+	}
 
-		if ( !Flag( "Disable_MILITIA" ) && IsTitanMode(mode) ) 
-		{
-			thread SpawnPilotWithTitans( TEAM_MILITIA )
-		}
+	if ( !Flag( "Disable_MILITIA" ) && IsTitanMode(mode) ) 
+	{
+		thread SpawnPilotWithTitans( TEAM_MILITIA )
 	}
 
 	// WAVE SPAWNING (Spectre variants and cloak drones won't spawn in Titan-based modes)
@@ -1124,6 +1121,9 @@ function SniperSpectreWaveThink( team )
 
 function GhostPilotWaveThink( team )
 {
+	if ( !ShouldUseNPCPilots() )
+		return
+		
     // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
     wait 60.0 + RandomFloat( 0.0, 30.0 )
 

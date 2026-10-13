@@ -1106,6 +1106,9 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
     local players = GetPlayerArray()
     if ( players.len() == 0 )
         return false // If no player is in yet, don't spawn
+
+	if ( !ShouldUseNPCPilots() )
+		return false
     
     local playerTeam = players[0].GetTeam()
     
@@ -1117,10 +1120,6 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 		case LAST_TITAN_STANDING:
 			limit = ( team == playerTeam ) ? 5 : 6   // 5 for your team, 6 for enemy team
 			break
-
-		case COOPERATIVE:
-			limit = ( team == playerTeam ) ? 3 : 0   // 3 for your team in Frontier Defense
-			break
 			
 		default: // Attrition, Hardpoint, Campaign, etc.
 			if ( Riff_AILethality() == eAILethality.Default )
@@ -1130,6 +1129,18 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 			else if ( Riff_AILethality() == eAILethality.VeryHigh )
 				limit = ( team == playerTeam ) ? 3 : 5 
 			break
+	}
+
+	if ( GameRules.GetGameMode() == COOPERATIVE )
+	{
+		if ( players.len() == 1 )
+			limit = ( team == playerTeam ) ? 3 : 0   // 3 if you're alone in Frontier Defense
+		else if ( players.len() == 2 )
+			limit = ( team == playerTeam ) ? 2 : 0
+		else if ( players.len() == 3 )
+			limit = ( team == playerTeam ) ? 1 : 0 
+		else if ( players.len() >= 4 )
+			limit = ( team == playerTeam ) ? 0 : 0 
 	}
 
 	local mapName = GetMapName()
@@ -1143,6 +1154,10 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 
 function Coop_SpawnTitansAfterDelay()
 {
+    local players = GetPlayerArray()
+    if ( players.len() >= 4 )
+		return
+
 	// Wait 60 in-game seconds
 	wait 60.0
 	
