@@ -954,6 +954,9 @@ function UpdateAILethality( soldier, enemy )
 	local accuracyMultiplierPilot = AI_PILOT_ACCURACY_DEFAULT
 	local weaponProficiencyPilot = AI_PILOT_PROFICIENCY_DEFAULT
 
+	if ( "isHologram" in soldier.s )
+		return
+
 	local accuracyMultiplierSniper = 100
 	local weaponProficiencySniper = 2
 
@@ -1300,6 +1303,7 @@ function ShouldUseNPCPilots()
 		return true
 	return !( BotManagerEnabledForMode() && GetBotFillTarget() > 0 )
 }
+Globalize( ShouldUseNPCPilots )
 
 // Added 'isArray = false' to the parameter list
 function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, angles, isArray = false )
@@ -1307,8 +1311,8 @@ function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, a
 	Assert( type( spawnFunc ) == "function" )
 	local guy
 
-	// 10% Chance for an NPC Pilot inside Grunt Pods, but only when bots aren't supplying the
-	// pilots (see ShouldUseNPCPilots)
+	// 10% Chance for an NPC Pilot inside Grunt Pods, but only when bots aren't present
+	// (see ShouldUseNPCPilots)
 	if ( spawnFunc.getinfos().name == "SpawnGrunt" && ShouldUseNPCPilots() && RandomFloat( 0.0, 1.0 ) <= 0.10 )
 	{
 		guy = SpawnPilotInfantry( team, squadName, origin, angles )

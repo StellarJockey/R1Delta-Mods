@@ -89,9 +89,8 @@ function CreateHologram( player )
 	{
 		hologram.TakeActiveWeapon()
 		hologram.GiveWeapon( atWeaponName )     // no mods, that's what crashed before
+		hologram.kv.additionalequipment = atWeaponName
 		hologram.s.atWeapon <- atWeaponName     // rocket system uses this instead of a random AT weapon
-		SetupSoldierForRPGs( hologram, hologram.GetTeam() )
-		hologram.s.useRPGPreference = RPG_USE_ALWAYS   // set after, since SetupSoldierForRPGs overwrites it
 	}
 
 	hologram.SetMaxHealth( 32000 )
