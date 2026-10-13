@@ -101,8 +101,15 @@ WeaponData
 		// 	 "fire_rate"	"*1.0"
 		// }
 
-		// burn card: Replace Pilot Tactical Ability with a larger Deployable Cover.
-		// "I cast Circle of Protection." - Bish
+		// burn card: Replace Pilot Tactical Ability with longer lasting Deployable Cover.
+		/*
+		pas_super_deployable_cover
+		{
+			"fire_duration"  "*2.0"	
+		}
+		"I cast Circle of Protection."
+		-Bish
+		*/
 
 	}
 
