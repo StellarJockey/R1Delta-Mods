@@ -1,6 +1,6 @@
 (Thank you to ASILLYNEKO and FRANN for making the original Extended Attrition mod!)
 
-**Frontier Overhaul** is a heavily modified version of Extended Attrition. This is meant to be an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. This was NOT designed for PvP servers. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
+**FRONTIER OVERHAUL** is a heavily modified version of Extended Attrition. This is meant to be an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. This was NOT designed for PvP servers. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
 
 Supported Game Modes:
@@ -32,7 +32,7 @@ Weapon Features:
 
 FO's Legacy NPC Pilots and Titans
 -
-* Bot players have been created for R1Delta outside of this mod. However, if there are no bots in the match, FO's NPC Pilots and Titans will spawn instead. The NPC "Pilots" are essentially just re-skinned Grunts I tricked the game into treating like players, although the bots' advanced movement was never possible to program for them. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter).
+* Bot players have been created for R1Delta outside of this mod. However, if there are only 4 or fewer players/bots in the match, FO's original NPC Pilots and Titans will spawn instead. The NPC "Pilots" are essentially just re-skinned Grunts I tricked the game into treating like players, although the bots' advanced movement was never possible to program for them. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter).
 * There is also a rare chance for a squad of spec-ops variants to spawn called Ghost Pilots. They function almost identically to Sniper Spectres. The only difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and will not appear on the minimap.
 
 
@@ -62,6 +62,7 @@ Yes... but I would strongly advise against it. The main threat in a MP match is 
 Other quality of life changes:
 -
 * Map, weapon, and item descriptions contain more information
+* All weapons now have upscaled preview images
 * Dropship will take off as soon as all living players are in
 * All Titans have been given the increased health of their TF|2 counterparts
 * IMC Spectres now use the Militia (Mk.I) model on The Refueling Raid, since the Mk.II model isn't canonically introduced until The Colony
@@ -70,11 +71,11 @@ Other quality of life changes:
 * Cloak drones, Destroyers, and Spectre variants will not spawn in campaign, since those are canonically introduced afterwards
 * Titans will have a chance to use any Titan execution, regardless of the chassis, since they were (almost) all animated
 * Harvester in Frontier Defense has been given increased HP
-* Comes bundled with several other mods!
+* Comes bundled with several other mods! (see Aphelions.Frontier_Overhaul\FAQ\LIST\_OF\_INCLUDED\_MODS.txt)
 
 
 Good luck, have fun!
 -
 That's an order.
 
-**Mod authors**: ASillyNeko, Frann, 07zj, NachosChipeados, StoneCold, Wulfheart, Claude (AI), and Aphelion
+**Mod contributors**: ASillyNeko, Frann, 07zj, NachosChipeados, StoneCold, Wulfheart, Claude (AI), and Aphelion
