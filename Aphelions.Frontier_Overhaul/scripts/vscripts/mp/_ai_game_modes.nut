@@ -235,7 +235,7 @@ function UpdateNPCCaps( usePilots )
 function AdjustNPCSpawns()
 {
 	FlagWait( "GamePlaying" )
-	wait 10.0	// give players/bots time to connect
+	wait 5.0	// give players/bots time to connect
 
 	local lastState = false	// matches the normal caps main() already applied
 	while ( true )
@@ -246,7 +246,7 @@ function AdjustNPCSpawns()
 			UpdateNPCCaps( state )
 			lastState = state
 		}
-		wait 10.0
+		wait 5.0
 	}
 }
 

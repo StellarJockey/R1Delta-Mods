@@ -2823,7 +2823,7 @@ function AttritionScoreValueForVictim( victim )
 {
 	if ( victim.IsPlayer() )
 		return ATTRITION_SCORE_PILOT
-	else if ( victim.IsNPC() && ( "isPilot" in victim.s || "isPilotProp" in victim.s ) )
+	else if ( victim.IsNPC() && ( "isPilot" in victim.s || "isPilotProp" in victim.s || "isGhostPilot" in victim.s ) )
 		return ATTRITION_SCORE_PILOT
 	else if ( victim.IsTitan() && !victim.IsPlayer() )
 		return ATTRITION_SCORE_TITAN

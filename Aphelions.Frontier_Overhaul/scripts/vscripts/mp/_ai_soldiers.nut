@@ -1293,10 +1293,10 @@ function NPCSpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, 
 Globalize( NPCSpawnFuncWrapper )
 
 
-// Fake NPC Pilots spawn if there are no players/bots
+// Old NPC Pilots only spawn if there are less than 4 players/bots
 function ShouldUseNPCPilots()
 {
-	return GetPlayerArray().len() <= 1
+	return GetPlayerArray().len() < 4
 }
 Globalize( ShouldUseNPCPilots )
 
