@@ -43,28 +43,24 @@ Globalize( GetRandomPilotName )
 function ChoosePilotModelForWeapon( team, weapon )
 {
     local pilotmodels = []
-    local title = ""
 
-    if ( team == TEAM_MILITIA ) {
+    if ( team == TEAM_MILITIA )
+    {
         pilotmodels = [
             "models/Humans/mcor_pilot/male_br/mcor_pilot_male_br.mdl",
             "models/Humans/mcor_pilot/male_cq/mcor_pilot_male_cq.mdl",
             "models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl"
         ]
-        
-		title = GetRandomPilotName( team )
-        
-    } else {
+    }
+    else
+    {
         pilotmodels = [
             "models/Humans/imc_pilot/male_br/imc_pilot_male_br.mdl",
             "models/humans/imc_pilot/male_cq/imc_pilot_male_cq.mdl",
             "models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
         ]
-        
-		title = GetRandomPilotName( team )
     }
-    
-	// Determine the correct model based on the weapon equipped
+
     local modelIndex = 0
     switch ( weapon )
     {
@@ -89,7 +85,6 @@ function ChoosePilotModelForWeapon( team, weapon )
             break
 
         default:
-            // fallback to first model if unknown weapon
             modelIndex = 0
             break
     }
@@ -125,11 +120,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 
     local guy = SpawnGrunt( team, squadName, origin, angles, alert, weapon, hidden, false )
 
-    local title = ""
-    if ( team == TEAM_MILITIA )
-        title = GetRandomPilotName( team )
-    else
-        title = GetRandomPilotName( team )
+    local title = GetRandomPilotName( team )
 
     // Determine the correct model based on the weapon equipped using centralized helper
     local model = ChoosePilotModelForWeapon( team, weapon )

@@ -2351,10 +2351,9 @@ function ServerCallback_OnEntityKilled( attackerEHandle, victimEHandle, scriptDa
 			attacker = victim.s.latestAssistPlayer
 			damageSourceId = victim.s.latestAssistDamageSource
 		}
-
 	}
 
-	if( victim.IsPlayer() && victim != attacker && GetConVarBool( "delta_play_killsounds" ) )
+	if ( victim.IsPlayer() && victim != attacker && GetConVarBool( "delta_play_killsounds" ) )
 	{
 		if( attacker == localPlayer )
 		{

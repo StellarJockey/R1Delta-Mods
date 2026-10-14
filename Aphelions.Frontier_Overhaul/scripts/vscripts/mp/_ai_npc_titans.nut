@@ -15,6 +15,7 @@ function main()
     Globalize( GiveTitanPilot )
     Globalize( SetNPCAsPilot )
 	Globalize( CreateCopyOfPilotModel )
+	Globalize( PilotReveal )
     Globalize( GiveTitanPilotModel )
     Globalize( NPCPilotEmbarkTitan )
     Globalize( TrackTitan )
@@ -203,6 +204,13 @@ function GiveTitanPilotModel( titan, model )
 	file.pilotedtitanmodels[ titan ] <- model
 }
 
+function PilotReveal( pilot )
+{
+	pilot.Hide()
+	wait 2.0
+	pilot.Show()
+}
+
 function NPCPilotEmbarkTitan( pilot, title, titan )
 {
     pilot.EndSignal( "OnDestroy" )
@@ -213,6 +221,7 @@ function NPCPilotEmbarkTitan( pilot, title, titan )
     // Make absolutely certain AI cannot take control during embark.
     pilot.DisableBehavior( "Assault" )
     pilot.DisableBehavior( "Follow" )
+	pilot.AllowFlee( false )
     pilot.SetInvulnerable()
 
     // A pilot can still be mid-traverse (ledge climb / jump) when told to embark.
@@ -306,7 +315,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 {
     local isTitanBrawl = ( GameRules.GetGameMode() == TITAN_BRAWL )
     local pilot = null
-    local title = ""
+    local title = GetRandomPilotName( team )
 
 	local pilotmodels = file.pilotmodels
     if ( team == TEAM_MILITIA )
@@ -318,35 +327,49 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
     if ( !isTitanBrawl )
     {
 		pilot = CreateEntity( "npc_soldier" )
-		DispatchSpawn( pilot )
 		pilot.SetOrigin( spawnOrigin )
 		pilot.SetTeam( team )
-		pilot.SetModel( Random( pilotmodels ) )
 
 		if ( "s" in pilot && "IsSoldier" in pilot.s )
 			pilot.s.IsSoldier <- false
-
 		pilot.s.isPilot <- true
-		SetNPCAsPilot( pilot, true )
 
-		GiveMinionWeapon( pilot, "mp_weapon_rspn101" )
+		local pilotWeapons = [
+			"mp_weapon_rspn101",
+			"mp_weapon_shotgun",
+			"mp_weapon_dmr",
+			"mp_weapon_r97",
+			"mp_weapon_hemlok",
+			"mp_weapon_g2",
+			"mp_weapon_car",
+			"mp_weapon_mega1",
+			"mp_weapon_lmg",
+			"mp_weapon_sniper",
+			"mp_weapon_smart_pistol",
+		]
+		local pilotWeapon = Random( pilotWeapons )
+		GiveMinionWeapon( pilot, pilotWeapon )
 		pilot.SetMaxHealth( 200 )
 		pilot.SetHealth( 200 )
 
 		// Pilot is a scripted prop, not an autonomous NPC.
 		pilot.DisableBehavior( "Assault" )
 		pilot.DisableBehavior( "Follow" )
+		pilot.AllowFlee( false )
 		pilot.Anim_Stop()
 
-		// Keep it hidden/invulnerable until the embark.
+		// Keep it hidden/invulnerable until the embark
 		pilot.SetInvulnerable()
-		SniperCloak( pilot )
-		pilot.SetCloakDuration( 0, 5.0, 2.0 )
-
-		if ( team == TEAM_IMC || team == TEAM_MILITIA )
-			title = GetRandomPilotName( team )
-
 		SetNPCAsPilot( pilot, true )
+
+		DispatchSpawn( pilot )
+
+		local model = ChoosePilotModelForWeapon( team, pilotWeapon )
+    	pilot.SetModel( model )
+		thread PilotReveal( pilot )
+		
+		SniperCloak( pilot )
+		pilot.SetCloakDuration( 0, 3.0, 1.0 )		
     }
 
     // TITAN CREATION

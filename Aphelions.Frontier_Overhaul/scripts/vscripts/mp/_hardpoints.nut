@@ -1486,7 +1486,7 @@ function ConvergeAtTerminal( guy, hardpoint )
 
 	local origin = assaultPoint.GetOrigin()
 	local angles = assaultPoint.GetAngles()
-	SetAssaultPointValues( guy.s.assaultPoint, 512, 128, 1, 1 )
+	SetAssaultPointValues( guy.s.assaultPoint, 150, 128, 1, 1 )
 	waitthread GotoOriginCP( guy, origin, angles )
 
 	// delay the change of state a bit to make it look more natural

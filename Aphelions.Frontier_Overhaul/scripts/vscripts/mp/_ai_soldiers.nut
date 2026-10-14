@@ -1086,6 +1086,9 @@ function EnemyChanged_Standard( soldier )
 
 function EnemyChanged_Rocket( soldier )
 {
+	if ( "isHologram" in soldier.s )
+    	return
+
 	if ( EnemyChangedSwitchWeapon( soldier ) && !( IsReskinnedPilot( soldier ) || IsGhostPilot( soldier ) ) )
 		UpdateAILethality( soldier, null ) // standard accuracy when using rockets
 	else
@@ -1095,6 +1098,9 @@ function EnemyChanged_Rocket( soldier )
 //////////////////////////////////////////////////////////
 function EnemyChangedSwitchWeapon( soldier )
 {
+	if ( "isHologram" in soldier.s )
+    	return
+
 	local atWeapon
 	if ( "atWeapon" in soldier.s )
 	{
