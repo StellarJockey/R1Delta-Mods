@@ -453,7 +453,7 @@ function ShouldDoReplay( player, attacker, replayTime )
 	if ( attacker == player )
 		return false
 	
-	if ( GetCurrentPlaylistName() == "campaign_carousel" )
+	if ( GetCurrentPlaylistName() == "campaign_carousel" ) // kill replay cuts off the story dialogue
 		return false
 
 	// Check for connectTime property existence (for replay buffer check)
@@ -2823,8 +2823,8 @@ function AttritionScoreValueForVictim( victim )
 {
 	if ( victim.IsPlayer() )
 		return ATTRITION_SCORE_PILOT
-	// else if ( victim.IsNPC() && ( IsReskinnedPilot( victim ) || IsGhostPilot( victim ) ) )
-		// const ATTRITION_SCORE_PILOT = 4
+	else if ( victim.IsNPC() && ( "isPilot" in victim.s || "isPilotProp" in victim.s ) )
+		return ATTRITION_SCORE_PILOT
 	else if ( victim.IsTitan() && !victim.IsPlayer() )
 		return ATTRITION_SCORE_TITAN
 	else if ( victim.IsNPC() && victim.IsDropship() && ( "dogfighter" in victim.s ) )

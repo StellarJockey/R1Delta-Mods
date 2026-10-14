@@ -129,6 +129,8 @@ function SpawnAIGunship( team, origin, angles = Vector( 0, 0, 0 ), squadname = n
 
 	// Must happen after the entity's keyvalues/model are prepared
 	DispatchSpawn( gunship, true )
+	gunship.kv.isUsingHoverNoise = true
+	gunship.EngineEffectsEnable()
 
 	gunship.SetTeam( team )
 	gunship.SetHealth( health )
@@ -563,14 +565,21 @@ function AI_GunshipFindClosestValid( gunship, candidates, origin )
 
 function OnAIGunshipDeath( gunship, damageInfo )
 {
-	if ( !IsValid( gunship ) || !( "dogfighter" in gunship.s ) )
-		return
+    if ( !IsValid( gunship ) || !( "dogfighter" in gunship.s ) )
+        return
 
-	AI_GunshipDestroyTurrets( gunship )
+    // stop engine sounds/effects
+    if ( IsValid( gunship ) )
+    {
+        gunship.EngineEffectsDisable()
+        StopSoundOnEntity( gunship, "goblin_hover" )
+    }
 
-	local mover = AI_GunshipGetMover( gunship )
-	if ( mover != null )
-		thread AIGunshipDestroyMoverAfterDeath( mover )
+    AI_GunshipDestroyTurrets( gunship )
+
+    local mover = AI_GunshipGetMover( gunship )
+    if ( mover != null )
+        thread AIGunshipDestroyMoverAfterDeath( mover )
 }
 
 function AIGunshipDestroyMoverAfterDeath( mover )

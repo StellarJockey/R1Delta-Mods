@@ -1412,8 +1412,9 @@ function AI_SelectTarget( titan, team )
 		}
 	}
 
-	// Add ALL enemy titans
+	// Add ALL enemy titans and dropships + gunships
 	highPriority.extend( GetNPCArrayEx( "npc_titan", enemyTeam, origin, -1 ) )
+	highPriority.extend( GetNPCArrayEx( "npc_dropship", enemyTeam, origin, -1 ) )
 
 	local best = AI_FindClosestValid( highPriority, origin )
 	if ( best != null )

@@ -79,9 +79,16 @@ function MatchProgressThink()
 
 function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
 {
-    // Only players or NPCs can grant points
-    if ( !( attacker.IsPlayer() ) && !( attacker.IsNPC() ) )
-        return
+	if ( ShouldUseNPCPilots() )
+	{
+		if ( !( attacker.IsPlayer() ) && !( attacker.IsNPC() ) )
+			return
+	}
+	else
+	{
+		if ( !( attacker.IsPlayer() ) )
+			return
+	}
 
     local attackerTeam = attacker.GetTeam()
     local victimTeam = victim.GetTeam()
@@ -101,6 +108,9 @@ function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
     if ( victim.IsMarvin() )
         return
 
+	if ( "isHologram" in victim.s )
+		return
+
     local scoreVal = GetAttritionScore( attacker, victim )
 
     // Show splash only to players or to their "boss player"
@@ -108,7 +118,7 @@ function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
     {
         ShowPlayerAttritionScoreEvent( attacker, scoreVal )
     }
-    else if ( attacker.IsNPC() )
+    else if ( attacker.IsNPC() && ShouldUseNPCPilots() )
     {
         local bossPlayer = attacker.GetBossPlayer()
         if ( IsValid( bossPlayer ) )
@@ -121,6 +131,7 @@ function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
     if ( attacker.IsPlayer() )
         attacker.SetAssaultScore( attacker.GetAssaultScore() + scoreVal )
 }
+
 
 /* ORIGINAL FUNCTION FOR NON-SCORING NPCS
 function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
@@ -178,11 +189,9 @@ function Attrition_AwardPilotTermination( attacker, titan, isCaptain = false )
 	if ( IsValid( titan ) && titan.GetTeam() == attackerTeam )
 		return
 
-	// Use whatever GetAttritionScore returns for a grunt/pilot victim. Swap in the
-	// real constants from your constants file; set the captain value if it differs.
-	local scoreVal = ATTRITION_SCORE_GRUNT
-	// if ( isCaptain )
-	//	scoreVal = ATTRITION_SCORE_GRUNT
+	local scoreVal = ATTRITION_SCORE_PILOT
+	if ( isCaptain )
+		scoreVal = ATTRITION_SCORE_GRUNT
 
 	if ( attacker.IsPlayer() )
 	{
