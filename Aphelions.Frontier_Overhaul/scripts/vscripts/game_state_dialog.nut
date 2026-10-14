@@ -583,7 +583,6 @@ function RegisterGameStateConversations()
 	AddVDULineForBish( "WonAnnouncement", "diag_gs_mcor_bish_gamewon_01" )  // Bish: And that, my friends, is how we do that! Mission accomplished. Come on home.
 	AddVDUAnimWithEmbeddedAudioForBish( "WonAnnouncement", "diag_gs_mcor_bish_gamewon_02" )  // Bish: All right, we got what we came for! Awesome work team, mission accomplished.
 	AddVDULineForBish( "WonAnnouncement", "diag_gs_mcor_bish_gamewon_03" )  // Bish: We took a lot of loses, but we got what we came for. Good work out there.
-	AddVDULineForBish( "WonAnnouncement", "diag_gm_matchWin_101_04_mcor_BISH" )  // Bish: Pilots! We've won the battle! Good work.
 
 	/**************************  WonAnnouncementShort  *****************************/
 	/**************************      MILITIA      *****************************/
