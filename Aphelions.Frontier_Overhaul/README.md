@@ -77,4 +77,4 @@ Good luck, have fun!
 -
 That's an order.
 
-**Mod authors**: ASillyNeko, Frann, 07zj, NachosChipeados, StoneCold, Claude (AI), and Aphelion
+**Mod authors**: ASillyNeko, Frann, 07zj, NachosChipeados, StoneCold, Wulfheart, Claude (AI), and Aphelion
