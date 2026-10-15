@@ -4,7 +4,7 @@ WeaponData
 	"printname"   									"Deployable Cover"
 	"shortprintname"   								"Deployable Cover"
 	"description"   								"Portable Dome-Shield, attaches to any surface"
-	"longdesc"   									"The Deployable Cover is a miniature Dome-Shield that lasts for 8 seconds. While inside, you can safely fire your weapons and are protected from all incoming gunfire, though it will break if it takes enough damage."
+	"longdesc"   									"The Deployable Cover is a miniature Dome-Shield that lasts for 8 seconds. While active, it will block all incoming and outgoing damage, protecting any entities inside - provided that no hostiles wander in."
 	"weaponClass" 									"human"
 	"fire_mode"   									"offhand"
 	"offhand_toss"									"1"

@@ -2,7 +2,7 @@ const MAX_PROXIMITY_MINES_IN_WORLD = 3  // if more than this are thrown, the old
 const THROW_POWER = 620
 const ATTACH_SFX = "Weapon_ProximityMine_Land"
 const WARNING_SFX = "Weapon_ProximityMine_ArmedBeep"
-const COVER_SHIELD_HEALTH = 1.0   // 1.0 = full; each hit subtracts the weapon's vortex_drain
+const COVER_SHIELD_HEALTH = 32000
 
 function ProximityMinePrecache()
 {
@@ -183,36 +183,26 @@ function ProximityMineSpawnShield( mine, lifetime )
 	local radius = typeof( MINION_BUBBLE_SHIELD_RADIUS ) != "null" ? MINION_BUBBLE_SHIELD_RADIUS : 160
 
 	local vortexSphere = CreateEntity( "vortex_sphere" )
-	vortexSphere.kv.spawnflags = 1 // SF_ABSORB_BULLETS
+	vortexSphere.kv.spawnflags = 1 | 2    // | 8 // SF_ABSORB_BULLETS | SF_BLOCK_OWNER_WEAPON | SF_ABSORB_CYLINDER
 	vortexSphere.kv.enabled = 0
 	vortexSphere.kv.radius = radius
-	vortexSphere.kv.bullet_fov = 360
-	vortexSphere.kv.physics_pull_strength = 25
-	vortexSphere.kv.physics_side_dampening = 6
-	vortexSphere.kv.physics_fov = 360
-	vortexSphere.kv.physics_max_mass = 2
-	vortexSphere.kv.physics_max_size = 6
-
 	vortexSphere.SetAngles( angles )
 	vortexSphere.SetOrigin( origin )
 
-	if ( IsValid( owner ) )
-	{
-		vortexSphere.SetOwner( owner )
-		if ( typeof( owner.GetTeam ) == "function" )
-			vortexSphere.SetTeam( owner.GetTeam() )
-	}
-	else
-	{
-		vortexSphere.SetOwner( mine )
-	}
+	local blocker = CreateEntity( "prop_dynamic" )
+	blocker.kv.model = "models/fx/xo_shield.mdl"
+	blocker.kv.solid = 6 // use VPhysics
+	blocker.kv.CollisionGroup = 21 // COLLISION_GROUP_BLOCK_WEAPONS: blocks bullets/projectiles, not players or AI
+	blocker.SetOrigin( origin )
+	blocker.SetAngles( angles )
+	blocker.SetBossPlayer( owner )
 
+	DispatchSpawn( blocker )
+	
+	blocker.Hide()
 	vortexSphere.SetMaxHealth( COVER_SHIELD_HEALTH )
 	vortexSphere.SetHealth( COVER_SHIELD_HEALTH )
 	DispatchSpawn( vortexSphere, true )
-	vortexSphere.s.isCoverShield <- true
-	vortexSphere.s.coverShieldHealth <- COVER_SHIELD_HEALTH
-	vortexSphere.s.coverShieldMax <- COVER_SHIELD_HEALTH
 	EmitSoundOnEntity( mine, "ShieldWall_Deploy" )
 	vortexSphere.Fire( "Enable" )
 
@@ -243,8 +233,10 @@ function ProximityMineSpawnShield( mine, lifetime )
 
 	// Centralized cleanup on thread end
 	OnThreadEnd(
-		function() : ( vortexSphere, particleSystem, cpoint, mine )
+		function() : ( vortexSphere, particleSystem, cpoint, mine, blocker )
 		{
+			if ( IsValid_ThisFrame( blocker ) )
+				blocker.Kill()
 			if ( IsValid_ThisFrame( particleSystem ) )
 			{
 				particleSystem.ClearParent()
@@ -286,8 +278,8 @@ function ProximityMineSpawnShield( mine, lifetime )
 			return
 		
 		// Shield broke from damage
-		if ( !IsValid( vortexSphere ) || vortexSphere.s.coverShieldHealth <= 0 )
-			return // OnThreadEnd handles cleanup
+		if ( !IsValid( vortexSphere ) || vortexSphere.GetHealth() <= 0 )
+			return
 
 		local curOwner = mine.GetOwner()
 		if ( !IsValid( curOwner ) || (curOwner.IsPlayer() && !IsAlive( curOwner )) )
