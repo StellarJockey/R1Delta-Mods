@@ -96,19 +96,24 @@ function CreateHologram( player )
 	hologram.SetMaxHealth( 32000 )
 	hologram.SetHealth( 32000 )
 	hologram.SetInvulnerable()
-	hologram.SetMoveSpeedScale( 1.20 )
+	hologram.NotSolid()
+	hologram.kv.squadname = "hologram_" + player.GetEntIndex()
+
+	DispatchSpawn( hologram )
+
 	hologram.SetAISettings( "fireteam_pilot" )
+	hologram.SetMoveSpeedScale( 1.20 )
 	hologram.PreferSprint( true )
 	hologram.SetHearingSensitivity( 10 )
 	hologram.AllowFlee( false )
 	hologram.AllowHandSignals( false )
 
-	hologram.NotSolid()
-
-	DispatchSpawn( hologram )
+	local best = FindForwardPoint( hologram, player )
+	if ( best == null )
+		best = hologram.GetOrigin() + Vector( 0, player.GetAngles().y, 0 ).AnglesToForward() * 200  // see note below
 
 	thread RandomFlicker( hologram )
-	thread HologramRushForward( hologram, player )
+	thread HologramRushForward( hologram, best )
 
 	return hologram
 }
@@ -123,9 +128,10 @@ function RandomFlicker( hologram )
 	
     while ( IsValid( hologram ) && !( "dying" in hologram.s ) )
     {
-		if ( RandomFloat( 0.0, 1.0 ) < 0.10 ) // small chance to flicker like they're a HUD glitch
+		if ( RandomFloat( 0.0, 1.0 ) < 0.25 ) // small chance to flicker like they're a HUD glitch
 			SniperCloak( hologram )
-			hologram.SetCloakDuration( flicker, 0, flicker )
+		
+		hologram.SetCloakDuration( flicker, 0, flicker )
 
 		wait RandomFloat( 1.0, 5.0 )
 	}
@@ -174,26 +180,33 @@ function FindForwardPoint( hologram, player )
 	return null
 }
 
-function HologramRushForward( hologram, player )
+function HologramRushForward( hologram, best )
 {
 	hologram.EndSignal( "OnDestroy" )
 	hologram.EndSignal( "OnDeath" )
 
-	wait 0.1   // let the AI finish spawning before giving orders
+	hologram.Anim_Stop()
+	hologram.AllowFlee( false )
+	hologram.AllowHandSignals( false )
 
-	local best = FindForwardPoint( hologram, player )
-	if ( best == null )
-		best = hologram.GetOrigin()   // hold position rather than let AI wander off
+	// strict: no diversion, no timeout. This is the same entity GotoOrigin uses
+	local assaultEnt = CreateStrictAssaultEnt( best, null, 64 )
 
-	hologram.AssaultPoint( best )
+	OnThreadEnd( function() : ( assaultEnt ) {
+		if ( IsValid( assaultEnt ) )
+			assaultEnt.Kill()
+	})
 
-	local timeout = Time() + 4.0
-	while ( Time() < timeout && Distance( hologram.GetOrigin(), best ) > 80 )
-		wait 0.2
+	hologram.AssaultPointEnt( assaultEnt )
 
-	// do NOT DisableBehavior("Assault"): re-issue the point at where we ended up so it holds
-	if ( IsValid( hologram ) )
-		hologram.AssaultPoint( hologram.GetOrigin() )
+	// strict + nevertimeout never finishes by itself, so cap the run
+	local timeout = Time() + 5.0
+	while ( Time() < timeout && Distance( hologram.GetOrigin(), best ) > 96 )
+		wait 0.1
+
+	// stay on the assault ent (holding at the destination) until the hologram dies.
+	// The EndSignals above trigger OnThreadEnd, which cleans the ent up.
+	WaitForever()
 }
 
 function GetHologramWeaponName( player )

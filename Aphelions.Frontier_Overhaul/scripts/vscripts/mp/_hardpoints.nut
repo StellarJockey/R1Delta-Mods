@@ -766,6 +766,9 @@ function EntityCanCapturePoints( entity )
 	if ( entity.IsPlayer() )
 		return true
 
+	if ( "isHologram" in entity.s )
+		return false
+
 	if ( entity.GetTeam() == TEAM_IMC || entity.GetTeam() == TEAM_MILITIA )
 	{
 		if ( entity.IsNPC() )
