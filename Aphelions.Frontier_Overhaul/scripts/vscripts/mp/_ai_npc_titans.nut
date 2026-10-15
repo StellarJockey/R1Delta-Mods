@@ -148,45 +148,45 @@ function NoPain( ent, damageInfo )
 
 function GiveTitanPilot( titan, trueorfalse )
 {
-	local pilotedtitans = []
-	foreach( npc in file.pilotedtitans )
-	if ( IsValid( npc ) && IsAlive( npc ) )
-	pilotedtitans.append( npc )
-	if ( !IsValid( titan ) || !IsAlive( titan ) )
-	return
-	if ( trueorfalse == true )
-	pilotedtitans.append( titan )
-	if ( trueorfalse == false )
-	{
-		local newpilotedtitans
-		foreach( npc in pilotedtitans )
-		if ( npc != titan )
-		newpilotedtitans.append( titan )
-		pilotedtitans = newpilotedtitans
-	}
-	file.pilotedtitans = pilotedtitans
+    local pilotedtitans = []
+    foreach( npc in file.pilotedtitans )
+        if ( IsValid( npc ) && IsAlive( npc ) )
+            pilotedtitans.append( npc )
+    if ( !IsValid( titan ) || !IsAlive( titan ) )
+        return
+    if ( trueorfalse == true )
+        pilotedtitans.append( titan )
+    if ( trueorfalse == false )
+    {
+        local newpilotedtitans = []
+        foreach( npc in pilotedtitans )
+            if ( npc != titan )
+                newpilotedtitans.append( npc )
+        pilotedtitans = newpilotedtitans
+    }
+    file.pilotedtitans = pilotedtitans
 }
 Globalize( GiveTitanPilot )
 
 function SetNPCAsPilot( pilot, trueorfalse )
 {
-	local pilots = []
-	foreach( npc in file.pilots )
-	if ( IsValid( npc ) && IsAlive( npc ) )
-	pilots.append( npc )
-	if ( !IsValid( pilot ) || !IsAlive( pilot ) )
-	return
-	if ( trueorfalse == true )
-	pilots.append( pilot )
-	if ( trueorfalse == false )
-	{
-		local newpilots
-		foreach( npc in pilots )
-		if ( npc != pilot )
-		newpilots.append( pilot )
-		pilots = newpilots
-	}
-	file.pilots = pilots
+    local pilots = []
+    foreach( npc in file.pilots )
+        if ( IsValid( npc ) && IsAlive( npc ) )
+            pilots.append( npc )
+    if ( !IsValid( pilot ) || !IsAlive( pilot ) )
+        return
+    if ( trueorfalse == true )
+        pilots.append( pilot )
+    if ( trueorfalse == false )
+    {
+        local newpilots = []
+        foreach( npc in pilots )
+            if ( npc != pilot )
+                newpilots.append( npc )
+        pilots = newpilots
+    }
+    file.pilots = pilots
 }
 
 function CreateCopyOfPilotModel( titan )
