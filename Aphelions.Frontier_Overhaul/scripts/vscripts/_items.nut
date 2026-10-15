@@ -113,7 +113,7 @@ const MOD_DOUBLE_TAP_LONGDESC =			    "This mod allows you to pull both triggers
 const MOD_CHARGE_HACK_LONGDESC = 			"This mod retunes the weapon's cavity magnetron, allowing the weapon to reach its full charge 40% faster, but will deal 30% less damage."
 const MOD_GUIDED_MISSILE_LONGDESC = 		"This mod allows the Archer to be fired freely without locking on. The missile will follow your line of sight, meaning you have to manually guide it. Reloading will also take slightly longer."
 const MOD_AT_ROUNDS_LONGDESC = 				"This mod gives the Kraber-AP 20mm anti-materiel rounds, greatly increasing its damage against Titan armor. However, due to the increased ammo weight, reloading and rechambering will take longer."
-const lmg_SCATTER_LONGDESC =  				"This mod maximizes the Spitfire's rate of fire at 780 RPM. However, this heavy bolt carrier means that reloading, aiming, and handling will take longer, and also reduces rodeo damage by 35%."
+const lmg_SCATTER_LONGDESC =  				"This mod maximizes the Spitfire's rate of fire at 780 RPM. However, this heavy bolt carrier means that reloading and aiming will take longer. Recoil is increased by 25% and rodeo damage is also reduced by 35%."
 const r101_BURST_LONGDESC =  				"This mod makes the weapon fire in three-round bursts, allowing for more controlled and precise damage output."
 const wingman_GUNSLINGER_LONGDESC = 		"This mod improves the weapon's rifling, removing all damage drop-off within its effective range. It also increases the amount of zoom when you ADS, but slightly reduces your rate of fire."
 

@@ -402,6 +402,21 @@ WeaponData
 			"reloadempty_time_late1"						"*1.15"
 			"reloadempty_time_late2"						"*1.15"
 			"reloadempty_time_late3"						"*1.15"
+
+
+			"viewkick_pitch_base" 							"*1.25"
+			"viewkick_pitch_random"   						"*1.25"
+
+			"viewkick_yaw_base"   							"*1.25"
+			"viewkick_yaw_random" 							"*1.25"
+
+			"viewkick_perm_pitch_base"				 		"*1.25"
+			"viewkick_perm_pitch_random"   					"*1.25"
+			"viewkick_perm_yaw_base"   						"*1.25"
+			"viewkick_perm_yaw_random" 						"*1.25"
+
+			"viewkick_scale_min_ads"  						"*1.25"
+			"viewkick_scale_max_ads"  						"*1.25"
 		}
 		burn_mod_lmg
 		{
