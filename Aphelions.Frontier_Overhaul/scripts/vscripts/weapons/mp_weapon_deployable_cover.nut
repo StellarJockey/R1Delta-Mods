@@ -2,7 +2,7 @@ const MAX_PROXIMITY_MINES_IN_WORLD = 3  // if more than this are thrown, the old
 const THROW_POWER = 620
 const ATTACH_SFX = "Weapon_ProximityMine_Land"
 const WARNING_SFX = "Weapon_ProximityMine_ArmedBeep"
-const COVER_SHIELD_HEALTH = 2500
+const COVER_SHIELD_HEALTH = 1.0   // 1.0 = full; each hit subtracts the weapon's vortex_drain
 
 function ProximityMinePrecache()
 {
@@ -183,7 +183,7 @@ function ProximityMineSpawnShield( mine, lifetime )
 	local radius = typeof( MINION_BUBBLE_SHIELD_RADIUS ) != "null" ? MINION_BUBBLE_SHIELD_RADIUS : 160
 
 	local vortexSphere = CreateEntity( "vortex_sphere" )
-	vortexSphere.kv.spawnflags = 1 // SF_ABSORB_BULLETS 
+	vortexSphere.kv.spawnflags = 1 // SF_ABSORB_BULLETS
 	vortexSphere.kv.enabled = 0
 	vortexSphere.kv.radius = radius
 	vortexSphere.kv.bullet_fov = 360
@@ -210,6 +210,9 @@ function ProximityMineSpawnShield( mine, lifetime )
 	vortexSphere.SetMaxHealth( COVER_SHIELD_HEALTH )
 	vortexSphere.SetHealth( COVER_SHIELD_HEALTH )
 	DispatchSpawn( vortexSphere, true )
+	vortexSphere.s.isCoverShield <- true
+	vortexSphere.s.coverShieldHealth <- COVER_SHIELD_HEALTH
+	vortexSphere.s.coverShieldMax <- COVER_SHIELD_HEALTH
 	EmitSoundOnEntity( mine, "ShieldWall_Deploy" )
 	vortexSphere.Fire( "Enable" )
 
@@ -283,8 +286,8 @@ function ProximityMineSpawnShield( mine, lifetime )
 			return
 		
 		// Shield broke from damage
-		if ( !IsValid( vortexSphere ) || vortexSphere.GetHealth() <= 0 )
-			return
+		if ( !IsValid( vortexSphere ) || vortexSphere.s.coverShieldHealth <= 0 )
+			return // OnThreadEnd handles cleanup
 
 		local curOwner = mine.GetOwner()
 		if ( !IsValid( curOwner ) || (curOwner.IsPlayer() && !IsAlive( curOwner )) )
