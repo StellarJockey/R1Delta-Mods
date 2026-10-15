@@ -61,23 +61,24 @@ function main()
 	file.pilots <- []
 	file.pilotedtitanmodels <- {}
 	file.spawnedtitans <- {}
+	file.pilotSquadCount <- 0
 	file.pilotmodels <- [
-	"models/Humans/mcor_pilot/male_br/mcor_pilot_male_br.mdl",
-	"models/Humans/mcor_pilot/male_cq/mcor_pilot_male_cq.mdl",
-	"models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl",
-	"models/Humans/imc_pilot/male_br/imc_pilot_male_br.mdl",
-	"models/humans/imc_pilot/male_cq/imc_pilot_male_cq.mdl",
-	"models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
+		"models/Humans/mcor_pilot/male_br/mcor_pilot_male_br.mdl",
+		"models/Humans/mcor_pilot/male_cq/mcor_pilot_male_cq.mdl",
+		"models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl",
+		"models/Humans/imc_pilot/male_br/imc_pilot_male_br.mdl",
+		"models/humans/imc_pilot/male_cq/imc_pilot_male_cq.mdl",
+		"models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
 	]
 	file.militiapilotmodels <- [
-	"models/Humans/mcor_pilot/male_br/mcor_pilot_male_br.mdl",
-	"models/Humans/mcor_pilot/male_cq/mcor_pilot_male_cq.mdl",
-	"models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl"
+		"models/Humans/mcor_pilot/male_br/mcor_pilot_male_br.mdl",
+		"models/Humans/mcor_pilot/male_cq/mcor_pilot_male_cq.mdl",
+		"models/Humans/mcor_pilot/male_dm/mcor_pilot_male_dm.mdl"
 	]
 	file.imcpilotmodels <- [
-	"models/Humans/imc_pilot/male_br/imc_pilot_male_br.mdl",
-	"models/humans/imc_pilot/male_cq/imc_pilot_male_cq.mdl",
-	"models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
+		"models/Humans/imc_pilot/male_br/imc_pilot_male_br.mdl",
+		"models/humans/imc_pilot/male_cq/imc_pilot_male_cq.mdl",
+		"models/humans/imc_pilot/male_dm/imc_pilot_male_dm.mdl"
 	]
 	AddDamageByCallback( "npc_titan", Execution )
 	AddDamageCallback( "npc_titan", NoPain )
@@ -217,8 +218,19 @@ function NPCPilotEmbarkTitan( pilot, title, titan )
     pilot.EndSignal( "OnDeath" )
     titan.EndSignal( "OnDestroy" )
     titan.EndSignal( "OnDeath" )
+	
+	local state = { finished = false }
 
-    // Make absolutely certain AI cannot take control during embark.
+    // if the thread exits early (e.g. the Titan dies mid-kneel), don't leave
+    // an invulnerable pilot wandering around
+    OnThreadEnd(
+        function() : ( pilot, state )
+        {
+            if ( !state.finished && IsValid( pilot ) && IsAlive( pilot ) )
+                pilot.ClearInvulnerable()
+        }
+    )
+    
     pilot.DisableBehavior( "Assault" )
     pilot.DisableBehavior( "Follow" )
 	pilot.AllowFlee( false )
@@ -227,21 +239,40 @@ function NPCPilotEmbarkTitan( pilot, title, titan )
     // A pilot can still be mid-traverse (ledge climb / jump) when told to embark.
     // Scripted anims are rejected during a traverse, so let it finish first.
     // No timeout needed: the OnDeath/OnDestroy EndSignals above end this thread if the pilot or Titan dies.
-    while ( !pilot.IsInterruptable() )
+  	local giveUp = Time() + 3.0
+    while ( !pilot.IsInterruptable() && Time() < giveUp )
+    {
+        pilot.DisableBehavior( "Assault" )
         wait 0
+    }
+    if ( !pilot.IsInterruptable() )
+        printt( "NPC pilot embark: pilot never became interruptable" )
 
     pilot.Anim_Stop()
 
     local embarkSet = FindBestEmbark( pilot, titan )
-    while( embarkSet == null )
+    giveUp = Time() + 3.0
+    while ( embarkSet == null && Time() < giveUp )
     {
         wait 0.1
-
-        if ( !IsValid( pilot ) || !IsAlive( pilot ) ||
-             !IsValid( titan ) || !IsAlive( titan ) )
-            return
-
         embarkSet = FindBestEmbark( pilot, titan )
+    }
+
+	// NEW: no valid embark -> skip the cinematic but still finish
+    if ( embarkSet == null )
+    {
+        printt( "NPC pilot embark: FindBestEmbark timed out" )
+        local fallbackModel = pilot.GetModelName()
+        state.finished = true
+        pilot.Hide()
+        waitthread PlayAnimGravity( titan, "at_hotdrop_quickstand" )
+        SetStanceStand( titan.GetTitanSoul() )
+        DecayNPCDomeShield( titan, 0.0 )
+        GiveTitanPilot( titan, true )
+        GiveTitanPilotModel( titan, fallbackModel )
+        if ( IsValid( pilot ) )
+            pilot.Destroy()   // must stay last: it ends this thread via OnDestroy
+        return
     }
 
     local animation = embarkSet.animSet.titanKneelingAnim
@@ -260,6 +291,7 @@ function NPCPilotEmbarkTitan( pilot, title, titan )
     EmitSoundOnEntity( titan, Audio )
     waitthread PlayAnimGravity( titan, animation )
 
+	state.finished = true
     SetStanceStand( titan.GetTitanSoul() )
     DecayNPCDomeShield( titan, 0.0 )
 
@@ -329,6 +361,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 		pilot = CreateEntity( "npc_soldier" )
 		pilot.SetOrigin( spawnOrigin )
 		pilot.SetTeam( team )
+		pilot.kv.squadname = "npc_pilot_squad_" + file.pilotSquadCount++
 
 		if ( "s" in pilot && "IsSoldier" in pilot.s )
 			pilot.s.IsSoldier <- false
@@ -349,10 +382,12 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 		]
 		local pilotWeapon = Random( pilotWeapons )
 		GiveMinionWeapon( pilot, pilotWeapon )
+		
+		DispatchSpawn( pilot )
+
+		
 		pilot.SetMaxHealth( 200 )
 		pilot.SetHealth( 200 )
-
-		// Pilot is a scripted prop, not an autonomous NPC.
 		pilot.DisableBehavior( "Assault" )
 		pilot.DisableBehavior( "Follow" )
 		pilot.AllowFlee( false )
@@ -361,8 +396,6 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 		// Keep it hidden/invulnerable until the embark
 		pilot.SetInvulnerable()
 		SetNPCAsPilot( pilot, true )
-
-		DispatchSpawn( pilot )
 
 		local model = ChoosePilotModelForWeapon( team, pilotWeapon )
     	pilot.SetModel( model )
