@@ -159,10 +159,8 @@ function ProximityMineSpawnShield( mine, lifetime )
 	// Wait until Planted signal
 	if ( !("s" in mine) || !( "planted" in mine.s ) || !mine.s.planted )
 		mine.WaitSignal( "Planted" )
-
-	// Honor existing arming delay
-	if ( typeof( PROXIMITY_MINE_ARMING_DELAY ) != "null" && PROXIMITY_MINE_ARMING_DELAY > 0.0 )
-		Wait( PROXIMITY_MINE_ARMING_DELAY )
+		
+	Wait( 0.35 )
 
 	// Abort if invalid or owner died
 	if ( !IsValid( mine ) )
