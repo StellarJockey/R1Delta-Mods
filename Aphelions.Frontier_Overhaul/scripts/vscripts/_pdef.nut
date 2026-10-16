@@ -168,6 +168,7 @@ function InitPersistence()
 		mp_weapon_mega5 = 45 // Throwing Knife
 		mp_weapon_mega6 = 46 // Deployable Cover
 		mp_weapon_mega7 = 47 // Hologram
+		mp_weapon_yh803_bullet = 48 // turret
 
 		// mp_weapon_mega9 = 44 // Unfinished R101 SMG
     }
@@ -240,6 +241,7 @@ function InitPersistence()
 		titan_piercer = 62
 		double_tap = 63
 		gunslinger = 64
+		gunship_dmg = 65
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -658,6 +660,8 @@ function InitPersistence()
 		mp_weapon_shotgun_pump_action = 136,
 		mp_weapon_lmg_cyclic_receiver = 137,
 		mp_weapon_wingman_gunslinger = 138,
+
+		mp_weapon_yh803_bullet_gunship_dmg = 139,
 
 		// mp_weapon_g2_auto_converter = 127,
 		// mp_weapon_hemlok_auto_converter = 128,

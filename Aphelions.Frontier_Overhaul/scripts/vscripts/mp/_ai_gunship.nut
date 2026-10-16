@@ -679,7 +679,6 @@ function AI_GunshipCreateTurret( gunship, team, attachment, weaponName = "mp_wea
 	turret.s.skipTurretFX <- true
 	turret.s.gunshipOwner <- gunship
 	turret.s.isGunshipTurret <- true
-
 	turret.SetAISettings( "turret_shoulder" )
 
 	DispatchSpawn( turret, true )
@@ -696,9 +695,11 @@ function AI_GunshipCreateTurret( gunship, team, attachment, weaponName = "mp_wea
 	turret.SetAimAssistAllowed( false )
 
 	local activeWeapon = turret.GetActiveWeapon()
-
 	if ( IsValid( activeWeapon ) )
+	{
+		activeWeapon.SetMods( [ "gunship_dmg" ] )
 		activeWeapon.Hide()
+	}
 
 	turret.EnableTurret()
 	turret.Hide()
