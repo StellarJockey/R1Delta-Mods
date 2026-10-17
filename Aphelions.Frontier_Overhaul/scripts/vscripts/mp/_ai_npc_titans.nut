@@ -455,7 +455,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         mp_titanweapon_arc_cannon      = [ null, null, "capacitor", "capacitor", "burn_mod_titan_arc_cannon", ],  
         mp_titanweapon_rocket_launcher = [ null, null, "rapid_fire_missiles", "rapid_fire_missiles", "extended_ammo", "extended_ammo", "burn_mod_titan_rocket_launcher", ],
         mp_titanweapon_triple_threat   = [ null, null, "mine_field", "mine_field", "extended_ammo", "extended_ammo", "burn_mod_titan_triple_threat", ],
-        mp_titanweapon_shotgun         = [ null, "extended_ammo", "shredder_rounds", ],
+        mp_titanweapon_shotgun         = [ null, "extended_ammo", "shredder_rounds", "plasma_rifle", ],
 		mp_weapon_mega3                = [ null, "extended_ammo", ],
     }
 
