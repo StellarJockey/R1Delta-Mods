@@ -1124,6 +1124,9 @@ function AwardStealthBonus( entity, damageInfo )
 	local scoreEventName = "StealthBonus"
 	local matches = false
 
+	if ( entity.IsPlayer() || IsReskinnedPilot( entity ) || IsGhostPilot( entity ) )
+		matches = true
+
 	if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_GRUNT ) )
 	{
 		// human AI infantry (not pilots)
@@ -1138,7 +1141,7 @@ function AwardStealthBonus( entity, damageInfo )
 
 	else if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_PILOT ) )
 	{
-		if ( IsReskinnedPilot( entity ) || IsGhostPilot( entity ) )
+		if ( IsReskinnedPilot( entity ) || IsGhostPilot( entity ) || entity.IsPlayer() )
 			matches = true
 	}
 	else if ( PlayerHasServerFlag( attacker, SFLAG_DOUBLE_XP ) )
