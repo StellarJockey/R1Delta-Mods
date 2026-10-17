@@ -77,9 +77,9 @@ WeaponData
 	"critical_hit"									"1"
 
 	// Ammo
-	"ammo_stockpile_max"							"160"
+	"ammo_stockpile_max"							"90"
 	"ammo_clip_size"   								"6"
-	"ammo_default_total"							"160"
+	"ammo_default_total"							"90"
 
 	// Behavior
 	"fire_rate"   									"2.6"
@@ -371,7 +371,11 @@ WeaponData
 		{
 			"damage_far_value"								"135"
 			"zoom_fov"										"45"
-			"fire_rate"   									"2.4"
+			
+			"ammo_stockpile_max"							"75"
+			"ammo_clip_size"   								"5"
+			"ammo_default_total"							"75"
+
 		}
 		burn_mod_wingman
 		{
