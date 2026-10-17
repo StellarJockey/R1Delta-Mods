@@ -71,9 +71,8 @@ function Wallrun_GiveLoadout( player, loadoutTable )
 
 	if ( player.IsBot() )
 	{
-		// Managed bots roll their loadout once on connect (BotRandomizeLoadouts) and keep it.
 		local bot_randomize_loadout = GetConVarInt( "bot_randomize_loadout" )
-		if ( bot_randomize_loadout && !IsManagedBot( player ) )
+		if ( bot_randomize_loadout )
 			RandomizeBotLoadout( table, false )
 		OverrideBotLoadout( table, false )
 	}
