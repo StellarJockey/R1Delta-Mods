@@ -289,6 +289,7 @@ function InitPersistence()
 	    burn_mod_charge_cannon = 29
 		hydraulic_launcher = 30
 		shredder_rounds = 31
+		plasma_rifle = 32
     }
 
     AddPersistenceEnum("titanMod", titanMod)
@@ -662,6 +663,7 @@ function InitPersistence()
 		mp_weapon_wingman_gunslinger = 138,
 
 		mp_weapon_yh803_bullet_gunship_dmg = 139,
+		mp_titanweapon_shotgun_plasma_rifle = 140,
 
 		// mp_weapon_g2_auto_converter = 127,
 		// mp_weapon_hemlok_auto_converter = 128,

@@ -115,7 +115,7 @@ const MOD_GUIDED_MISSILE_LONGDESC = 		"This mod allows the Archer to be fired fr
 const MOD_AT_ROUNDS_LONGDESC = 				"This mod gives the Kraber-AP 20mm anti-materiel rounds, greatly increasing its damage against Titan armor. However, due to the increased ammo weight, reloading and rechambering will take longer."
 const lmg_SCATTER_LONGDESC =  				"This mod maximizes the Spitfire's rate of fire at 780 RPM. However, this heavy bolt carrier means that reloading and aiming will take longer. Recoil is increased by 25% and rodeo damage is also reduced by 35%."
 const r101_BURST_LONGDESC =  				"This mod makes the weapon fire in three-round bursts, allowing for more controlled and precise damage output."
-const wingman_GUNSLINGER_LONGDESC = 		"This mod improves the weapon's rifling, removing all damage drop-off within its effective range. It also increases the amount of zoom when you ADS, but slightly reduces your rate of fire."
+const wingman_GUNSLINGER_LONGDESC = 		"This mod improves the weapon's rifling, removing all damage drop-off within its effective range. It increases the amount of zoom when you ADS, but also reduces your chamber size."
 
 const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
 const STRYDER_DESC = "The Stryder is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
@@ -931,7 +931,7 @@ function CreateR1DeltaItems()
 	
 	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_mega2",			"double_tap",					"Double Tap",			"Fire both barrels",		MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 			"../ui/menu/items/mod_icons/double_tap",	 			"../ui/menu/items/mod_icons/double_tap" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_headshots", 			1, 	"mp_weapon_lmg",			"cyclic_receiver",				"Cyclic Receiver",		"Maximum fire rate",		lmg_SCATTER_LONGDESC,			    -5, -10, 0, 15, 0, 			"../ui/menu/items/mod_icons/cyclic_receiver", 			"../ui/menu/items/mod_icons/cyclic_receiver" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_headshots", 		1, 	"mp_weapon_wingman",		"gunslinger",					"Gunslinger",			"No damage drop-off",		wingman_GUNSLINGER_LONGDESC,	    0, 0, 15, -4, 0,	 		"../ui/menu/items/mod_icons/gunslinger", 				"../ui/menu/items/mod_icons/gunslinger" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_headshots", 		1, 	"mp_weapon_wingman",		"gunslinger",					"Gunslinger",			"No damage drop-off",		wingman_GUNSLINGER_LONGDESC,	    0, 0, 10, 0, -1,	 		"../ui/menu/items/mod_icons/gunslinger", 				"../ui/menu/items/mod_icons/gunslinger" )
 	
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_g2",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_hemlok",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
@@ -961,6 +961,8 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"shredder_rounds",		"Shredder Rounds",			"Increased burst-fire rate",			MOD_SHREDDER_LONGDESC,			5, 0, -3, 12, 0, 		"../ui/menu/items/mod_icons/shredder_rounds",	 		"../ui/menu/items/mod_icons/shredder_rounds" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
+
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	null, 	"mp_titanweapon_shotgun",	 "plasma_rifle",			"#MOD_PLASMA_RIFLE_NAME",			"#MOD_PLASMA_RIFLE_DESC",			"#MOD_PLASMA_RIFLE_LONGDESC",			0, -10, 0, 20, 9, 		"../ui/menu/items/mod_icons/plasma_rifle", 		"../ui/menu/items/mod_icons/plasma_rifle" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_titanweapon_shotgun",				"burn_mod_titan_shotgun", 					"#BC_TITAN_SHOTGUN_M2",				"#BC_TITAN_SHOTGUN_M2_FLYOUT_DESC",				"#BC_TITAN_SHOTGUN_M2_FLYOUT_DESC",				0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
