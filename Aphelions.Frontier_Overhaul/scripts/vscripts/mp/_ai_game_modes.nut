@@ -218,8 +218,8 @@ function GetGameModeNPCPerSide()
 function UpdateNPCCaps( usePilots )
 {
 	// Change the caps first: the Set*AICount asserts compare against level.max_npc_per_side
-	level.max_npc_per_side = usePilots ? 24 : 12
-	level.max_npc_per_side_small = usePilots ? 20 : 9
+	level.max_npc_per_side = usePilots ? 16 : 12
+	level.max_npc_per_side_small = usePilots ? 12 : 9
 
 	local npcPerSide = GetGameModeNPCPerSide()
 
@@ -1098,8 +1098,8 @@ function GunshipWaveThink( team )
         // Wait between 1 to 2.5 min between ship waves
         wait RandomFloat( 60.0, 150.0 )
 
-		// 35% chance for gunships spawn
-        if ( RandomFloat( 0.0, 1.0 ) > 0.35 )
+		// 45% chance for gunships spawn
+        if ( RandomFloat( 0.0, 1.0 ) > 0.45 )
             continue
 
         // Find valid spawn points for the wave using existing drop pod points

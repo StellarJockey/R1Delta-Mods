@@ -1,4 +1,4 @@
-function main()
+function main() // FO
 {
 	Globalize( Riff_TitanAvailability )
 	Globalize( Riff_SpawnAsTitan )
@@ -38,7 +38,7 @@ function main()
 	Assert( allowNPCs < eAllowNPCs.LastAllowNPCs )
 	level.nv.allowNPCs = allowNPCs
 
-	local aiLethality = GetCurrentPlaylistVarInt( "riff_ai_lethality", eAILethality.VeryHigh )
+	local aiLethality = GetCurrentPlaylistVarInt( "riff_ai_lethality", eAILethality.Default )
 	Assert( aiLethality < eAILethality.LastAILethality )
 	level.nv.aiLethality = aiLethality
 
@@ -79,7 +79,7 @@ function main()
 			break
 		case eAILethality.VeryHigh:
 			NPCSetAimConeFocusParams( 1.5, 0.2 ) 		   // ( 2, 0.2 )
-			NPCSetAimPatternFocusParams( 0.5, 0.5, 1.0 )   // ( 0.5, 0.3, 2 )
+			NPCSetAimPatternFocusParams( 0.5, 0.5, 0.65 )   // ( 0.5, 0.3, 2 )
 			break
 	}
 
@@ -259,6 +259,10 @@ function RiffSettings_PilotBecomesTitan( player, titan )
 	if ( Riff_TitanEjectIsDisabled() )
 	{
 		local soul = player.GetTitanSoul()
+		// Hot-drop loadout callbacks can run before the player is linked to the
+		// new soul. The pilot-becomes-titan callback applies this once it exists.
+		if ( !IsValid( soul ) )
+			return
 
 		// If we cant eject, we dont need these
 		// Instead, give them the next passive based on unlock level

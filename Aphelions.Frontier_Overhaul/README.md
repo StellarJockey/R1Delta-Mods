@@ -16,6 +16,7 @@ NPC Features:
 * New Gunship enemy type
 * Destroyer Titan as a rare NPC mini-boss (temporarily disabled)
 * All NPC weapons will do the same damage as the player's
+* Grunts have a bit more health now
 * Grunts will capture points faster in Hardpoint
 
 

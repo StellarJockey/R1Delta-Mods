@@ -1183,7 +1183,7 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 			else if ( Riff_AILethality() == eAILethality.High )
 				limit = ( team == playerTeam ) ? 3 : 5  
 			else if ( Riff_AILethality() == eAILethality.VeryHigh )
-				limit = ( team == playerTeam ) ? 3 : 5 
+				limit = ( team == playerTeam ) ? 3 : 6 
 			break
 	}
 

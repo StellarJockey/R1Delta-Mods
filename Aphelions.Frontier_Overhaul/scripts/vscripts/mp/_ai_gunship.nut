@@ -4,8 +4,8 @@
 // This thing was vibe-coded to hell and back... but it works for now
 // Everybody say "Thank you, Claude!"
 
-const AI_GUNSHIP_HEALTH = 7000
-const AI_GUNSHIP_AIRSPEED = 3000
+const AI_GUNSHIP_HEALTH = 6000
+const AI_GUNSHIP_AIRSPEED = 2500
 const AI_GUNSHIP_ACCEL = 1.75
 const AI_GUNSHIP_YAWRATE = 90
 const AI_GUNSHIP_HOVER_HEIGHT = 700

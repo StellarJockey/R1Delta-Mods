@@ -499,8 +499,8 @@ function CreateGrunt( team, model, weapon, alert = true, captain = false )
 	npc_soldier.kv.alwaysalert = alertVal
 	npc_soldier.kv.reactChance = 20
 	npc_soldier.kv.reactFriendlyChance = 100
-	npc_soldier.kv.health = 120
-	npc_soldier.kv.max_health = 120
+	npc_soldier.kv.health = 160 // 120
+	npc_soldier.kv.max_health = 160 // 120
 	npc_soldier.kv.physdamagescale = 1.0
 	npc_soldier.kv.WeaponProficiency = AI_SOLDIER_PROFICIENCY_DEFAULT
 	npc_soldier.kv.NumGrenades = 0
