@@ -218,8 +218,8 @@ function GetGameModeNPCPerSide()
 function UpdateNPCCaps( usePilots )
 {
 	// Change the caps first: the Set*AICount asserts compare against level.max_npc_per_side
-	level.max_npc_per_side = usePilots ? 16 : 12
-	level.max_npc_per_side_small = usePilots ? 12 : 9
+	level.max_npc_per_side = usePilots ? 24 : 12
+	level.max_npc_per_side_small = usePilots ? 20 : 9
 
 	local npcPerSide = GetGameModeNPCPerSide()
 
@@ -1168,9 +1168,6 @@ function SniperSpectreWaveThink( team )
 
 function GhostPilotWaveThink( team )
 {
-	if ( !ShouldUseNPCPilots() )
-		return
-		
     // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
     wait 60.0 + RandomFloat( 0.0, 30.0 )
 
