@@ -378,14 +378,14 @@ function CreateAllBurnCards()
 	const vaughan = "-Captain Vaughan"
 	// "#BC_FLAVOR_PILOT"
 	const warninglabel = "-Warning Label"
-	const daud = "-Daud, retired Ghost Pilot"
+	const dowd = "-Dowd, retired Ghost Pilot"
 
 	CreateBurnCardWeapon( "bc_valkyrie_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SNIPER					, "burncards/amped_valkyrie",			BC_NEXTDEATH, 		"#BC_VALKYRIE_M2"				, valk_desc							, valk_flavor							, vaughan, 					"mp_weapon_mega1",			"burn_mod_valkyrie",			"PRIMARY"			)
 	CreateBurnCardWeapon( "bc_twinb_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SMG					, "burncards/amped_twinb",				BC_NEXTDEATH, 		"#BC_TWINB_SHOTGUN_M2"			, twinb_desc						, twinb_flavor							, "#BC_FLAVOR_DANFORTH",	"mp_weapon_mega2",			"burn_mod_twinb",				"SIDEARM"			)
 	CreateBurnCardWeapon( "bc_titan_shotgun_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_titan_shotgun", 		BC_NEXTTITANDROP, 	"#BC_TITAN_SHOTGUN_M2"			, "#BC_TITAN_SHOTGUN_M2_DESC"		, "#BC_TITAN_SHOTGUN_M2_FLAVOR"			, "#BC_FLAVOR_WONYEON",		"mp_titanweapon_shotgun",	"burn_mod_titan_shotgun", 		"TITAN_PRIMARY"		)
 	//CreateBurnCardWeapon( "bc_thunderbolt_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_thunderbolt", 		BC_NEXTTITANDROP, 	"#BC_TITAN_MINIGUN_M2"			, "#BC_TITAN_MINIGUN_M2_DESC"		, "#BC_TITAN_MINIGUN_M2_FLAVOR"			, "#BC_FLAVOR_PILOT",		"mp_weapon_mega3",			"burn_mod_thunderbolt", 		"TITAN_PRIMARY"		)
 	//CreateBurnCardWeapon( "bc_titan_charge_cannon_m2",			BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_TACTICAL				, "burncards/amped_charge_cannon", 		BC_NEXTTITANDROP, 	"#BC_TITAN_CHARGE_CANNON_M2"	, "#BC_TITAN_CHARGE_CANNON_M2_DESC"	, chargecannon_flavor				, warninglabel,				"mp_weapon_mega4",			"burn_mod_titan_charge_cannon",	"TITAN_OFFHAND1"	)
-	CreateBurnCardWeapon( "bc_wingman_elite_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_PISTOL					, "burncards/amped_wingman_elite", 		BC_NEXTDEATH, 		"Amped Wingman Elite"			, wingman_e_desc					, wingman_e_flavor						, daud,						"mp_weapon_mega8", 			"burn_mod_wingman_elite",       "SIDEARM"		)
+	CreateBurnCardWeapon( "bc_wingman_elite_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_PISTOL					, "burncards/amped_wingman_elite", 		BC_NEXTDEATH, 		"Amped Wingman Elite"			, wingman_e_desc					, wingman_e_flavor						, dowd,						"mp_weapon_mega8", 			"burn_mod_wingman_elite",       "SIDEARM"		)
 
 	if ( IsServer() )
 	{
