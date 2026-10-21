@@ -37,7 +37,6 @@ SPITFIRE:
 KRABER:
 * Added Anti-Titan Rounds mod (has less ammo than the burn card version)
 
-
 //////////////////////////////
 ///// PILOT SECONDARIES //////
 //////////////////////////////
@@ -57,6 +56,8 @@ TWIN-B:
 * Does enough damage to one-shot grunt captains (250 health) at close range 
 * Added Double Tap mod to fire both barrels (almost) at once
 
+WINGMAN ELITE:
+* Added Wingman Elite, projectile version of the regular Wingman
 
 ////////////////////////////////////////
 ////// PILOT ORDNANCE + TACTICAL ///////
@@ -94,7 +95,6 @@ MAG LAUNCHER:
 CHARGE RIFLE:
 * Added Charge Hack mod
 
-
 //////////////////////////////
 ////// TITAN PRIMARIES ///////
 //////////////////////////////
@@ -116,7 +116,6 @@ AG-8 THUNDERBOLT:
 * Gun will "overheat" if ammo depletes, locking you out of firing until all ammo has regenerated
 * 50% movement speed penalty is applied when firing
 * Added the dark mode skin, since its base skin doesn't fit TF1's art style
-
 
 //////////////////////////////
 /////// TITAN ORDNANCE ///////
