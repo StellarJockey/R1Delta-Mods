@@ -1540,13 +1540,12 @@ function InitPersistence()
 		ch_wingman_elite_pilot_kills = 229,
 		ch_wingman_elite_spectre_kills = 230,
 		ch_wingman_elite_grunt_kills = 231,
-		ch_wingman_elite_hours_used = 232,
-		ch_wingman_elite_headshots = 233,
+		ch_wingman_elite_headshots = 232,
 
-		ch_throwing_knife_throws = 234,
+		ch_throwing_knife_throws = 233,
+	    ch_throwing_knife_kills = 234,
 	    ch_throwing_knife_kills = 235,
 	    ch_throwing_knife_kills = 236,
-	    ch_throwing_knife_kills = 237,
     }
 
     AddPersistenceEnum("challenge", challenge)
@@ -1805,6 +1804,7 @@ function InitPersistence()
 		ch_daily_wingman_elite_pilot_kills = 207,
 		ch_daily_wingman_elite_spectre_kills = 208,
 		ch_daily_wingman_elite_grunt_kills = 209,
+		ch_daily_wingman_elite_headshots = 210,
     }
 
     AddPersistenceEnum("dailychallenge", dailychallenge)

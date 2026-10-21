@@ -334,12 +334,9 @@
 			"fx_muzzle_flash_world"				"wpn_muzzleflash_pistol_sup"
 			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_cyl"
 		}
-		"gunslinger"
+		"improved_rifling"
 		{
 			"damage_far_value"								"160"
-			"red_crosshair_range" 							"2500"
-
-			"fire_rate"										"1.2"
 		}
 		"burn_mod_wingman_elite"
 		{
@@ -351,7 +348,7 @@
 	}
 
 	// Crosshair
-	"red_crosshair_range" 							"3500"
+	"red_crosshair_range" 							"2500"
 
 	CrosshairData
 	{
