@@ -22,6 +22,7 @@ NPC Features:
 
 Weapon Features:
 -
+* New Pilot Sidearm: Wingman Elite
 * New Pilot Ordnance: Throwing Knife
 * New Pilot Tacticals: Deployable Cover and Hologram
 * New Titan Weapon: AG-8 Thunderbolt minigun (re-worked)

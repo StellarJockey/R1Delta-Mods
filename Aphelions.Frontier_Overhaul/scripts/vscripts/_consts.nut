@@ -2135,6 +2135,7 @@ enum eChallengeCategory
 	WEAPON_SEMIPISTOL
 	WEAPON_WINGMAN,
 	WEAPON_TWINB,
+	WEAPON_WINGMAN_ELITE,
 
 	PILOT_ORDNANCE,
 
@@ -2142,6 +2143,7 @@ enum eChallengeCategory
 	WEAPON_EMP_GRENADE,
 	WEAPON_PROXIMITY_MINE,
 	WEAPON_SATCHEL,
+	WEAPON_THROWING_KNIFE,
 
 	COOP,
 	REGEN_REQUIREMENTS,
@@ -2570,6 +2572,7 @@ const WEAPON_TWINB_NAME = "mp_weapon_mega2"
 const WEAPON_THUNDERBOLT_NAME = "mp_weapon_mega3"
 const WEAPON_CHARGE_CANNON_NAME = "mp_weapon_mega4"
 const WEAPON_THROWING_KNIFE_NAME = "mp_weapon_mega5"
+const WEAPON_WINGMAN_ELITE_NAME = "mp_weapon_mega8"
 
 enum eUIEvent
 {

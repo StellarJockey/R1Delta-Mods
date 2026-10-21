@@ -306,6 +306,9 @@ WeaponData
     "clip_bodygroup_show_for_milestone_2"	"1"
     "clip_bodygroup_show_for_milestone_3"	"1"
 
+	// Crosshair
+	"red_crosshair_range" 							"1500"
+
 	Mods
 	{
 		pas_fast_reload
@@ -367,16 +370,6 @@ WeaponData
 			"primary_fire_does_not_block_sprint"			"1"
 			"crosshair_force_sprint_fade_disabled"          "1"
 		}
-		"gunslinger"
-		{
-			"damage_far_value"								"135"
-			"zoom_fov"										"45"
-			
-			"ammo_stockpile_max"							"75"
-			"ammo_clip_size"   								"5"
-			"ammo_default_total"							"75"
-
-		}
 		burn_mod_wingman
 		{
 			"crosshair_index"								"1" //Matching weaponHUDColor .s variable in wingman.nut
@@ -394,10 +387,6 @@ WeaponData
 		}
 	}
 
-
-
-	// Crosshair
-	"red_crosshair_range" 							"1500"
 
 	CrosshairData
 	{

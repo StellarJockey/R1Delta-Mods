@@ -115,7 +115,7 @@ const MOD_GUIDED_MISSILE_LONGDESC = 		"This mod allows the Archer to be fired fr
 const MOD_AT_ROUNDS_LONGDESC = 				"This mod gives the Kraber-AP 20mm anti-materiel rounds, greatly increasing its damage against Titan armor. However, due to the increased ammo weight, reloading and rechambering will take longer."
 const lmg_SCATTER_LONGDESC =  				"This mod maximizes the Spitfire's rate of fire at 780 RPM. However, this heavy bolt carrier means that reloading and aiming will take longer. Recoil is increased by 25% and rodeo damage is also reduced by 35%."
 const r101_BURST_LONGDESC =  				"This mod makes the weapon fire in three-round bursts, allowing for more controlled and precise damage output."
-const wingman_GUNSLINGER_LONGDESC = 		"This mod improves the weapon's rifling, removing all damage drop-off within its effective range. It increases the amount of zoom when you ADS, but also reduces your chamber size."
+const IMPROVED_RIFLING_LONGDESC = 			"This mod improves the weapon's barrel rifling, stabilizing the bullet's velocity when fired. This removes all damage drop-off within the weapon's effective range."
 
 const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
 const STRYDER_DESC = "The Stryder is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
@@ -407,6 +407,7 @@ function main()
 	unlockLevels[ "mp_weapon_mega2" ]						<- 35
 	unlockLevels[ "mp_weapon_mega7" ]						<- 40
 	unlockLevels[ "mp_weapon_mega5" ]						<- 49
+	unlockLevels[ "mp_weapon_mega8" ]						<- 50
 	// unlockLevels[ "mp_weapon_mega9" ]						<- 10
 }
 
@@ -904,18 +905,21 @@ function CreateR1DeltaItems()
 	
 	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega1", 				"../ui/menu/items/weapon_valkyrie" )
 	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega2", 				"../ui/menu/items/weapon_twinbshotgun" )
-	// CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega5", 				"../ui/menu/items/weapon_knife" )
-	
-	// CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_rspn101_smg" )  
+	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega8", 				"../ui/menu/items/weapon_wingman_elite" )
+		
+	// CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_rspn101_smg", HideFromMenus )  
 	
 
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		null, 						null, 	"mp_weapon_mega1",		"scope_6x",		"#MOD_SCOPE_6X_NAME",		"#MOD_SCOPE_6X_DESC",		"#MOD_SCOPE_6X_LONGDESC",				"../ui/menu/items/attachment_icons/scope_6x", 			"../ui/menu/items/attachment_icons/scope_6x" )
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_grunt_kills", 	0, 		"mp_weapon_mega1",		"aog",			"#MOD_AOG_NAME",			"#MOD_AOG_DESC",			"#MOD_AOG_LONGDESC",					"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/aog" )
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_kills", 			1, 		"mp_weapon_mega1",		"scope_4x",		"#MOD_SCOPE_4X_NAME",		"#MOD_SCOPE_4X_DESC",		"#MOD_SCOPE_4X_LONGDESC",				"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/scope_4" )
 	
-	// CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 					1, 		"mp_weapon_mega9",			"iron_sights",					"#SIGHT_IRON_NAME",				"#SIGHT_IRON_DESC",					"#SIGHT_IRON_LONGDESC",			"../ui/menu/items/attachment_icons/iron_sights", 			"../ui/menu/items/attachment_icons/iron_sights" )
-	// CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"hcog",							"#SIGHT_HCOG_NAME",				"#SIGHT_HCOG_DESC",					"#SIGHT_HCOG_LONGDESC",				"../ui/menu/items/attachment_icons/hcog", 			"../ui/menu/items/attachment_icons/hcog" )
-	
+	/*
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"iron_sights",	"#MOD_IRON_SIGHTS_NAME",	"#MOD_IRON_SIGHTS_DESC",	"#MOD_IRON_SIGHTS_LONGDESC",			"../ui/menu/items/attachment_icons/iron_sights", 		"../ui/menu/items/attachment_icons/iron_sights" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"hcog",			"#MOD_HCOG_NAME",			"#MOD_HCOG_DESC",					"#MOD_HCOG_LONGDESC",				"../ui/menu/items/attachment_icons/hcog", 			"../ui/menu/items/attachment_icons/hcog" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"holosight",	"#MOD_HOLOSIGHT_NAME",		"#MOD_HOLOSIGHT_DESC",		"#MOD_HOLOSIGHT_LONGDESC",				"../ui/menu/items/attachment_icons/holosight", 			"../ui/menu/items/attachment_icons/holosight" )
+	*/
+
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_spectre_kills", 			0, 		"mp_weapon_mega1",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 2, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_kills", 					0, 		"mp_weapon_mega1",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,				-10, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_pilot_kills", 			0, 		"mp_weapon_mega1",			"stabilizer",					"#MOD_STABILIZER_NAME",			"#MOD_STABILIZER_DESC",				"#MOD_STABILIZER_LONGDESC",				0, 6, 0, 0, 0, 			"../ui/menu/items/mod_icons/stabilizer", 			"../ui/menu/items/mod_icons/stabilizer" )
@@ -931,15 +935,22 @@ function CreateR1DeltaItems()
 	
 	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_mega2",			"double_tap",					"Double Tap",			"Fire both barrels",		MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 			"../ui/menu/items/mod_icons/double_tap",	 			"../ui/menu/items/mod_icons/double_tap" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_headshots", 			1, 	"mp_weapon_lmg",			"cyclic_receiver",				"Cyclic Receiver",		"Maximum fire rate",		lmg_SCATTER_LONGDESC,			    -5, -10, 0, 15, 0, 			"../ui/menu/items/mod_icons/cyclic_receiver", 			"../ui/menu/items/mod_icons/cyclic_receiver" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_headshots", 		1, 	"mp_weapon_wingman",		"gunslinger",					"Gunslinger",			"No damage drop-off",		wingman_GUNSLINGER_LONGDESC,	    0, 0, 10, 0, -1,	 		"../ui/menu/items/mod_icons/gunslinger", 				"../ui/menu/items/mod_icons/gunslinger" )
 	
+	
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_elite_kills", 			1, 		"mp_weapon_mega8",			"silencer",						"#MOD_SILENCER_NAME",		"#MOD_SILENCER_DESC",		suppressor_LONGDESC,			-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_elite_pilot_kills", 	1, 		"mp_weapon_mega8",			"improved_rifling",				"Improved Rifling",			"No damage drop-off",		IMPROVED_RIFLING_LONGDESC,	    0, 0, 10, 0, 0,	 		"../ui/menu/items/mod_icons/improved_rifling", 				"../ui/menu/items/mod_icons/improved_rifling" )
+	
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega8",			"burn_mod_wingman_elite", 				"Amped Wingman Elite",			"Increased damage",			"Temp",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
+
+
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_g2",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
 	// CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 		0, 	"mp_weapon_hemlok",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			0, -5, 0, 10, 1, 		"../ui/menu/items/mod_icons/scatterfire",	 		"../ui/menu/items/mod_icons/scatterfire" )
-	
-	// CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 6, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
-	// CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"burst",				"#MOD_BURST_NAME",					"#MOD_BURST_TRIPLE_DESC",			"#MOD_BURST_TRIPLE_LONGDESC",			0, 13, 0, -5, 0, 		"../ui/menu/items/mod_icons/burst", 		"../ui/menu/items/mod_icons/burst" )
-	// CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,				-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
-	
+
+	/*
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 6, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"burst",				"#MOD_BURST_NAME",					"#MOD_BURST_TRIPLE_DESC",			"#MOD_BURST_TRIPLE_LONGDESC",			0, 13, 0, -5, 0, 		"../ui/menu/items/mod_icons/burst", 		"../ui/menu/items/mod_icons/burst" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,				-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	*/
 	////////////////////
 	//TITAN WEAPON DATA
 	////////////////////

@@ -4,7 +4,7 @@ WeaponData
 	"printname"									"R1-S Burrell SMG"
 	"shortprintname"							"Burrell SMG"
 	"description"								"Variable SMG"
-	"longdesc"									"The R1-S Burrell is an SMG variant of the R-101C that fires 8.19mm rounds at 900 RPM. At close range, it provides the same versatility of its long range counterpart. It was discontinued after being acquired by Siwhan Industries, and later became the C.A.R. SMG."
+	"longdesc"									"The R1-S Burrell is an SMG variant of the R-101C that fires 8.19mm rounds at 900 RPM. At close range, it provides the same versatility of its long range counterpart. It was discontinued after being acquired by Siwhan Industries."
 
 	"weaponClass"								"human"
 	"body_type"									"close_quarters"
@@ -316,10 +316,33 @@ WeaponData
 	// Crosshair
 	"red_crosshair_range"							"1200"
 
-	// Bodygroups (if applicable - may not exist in base model)
-	"sprintcycle_time"								"0.55"
-	"deployfirst_time"								"1.0"
-	"is_anti_titan"									"0"
+	// Bodygroups:
+	"bodygroup1_name"	"r101_sight_front_on"
+	"bodygroup1_set"	"1"
+	"bodygroup2_name"	"r101_sight_rear_on"
+	"bodygroup2_set"	"1"
+	"bodygroup3_name"	"r101_sight_front_off"
+	"bodygroup3_set"	"0"
+	"bodygroup4_name"	"r101_sight_rear_off"
+	"bodygroup4_set"	"0"
+	"bodygroup5_name"	"sight_aog04"
+	"bodygroup5_set"	"0"
+	"bodygroup6_name"	"sight_hcog"
+	"bodygroup6_set"	"0"
+	"bodygroup7_name"	"suppressor_cyl_med"
+	"bodygroup7_set"	"0"
+	"bodygroup8_name"	"suppressor_sq_med"
+	"bodygroup8_set"	"0"
+	"bodygroup9_name"	"sight_holo"
+	"bodygroup9_set"	"0"
+
+	"clip_bodygroup"						"r101_magazine"
+    "clip_bodygroup_index_shown"			"0"
+    "clip_bodygroup_index_hidden"			"1"
+    "clip_bodygroup_show_for_milestone_0"	"1"
+    "clip_bodygroup_show_for_milestone_1"	"0"
+    "clip_bodygroup_show_for_milestone_2"	"1"
+    "clip_bodygroup_show_for_milestone_3"	"1"
 
 	TextureData
 	{
@@ -374,30 +397,46 @@ WeaponData
 		}
 		"hcog"
 		{
-			"bodygroup3_set"		"1"
-			"bodygroup1_set"		"0"
-			"anim_alt_idleAttack" 	"1"
-			"zoom_fov"				"45"
+			"anim_alt_idleAttack"	"1"
+			"bodygroup1_set"	"0"
+			"bodygroup2_set"	"0"
+			"bodygroup3_set"	"0"
+			"bodygroup4_set"	"1"
+			"bodygroup6_set"	"1"
+			"zoom_fov"			"45"
+		}
+		"holosight"
+		{
+			"anim_alt_idleAttack"	"2"
+			"bodygroup1_set"	"0"
+			"bodygroup2_set"	"0"
+			"bodygroup3_set"	"1"
+			"bodygroup4_set"	"1"
+			"bodygroup9_set"	"1"
+			"zoom_fov"			"40"
 		}
 		"silencer"
 		{
-		    "bodygroup5_set"					"1"
-			"damage_near_value"   				"6"
-			"damage_far_value"					"6"
-			"viewkick_pitch_base" 							"-0.008"
-			"viewkick_pitch_random"   						"0.33"
-			"viewkick_yaw_base"   							"0.15"
-			"viewkick_yaw_random" 							"0.1"
-			"viewkick_roll_base" 							"0.1"
-			"viewkick_roll_randomMin"						"-0.2"
-			"viewkick_roll_randomMax"						"0.2"
-			"spread_stand_hip"								"2.5"
-			"spread_stand_ads"								".35"
-			"tracer_effect"   								""
-			"minimap_reveal_distance"	"1"
+			"bodygroup8_set"					"1"
+			
+			"damage_near_value"   				"49"
+			"damage_far_value"					"34"
+			"damage_near_distance"				"*0.9"
+			"damage_far_distance"				"*0.9"
+
+			"npc_damage_near_value"   				"49"
+			"npc_damage_far_value"					"34"
+			"npc_damage_near_distance"				"*0.9"
+			"npc_damage_far_distance"				"*0.9"
+
+			//"rumble"  						"4"
+			"tracer_effect"   					"weapon_tracers_pistol"
+			"tracer_effect_first_person"   		"weapon_tracers_pistol"
+			"minimap_reveal_distance"			"1"
+			"fire_sound_2"						""
 			"fx_muzzle_flash_view"				"wpn_muzzleflash_pistol_sup_FP"
 			"fx_muzzle_flash_world"				"wpn_muzzleflash_pistol_sup"
-			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_cyl"
+			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_sq"
 		}
 		extended_ammo
 		{

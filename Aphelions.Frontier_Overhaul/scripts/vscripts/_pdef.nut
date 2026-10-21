@@ -169,8 +169,9 @@ function InitPersistence()
 		mp_weapon_mega6 = 46 // Deployable Cover
 		mp_weapon_mega7 = 47 // Hologram
 		mp_weapon_yh803_bullet = 48 // turret
+		mp_weapon_mega8 = 49 // Wingman Elite
 
-		// mp_weapon_mega9 = 44 // Unfinished R101 SMG
+		mp_weapon_mega9 = 50 // Unfinished R101 SMG
     }
 
     AddPersistenceEnum("loadoutItems", loadoutItems)
@@ -240,8 +241,9 @@ function InitPersistence()
 		cyclic_receiver = 61
 		titan_piercer = 62
 		double_tap = 63
-		gunslinger = 64
+		improved_rifling = 64
 		gunship_dmg = 65
+		burn_mod_wingman_elite = 66
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -660,18 +662,19 @@ function InitPersistence()
 		mp_weapon_sniper_titan_piercer = 135,	
 		mp_weapon_shotgun_pump_action = 136,
 		mp_weapon_lmg_cyclic_receiver = 137,
-		mp_weapon_wingman_gunslinger = 138,
 
-		mp_weapon_yh803_bullet_gunship_dmg = 139,
-		mp_titanweapon_shotgun_plasma_rifle = 140,
+		mp_weapon_yh803_bullet_gunship_dmg = 138,
+		mp_titanweapon_shotgun_plasma_rifle = 139,
+		mp_weapon_mega8_silencer = 140,
+		mp_weapon_mega8_improved_rifling = 141,
+		mp_weapon_mega8_burn_mod_wingman_elite = 142,
 
-		// mp_weapon_g2_auto_converter = 127,
-		// mp_weapon_hemlok_auto_converter = 128,
-		// mp_weapon_mega9_extended_ammo = 130,
-		// mp_weapon_mega9_burst = 131,
-		// mp_weapon_mega9_silencer = 131,
-		// mp_weapon_mega9_iron_sights = 132,
-		// mp_weapon_mega9_hcog = 133,
+		mp_weapon_mega9_extended_ammo = 143,
+		mp_weapon_mega9_burst = 144,
+		mp_weapon_mega9_silencer = 145,
+		mp_weapon_mega9_iron_sights = 146,
+		mp_weapon_mega9_hcog = 147,
+		mp_weapon_mega9_holosight = 148,
 		
     }
 
@@ -844,6 +847,7 @@ function InitPersistence()
 	    bc_titan_shotgun_m2 = 77,	
 	    bc_thunderbolt_m2 = 78,		
 	    bc_titan_charge_cannon_m2 = 79,
+		bc_wingman_elite_m2 = 80,
     }
 	::struct_activeBurnCardData <- {
 		cardRef = null,
@@ -1511,6 +1515,7 @@ function InitPersistence()
 	    ch_coop_dropships = 209,
 	    ch_coop_snipers = 210,
 
+		// R1Delta Stuff
 		ch_titan_shotgun_kills = 211,
 		ch_titan_shotgun_pilot_kills = 212,
 		ch_titan_shotgun_titan_kills = 213,
@@ -1530,6 +1535,18 @@ function InitPersistence()
 		ch_twinb_spectre_kills = 225,
 		ch_twinb_grunt_kills = 226,
 		ch_twinb_hours_used = 227,
+
+		ch_wingman_elite_kills = 228,
+		ch_wingman_elite_pilot_kills = 229,
+		ch_wingman_elite_spectre_kills = 230,
+		ch_wingman_elite_grunt_kills = 231,
+		ch_wingman_elite_hours_used = 232,
+		ch_wingman_elite_headshots = 233,
+
+		ch_throwing_knife_throws = 234,
+	    ch_throwing_knife_kills = 235,
+	    ch_throwing_knife_kills = 236,
+	    ch_throwing_knife_kills = 237,
     }
 
     AddPersistenceEnum("challenge", challenge)
@@ -1783,6 +1800,11 @@ function InitPersistence()
 	    ch_daily_win_tmfd = 203,
 	    ch_daily_play_tmfdp = 204,
 	    ch_daily_win_tmfdp = 205,
+
+		ch_daily_wingman_elite_kills = 206,
+		ch_daily_wingman_elite_pilot_kills = 207,
+		ch_daily_wingman_elite_spectre_kills = 208,
+		ch_daily_wingman_elite_grunt_kills = 209,
     }
 
     AddPersistenceEnum("dailychallenge", dailychallenge)

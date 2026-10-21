@@ -745,6 +745,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.mp_weapon_mega_turret:
 		case eDamageSourceId.mp_weapon_mega_turret_aa:
 		case eDamageSourceId.mp_titanweapon_shoulder_turret:
+		case eDamageSourceId.mp_weapon_mega8:
 			thread SpectreExplode( spectre, results )
 			return
 			
