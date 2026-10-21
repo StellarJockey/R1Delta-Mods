@@ -9,10 +9,10 @@
 
 * To me, 24 feels about right for most maps, but you can raise or lower it to whatever you feel like.
 * 20 is for smaller maps that feel overcrowded with lots of minions.
-
+* 12 and 9 are the defaults for when there are too many bots/players
 
 ///////////////////////
-/// ADJUST ENEMY AI ///
+//// ADJUST NPC AI ////
 ///////////////////////
 
 * Go into \scripts\vscripts\mp\_ai_soldiers
@@ -21,10 +21,10 @@
 
 * The enemy accuracy and proficiency will change depending on the difficulty.
 * As far as I can tell, 4 seems to be the highest meaningful value.
-
+* This does not affect the bot Pilots.
 
 //////////////////////////
-/// AI TITANS PER TEAM ///
+/// NPC TITANS PER TEAM ///
 //////////////////////////
 
 * Go into \scripts\vscripts\mp\_ai_npc_titans
@@ -33,14 +33,14 @@
 
 * The limits will be inside the function.
 * Your team will have a different number of NPC Titans in Attrition & Hardpoint depending on the AI Lethality.
-* Including you, Normal is a 4v4, High and Very High are a 4v5
+* Including you, Normal is a 4v4, High is a 4v5, and Very High is a 4v6
 
 * You can also go into \scripts\vscripts\mp\_ai_npc_titans
 * ctrl + f to find:
 	wait RandomFloat( 20, 90 )  // Titan spawn delay in seconds
 
-This makes it so that Titans don't immediately spawn when the game starts or when they are killed.
-
+* This makes it so that Titans don't immediately spawn when the game starts or when they are killed.
+* This does NOT affect the bot Titans.
 
 /////////////////////////
 /// SPECIAL NPC WAVES ///
@@ -55,3 +55,13 @@ This makes it so that Titans don't immediately spawn when the game starts or whe
     And so on...
 
 * From here, you can adjust how often waves happen and how many NPCs they spawn
+
+////////////////////////
+/// CONSOLE COMMANDS ///
+////////////////////////
+
+* Press ~ to open the console ( 1 means enabled, 0 means disabled )
+
+    delta_play_hitsounds 0 (disables the distracting sfx when shooting enemies)
+    delta_play_killsounds 0  (same but for killing enemies)
+    sv_cheats 1; notarget; noclip; (makes NPCs not target you and enables free roam)
