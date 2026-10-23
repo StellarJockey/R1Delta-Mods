@@ -2009,8 +2009,8 @@ function CreateChallenges()
 									eChallengeCategory.WEAPON_FRAG_GRENADE,
 									eChallengeCategory.WEAPON_EMP_GRENADE,
 									eChallengeCategory.WEAPON_PROXIMITY_MINE,
-									eChallengeCategory.WEAPON_SATCHEL
-									eChallengeCategory.WEAPON_THROWING_KNIFE
+									eChallengeCategory.WEAPON_SATCHEL,
+									// eChallengeCategory.WEAPON_THROWING_KNIFE,
 								]
 	SetChallengeCategory( eChallengeCategory.PILOT_ORDNANCE, "#CHALLENGE_CATEGORY_PILOT_ORDNANCE", "#CHALLENGE_CATEGORY_DESC_PILOT_ORDNANCE", "edit_pilots", linkedCategories )
 
