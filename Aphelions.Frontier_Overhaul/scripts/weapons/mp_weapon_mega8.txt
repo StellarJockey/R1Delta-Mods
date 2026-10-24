@@ -4,7 +4,7 @@
 	"printname"   									"Wingman Elite"
 	"shortprintname"								"Wingman Elite"
 	"description" 									".50 cal hand cannon"
-	"longdesc"										"The B3 Wingman Elite is a variant of the Wingman sidearm, favored by the SOF \"Ghost Pilots\" Division. It comes equipped with an HCOG sight and fires .50 AE rounds, though the shooter must lead their shots at longer ranges."
+	"longdesc"										"The B3 Wingman Elite is a variant of the Wingman sidearm, favored by the SOF \"Ghost Pilots\" Division. It comes equipped with an HCOG sight and fires .50 caliber rounds with extremely high accuracy."
 	"weaponClass" 									"human"
 	"body_type"										"designated_marksman"
 	"fire_mode"   									"semi-auto"
@@ -17,8 +17,8 @@
 
 	// Menu Stats
 	"stat_damage" 									"97"
-	"stat_range"  									"75"
-	"stat_accuracy"   								"45"
+	"stat_range"  									"70"
+	"stat_accuracy"   								"75"
 	"stat_rof"										"25"
 
 	// Models
@@ -53,7 +53,7 @@
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
-	"damage_near_distance"							"1500"  // match to search distance and red crosshair range
+	"damage_near_distance"							"1200"  // match to search distance and red crosshair range
 	"damage_far_distance" 							"3000"
 	"damage_near_value"   							"160"
 	"damage_far_value"								"135"
@@ -113,15 +113,16 @@
 	"move_speed_modifier" 							"1.00"//Bug with move speed > 1.0, temporary work around.
 
 	// Spread
-	"spread_stand_hip" 								"10"
-	"spread_stand_hip_run" 							"12"
+	"spread_stand_hip" 								"1.0"
+	"spread_stand_hip_run" 							"3.0"
+	"spread_stand_hip_sprint"						"4.0"
+	"spread_crouch_hip"								"0.5"
+	"spread_air_hip"	   							"1"
 	"spread_stand_ads"  							"0.1"
-	"spread_crouch_hip"								"8"
-	"spread_crouch_ads"  							"0"
-	"spread_air_hip"	   							"12"
+	"spread_crouch_ads"  							"0.0"
 	"spread_air_ads"   								".15"
 
-	"spread_npc"  									"0.2"
+	"spread_npc"  									"0.0"
 
 	// View Kick
 	"viewkick_spring" 								"magnum"
@@ -338,6 +339,17 @@
 		{
 			"damage_far_value"								"160"
 		}
+		"gunslinger"
+		{
+			"spread_stand_hip" 								"0.0"
+			"spread_stand_hip_run" 							"0.0"
+			"spread_stand_hip_sprint"						"0.0"
+			"spread_crouch_hip"								"0.0"
+			"spread_air_hip"	   							"0.0"
+			"spread_stand_ads"  							"0.0"
+			"spread_crouch_ads"  							"0.0"
+			"spread_air_ads"   								"0.0"
+		}
 		"burn_mod_wingman_elite"
 		{
 			"damage_far_value"								"200"
@@ -354,6 +366,31 @@
 	{
 		BaseWeapon
 		{
+			DefaultElementBehavior
+			{
+				"fade_while_reloading"		"1"
+				"fade_while_zooming"		"1"
+				"fade_while_sprinting"		"1"
+				"draw_while_zooming"		"1"
+				"draw_while_ads"			"0"
+				"fade_into_zooming_end"		"0.3"
+				"fade_out_of_zooming_begin"	"0.5"
+				"fade_out_zooming_end"		"0.5"
+			}
+			Element0
+			{
+				"type"						"static"
+				"material"					"hud/crosshairs/dot"
+				"size_x"					"64"
+				"size_y"					"64"
+			}
+			Element1
+			{
+				"type"						"static"
+				"material"					"hud/crosshairs/dot_shadow"
+				"size_x"					"64"
+				"size_y"					"64"
+			}
 		}
 	}
 }
