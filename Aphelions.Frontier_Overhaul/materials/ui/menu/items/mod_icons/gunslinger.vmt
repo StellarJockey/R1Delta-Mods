@@ -1,6 +1,6 @@
 Basic
 {
-	$basetexture		"ui/menu/items/mod_icons/improved_rifling"
+	$basetexture		"ui/menu/items/mod_icons/gunslinger"
 	$translucent		1
 	$vertexcolor		1
 	$vertexalpha		1

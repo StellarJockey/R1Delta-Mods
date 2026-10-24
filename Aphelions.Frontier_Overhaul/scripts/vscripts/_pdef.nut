@@ -241,7 +241,7 @@ function InitPersistence()
 		cyclic_receiver = 61
 		titan_piercer = 62
 		double_tap = 63
-		improved_rifling = 64
+		gunslinger = 64
 		gunship_dmg = 65
 		burn_mod_wingman_elite = 66
     }
@@ -666,7 +666,7 @@ function InitPersistence()
 		mp_weapon_yh803_bullet_gunship_dmg = 138,
 		mp_titanweapon_shotgun_plasma_rifle = 139,
 		mp_weapon_mega8_silencer = 140,
-		mp_weapon_mega8_improved_rifling = 141,
+		mp_weapon_mega8_gunslinger = 141,
 		mp_weapon_mega8_burn_mod_wingman_elite = 142,
 
 		mp_weapon_mega9_extended_ammo = 143,
