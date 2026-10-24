@@ -1,4 +1,4 @@
-const SIGNAL_TITAN_HEALTH_REGEN = "BeginTitanHealthRegen"
+const SIGNAL_TITAN_HEALTH_REGEN = "BeginTitanHealthRegen" // FO
 const SIGNAL_TITAN_SHIELD_REGEN = "BeginTitanShieldRegen"
 const TITAN_HEALTH_REGEN_DELAY_MAX				= 0.7 // 2.2
 
@@ -808,6 +808,9 @@ function GetShieldRegenTime( soul )
 		time = shieldRegenTime * 0.5
 	else
 		time = shieldRegenTime
+
+	if ( IsTurboTitanMode() )
+		time *= TURBO_SHIELD_REGEN_TIME_SCALE
 
 	return time
 }
