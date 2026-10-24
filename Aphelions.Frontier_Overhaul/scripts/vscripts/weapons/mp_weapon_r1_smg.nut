@@ -32,7 +32,7 @@ function OnWeaponActivate( activateParams )
 		SetLoopingWeaponSound_1p3p( "Weapon_R1SMG1.FirstShotSuppressed", "Weapon_R1SMG1.LoopSuppressed", "Weapon_R1SMG1.LoopSuppressedEnd",
 		                            "Weapon_R1SMG1.FirstShotSuppressed_3P", "Weapon_R1SMG1.LoopSuppressed_3P", "Weapon_R1SMG1.LoopSuppressedEnd_3P" )
 	}
-	else if ( !self.HasMod( "single_shot" ) || !self.HasMod( "burst" ) )
+	/* else if ( !self.HasMod( "burst" ) )
 	{
 		if ( weaponOwner.IsPlayer() )
 		{
@@ -52,7 +52,7 @@ function OnWeaponActivate( activateParams )
 				                            fire_npc_looping_1p_first[weaponFireID], fire_npc_looping_1p_loop[weaponFireID], fire_npc_looping_1p_last[weaponFireID] )
 			}
 		}
-	}
+	}*/
 }
 
 function OnWeaponDeactivate( deactivateParams )

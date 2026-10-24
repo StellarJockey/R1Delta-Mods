@@ -3,15 +3,15 @@
 "VertexLitGeneric"
 {
 
-	"$surfaceprop" "metal"
-	"$basetexture" "models\weapons\rspn101\r101_rifle_col"
+	"$surfaceprop" "weapon"
+	"$basetexture" "models\weapons\rspn101\r101_rifle_col_v2"
 	"$bumpmap" "models\weapons\rspn101\r101_rifle_nml"
 	"$envmap" "env_cubemap"
 	"$reflectiontint" "models\weapons\rspn101\r101_rifle_spc"
 	"$reflectiontintshininess" "models\weapons\rspn101\r101_rifle_spc"
 	"$reflectiontintcolor" "1"
 	"$fresnelamount" "1"
-	"$fresnelintensity" "5" // "2"
+	"$fresnelintensity" "2"
 	"$fresnelcurvesharpness" "5" // "0.01"
 	"$envmapfresnel" "1"
 	"$envmapLambertian" "3"
@@ -22,4 +22,6 @@
 	"$rimlight" "1"
 	"$rimlighttint" "[1 1 1]"
 	"$rimlightintensity" "1"
+	"$selfillum" "1"
+	"$selfillummask" "models\weapons\rspn101\r101_rifle_ilm"
 }

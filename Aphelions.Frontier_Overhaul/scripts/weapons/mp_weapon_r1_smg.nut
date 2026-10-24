@@ -26,15 +26,18 @@ function OnWeaponActivate( activateParams )
 	if ( !IsValid_ThisFrame( weaponOwner ) )
 		return
 
-	if( weaponOwner.IsPlayer() )
+	if ( self.HasMod( "silencer" ) )
 	{
-		SetLoopingWeaponSound_1p3p( "Weapon_R97.FirstShot", "Weapon_R97.Loop", "Weapon_R97.LoopEnd",
-	                    	        "Weapon_R97.FirstShot_3P", "Weapon_R97.Loop_3P", "Weapon_R97.LoopEnd_3P" )
+		SetLoopingWeaponSound_1p3p( "Weapon_R1SMG1.FirstShotSuppressed", "Weapon_R1SMG1.LoopSuppressed", "Weapon_R1SMG1.LoopSuppressedEnd",
+		                            "Weapon_R1SMG1.FirstShotSuppressed_3P", "Weapon_R1SMG1.LoopSuppressed_3P", "Weapon_R1SMG1.LoopSuppressedEnd_3P" )
 	}
-	else
+	else if ( !self.HasMod( "burst" ) )
 	{
-		SetLoopingWeaponSound_1p3p( "Weapon_R97.FirstShot", "Weapon_R97.Loop", "Weapon_R97.LoopEnd",
-	     	                      	"Weapon_R97.FirstShot_NPC", "Weapon_R97.Loop_NPC", "Weapon_R97.LoopEnd_NPC" )
+		if ( weaponOwner.IsPlayer() )
+		{
+			SetLoopingWeaponSound_1p3p( "Weapon_R1SMG1.FirstShot", "Weapon_R1SMG1.Loop", "Weapon_R1SMG1.LoopEnd",
+			                            "Weapon_R1SMG1.FirstShot", "Weapon_R1SMG1.Loop_3P", "Weapon_R1SMG1.LoopEnd_3P" )
+		}
 	}
 }
 
