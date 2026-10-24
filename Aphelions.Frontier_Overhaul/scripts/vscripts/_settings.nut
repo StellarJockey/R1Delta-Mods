@@ -45,9 +45,9 @@ GAMETYPE_ICON[ TITAN_TAG ] 				<- "../ui/menu/playlist/classic"
 GAMETYPE_ICON[ TITAN_BRAWL_AUTO ] 		<- "../ui/menu/playlist/lts"
 GAMETYPE_ICON[ COOPERATIVE ] 			<- "../ui/menu/playlist/coop"
 GAMETYPE_ICON[ RANKED_PLAY ] 			<- "../ui/scoreboard_secret_logo"
+
 GAMETYPE_ICON[ VARIETY_PACK ] 			<- "../ui/menu/playlist/all"
 GAMETYPE_ICON[ "all_mini" ] 			<- "../ui/menu/playlist/all"
-
 GAMETYPE_STAR_SCORE_REQUIREMENT <- {}
 GAMETYPE_STAR_SCORE_REQUIREMENT[ TEAM_DEATHMATCH ] 		<- [ 5, 10, 20 ]
 GAMETYPE_STAR_SCORE_REQUIREMENT[ CAPTURE_POINT ] 		<- [ 500, 1500, 2500 ]
@@ -85,6 +85,9 @@ COOP_STAR_SCORE_REQUIREMENT[ "mp_training_ground" ]			<- [ 720, 1445, 2170 ]
 COOP_STAR_SCORE_REQUIREMENT[ "mp_zone_18" ]					<- [ 615, 1235, 1855 ]
 COOP_STAR_SCORE_REQUIREMENT[ "mp_wargames" ]				<- [ 570, 1145, 1715 ]
 COOP_STAR_SCORE_REQUIREMENT[ "mp_swampland" ]				<- [ 655, 1310, 1970 ]
+
+COOP_STAR_SCORE_REQUIREMENT[ "mp_nest2" ]				<- [ 860, 1720, 2580 ]
+
 COOP_STAR_SCORE_REQUIREMENT[ "default" ]					<- [ 10000, 10000, 10000 ]
 
 COOP_CUSTOMMATCH_UNLOCK_PLAYS <- 3
@@ -106,6 +109,7 @@ if ( IsClient() )
 	GameMode_SetName( CAMPAIGN, "#PL_campaign" )
 	GameMode_SetDesc( CAMPAIGN, "#PL_campaign_desc" )
 	GameMode_SetIcon( CAMPAIGN, "../ui/menu/playlist/campaign" )
+
 
 	GameMode_Create( CAPTURE_THE_TITAN )
 	GameMode_SetName( CAPTURE_THE_TITAN, "#GAMEMODE_CAPTURE_THE_TITAN" )
@@ -342,7 +346,56 @@ if ( IsClient() )
 	GameMode_AddServerScript( GUN_GAME, "mp/_gamemode_gun_game" )
 	GameMode_AddClientScript( GUN_GAME, "client/cl_gamemode_gun_game" )
 	GameMode_SetDefaultScoreLimits( GUN_GAME, 20, 0 )
-	GameMode_SetDefaultTimeLimits( FFA, 15, 0 )
+	GameMode_SetDefaultTimeLimits( GUN_GAME, 15, 0 )
+
+	GameMode_Create( BURN_CARD_ESCALATION )
+	GameMode_SetName( BURN_CARD_ESCALATION, "#GAMEMODE_BURN_CARD_ESCALATION" )
+	GameMode_SetGameModeAnnouncement( BURN_CARD_ESCALATION, "GameModeAnnounce_TDM" )
+	GameMode_SetDesc( BURN_CARD_ESCALATION, "#GAMEMODE_BURN_CARD_ESCALATION_HINT" )
+	GameMode_SetMatchStartDesc( BURN_CARD_ESCALATION, "#GAMEMODE_BURN_CARD_ESCALATION_MATCH_START_HINT" ) // the start of match announcement: the description without its second line
+	GameMode_SetIcon( BURN_CARD_ESCALATION, "../ui/menu/playlist/default" )
+	GameMode_AddServerScript( BURN_CARD_ESCALATION, "mp/_free_for_all" ) // the FFA rules; runs before the mode script
+	GameMode_AddServerScript( BURN_CARD_ESCALATION, "mp/_gamemode_burn_card_escalation" )
+	GameMode_AddClientScript( BURN_CARD_ESCALATION, "client/cl_gamemode_ffa" )
+	GameMode_AddClientScript( BURN_CARD_ESCALATION, "client/cl_gamemode_burn_card_escalation" )
+	GameMode_SetDefaultScoreLimits( BURN_CARD_ESCALATION, 75, 0 ) // kills come much faster than in plain free for all, which uses 45
+	GameMode_SetDefaultTimeLimits( BURN_CARD_ESCALATION, 15, 0 )
+
+	GameMode_Create( TITAN_FFA )
+	GameMode_SetName( TITAN_FFA, "#GAMEMODE_TITAN_FFA" )
+	GameMode_SetGameModeAnnouncement( TITAN_FFA, "GameModeAnnounce_TTDM" )
+	GameMode_SetDesc( TITAN_FFA, "#GAMEMODE_TITAN_FFA_HINT" )
+	GameMode_SetMatchStartDesc( TITAN_FFA, "#GAMEMODE_TITAN_FFA_MATCH_START_HINT" )
+	GameMode_SetIcon( TITAN_FFA, "../ui/menu/playlist/wingman_lts" )
+	GameMode_AddServerScript( TITAN_FFA, "mp/_free_for_all" ) // the FFA rules (own teams, name hiding, relationships); runs before the mode script
+	GameMode_AddServerScript( TITAN_FFA, "mp/_gamemode_titan_ffa" )
+	GameMode_AddClientScript( TITAN_FFA, "client/cl_gamemode_ffa" )
+	GameMode_SetDefaultScoreLimits( TITAN_FFA, 20, 0 )
+	GameMode_SetDefaultTimeLimits( TITAN_FFA, 15, 0 )
+
+	GameMode_Create( TURBO_TITAN_BRAWL )
+	GameMode_SetName( TURBO_TITAN_BRAWL, "#GAMEMODE_TITAN_BRAWL_TURBO" )
+	GameMode_SetGameModeAnnouncement( TURBO_TITAN_BRAWL, "GameModeAnnounce_TTDM" )
+	GameMode_SetDesc( TURBO_TITAN_BRAWL, "#GAMEMODE_TITAN_BRAWL_TURBO_HINT" )
+	GameMode_SetMatchStartDesc( TURBO_TITAN_BRAWL, "#GAMEMODE_TITAN_BRAWL_TURBO_MATCH_START_HINT" )
+	GameMode_SetIcon( TURBO_TITAN_BRAWL, "../ui/menu/playlist/wingman_lts" )
+	GameMode_AddServerScript( TURBO_TITAN_BRAWL, "mp/_gamemode_titan_brawl" ) // Titan Brawl's rules; runs before the turbo script
+	GameMode_AddServerScript( TURBO_TITAN_BRAWL, "mp/_gamemode_turbo_titan" )
+	GameMode_SetDefaultScoreLimits( TURBO_TITAN_BRAWL, 30, 0 )
+	GameMode_SetDefaultTimeLimits( TURBO_TITAN_BRAWL, 10, 0 )
+
+	GameMode_Create( TURBO_TITAN_FFA )
+	GameMode_SetName( TURBO_TITAN_FFA, "#GAMEMODE_TITAN_FFA_TURBO" )
+	GameMode_SetGameModeAnnouncement( TURBO_TITAN_FFA, "GameModeAnnounce_TTDM" )
+	GameMode_SetDesc( TURBO_TITAN_FFA, "#GAMEMODE_TITAN_FFA_TURBO_HINT" )
+	GameMode_SetMatchStartDesc( TURBO_TITAN_FFA, "#GAMEMODE_TITAN_FFA_TURBO_MATCH_START_HINT" )
+	GameMode_SetIcon( TURBO_TITAN_FFA, "../ui/menu/playlist/wingman_lts" )
+	GameMode_AddServerScript( TURBO_TITAN_FFA, "mp/_free_for_all" ) // the FFA rules; runs before the mode scripts
+	GameMode_AddServerScript( TURBO_TITAN_FFA, "mp/_gamemode_titan_ffa" )
+	GameMode_AddServerScript( TURBO_TITAN_FFA, "mp/_gamemode_turbo_titan" )
+	GameMode_AddClientScript( TURBO_TITAN_FFA, "client/cl_gamemode_ffa" )
+	GameMode_SetDefaultScoreLimits( TURBO_TITAN_FFA, 20, 0 )
+	GameMode_SetDefaultTimeLimits( TURBO_TITAN_FFA, 15, 0 )
 
 // Don't remove items from this list once the game is in production
 // Durango online analytics needs the numbers for each mode to stay the same
@@ -377,7 +430,12 @@ enum eGameModes
 	TITAN_MFD_ID =						24,
 	TITAN_MFD_PRO_ID =					25,
 	TITAN_BRAWL_AUTO_ID =				26,
-	GUN_GAME_ID = 						27
+	GUN_GAME_ID =						27,
+	BURN_CARD_ESCALATION_ID =			31
+
+	TITAN_FFA_ID =						28,
+	TURBO_TITAN_BRAWL_ID =				29,
+	TURBO_TITAN_FFA_ID =				30
 }
 
 gameModesStringToIdMap <- {}
@@ -409,6 +467,11 @@ gameModesStringToIdMap[ TITAN_BRAWL_AUTO ] 					<- eGameModes.TITAN_BRAWL_AUTO_I
 gameModesStringToIdMap[ TITAN_MFD ]							<- eGameModes.TITAN_MFD_ID
 gameModesStringToIdMap[ TITAN_MFD_PRO ]						<- eGameModes.TITAN_MFD_PRO_ID
 gameModesStringToIdMap[ GUN_GAME ]							<- eGameModes.GUN_GAME_ID
+gameModesStringToIdMap[ BURN_CARD_ESCALATION ]					<- eGameModes.BURN_CARD_ESCALATION_ID
+
+gameModesStringToIdMap[ TITAN_FFA ]							<- eGameModes.TITAN_FFA_ID
+gameModesStringToIdMap[ TURBO_TITAN_BRAWL ]					<- eGameModes.TURBO_TITAN_BRAWL_ID
+gameModesStringToIdMap[ TURBO_TITAN_FFA ]						<- eGameModes.TURBO_TITAN_FFA_ID
 
 GameMode_VerifyModes()
 
@@ -795,7 +858,7 @@ const STRIKE_DISPLAYNAME 					= "SATELLITE STRIKE"		// Name displayed on operato
 //--------------------------------------------------
 
 const OBITUARY_ENABLED_PLAYERS				= 1
-const OBITUARY_ENABLED_NPC					= 1
+const OBITUARY_ENABLED_NPC					= 1 // 0
 const OBITUARY_ENABLED_NPC_TITANS			= 1
 
 const OBITUARY_DURATION						= 6.0					// Amount of seconds an obituary stays on the screen

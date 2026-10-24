@@ -181,6 +181,9 @@ function GetGameModeNPCPerSide()
 	switch( GameRules.GetGameMode() )
 	{
 		case TITAN_BRAWL:
+		case TURBO_TITAN_BRAWL:
+		case TURBO_TITAN_FFA:
+		case TITAN_FFA:
 			npcPerSide = 0
 			break
 
@@ -821,6 +824,9 @@ function TeamDeathmatchSpawnNPCsThink()
 			case CAPTURE_POINT:
 			case TEAM_DEATHMATCH:
 			case TITAN_BRAWL:
+			case TURBO_TITAN_BRAWL:
+			case TURBO_TITAN_FFA:
+			case TITAN_FFA:
 			case LAST_TITAN_STANDING:
 			case CAPTURE_THE_FLAG:
 			case COOPERATIVE:
@@ -1415,6 +1421,9 @@ function GameModeRemoveFrontline( entArray )
 		case LAST_TITAN_STANDING:
 		case WINGMAN_LAST_TITAN_STANDING:
 		case TITAN_BRAWL:
+		case TURBO_TITAN_BRAWL:
+		case TURBO_TITAN_FFA:
+		case TITAN_FFA:
 		case TITAN_MFD:
 		case TITAN_MFD_PRO:
 			break
@@ -1855,6 +1864,9 @@ function CreateTempFrontline()
 		case LAST_TITAN_STANDING:
 		case WINGMAN_LAST_TITAN_STANDING:
 		case TITAN_BRAWL:
+		case TURBO_TITAN_BRAWL:
+		case TURBO_TITAN_FFA:
+		case TITAN_FFA:
 		case TITAN_MFD:
 		case TITAN_MFD_PRO:
 			spawnpoints = SpawnPoints_GetTitanStart( TEAM_ANY )

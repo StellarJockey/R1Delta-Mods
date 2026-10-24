@@ -4235,6 +4235,7 @@ function SaveScoreForMapStars( player )
 
 		case LAST_TITAN_STANDING:
 		case TITAN_BRAWL:
+		case TURBO_TITAN_BRAWL:
 			score = player.GetTitanKillCount()
 			break
 
