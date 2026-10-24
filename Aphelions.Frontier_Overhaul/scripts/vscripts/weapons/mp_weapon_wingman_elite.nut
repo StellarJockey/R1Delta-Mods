@@ -69,35 +69,9 @@ function OnWeaponNpcPrimaryAttack( attackParams )
 	return FireWeaponPlayerAndNPC( attackParams, false )
 }
 
-
-HCOG_AIM_RAISE <- 0.031   // rise over run
-
-// This is to correct the wonky sight offset
-// Without it, the bullet lines up with the iron sights, not the HCOG
-
 function FireWeaponPlayerAndNPC( attackParams, playerFired )
 {
 	local fireDir = attackParams.dir
-
-	if ( playerFired )
-	{
-		local zoom = self.GetWeaponOwner().GetZoomFrac()
-		if ( zoom > 0 )
-		{
-			local d = attackParams.dir
-			local h = sqrt( d.x * d.x + d.y * d.y )   // horizontal length of the aim direction
-
-			if ( h > 0.01 )   // skip when aiming almost straight up or down
-			{
-				// unit vector perpendicular to d, pointing up in the vertical plane
-				local up = Vector( -d.x * d.z / h, -d.y * d.z / h, h )
-
-				local nd = d + up * ( HCOG_AIM_RAISE * zoom )
-				local len = sqrt( nd.x * nd.x + nd.y * nd.y + nd.z * nd.z )
-				fireDir = nd * ( 1.0 / len )
-			}
-		}
-	}
 
 	self.FireWeaponBullet( attackParams.pos, fireDir, 1, damageTypes.LargeCaliber )
 	return 1
