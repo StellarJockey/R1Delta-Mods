@@ -56,7 +56,7 @@
 	"damage_near_distance"							"1200"  // match to search distance and red crosshair range
 	"damage_far_distance" 							"3000"
 	"damage_near_value"   							"160"
-	"damage_far_value"								"135"
+	"damage_far_value"								"160"
 	"damage_near_value_titanarmor"					"100"
 	"damage_far_value_titanarmor" 					"100"
 	"damage_rodeo" 									"800"
@@ -67,10 +67,10 @@
 	"damage_leg_scale"								"1.0"
 
 	// Damage - When Used by NPCs
-	"npc_damage_near_distance"						"2000"
-	"npc_damage_far_distance" 						"4000"
-	"npc_damage_near_value"   						"500"
-	"npc_damage_far_value"							"500"
+	"npc_damage_near_distance"						"1200"
+	"npc_damage_far_distance" 						"3000"
+	"npc_damage_near_value"   						"160"
+	"npc_damage_far_value"							"160"
 	"npc_damage_near_value_titanarmor"				"100"
 	"npc_damage_far_value_titanarmor" 				"100"
 
@@ -82,7 +82,7 @@
 	"ammo_default_total"							"75"
 	
 	// Behavior
-	"fire_rate"   									"1.35"
+	"fire_rate"   									"2.0"
 	"zoom_time_in"									"0.3"
 	"zoom_time_out"   								"0.2"
 	"zoom_fov"										"45"
@@ -268,7 +268,7 @@
 	"npc_min_burst"									"1"
 	"npc_max_burst"									"1"
 	"rest_time_between_bursts_min"					"0.5"
-	"rest_time_between_bursts_max"					"2.0"
+	"rest_time_between_bursts_max"					"1.0"
 
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
