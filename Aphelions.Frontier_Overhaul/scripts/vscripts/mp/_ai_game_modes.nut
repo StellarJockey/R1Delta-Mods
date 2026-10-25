@@ -776,7 +776,6 @@ function FreeAISlotOnDeathThread( soldier )
 }
 
 
-
 //////////////////////////////////////////////////////////
 function SetupTeamDeathmatchNPCs()
 {
@@ -1050,6 +1049,9 @@ function SuicideSpectreWaveThink( team )
 
 function CloakDroneWaveThink( team )
 {
+	if ( !ShouldUseNPCPilots() )
+		return
+
 	// Prevent Cloak Drones from spawning in the Campaign
 	if ( GetCurrentPlaylistName() == "campaign_carousel" )
 		return
@@ -1174,6 +1176,9 @@ function SniperSpectreWaveThink( team )
 
 function GhostPilotWaveThink( team )
 {
+	if ( !ShouldUseNPCPilots() )
+		return
+
     // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
     wait 60.0 + RandomFloat( 0.0, 30.0 )
 

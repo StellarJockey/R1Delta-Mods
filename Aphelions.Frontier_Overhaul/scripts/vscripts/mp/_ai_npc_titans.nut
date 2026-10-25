@@ -1075,16 +1075,31 @@ function OnReplacementTitanImpact( titan )
 	OnHotdropImpact( titan )
 }
 
-
-
 function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 {
 	local mode = GameRules.GetGameMode()
 	if ( mode != TITAN_BRAWL && mode != LAST_TITAN_STANDING && mode != COOPERATIVE )
 	{
-		// ensure at least 40s have elapsed plus a random 20-90s delay (earliest spawn ~1 min)
+		// ensure at least 40s have elapsed plus a random delay (earliest spawn ~1 min)
 		local waitTime = max( 0.0, 40.0 - GameTime.PlayingTime() )
-		wait waitTime + RandomFloat( 20.0, 90.0 )
+
+		// single-player mod: the first player is "your team"
+		local players = GetPlayerArray()
+		local playerTeam = players[0].GetTeam()
+
+		// both teams roll the same base delay; only your team gets the spawn handicap
+		local handicap = 0.0
+		local lethality = Riff_AILethality()
+		if ( lethality == eAILethality.High )
+			handicap = 25.0
+		else if ( lethality == eAILethality.VeryHigh )
+			handicap = 50.0
+
+		local spawnDelay = RandomFloat( 20.0, 90.0 )
+		if ( team == playerTeam )
+			spawnDelay += handicap
+
+		wait waitTime + spawnDelay
 	}
 	else if ( mode == COOPERATIVE )
 	{
@@ -1170,6 +1185,7 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
     
     // Titan NPC spawn limit
     local limit = 0
+	
 	switch ( GameRules.GetGameMode() )
 	{
 		case TITAN_BRAWL:
@@ -1178,12 +1194,7 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 			break
 			
 		default: // Attrition, Hardpoint, Campaign, etc.
-			if ( Riff_AILethality() == eAILethality.Default )
-				limit = ( team == playerTeam ) ? 3 : 4   // 3 for your team, 4 for enemy team
-			else if ( Riff_AILethality() == eAILethality.High )
-				limit = ( team == playerTeam ) ? 3 : 5  
-			else if ( Riff_AILethality() == eAILethality.VeryHigh )
-				limit = ( team == playerTeam ) ? 3 : 6 
+			limit = ( team == playerTeam ) ? 5 : 6   // 5 for your team, 6 for enemy team
 			break
 	}
 
