@@ -397,6 +397,16 @@ if ( IsClient() )
 	GameMode_SetDefaultScoreLimits( TURBO_TITAN_FFA, 20, 0 )
 	GameMode_SetDefaultTimeLimits( TURBO_TITAN_FFA, 15, 0 )
 
+	GameMode_Create( GROUND_WAR )
+	GameMode_SetName( GROUND_WAR, "#GAMEMODE_ATTRITION" )
+	GameMode_SetGameModeAnnouncement( GROUND_WAR, "GameModeAnnounce_TTDM" )
+	GameMode_SetDesc( GROUND_WAR, "#GAMEMODE_ATTRITION_HINT" )
+	GameMode_SetMatchStartDesc( GROUND_WAR, "#GAMEMODE_ATTRITION_HINT" )
+	GameMode_SetIcon( GROUND_WAR, "../ui/menu/playlist/at" )
+	GameMode_AddServerScript( GROUND_WAR, "mp/attrition" )
+	GameMode_SetDefaultScoreLimits( GROUND_WAR, 300, 0 )
+	GameMode_SetDefaultTimeLimits( GROUND_WAR, 14, 0 )
+
 // Don't remove items from this list once the game is in production
 // Durango online analytics needs the numbers for each mode to stay the same
 // DO NOT CHANGE THESE VALUES AFTER THEY HAVE GONE LIVE
@@ -431,11 +441,11 @@ enum eGameModes
 	TITAN_MFD_PRO_ID =					25,
 	TITAN_BRAWL_AUTO_ID =				26,
 	GUN_GAME_ID =						27,
-	BURN_CARD_ESCALATION_ID =			31
-
 	TITAN_FFA_ID =						28,
 	TURBO_TITAN_BRAWL_ID =				29,
-	TURBO_TITAN_FFA_ID =				30
+	TURBO_TITAN_FFA_ID =				30,
+	BURN_CARD_ESCALATION_ID =			31,
+	GROUND_WAR_ID = 					32,
 }
 
 gameModesStringToIdMap <- {}
@@ -467,11 +477,11 @@ gameModesStringToIdMap[ TITAN_BRAWL_AUTO ] 					<- eGameModes.TITAN_BRAWL_AUTO_I
 gameModesStringToIdMap[ TITAN_MFD ]							<- eGameModes.TITAN_MFD_ID
 gameModesStringToIdMap[ TITAN_MFD_PRO ]						<- eGameModes.TITAN_MFD_PRO_ID
 gameModesStringToIdMap[ GUN_GAME ]							<- eGameModes.GUN_GAME_ID
-gameModesStringToIdMap[ BURN_CARD_ESCALATION ]					<- eGameModes.BURN_CARD_ESCALATION_ID
-
+gameModesStringToIdMap[ BURN_CARD_ESCALATION ]				<- eGameModes.BURN_CARD_ESCALATION_ID
 gameModesStringToIdMap[ TITAN_FFA ]							<- eGameModes.TITAN_FFA_ID
 gameModesStringToIdMap[ TURBO_TITAN_BRAWL ]					<- eGameModes.TURBO_TITAN_BRAWL_ID
-gameModesStringToIdMap[ TURBO_TITAN_FFA ]						<- eGameModes.TURBO_TITAN_FFA_ID
+gameModesStringToIdMap[ TURBO_TITAN_FFA ]					<- eGameModes.TURBO_TITAN_FFA_ID
+gameModesStringToIdMap[ GROUND_WAR ]						<- eGameModes.GROUND_WAR_ID
 
 GameMode_VerifyModes()
 
