@@ -1,4 +1,4 @@
-(Thank you to ASILLYNEKO and FRANN for making the original Extended Attrition mod!)
+(Thank you to ASillyNeko and Frann for making the original Extended Attrition mod!)
 
 **FRONTIER OVERHAUL** is a heavily modified version of Extended Attrition. This is meant to be an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. This was NOT designed for PvP servers. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
@@ -34,7 +34,7 @@ Weapon Features:
 
 FO's Legacy NPC Pilots and Titans
 -
-* Bot players have been created for R1Delta outside of this mod. However, if there are only 4 or fewer players/bots in the match, FO's original NPC Pilots and Titans will spawn instead. The NPC "Pilots" are essentially just re-skinned Grunts I tricked the game into treating like players, although the bots' advanced movement was never possible to program for them. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter).
+* Bot players have been created for R1Delta outside of this mod. However, if there are only 4 or fewer players/bots in the match, FO's original NPC Pilots and Titans will spawn instead. The NPC "Pilots" are essentially just re-skinned Grunts I tricked the game into treating like players, although the bots' advanced movement was never possible to program for them. They have a 10% chance to spawn along Grunts in drop pods (à la Battle of Demeter). They can also (kinda) use Pilot tacticals such as cloak, stim, hologram, and deployable cover.
 * There is also a rare chance for a squad of spec-ops variants to spawn called Ghost Pilots. They function almost identically to Sniper Spectres. The only difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and will not appear on the minimap.
 
 
