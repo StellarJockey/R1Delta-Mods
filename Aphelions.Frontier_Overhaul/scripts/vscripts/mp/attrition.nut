@@ -164,7 +164,7 @@ function ShowPlayerAttritionScoreEvent( player, value )
 
 function Attrition_AwardPilotTermination( attacker, titan, isCaptain = false )
 {
-	if ( GameRules.GetGameMode() != ATTRITION && GameRules.GetGameMode() != GROUND_WAR )
+	if ( GameRules.GetGameMode() != ATTRITION )
 		return
 
 	if ( GetGameState() != eGameState.Playing )

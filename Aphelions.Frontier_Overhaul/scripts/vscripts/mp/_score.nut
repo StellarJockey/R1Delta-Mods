@@ -1210,8 +1210,7 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 	}
 
 	// Only credit the pilot kill once the Titan is actually dead (skips interrupted executions)
-	if ( awardAttrition && ( GameRules.GetGameMode() == ATTRITION || GameRules.GetGameMode() == GROUND_WAR )
-	&& ( !IsValid( titan ) || !IsAlive( titan ) ) )
+	if ( awardAttrition && GameRules.GetGameMode() == ATTRITION && ( !IsValid( titan ) || !IsAlive( titan ) ) )
 		Attrition_AwardPilotTermination( attacker, titan, isCaptain )
 
 	if ( isCaptain )

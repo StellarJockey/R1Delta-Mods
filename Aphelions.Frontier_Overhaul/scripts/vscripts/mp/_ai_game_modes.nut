@@ -1,5 +1,5 @@
 //=========================================================
-// MP ai functions for game modes FO
+// MP ai functions for game modes
 //
 //=========================================================
 
@@ -98,46 +98,7 @@ function main()
 	level.midSpecAICount[ TEAM_IMC ] <- level.max_npc_per_side
 	level.midSpecAICount[ TEAM_MILITIA ] <- level.max_npc_per_side
 
-	level.npcRespawnWait <- 5
-
-	local npcPerSide = level.max_npc_per_side
-	switch( GameRules.GetGameMode() )
-	{
-		case TEAM_DEATHMATCH:
-			level.npcRespawnWait = 5
-			break
-		case ATTRITION:
-			level.npcRespawnWait = 5
-			break
-		case LAST_TITAN_STANDING:
-		case WINGMAN_LAST_TITAN_STANDING:
-		case TITAN_BRAWL:
-		case TURBO_TITAN_BRAWL:
-		case TURBO_TITAN_FFA:
-		case TITAN_FFA:
-		case TITAN_MFD:
-		case TITAN_MFD_PRO:
-			level.npcRespawnWait = 5
-			npcPerSide = GetCPULevelWrapper() == CPU_LEVEL_HIGHEND ? level.max_npc_per_side : 9
-			break
-		case CAPTURE_THE_FLAG:
-		case CAPTURE_THE_FLAG_PRO:
-			level.npcRespawnWait = 10
-			npcPerSide = 9
-			break
-		case GROUND_WAR:
-			level.npcRespawnWait = 10
-			level.max_npc_per_side = 24
-			level.max_npc_per_side_small = 20
-	}
-
-	SetGameModeAICount( npcPerSide, TEAM_IMC )
-	SetGameModeAICount( npcPerSide, TEAM_MILITIA )
-
-	SetMidSpecAICount( MID_SPEC_MAX_AI_COUNT, TEAM_IMC )
-	SetMidSpecAICount( MID_SPEC_MAX_AI_COUNT, TEAM_MILITIA )
-
-	SetupLevelAICount()
+	level.npcRespawnWait <- 10
 
 	level.modifyAISlots <- {}
 	level.modifyAISlots[TEAM_IMC] <- 0
@@ -149,6 +110,9 @@ function main()
 	level.aiSpawnCounter <- {}
 	level.aiSpawnCounter[ TEAM_IMC ] <- 0
 	level.aiSpawnCounter[ TEAM_MILITIA ] <- 0
+
+	// Start with the normal caps (12/9). AdjustNPCSpawns() raises them if need be
+	UpdateNPCCaps( false )
 
 	// debug stuff
 	Globalize( DebugSendClientFrontline )
@@ -206,6 +170,87 @@ function main()
 	{
 		thread Coop_SpawnTitansAfterDelay()
 	}
+
+	thread AdjustNPCSpawns()
+}
+
+// Per-gamemode NPC count (also sets the per-gamemode respawn wait). Depends on the current cap.
+function GetGameModeNPCPerSide()
+{
+	local npcPerSide = level.max_npc_per_side
+	switch( GameRules.GetGameMode() )
+	{
+		case TITAN_BRAWL:
+		case TURBO_TITAN_BRAWL:
+		case TURBO_TITAN_FFA:
+		case TITAN_FFA:
+			npcPerSide = 0
+			break
+
+		case PILOT_SKIRMISH:
+			npcPerSide = 0
+			break
+
+		case TEAM_DEATHMATCH:
+			level.npcRespawnWait = 5
+			break
+
+		case ATTRITION:
+		case CAPTURE_POINT:
+			level.npcRespawnWait = 10
+			break
+
+		case LAST_TITAN_STANDING:
+		case WINGMAN_LAST_TITAN_STANDING:
+		case TITAN_MFD:
+		case TITAN_MFD_PRO:
+			level.npcRespawnWait = 5
+			npcPerSide = GetCPULevelWrapper() == CPU_LEVEL_HIGHEND ? level.max_npc_per_side : 9
+			break
+
+		case CAPTURE_THE_FLAG:
+		case CAPTURE_THE_FLAG_PRO:
+			level.npcRespawnWait = 10
+			npcPerSide = min( 18, level.max_npc_per_side )	// clamp: the Set*AICount asserts reject > max
+			break
+	}
+	return npcPerSide
+}
+
+// Only touches the AI COUNT settings. Safe to call repeatedly.
+function UpdateNPCCaps( usePilots )
+{
+	// Change the caps first: the Set*AICount asserts compare against level.max_npc_per_side
+	level.max_npc_per_side = usePilots ? 24 : 12
+	level.max_npc_per_side_small = usePilots ? 20 : 9
+
+	local npcPerSide = GetGameModeNPCPerSide()
+
+	foreach ( team in [ TEAM_IMC, TEAM_MILITIA ] )
+	{
+		SetGameModeAICount( npcPerSide, team )
+		SetMidSpecAICount( MID_SPEC_MAX_AI_COUNT, team )
+	}
+
+	SetupLevelAICount()	// sets levelAICount for both teams (per-map overrides included)
+}
+
+function AdjustNPCSpawns()
+{
+	FlagWait( "GamePlaying" )
+	wait 5.0	// give players/bots time to connect
+
+	local lastState = false	// matches the normal caps main() already applied
+	while ( true )
+	{
+		local state = ShouldUseNPCPilots()
+		if ( state != lastState )
+		{
+			UpdateNPCCaps( state )
+			lastState = state
+		}
+		wait 5.0
+	}
 }
 
 function Coop_OnPlayerOrNPCKilled( entity, attacker, damageInfo )
@@ -215,7 +260,7 @@ function Coop_OnPlayerOrNPCKilled( entity, attacker, damageInfo )
 
 function SetupLevelAICount()
 {
-	local aiCount = level.max_npc_per_side	// 12
+	local aiCount = level.max_npc_per_side
 
 	switch ( GetMapName() )
 	{
@@ -267,6 +312,8 @@ function SetupLevelAICount()
 			break
 
 	}
+
+	aiCount = min( aiCount, level.max_npc_per_side )
 
 	SetLevelAICount( aiCount, TEAM_MILITIA )
 	SetLevelAICount( aiCount, TEAM_IMC )
@@ -774,7 +821,6 @@ function TeamDeathmatchSpawnNPCsThink()
 		switch( mode )
 		{
 			case ATTRITION:
-			case GROUND_WAR:
 			case CAPTURE_POINT:
 			case TEAM_DEATHMATCH:
 			case TITAN_BRAWL:
@@ -800,7 +846,7 @@ function TeamDeathmatchSpawnNPCsThink()
 	}
 
 	// WAVE SPAWNING (Spectre variants and cloak drones won't spawn in Titan-based modes)
-	if ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == CAPTURE_THE_FLAG || mode == GROUND_WAR )
+	if ( mode == ATTRITION || mode == CAPTURE_POINT || mode == TEAM_DEATHMATCH || mode == CAPTURE_THE_FLAG )
 	{
 		if ( !Flag( "Disable_IMC" ) )
 		{
@@ -1306,24 +1352,24 @@ function InitFrontLine()
 	file.nextOverrunCheck <- Time()
 	file.frontlineGroupTable <- {}
 	file.currentFrontline <- null
-	
-	file.frontlineTeamSide <- 
-	{ 
-		[TEAM_IMC] = 0, 
+
+	file.frontlineTeamSide <-
+	{
+		[TEAM_IMC] = 0,
 		[TEAM_MILITIA] = 1
 	}
 
-	file.npcDeathPerTeam <- 
+	file.npcDeathPerTeam <-
 	{
-		[TEAM_UNASSIGNED] = [], 
-		[TEAM_IMC] = [], 
+		[TEAM_UNASSIGNED] = [],
+		[TEAM_IMC] = [],
 		[TEAM_MILITIA] = []
 	}
 
-	file.playerDeathPerTeam <- 
+	file.playerDeathPerTeam <-
 	{
-	 	[TEAM_UNASSIGNED] = [], 
-	 	[TEAM_IMC] = [], 
+	 	[TEAM_UNASSIGNED] = [],
+	 	[TEAM_IMC] = [],
 	 	[TEAM_MILITIA] = []
 	 }
 
@@ -2322,9 +2368,6 @@ function SquadAssault( squad, pos )
 			thread DrawAssaultGoal( squad[ i ], nodePos )
 	}
 }
-
-
-
 
 
 // debug functions

@@ -70,7 +70,6 @@ const BURN_CARD_ESCALATION = "bce"
 const TITAN_FFA = "tffa"
 const TURBO_TITAN_BRAWL = "ttdm_turbo"
 const TURBO_TITAN_FFA = "tffa_turbo"
-const GROUND_WAR = "gw"
 
 const MAX_TRACKED_CHALLENGES = 3
 
@@ -2322,16 +2321,6 @@ pmSettingsMap["pm_score_limit"]["ttdm_turbo"] <- [
 	60,
 	75,
 	100,
-]
-pmSettingsMap["pm_score_limit"]["gw"] <- [
-	200,
-	250,
-	300,
-	350,
-	400,
-	500,
-	750,
-	1000,
 ]
 pmSettingsMap["pm_score_limit"]["tmfd"] <- [
 	1,

@@ -4230,7 +4230,6 @@ function SaveScoreForMapStars( player )
 		case SCAVENGER:
 		case TITAN_MFD:
 		case TITAN_MFD_PRO:
-		case GROUND_WAR:
 			score = player.GetAssaultScore()
 			break
 
