@@ -1312,8 +1312,8 @@ function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, a
 	Assert( type( spawnFunc ) == "function" )
 	local guy
 
-	// 10% Chance for an NPC Pilot inside Grunt Pods, but only when bots aren't present
-	if ( spawnFunc.getinfos().name == "SpawnGrunt" && ShouldUseNPCPilots() && RandomFloat( 0.0, 1.0 ) <= 0.10 )
+	// 15% Chance for an NPC Pilot inside Grunt Pods, but only when bots aren't present
+	if ( spawnFunc.getinfos().name == "SpawnGrunt" && ShouldUseNPCPilots() && RandomFloat( 0.0, 1.0 ) <= 0.15 )
 	{
 		guy = SpawnPilotInfantry( team, squadName, origin, angles )
 	}

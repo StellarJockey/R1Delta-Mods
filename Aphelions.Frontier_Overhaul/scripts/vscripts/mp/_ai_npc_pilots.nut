@@ -3,12 +3,31 @@
 // Maybe one day we'll have actual bots... one day
 //=========================================================
 
+// ---- NPC pilot tactical ability tuning ----
+const NPC_TAC_COOLDOWN        = 10.0   // seconds AFTER an ability finishes before the next use
+const NPC_TAC_TRIGGER_RANGE   = 2200   // only react to enemies this close
+const NPC_TAC_CLOAK_DURATION  = 9.0
+const NPC_TAC_CLOAK_CHANCE    = 0.65   // roll each time the pilot is "spotted"
+const NPC_TAC_STIM_DURATION   = 5.0
+const NPC_TAC_STIM_SPEED      = 1.35   // multiplier on the pilot's normal move speed scale
+const NPC_TAC_STIM_TICK       = 1.25   // health top-up interval
+const NPC_TAC_COVER_LIFETIME  = 10.0
+const NPC_TAC_COVER_RADIUS    = 160
+const NPC_TAC_COVER_HEALTH    = 32000
+const NPC_TAC_HOLO_DURATION   = 8.0
+const NPC_TAC_BASE_MOVESPEED  = 1.20
+
 function main()
 {
+    Minimap_PrecacheMaterial( "vgui/hud/threathud_runner_friendly" )
+    Minimap_PrecacheMaterial( "vgui/hud/threathud_runner_enemy" )
+
 	Globalize( IsReskinnedPilot )
 	Globalize( IsGhostPilot )
 	Globalize( GhostPilotThink )
 	Globalize( SpawnGhostPilot )
+	Globalize( AssignNPCPilotTacAbility )
+	Globalize( UseNPCPilotTacAbility )
 }
 
 
@@ -99,7 +118,7 @@ function IsReskinnedPilot( npc )
     return ( "s" in npc && "isPilot" in npc.s && npc.s.isPilot )
 }
 
-function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
+function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weapon = null, hidden = false, giveTacAbility = true )
 {
     local pilotWeapons = [
 		"mp_weapon_rspn101",
@@ -143,6 +162,15 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
     guy.AllowFlee( false )
 	guy.AllowHandSignals( true )
 
+    guy.Minimap_SetDefaultMaterial( "vgui/hud/threathud_runner_friendly" )
+	guy.Minimap_SetEnemyMaterial( "vgui/hud/threathud_runner_enemy" )
+	guy.Minimap_SetFriendlyMaterial( "vgui/hud/threathud_runner_friendly" )
+
+	guy.s.pilotName <- title   // hologram copies this (NPCs have no GetPlayerName)
+
+	if ( giveTacAbility )
+		AssignNPCPilotTacAbility( guy )
+
     return guy
 }
 Globalize( SpawnPilotInfantry )
@@ -170,12 +198,13 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         "mp_weapon_mega1",
         "mp_weapon_sniper",
         "mp_weapon_smart_pistol",
+        "mp_weapon_mega8",
     ]
 
     local chosenWeapon = Random( pilotWeapons )
 
     // Spawn with SpawnPilotInfantry so the model is chosen consistently for the weapon
-    local ghostPilot = SpawnPilotInfantry( team, squadName, origin, angles, alert, chosenWeapon, false )
+    local ghostPilot = SpawnPilotInfantry( team, squadName, origin, angles, alert, chosenWeapon, false, false )
     if ( !IsAlive( ghostPilot ) )
         return null
 
@@ -198,6 +227,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         case "mp_weapon_semipistol":
         case "mp_weapon_smart_pistol":
         case "mp_weapon_wingman":
+        case "mp_weapon_mega8":
             sightMod = ""
             break
 
@@ -232,6 +262,9 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
     ghostPilot.AllowFlee( false )
 	ghostPilot.AllowHandSignals( true )
 
+    ghostPilot.Minimap_SetDefaultMaterial( "vgui/hud/threathud_runner_friendly" )
+	ghostPilot.Minimap_SetEnemyMaterial( "vgui/hud/threathud_runner_enemy" )
+	ghostPilot.Minimap_SetFriendlyMaterial( "vgui/hud/threathud_runner_friendly" )
 	ghostPilot.Minimap_Hide( TEAM_IMC, null )
     ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
 
@@ -284,4 +317,322 @@ function GhostPilotThink( ghostPilot )
 
         wait 0.25
     }
+}
+
+
+/////////////////////////////////////////////////////////
+//////////// NPC PILOT TACTICAL ABILITIES ///////////////
+/////////////////////////////////////////////////////////
+
+// 1-in-5: cloak / stim / cover / hologram / nothing
+function AssignNPCPilotTacAbility( npc )
+{
+	switch ( RandomInt( 5 ) )
+	{
+		case 0:
+			npc.s.cloakPilot <- true
+			break
+		case 1:
+			npc.s.stimPilot <- true
+			break
+		case 2:
+			npc.s.coverPilot <- true
+			break
+		case 3:
+			npc.s.hologramPilot <- true
+			break
+		default:
+			return   // null: no ability, no watcher thread
+	}
+
+	npc.s.tacNextUseTime <- Time() + RandomFloat( 3.0, 6.0 )
+	thread NPCPilotTacThink( npc )
+}
+
+// Watches for "I've got an enemy and we can see each other" and fires the ability
+function NPCPilotTacThink( npc )
+{
+	npc.EndSignal( "OnDeath" )
+	npc.EndSignal( "OnDestroy" )
+
+	while ( true )
+	{
+		wait 0.5
+
+		if ( Time() < npc.s.tacNextUseTime )
+			continue
+
+		local enemy = npc.GetEnemy()
+		if ( !IsValid( enemy ) || !IsAlive( enemy ) )
+			continue
+
+		if ( Distance( npc.GetOrigin(), enemy.GetOrigin() ) > NPC_TAC_TRIGGER_RANGE )
+			continue
+
+		if ( !npc.CanSee( enemy ) )
+			continue
+
+		UseNPCPilotTacAbility( npc )
+	}
+}
+
+// Starts the ability (threads the long stuff) and sets the next-use time
+function UseNPCPilotTacAbility( npc )
+{
+	local enemy = npc.GetEnemy()
+	local duration = 0.0
+
+	if ( "cloakPilot" in npc.s )
+	{
+		if ( RandomFloat( 0.0, 1.0 ) > NPC_TAC_CLOAK_CHANCE )
+		{
+			npc.s.tacNextUseTime = Time() + 2.0   // failed the roll, try again soon
+			return
+		}
+		duration = NPC_TAC_CLOAK_DURATION
+		thread NPCPilotCloak( npc, duration )
+	}
+	else if ( "stimPilot" in npc.s )
+	{
+		duration = NPC_TAC_STIM_DURATION
+		thread NPCPilotStim( npc, enemy, duration )
+	}
+	else if ( "coverPilot" in npc.s )
+	{
+		duration = NPC_TAC_COVER_LIFETIME
+		thread NPCPilotDeployCover( npc, duration )
+	}
+	else if ( "hologramPilot" in npc.s )
+	{
+		duration = NPC_TAC_HOLO_DURATION
+		// hologram copies the pilot while still visible, then the pilot cloaks
+		thread StartHologram( npc, duration )   // runs synchronously up to its first wait, so npc.s.hologram exists now
+		thread NPCPilotHologramWatch( npc, duration )
+		thread NPCPilotHologramCloak( npc )
+	}
+	else
+		return
+
+	npc.s.tacNextUseTime = Time() + duration + NPC_TAC_COOLDOWN
+}
+
+function NPCPilotCloak( npc, duration )
+{
+	npc.EndSignal( "OnDeath" )
+	npc.EndSignal( "OnDestroy" )
+
+	OnThreadEnd( function() : ( npc )
+	{
+		if ( IsValid( npc ) && IsAlive( npc ) && "tacCloaked" in npc.s && npc.s.tacCloaked )
+		{
+			SniperDeCloak( npc )
+			npc.s.tacCloaked = false
+		}
+	})
+
+	SniperCloak( npc )
+	npc.s.tacCloaked <- true
+
+	wait duration
+}
+
+// Kills the pilot's hologram when the pilot dies/is destroyed (or when its time is up).
+// HologramKill has a "dying" guard, so overlapping with StartHologram's own cleanup is harmless.
+function NPCPilotHologramWatch( npc, duration )
+{
+	local hologram = null
+	if ( "hologram" in npc.s )
+		hologram = npc.s.hologram
+	if ( !IsValid( hologram ) )
+		return
+
+	npc.EndSignal( "OnDeath" )
+	npc.EndSignal( "OnDestroy" )
+
+	OnThreadEnd( function() : ( hologram )
+	{
+		if ( IsValid( hologram ) )
+			thread HologramKill( hologram )
+	})
+
+	wait duration + 0.5
+}
+
+// Same timing the player hologram uses: fade in 1.0, hold 3.0, fade out 1.0
+function NPCPilotHologramCloak( npc )
+{
+	npc.EndSignal( "OnDeath" )
+	npc.EndSignal( "OnDestroy" )
+
+	OnThreadEnd( function() : ( npc )
+	{
+		if ( IsValid( npc ) && IsAlive( npc ) && "tacCloaked" in npc.s && npc.s.tacCloaked )
+		{
+			SniperDeCloak( npc )
+			npc.s.tacCloaked = false
+		}
+	})
+
+	SniperCloak( npc )
+	npc.s.tacCloaked <- true
+	npc.SetCloakDuration( 1.0, 3.0, 1.0 )
+
+	wait 5.0
+}
+
+function NPCPilotStim( npc, enemy, duration )
+{
+	npc.EndSignal( "OnDeath" )
+	npc.EndSignal( "OnDestroy" )
+
+	local baseSpeed = NPC_TAC_BASE_MOVESPEED
+
+	// force a relocation away from the enemy (strict ent = no diversion, same as the hologram rush)
+	local assaultEnt = null
+	if ( IsValid( enemy ) )
+	{
+		local pos = FindNPCTacRelocationPoint( npc, enemy )
+		if ( pos != null )
+			assaultEnt = CreateStrictAssaultEnt( pos, null, 64 )
+	}
+
+	OnThreadEnd( function() : ( npc, assaultEnt, baseSpeed )
+	{
+		if ( IsValid( assaultEnt ) )
+			assaultEnt.Kill()
+		if ( IsValid( npc ) )
+			npc.SetMoveSpeedScale( baseSpeed )
+	})
+
+	npc.SetMoveSpeedScale( baseSpeed * NPC_TAC_STIM_SPEED )
+	if ( assaultEnt != null )
+		npc.AssaultPointEnt( assaultEnt )
+
+	local endTime = Time() + duration
+	while ( Time() < endTime )
+	{
+		// pilots have 200 max (ghost pilots 250), so "set to max" == "set to 200" for normal pilots
+		local maxHealth = npc.GetMaxHealth()
+		if ( npc.GetHealth() < maxHealth )
+			npc.SetHealth( maxHealth )
+
+		wait NPC_TAC_STIM_TICK
+	}
+}
+
+function FindNPCTacRelocationPoint( npc, enemy )
+{
+	local origin = npc.GetOrigin()
+	local awayAngles = VectorToAngles( origin - enemy.GetOrigin() )
+
+	for ( local i = 0; i < 6; i++ )
+	{
+		local ang = Vector( 0, awayAngles.y + RandomFloat( -70, 70 ), 0 )
+		local target = origin + ang.AnglesToForward() * RandomFloat( 400, 800 )
+
+		local node = GetNearestNodeToPos( target )
+		if ( node == null || node < 0 )
+			continue
+
+		local pos = GetNodePos( node, HULL_HUMAN )
+		if ( Distance( pos, target ) > 150 )
+			continue   // snapped too far away
+		if ( Distance( pos, origin ) < 250 )
+			continue   // not really relocating
+
+		return pos
+	}
+	return null
+}
+
+// Mine-less version of ProximityMineSpawnShield (mp_weapon_deployable_cover.nut): same entities,
+// anchored on the pilot's feet instead of a planted mine.
+function NPCPilotDeployCover( npc, lifetime )
+{
+	npc.EndSignal( "OnDestroy" )
+
+	local origin = npc.GetOrigin()
+	local angles = npc.GetAngles()
+	local enemy = npc.GetEnemy()
+	if ( IsValid( enemy ) )
+		angles = Vector( 0, VectorToAngles( enemy.GetOrigin() - origin ).y, 0 )
+
+	local vortexSphere = CreateEntity( "vortex_sphere" )
+	vortexSphere.kv.spawnflags = 1 | 2    // SF_ABSORB_BULLETS | SF_BLOCK_OWNER_WEAPON
+	vortexSphere.kv.enabled = 0
+	vortexSphere.kv.radius = NPC_TAC_COVER_RADIUS
+	vortexSphere.SetAngles( angles )
+	vortexSphere.SetOrigin( origin )
+
+	local blocker = CreateEntity( "prop_dynamic" )
+	blocker.kv.model = "models/fx/xo_shield.mdl"
+	blocker.kv.solid = 6
+	blocker.kv.CollisionGroup = 21   // blocks bullets/projectiles, not players or AI
+	blocker.SetOrigin( origin )
+	blocker.SetAngles( angles )
+	if ( npc.IsPlayer() )
+		blocker.SetBossPlayer( npc )   // only valid on players
+	DispatchSpawn( blocker )
+	blocker.Hide()
+
+	vortexSphere.SetMaxHealth( NPC_TAC_COVER_HEALTH )
+	vortexSphere.SetHealth( NPC_TAC_COVER_HEALTH )
+	DispatchSpawn( vortexSphere, true )
+	EmitSoundOnEntity( blocker, "ShieldWall_Deploy" )
+	vortexSphere.Fire( "Enable" )
+
+	local cpoint = CreateEntity( "info_placement_helper" )
+	cpoint.SetName( UniqueString( "shield_wall_controlpoint" ) )
+	cpoint.SetOrigin( origin )
+	DispatchSpawn( cpoint, false )
+
+	local fxname = typeof( FX_SPECTRE_BUBBLESHIELD ) != "null" ? FX_SPECTRE_BUBBLESHIELD : "wpn_laser_blink"
+	local particleSystem = CreateEntity( "info_particle_system" )
+	particleSystem.kv.start_active = 1
+	particleSystem.kv.VisibilityFlags = 7
+	particleSystem.kv.effect_name = fxname
+	particleSystem.SetName( UniqueString() )
+	particleSystem.SetOrigin( origin )
+	DispatchSpawn( particleSystem, false )
+
+	if ( IsValid( particleSystem ) )
+	{
+		particleSystem.SetParent( blocker )
+		particleSystem.s.cpoint <- cpoint
+		vortexSphere.s.shieldWallFX <- particleSystem
+	}
+
+	EmitSoundOnEntity( vortexSphere, "BubbleShield_Sustain_Loop" )
+
+	OnThreadEnd( function() : ( vortexSphere, particleSystem, cpoint, blocker )
+	{
+		if ( IsValid_ThisFrame( particleSystem ) )
+		{
+			particleSystem.ClearParent()
+			particleSystem.Fire( "StopPlayEndCap" )
+			particleSystem.Kill( 1.0 )
+		}
+		if ( IsValid_ThisFrame( vortexSphere ) )
+		{
+			StopSoundOnEntity( vortexSphere, "BubbleShield_Sustain_Loop" )
+			EmitSoundOnEntity( vortexSphere, "BubbleShield_End" )
+			vortexSphere.Kill()
+		}
+		if ( IsValid_ThisFrame( cpoint ) )
+			cpoint.Kill()
+		if ( IsValid_ThisFrame( blocker ) )
+			blocker.Kill()
+	})
+
+	local elapsed = 0.0
+	while ( elapsed < lifetime )
+	{
+		wait 0.25
+		elapsed += 0.25
+
+		if ( !IsValid( vortexSphere ) || vortexSphere.GetHealth() <= 0 )
+			return   // shield broke
+		if ( !IsValid( npc ) || !IsAlive( npc ) )
+			return   // owner died
+	}
 }

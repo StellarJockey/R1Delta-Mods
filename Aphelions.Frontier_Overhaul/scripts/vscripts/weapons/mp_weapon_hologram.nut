@@ -46,7 +46,7 @@ function CreateHologram( player )
 	local playerModel = player.GetModelName()
 	local hologramModel = playerModel
 	local team = player.GetTeam()
-	local name = player.GetPlayerName()
+	local name = player.IsPlayer() ? player.GetPlayerName() : player.s.pilotName   // NPC pilots store their name in s.pilotName
 
 	// female models don't want to work... for some reason
 	if ( team == TEAM_IMC )
@@ -75,7 +75,7 @@ function CreateHologram( player )
 	hologram.SetTitle( name )
 	hologram.SetName( name )
 
-	if ( !IsCloaked( player ) )
+	if ( player.IsPlayer() && !IsCloaked( player ) )   // NPC pilots cloak themselves in UseNPCPilotTacAbility
 		thread PlayerTempCloakOn( player )
 
 	hologram.s.isHologram <- true
@@ -333,3 +333,16 @@ function HandleCloakEnd( player )
 		wait duration
 	}
 }
+
+// Callable from _ai_npc_pilots.nut. Globalized functions run with a null "this", so every
+// helper they call has to be global too (they can no longer see this file's local scope).
+Globalize( StartHologram )
+Globalize( CreateHologram )
+Globalize( GetHologramWeaponName )
+Globalize( GetHologramATWeaponName )
+Globalize( FindForwardPoint )
+Globalize( HologramRushForward )
+Globalize( RandomFlicker )
+Globalize( PlayerTempCloakOn )
+Globalize( HandleCloakEnd )
+Globalize( HologramKill )
