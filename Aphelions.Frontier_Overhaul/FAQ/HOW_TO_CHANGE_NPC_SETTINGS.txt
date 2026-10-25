@@ -4,8 +4,8 @@
 
 * Go into \scripts\vscripts\mp\_ai_game_modes
 * ctrl + f to find:
- 	level.max_npc_per_side       <- 24
-	level.max_npc_per_side_small <- 20
+	level.max_npc_per_side = usePilots ? 24 : 12
+	level.max_npc_per_side_small = usePilots ? 20 : 9
 
 * To me, 24 feels about right for most maps, but you can raise or lower it to whatever you feel like.
 * 20 is for smaller maps that feel overcrowded with lots of minions.
@@ -21,26 +21,23 @@
 
 * The enemy accuracy and proficiency will change depending on the difficulty.
 * As far as I can tell, 4 seems to be the highest meaningful value.
-* This does not affect the bot Pilots.
 
-//////////////////////////
+///////////////////////////
 /// NPC TITANS PER TEAM ///
-//////////////////////////
+///////////////////////////
 
 * Go into \scripts\vscripts\mp\_ai_npc_titans
 * ctrl + f to find:
  	function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 
 * The limits will be inside the function.
-* Your team will have a different number of NPC Titans in Attrition & Hardpoint depending on the AI Lethality.
-* Including you, Normal is a 4v4, High is a 4v5, and Very High is a 4v6
+* Your team will have 5 NPC Titans and the enemy will have 6. This makes it a fair 6v6 fight
 
 * You can also go into \scripts\vscripts\mp\_ai_npc_titans
 * ctrl + f to find:
-	wait RandomFloat( 20, 90 )  // Titan spawn delay in seconds
+	local spawnDelay = RandomFloat( 20.0, 90.0 )
 
-* This makes it so that Titans don't immediately spawn when the game starts or when they are killed.
-* This does NOT affect the bot Titans.
+* Your team will have a longer wait time to respawn NPC Titans, depending on the difficulty
 
 /////////////////////////
 /// SPECIAL NPC WAVES ///
