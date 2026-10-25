@@ -1,5 +1,5 @@
 //////  ROUND WINNING KILL REPLAY MUSIC //////////////
-
+// MUSIC MOD
 "Music_RoundWinningKillReplay_IMC_RoundLost_1" {
 
 	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_RoundEnd,MUSIC_ClassicMP_RoundEnd_IMC"
@@ -483,7 +483,7 @@
 "Music_ClassicMP_MCOR_Opening" {
 
 	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_Militia"
-	"volume"		"2.0"
+	"volume"		"1.7"
 	"radius"		"0"
 	"flags"			"music"
 
@@ -497,9 +497,9 @@
 			"2"		"RS,0.5"
 		}
 	"wave"				"music\ClassicMP\Music_ClassicMP_MilitiaIntro_2ch_v1_01.wav"
-
-	"wave"				"music/action/imc/tf_master_mediumtitanaction_imc_alt_stmix_80_bpm.wav"
-	"wave"				"music\action\militia\tf_master_mediumtitanaction_mcor2_stmix_98_bpm.wav"
+	"wave"				"music\ClassicMP\New_Militia_v1.wav"
+	"wave"				"music\ClassicMP\New_Militia_v2.wav"
+	"wave"				"music\ClassicMP\New_Militia_v3.wav"
 	
 	}
 }
@@ -509,9 +509,10 @@
 "Music_ClassicMP_IMC_Opening" {
 
 	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_IMC"
-	"volume"		"2.0"
+	"volume"		"1.7"
 	"radius"		"0"
 	"flags"			"music"
+
 
 	"rndwave"
 	{
@@ -524,8 +525,9 @@
 		}
 	"wave"			"music\ClassicMP\Music_ClassicMP_IMCIntro_2ch_v1_01.wav"
 	
-	"wave"      "music\campaign\corporate\tf_master_co_intro_imc_stmix_95_bpm.wav"
-	"wave"      "music\campaign\angelcity\tf_angelcity_imc_intro_v4_140_110_bpmtest.wav"
+	"wave"				"music\ClassicMP\New_IMC_v1.wav"
+	"wave"				"music\ClassicMP\New_IMC_v2.wav"
+	"wave"				"music\ClassicMP\New_IMC_v3.wav"
 
 	}
 }
