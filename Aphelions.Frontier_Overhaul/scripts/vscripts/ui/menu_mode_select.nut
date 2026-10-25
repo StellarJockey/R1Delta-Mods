@@ -74,7 +74,7 @@ function GetDisplayModes()
 	return [
 		"campaign_carousel",
 		"all",
-		"at",
+		"at+gw",
 		"cp",
 		"ctf+ctt",
 		"coop",
@@ -91,6 +91,9 @@ function GetVariantMenuForEntry( entry )
 {
 	switch ( entry )
 	{
+		case "at+gw":
+			return "ModeVariantAttritionMenu"
+			
 		case "ctf+ctt":
 			return "ModeVariantCTFMenu"
 

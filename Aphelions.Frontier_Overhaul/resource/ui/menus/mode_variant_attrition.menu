@@ -35,7 +35,7 @@ resource/ui/menus/mode_variant_attrition.menu
 			scriptID				0
 			xpos					30
 			ypos					86
-			navUp					BtnMode4
+			navUp					BtnMode2
 			navDown					BtnMode2
 			labelText				""
 		}
@@ -49,32 +49,6 @@ resource/ui/menus/mode_variant_attrition.menu
 			pin_corner_to_sibling	0
 			pin_to_sibling_corner	2
 			navUp					BtnMode1
-			navDown					BtnMode3
-			labelText				""
-		}
-		BtnMode3
-		{
-			ControlName				BaseModHybridButton
-			InheritProperties		DefaultButton
-			classname 				ModeVariantButton
-			scriptID				2
-			pin_to_sibling			BtnMode2
-			pin_corner_to_sibling	0
-			pin_to_sibling_corner	2
-			navUp					BtnMode2
-			navDown					BtnMode4
-			labelText				""
-		}
-		BtnMode4
-		{
-			ControlName				BaseModHybridButton
-			InheritProperties		DefaultButton
-			classname 				ModeVariantButton
-			scriptID				3
-			pin_to_sibling			BtnMode3
-			pin_corner_to_sibling	0
-			pin_to_sibling_corner	2
-			navUp					BtnMode3
 			navDown					BtnMode1
 			labelText				""
 		}
@@ -91,6 +65,7 @@ resource/ui/menus/mode_variant_attrition.menu
 			xpos					0
 			ypos					r53
 			wide					f0
+			tall					16
 			visible					1
 			controlSettingsFile		"resource/ui/menus/panels/footer_buttons.res"
 		}

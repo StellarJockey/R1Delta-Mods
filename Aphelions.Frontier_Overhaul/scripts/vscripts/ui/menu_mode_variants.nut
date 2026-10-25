@@ -13,13 +13,14 @@ function main()
 	Globalize( SetModesMenuContentVisible )
 
 	file.modeVariantConfig <- {}
+	file.modeVariantConfig[ "ModeVariantAttritionMenu" ] <- [ "at", "gw" ]
 	file.modeVariantConfig[ "ModeVariantCTFMenu" ] <- [ "ctf", "ctt" ]
 	file.modeVariantConfig[ "ModeVariantMFDMenu" ] <- [ "mfd", "mfdp", "tmfd", "tmfdp" ]
 	file.modeVariantConfig[ "ModeVariantLTSMenu" ] <- [ "lts", "wlts" ]
 	file.modeVariantConfig[ "ModeVariantPilotMenu" ] <- [ "tdm", "ps" ]
 	file.modeVariantConfig[ "ModeVariantFFAMenu" ] <- [ "ffa", "gg", "bce" ]
 	file.modeVariantConfig[ "ModeVariantTitanBrawlMenu" ] <- [ "ttdm", "tffa", "ttdm_turbo", "tffa_turbo" ]
-	file.modeVariantConfig[ "ModeVariantAttritionMenu" ] <- [ "at", "gw" ]
+	
 
 	file.modeVariantButtons <- {}
 	file.activeVariantMenu <- null

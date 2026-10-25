@@ -1070,13 +1070,13 @@ function InitMenus()
 	AddMenu( "TitanLoadoutsMenu", "resource/ui/menus/titanloadouts.menu" )
 	AddMenu( "RankedPlayMenu", "resource/ui/menus/rankedplay.menu", "#RANKED_MENU_TITLE" )
 	AddSubmenu( "RankedInviteMenu", "resource/ui/menus/ranked_invite.menu" )
+	AddSubmenu( "ModeVariantAttritionMenu", "resource/ui/menus/mode_variant_attrition.menu" )
 	AddSubmenu( "ModeVariantCTFMenu", "resource/ui/menus/mode_variant_ctf.menu" )
 	AddSubmenu( "ModeVariantMFDMenu", "resource/ui/menus/mode_variant_mfd.menu" )
 	AddSubmenu( "ModeVariantLTSMenu", "resource/ui/menus/mode_variant_lts.menu" )
 	AddSubmenu( "ModeVariantPilotMenu", "resource/ui/menus/mode_variant_pilot.menu" )
 	AddSubmenu( "ModeVariantFFAMenu", "resource/ui/menus/mode_variant_ffa.menu" )
 	AddSubmenu( "ModeVariantTitanBrawlMenu", "resource/ui/menus/mode_variant_titanbrawl.menu" )
-	AddSubmenu( "ModeVariantAttritionMenu", "resource/ui/menus/mode_variant_groundwar.menu" )
 	AddMenu( "RankedModesMenu", "resource/ui/menus/ranked_modes.menu" )
 	AddMenu( "RankedTiersMenu", "resource/ui/menus/rankedtiers.menu", "#RANKED_PLAY_RANKS_BUTTON" )
 	AddMenu( "RankedSeasonsMenu", "resource/ui/menus/rankedseasons.menu", "#RANKED_PLAY_SEASONS_BUTTON" )
@@ -2009,13 +2009,13 @@ function CloseMenuWrapper( menu )
 			OnCloseRankedInviteMenu()
 			break
 
+		case "ModeVariantAttritionMenu":
 		case "ModeVariantCTFMenu":
 		case "ModeVariantMFDMenu":
 		case "ModeVariantLTSMenu":
 		case "ModeVariantPilotMenu":
 		case "ModeVariantFFAMenu":
 		case "ModeVariantTitanBrawlMenu":
-		case "ModeVariantAttritionMenu":
 			OnCloseModeVariantMenus()
 			break
 
