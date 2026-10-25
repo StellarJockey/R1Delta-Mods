@@ -1181,7 +1181,7 @@ Globalize( AwardStealthBonus )
 
 function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = null, awardAttrition = false )
 {
-	if ( !IsValid_ThisFrame( attacker ) || !attacker.IsPlayer() )
+	if ( !IsValid_ThisFrame( attacker ) )
 		return
 
 	// FIRST: Does this Titan have an NPC Pilot?
@@ -1197,6 +1197,7 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 				hadPilot = ( titan in file.pilotedtitans ) // fallback
 		}
 	}
+
 	if ( !hadPilot )
 		return
 
@@ -1213,6 +1214,10 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 	if ( awardAttrition && GameRules.GetGameMode() == ATTRITION && ( !IsValid( titan ) || !IsAlive( titan ) ) )
 		Attrition_AwardPilotTermination( attacker, titan, isCaptain )
 
+	// Everything below is player-only (XP, score events, kill sound)
+	if ( !attacker.IsPlayer() )
+		return
+		
 	if ( isCaptain )
 	{
 		local eventName = "TerminationVsCaptain"

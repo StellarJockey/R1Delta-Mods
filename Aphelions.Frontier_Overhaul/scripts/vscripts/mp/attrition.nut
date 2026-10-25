@@ -178,18 +178,19 @@ function Attrition_AwardPilotTermination( attacker, titan, isCaptain = false )
 	if ( IsValid( titan ) && titan.GetTeam() == attackerTeam )
 		return
 
-	// Use whatever GetAttritionScore returns for a grunt/pilot victim. Swap in the
-	// real constants from your constants file; set the captain value if it differs.
-	local scoreVal = ATTRITION_SCORE_GRUNT
-	// if ( isCaptain )
-	//	scoreVal = ATTRITION_SCORE_GRUNT
+	local scoreVal = ATTRITION_SCORE_PILOT
 
 	if ( attacker.IsPlayer() )
 	{
 		ShowPlayerAttritionScoreEvent( attacker, scoreVal )
 		attacker.SetAssaultScore( attacker.GetAssaultScore() + scoreVal )
 	}
-
+	else if ( attacker.IsNPC() )
+	{
+		local bossPlayer = attacker.GetBossPlayer()
+		if ( IsValid( bossPlayer ) )
+			ShowPlayerAttritionScoreEvent( bossPlayer, scoreVal )
+	}
 	GameScore.AddTeamScore( attackerTeam, scoreVal )
 }
 Globalize( Attrition_AwardPilotTermination )
