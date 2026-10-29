@@ -51,11 +51,6 @@ function OnWeaponPrimaryAttack( attackParams )
 {
 	local player = self.GetWeaponOwner()
 
-	if( self.HasMod("silencer") )
-		self.EmitWeaponSound( "Anti_Titan_Rifle.SingleSuppressed" )
-	else
-		self.EmitWeaponSound( "Anti_Titan_Rifle.Single" )
-
 	self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
 
 	return FireWeaponPlayerAndNPC( attackParams, true )
@@ -63,7 +58,6 @@ function OnWeaponPrimaryAttack( attackParams )
 
 function OnWeaponNpcPrimaryAttack( attackParams )
 {
-	self.EmitWeaponSound( "Weapon_XO16.Single" )
 	self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
 
 	return FireWeaponPlayerAndNPC( attackParams, false )

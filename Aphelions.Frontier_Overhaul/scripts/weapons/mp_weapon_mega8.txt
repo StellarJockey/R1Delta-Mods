@@ -49,7 +49,8 @@
 	"sound_dryfire"									"rifle_dryfire"
 	"sound_trigger_pull"							"rifle_dryfire"
 	"sound_trigger_release"							"rifle_dryfire"
-	"fire_sound_1_npc"								"Anti_Titan_Rifle.Single"
+	"fire_sound_1"									"player_B3_Elite_fire"
+	"fire_sound_1_npc"								"Weapon_XO16.Single"
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
@@ -346,13 +347,14 @@
 			"spread_stand_hip_sprint"						"0.0"
 			"spread_crouch_hip"								"0.0"
 			"spread_air_hip"	   							"0.0"
+			
 			"spread_stand_ads"  							"0.0"
 			"spread_crouch_ads"  							"0.0"
 			"spread_air_ads"   								"0.0"
 		}
 		"burn_mod_wingman_elite"
 		{
-			"damage_far_value"								"200"
+			"damage_near_value"								"200"
 			"damage_far_value"								"160"
 
 			"is_burn_mod"		"1"
