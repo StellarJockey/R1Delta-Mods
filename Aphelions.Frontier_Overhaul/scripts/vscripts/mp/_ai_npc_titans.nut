@@ -1091,9 +1091,9 @@ function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 		local handicap = 0.0
 		local lethality = Riff_AILethality()
 		if ( lethality == eAILethality.High )
-			handicap = 25.0
+			handicap = 15.0
 		else if ( lethality == eAILethality.VeryHigh )
-			handicap = 50.0
+			handicap = 30.0
 
 		local spawnDelay = RandomFloat( 20.0, 90.0 )
 		if ( team == playerTeam )

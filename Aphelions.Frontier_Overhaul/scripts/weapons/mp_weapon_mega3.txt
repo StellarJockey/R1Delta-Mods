@@ -59,8 +59,8 @@ WeaponData
 	"damage_far_distance" 							"3000"
 	"damage_near_value"   							"80"
 	"damage_far_value"								"75"
-	"damage_near_value_titanarmor"					"145" // "96"
-	"damage_far_value_titanarmor" 					"115" // "90"
+	"damage_near_value_titanarmor"					"150" // "96"
+	"damage_far_value_titanarmor" 					"125" // "90"
 
 	// Damage - When Used by NPCs
 	"npc_damage_near_distance"						"1800"
@@ -80,8 +80,8 @@ WeaponData
 
 	// Behavior
 	"fire_rate"										"15"
-	// "fire_rate_max"									"25"
-	// "fire_rate_max_time_speedup"					"2.0"
+	// "fire_rate_max"									"15"
+	// "fire_rate_max_time_speedup"						"2.0"
 	// "fire_rate_max_time_cooldown"					"2.0"
 	"zoom_time_in"									"0.2"
 	"zoom_time_out"   								"0.2"
@@ -286,7 +286,7 @@ WeaponData
 
 		"extended_ammo"
 		{
-			"ammo_clip_size"   								"120"
+			"ammo_clip_size"   								"140"
 		}
 
 		"accelerator" 

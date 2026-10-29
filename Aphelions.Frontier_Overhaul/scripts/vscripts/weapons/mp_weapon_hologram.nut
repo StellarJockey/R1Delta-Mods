@@ -83,6 +83,7 @@ function CreateHologram( player )
 	hologram.s.isPilot <- true
 	SetNPCAsPilot( hologram, true )
 	hologram.kv.allowshoot = 0
+	hologram.SetAllowMelee( false )
 
 	GiveMinionWeapon( hologram, weaponName )
 	if ( atWeaponName )
@@ -96,11 +97,12 @@ function CreateHologram( player )
 	hologram.SetMaxHealth( 32000 )
 	hologram.SetHealth( 32000 )
 	hologram.SetInvulnerable()
-	hologram.NotSolid()
 	hologram.kv.squadname = "hologram_" + player.GetEntIndex()
 
 	DispatchSpawn( hologram )
 
+	hologram.NotSolid()
+	hologram.kv.CollisionGroup = TRACE_COLLISION_GROUP_NONE
 	hologram.SetAISettings( "fireteam_pilot" )
 	hologram.SetMoveSpeedScale( 1.20 )
 	hologram.PreferSprint( true )

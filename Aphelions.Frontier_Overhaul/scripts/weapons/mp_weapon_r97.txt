@@ -74,8 +74,10 @@ WeaponData
 	"rest_time_between_bursts_max"					"1.0"
 	"npc_damage_near_distance"						"860" // "900"
 	"npc_damage_far_distance" 						"1150" // "1080"
-	"npc_damage_near_value"   						"30"
-	"npc_damage_far_value"							"20"
+	"npc_damage_near_value"   						"40"
+	"npc_damage_far_value"							"30"
+	"npc_damage_near_value_titanarmor"				"20"
+	"npc_damage_far_value_titanarmor" 				"10"
 
 	"critical_hit_damage_scale"						"2.5"
 	"critical_hit"									"1"

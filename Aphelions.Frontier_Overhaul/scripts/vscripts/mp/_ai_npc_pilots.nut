@@ -12,6 +12,7 @@ const NPC_TAC_STIM_DURATION   = 5.0
 const NPC_TAC_STIM_SPEED      = 1.35   // multiplier on the pilot's normal move speed scale
 const NPC_TAC_STIM_TICK       = 1.25   // health top-up interval
 const NPC_TAC_COVER_LIFETIME  = 10.0
+const NPC_TAC_COVER_CHANCE    = 0.50   // roll each time the pilot is "spotted"
 const NPC_TAC_COVER_RADIUS    = 160
 const NPC_TAC_COVER_HEALTH    = 32000
 const NPC_TAC_HOLO_DURATION   = 8.0
@@ -93,6 +94,7 @@ function ChoosePilotModelForWeapon( team, weapon )
         case "mp_weapon_shotgun":
         case "mp_weapon_r97":
         case "mp_weapon_smart_pistol":
+		case "mp_weapon_mega9":
             modelIndex = 1 // cq
             break
 
@@ -132,6 +134,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 		"mp_weapon_lmg",
 		"mp_weapon_sniper",
 		"mp_weapon_smart_pistol",
+		"mp_weapon_mega9",
 	]
 
     if ( weapon == null )
@@ -199,6 +202,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         "mp_weapon_sniper",
         "mp_weapon_smart_pistol",
         "mp_weapon_mega8",
+		"mp_weapon_mega9",
     ]
 
     local chosenWeapon = Random( pilotWeapons )
@@ -399,6 +403,11 @@ function UseNPCPilotTacAbility( npc )
 	}
 	else if ( "coverPilot" in npc.s )
 	{
+		if ( RandomFloat( 0.0, 1.0 ) > NPC_TAC_COVER_CHANCE )
+		{
+			npc.s.tacNextUseTime = Time() + 2.0   // failed the roll, try again soon
+			return
+		}
 		duration = NPC_TAC_COVER_LIFETIME
 		thread NPCPilotDeployCover( npc, duration )
 	}

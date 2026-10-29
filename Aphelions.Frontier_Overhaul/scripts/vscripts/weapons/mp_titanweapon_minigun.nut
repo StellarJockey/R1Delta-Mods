@@ -78,7 +78,7 @@ function ServerMinigunLogic( weapon, owner )
     local currentTime = Time()
     local hasExtAmmo = weapon.HasMod( "extended_ammo" )
     local maxAmmo = self.GetWeaponModSetting( "ammo_clip_size" )
-    local reloadTime = hasExtAmmo ? 5.0 : 4.0
+    local reloadTime = hasExtAmmo ? 5.6 : 4.0
 
     // Overheat logic
     if ( currentTime < weapon.s.overheatEndTime )

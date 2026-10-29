@@ -1116,51 +1116,53 @@ function AwardStealthBonus( entity, damageInfo )
 		return
 
 	local baseXP
-	if ( entity.IsPlayer() || IsReskinnedPilot( entity ) || IsGhostPilot( entity ) )
+	if ( entity.IsPlayer() || IsReskinnedPilot( entity ) || IsGhostPilot( entity ) || IsGruntCaptain( entity) )
 		baseXP = 30.0
 	else
 		baseXP = 20.0
 
 	local scoreEventName = "StealthBonus"
 	local matches = false
-
-	if ( entity.IsPlayer() || IsReskinnedPilot( entity ) || IsGhostPilot( entity ) )
-		matches = true
+	local multiplier = 1.0
 
 	if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_GRUNT ) )
 	{
 		// human AI infantry (not pilots)
 		if ( entity.GetAIClass() == "human" && !IsReskinnedPilot( entity ) && !IsGhostPilot( entity ) )
+		{
 			matches = true
+			multiplier *= 2.5
+		}
 	}
-	else if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_SPECTRE ) )
+	if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_SPECTRE ) )
 	{
 		if ( entity.GetClassname() == "npc_spectre" )
+		{
 			matches = true
+			multiplier *= 2.5
+		}
 	}
-
-	else if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_PILOT ) )
+	if ( PlayerHasServerFlag( attacker, SFLAG_HUNTER_PILOT ) )
 	{
 		if ( IsReskinnedPilot( entity ) || IsGhostPilot( entity ) || entity.IsPlayer() )
+		{
 			matches = true
+			multiplier *= 2.5
+		}
 	}
-	else if ( PlayerHasServerFlag( attacker, SFLAG_DOUBLE_XP ) )
+	if ( PlayerHasServerFlag( attacker, SFLAG_DOUBLE_XP ) )
 	{
-		// Special-case: double-XP server flag
 		matches = true
+		multiplier *= 2.0
 	}
 
 	if ( matches )
 	{
-		if ( PlayerHasServerFlag( attacker, SFLAG_DOUBLE_XP ) )
-			baseXP *= 2.0
-		else
-			baseXP *= 2.5
-
+		baseXP *= multiplier
 		if ( "StealthBonus_Burncard" in level.scoreEventsByName )
 			scoreEventName = "StealthBonus_Burncard"
 	}
-
+	
 	AddXP( baseXP, attacker )
 
 	if ( scoreEventName in level.scoreEventsByName )
