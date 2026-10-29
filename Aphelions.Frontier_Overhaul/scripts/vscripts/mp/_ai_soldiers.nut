@@ -850,6 +850,7 @@ function GetGruntModel( team, captain = false )
 	"mp_weapon_rspn101",
 	"mp_weapon_car",
 	"mp_weapon_hemlok",
+	"mp_weapon_mega9",
 ]
 
 function GetGruntWeapon( team ) 
@@ -1927,6 +1928,7 @@ function GiveMinionWeapon( npc, weapon )
 		case "mp_weapon_semipistol":
 		case "mp_weapon_smart_pistol":
 		case "mp_weapon_wingman":
+		case "mp_weapon_mega8":
 			sightMod = ""
 			break
 
@@ -1955,6 +1957,7 @@ function ApplyIronsights( npc, weapon )
 		case "mp_weapon_semipistol":
 		case "mp_weapon_smart_pistol":
 		case "mp_weapon_wingman":
+		case "mp_weapon_mega8":
 			return
 
 		case "mp_weapon_dmr":

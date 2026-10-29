@@ -22,6 +22,7 @@ NPC Features:
 
 Weapon Features:
 -
+* New Pilot Primary: M-18 Volt SMG
 * New Pilot Sidearm: Wingman Elite
 * New Pilot Ordnance: Throwing Knife
 * New Pilot Tacticals: Deployable Cover and Hologram

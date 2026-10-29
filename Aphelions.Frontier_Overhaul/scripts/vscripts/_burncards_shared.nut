@@ -365,6 +365,7 @@ function CreateAllBurnCards()
 	const minigun_desc = "Replace Titan Weapon with an AG-8 Thunderbolt that fires instantly with no wind up."
 	const chargecannon_desc = "Charge Cannon reaches its maximum charge faster."
 	const wingman_e_desc = "Replace Sidearm Weapon with a more lethal Wingman Elite."
+	const volt_desc = "Replace Primary Weapon with a Volt SMG that fires arc rounds."
 
 	const twinb_flavor = "\"Technically, it's only illegal if it's not registered.\""
 	const valk_flavor = "\"There are many like it, but this one is mine.\""
@@ -372,6 +373,7 @@ function CreateAllBurnCards()
 	const minigun_flavor = "\"A threat in that direction? Solid copy. Removing that direction.\""
 	const chargecannon_flavor = "\"To avoid long-term eye damage, do not look directly into the beam.\""
 	const wingman_e_flavor = "\"One good act of vengeance deserves another.\""
+	const volt_flavor = "\"Beware of a static shock when handling.\""
 
 	const Wonyeon = "-Wonyeon Internal Memo"
 	const danforth = "-Danforth, Arms Dealer"
@@ -386,6 +388,7 @@ function CreateAllBurnCards()
 	//CreateBurnCardWeapon( "bc_thunderbolt_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_thunderbolt", 		BC_NEXTTITANDROP, 	"#BC_TITAN_MINIGUN_M2"			, "#BC_TITAN_MINIGUN_M2_DESC"		, "#BC_TITAN_MINIGUN_M2_FLAVOR"			, "#BC_FLAVOR_PILOT",		"mp_weapon_mega3",			"burn_mod_thunderbolt", 		"TITAN_PRIMARY"		)
 	//CreateBurnCardWeapon( "bc_titan_charge_cannon_m2",			BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_TACTICAL				, "burncards/amped_charge_cannon", 		BC_NEXTTITANDROP, 	"#BC_TITAN_CHARGE_CANNON_M2"	, "#BC_TITAN_CHARGE_CANNON_M2_DESC"	, chargecannon_flavor				, warninglabel,				"mp_weapon_mega4",			"burn_mod_titan_charge_cannon",	"TITAN_OFFHAND1"	)
 	CreateBurnCardWeapon( "bc_wingman_elite_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_PISTOL					, "burncards/amped_wingman_elite", 		BC_NEXTDEATH, 		"Amped Wingman Elite"			, wingman_e_desc					, wingman_e_flavor						, dowd,						"mp_weapon_mega8", 			"burn_mod_wingman_elite",       "SIDEARM"		)
+	CreateBurnCardWeapon( "bc_volt_m2",							BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SMG					, "burncards/amped_volt", 				BC_NEXTDEATH, 		"Amped Volt"					, volt_desc							, volt_flavor							, warninglabel,				"mp_weapon_mega9", 			"burn_mod_volt",      			"PRIMARY"		)
 
 	if ( IsServer() )
 	{

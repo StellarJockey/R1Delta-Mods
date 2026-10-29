@@ -319,7 +319,7 @@ damageSourceStrings[ eDamageSourceId.mp_weapon_mega3 ] 					<- "#WPN_TITAN_MINIG
 damageSourceStrings[ eDamageSourceId.mp_weapon_mega4 ] 					<- "#WPN_TITAN_CHARGE_CANNON"
 damageSourceStrings[ eDamageSourceId.mp_weapon_mega5 ] 					<- "#WPN_THROWING_KNIFE"
 damageSourceStrings[ eDamageSourceId.mp_weapon_mega8 ] 					<- "Wingman Elite"
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega9 ] 					<- "R1-S Burrell SMG"
+damageSourceStrings[ eDamageSourceId.mp_weapon_mega9 ] 					<- "M-18 Volt SMG"
 
 //When adding new mods, they need to be added below and to persistent_player_data_version_N.pdef in r1/cfg/server.
 //Then when updating that file, save a new one and increment N.

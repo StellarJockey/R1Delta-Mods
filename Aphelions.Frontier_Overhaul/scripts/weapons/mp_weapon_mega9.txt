@@ -1,35 +1,35 @@
 WeaponData
 {
 	// General
-	"printname"									"R1-S Burrell SMG"
-	"shortprintname"							"Burrell SMG"
-	"description"								"Variable SMG"
-	"longdesc"									"The R1-S is an SMG variant of the R-101 platform that fires 6.19mm rounds at 900 RPM. It has been recommissioned by the IMC, and is now used by peacekeeping forces in urban areas."
+	"printname"									"M-18 Volt SMG"
+	"shortprintname"							"Volt SMG"
+	"description"								"Tactical submachine gun"
+	"longdesc"									"The M-18 Volt is a submachine gun made by Siwhan Industries that fires 5.8x42mm rounds at 660 RPM, commonly used by military police. It is renowned for its mid-range accuracy and fast handling speed."
 
 	"weaponClass"								"human"
 	"body_type"									"close_quarters"
 	"fire_mode"									"auto"
-	"server_vscript"							"weapons/mp_weapon_r1_smg"
-	"client_vscript"							"weapons/mp_weapon_r1_smg"
+	"server_vscript"							"weapons/mp_weapon_volt"
+	"client_vscript"							"weapons/mp_weapon_volt"
 	"pickup_hold_prompt"						"Hold [USE] [WEAPONNAME]"
 	"pickup_press_prompt"						"[USE] [WEAPONNAME]"
 	"minimap_reveal_distance"					"32000"
 
 	// Menu Stats
-	"stat_damage" 								"38"
-	"stat_range"  								"26"
-	"stat_accuracy"   							"45"
-	"stat_rof"									"75"
+	"stat_damage" 								"32"
+	"stat_range"  								"25"
+	"stat_accuracy"   							"60"
+	"stat_rof"		        					"75"
 
 	// Models
-	"viewmodel"									"models/weapons/rspn101_carbine/ptpov_rspn101_carbine.mdl"
-	"playermodel"								"models/weapons/rspn101_carbine/w_rspn101_carbine.mdl"
+	"viewmodel"									"models/weapons/hemlok_smg/ptpov_hemlok_smg.mdl"
+	"playermodel"								"models/weapons/hemlok_smg/w_hemlok_smg.mdl"
 
 	"anim_prefix"									"smg2"
 
 	// Effects
-	"tracer_effect"   								"weapon_tracers"
-	"tracer_effect_first_person"   					"weapon_tracers"
+	//"tracer_effect"   								"weapon_tracers"
+	//"tracer_effect_first_person"   					"weapon_tracers"
 	"impact_effect_table" 							"inc_bullet"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_rifle_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rifle"
@@ -40,7 +40,7 @@ WeaponData
 	"fx_shell_eject_view"							"wpn_shelleject_rifle_assault_FP"
 	"fx_shell_eject_world"							"wpn_shelleject_rifle_assault"
 	"fx_shell_eject_attach"							"shell"
-
+	
 	"fx_muzzle_flash_view"							"wpn_muzzleflash_smg_FP"
 	"fx_muzzle_flash_world"							"wpn_muzzleflash_smg"
 	"fx_muzzle_flash_attach"						"muzzle_flash"
@@ -51,8 +51,8 @@ WeaponData
 	"sound_trigger_release"							"assault_rifle_dryfire"
 	"fire_sound_1_player_1p"						"Weapon_bulletCasings.Bounce"
 	"fire_sound_1_player_3p"						"Weapon_bulletCasings.Bounce"
-	"fire_sound_2"									"Weapon_SmartPistol.Fire"
-	//	"fire_sound_2"									"Weapon_R1SMG1.SecondShotBurst"
+	"fire_sound_2"									"Weapon_Volt.SecondShot1"
+	"fire_sound_2_npc"								"Weapon_Volt.SecondShot1"
 	"looping_sounds"								"1"
 
 	// Network
@@ -60,52 +60,51 @@ WeaponData
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
-	"damage_near_distance"							"900"
+	"damage_near_distance"							"800"
 	"damage_far_distance" 							"1200"
 	"damage_near_value"   							"50"
-	"damage_far_value"								"40"
-	"damage_near_value_titanarmor"					"25"
-	"damage_far_value_titanarmor" 					"25"
+	"damage_far_value"								"35"
+	"damage_near_value_titanarmor"					"20"
+	"damage_far_value_titanarmor" 					"10"
 	"explosion_damage"								"0"
 	"damage_rodeo" 									"100"
+
+	// Damage - When Used by NPCs
+	"rest_time_between_bursts_min"					"0.2"
+	"rest_time_between_bursts_max"					"1.0"
+	"npc_damage_near_distance"						"800"
+	"npc_damage_far_distance" 						"1200"
+	"npc_damage_near_value"   						"50"
+	"npc_damage_far_value"							"35"
+	"npc_damage_near_value_titanarmor"				"20"
+	"npc_damage_far_value_titanarmor" 				"10"
 
 	"damage_headshot_scale"							"1.4"
 	"damage_torso_scale"							"1.0"
 	"damage_arm_scale"								"1.0"
 	"damage_leg_scale"								"1.0"
 
-	// Damage - When Used by NPCs
-	"rest_time_between_bursts_min"					"0.2"
-	"rest_time_between_bursts_max"					"1.0"
-	"npc_damage_near_distance"						"900"
-	"npc_damage_far_distance" 						"1200"
-	"npc_damage_near_value"   						"50"
-	"npc_damage_far_value"							"40"
-	"npc_damage_near_value_titanarmor"				"25"
-	"npc_damage_far_value_titanarmor" 				"25"
-
-	"explosionradius" 								"0"
 	"critical_hit_damage_scale"						"2.0"
 	"critical_hit"									"1"
 
 	// Ammo
-	"ammo_stockpile_max"							"360"
-	"ammo_clip_size"   								"24"
-	"ammo_default_total"							"360"
+	"ammo_stockpile_max"							"495"
+	"ammo_clip_size"   								"33"
+	"ammo_default_total"							"495"
 
 	// Behavior
 	"fire_rate"   									"15.0"
 
 	"zoom_time_in"									"0.3"
 	"zoom_time_out"   								"0.28"
-	"zoom_fov"										"50"
-	"reload_time" 									"2.2"
-	"reload_time_late1"								"1.65"
-	"reloadempty_time"								"2.92"
-	"reloadempty_time_late1"						"2.38"
-	"reloadempty_time_late2"						"1.46"
+	"zoom_fov"										"45"
+	"reload_time" 									"1.8"
+	"reload_time_late1"								"0.82"
+	"reloadempty_time"								"2.35"
+	"reloadempty_time_late1"						"1.46"
+	"reloadempty_time_late2"						"0.79"
 	"holster_time"									"0.5"
-	"deploy_time" 									"1"
+	"deploy_time" 									"1.0"
 	"lower_time"  									"0.25"
 	"raise_time"  									"0.3"
 	"vortex_refire_behavior"  						"bullet"
@@ -139,25 +138,26 @@ WeaponData
 	"spread_kick_on_fire_crouch_hip"  				"0.5"
 	"spread_kick_on_fire_air_hip" 					"0.5"
 
-	"spread_kick_on_fire_stand_ads"   				".075"
-	"spread_kick_on_fire_crouch_ads"  				".05"
-	"spread_kick_on_fire_air_ads" 					".15"
+	"spread_kick_on_fire_stand_ads"   				"0.25"
+	"spread_kick_on_fire_crouch_ads"  				"0.25"
+	"spread_kick_on_fire_air_ads" 					"0.25"
 
-	"spread_max_kick_stand_hip"   					"8.0"
-	"spread_max_kick_crouch_hip"  					"5.0"
-	"spread_max_kick_air_hip" 						"8.0"
+	"spread_max_kick_stand_hip"   					"2.0"
+	"spread_max_kick_crouch_hip"  					"2.0"
+	"spread_max_kick_air_hip" 						"3.0"
 
-	"spread_max_kick_stand_ads"   					"0.4"
-	"spread_max_kick_crouch_ads"  					"0.4"
-	"spread_max_kick_air_ads" 						"0.4"
+	"spread_decay_rate"   							"30.0"
+	"spread_decay_delay"  							"0.15"
 
-	"spread_decay_delay"  							"0.1"
-	"spread_decay_rate"   							"4"
+
+	"sprintcycle_time"								"0.55"
+	"deployfirst_time"								"1.0"
+	"is_anti_titan"  							    "0"
 
 	"spread_npc"  									"2"
 
 	// View Kick
-	"viewkick_spring" 								"rspn101"
+	"viewkick_spring" 								"car"
 
 	"viewkick_pitch_base" 							"-0.35"
 	"viewkick_pitch_random"   						"0.2"
@@ -319,50 +319,34 @@ WeaponData
 	"red_crosshair_range"							"1200"
 
 	// Bodygroups:
-	"bodygroup1_name"	"r101_sight_front_on"
+	"bodygroup1_name"	"hemlok_smg_sight_on"
 	"bodygroup1_set"	"1"
-	"bodygroup2_name"	"r101_sight_rear_on"
-	"bodygroup2_set"	"1"
-	"bodygroup3_name"	"r101_sight_front_off"
-	"bodygroup3_set"	"0"
-	"bodygroup4_name"	"r101_sight_rear_off"
-	"bodygroup4_set"	"0"
-	"bodygroup5_name"	"sight_aog04"
-	"bodygroup5_set"	"0"
-	"bodygroup6_name"	"sight_hcog"
-	"bodygroup6_set"	"0"
-	"bodygroup7_name"	"suppressor_cyl_med"
-	"bodygroup7_set"	"0"
-	"bodygroup8_name"	"suppressor_sq_med"
-	"bodygroup8_set"	"0"
-	"bodygroup9_name"	"sight_holo"
-	"bodygroup9_set"	"0"
 
-	"clip_bodygroup"						"r101_magazine"
+	"bodygroup2_name"	"sight_aog04"
+	"bodygroup2_set"	"0"
+
+	"bodygroup3_name"	"sight_hcog"
+	"bodygroup3_set"	"0"
+
+	"bodygroup4_name"	"sight_holo"
+	"bodygroup4_set"	"0"
+
+	"bodygroup5_name"	"suppressor_cyl_med"
+	"bodygroup5_set"	"0"
+
+	"bodygroup6_name"	"suppressor_sq_med"
+	"bodygroup6_set"	"0"
+	"anim_alt_idleAttack"	"0"
+
+	"clip_bodygroup"						"hemlok_smg_magazine"
     "clip_bodygroup_index_shown"			"0"
     "clip_bodygroup_index_hidden"			"1"
+	
     "clip_bodygroup_show_for_milestone_0"	"1"
     "clip_bodygroup_show_for_milestone_1"	"0"
     "clip_bodygroup_show_for_milestone_2"	"1"
     "clip_bodygroup_show_for_milestone_3"	"1"
-
-	TextureData
-	{
-		"crosshair"
-		{
-			"file"									"vgui/hud/crosshair_arrow_up_2"
-			"x"										"0"
-			"y"										"0"
-			"width"									"64"
-			"height"									"64"
-		}
-		"crosshair_zoom"
-		{
-		}
-		"autoaim"
-		{
-		}
-	}
+	
 
 	Mods
 	{
@@ -371,27 +355,12 @@ WeaponData
 			"reload_time"								"*0.7"
 			"reload_time_late1"							"*0.7"
 			"reloadempty_time"							"*0.7"
-			"reloadempty_time_late1"						"*0.7"
+			"reloadempty_time_late1"					"*0.7"
 		}
 		pas_run_and_gun
 		{
 			"primary_fire_does_not_block_sprint"			"1"
 			"crosshair_force_sprint_fade_disabled"			"1"
-		}
-		burst
-		{
-			//"description" 					"Burstfire Variant"
-
-			"fire_mode"   					"semi-auto"
-			"burst_fire_count"				"3"
-			"burst_fire_delay"				"0.25"
-			"fire_rate"   					"18"
-			"viewkick_pitch_base"			"* 1.7"
-			"viewkick_pitch_random"			"* 1.7"
-			"fire_sound_2"					""
-			"burst_fire_sound_start"		"Weapon_R1SMG1.FirstShotBurst"
-			"burst_fire_sound_middle"		"Weapon_R1SMG1.SecondShotBurst"
-			"burst_fire_sound_end"			"Weapon_R1SMG1.LastShotBurst"
 		}
 		"iron_sights"
 		{
@@ -399,52 +368,128 @@ WeaponData
 		}
 		"hcog"
 		{
+			"bodygroup1_set"		"0"
+			"bodygroup3_set"		"1"
 			"anim_alt_idleAttack"	"1"
-			"bodygroup1_set"	"0"
-			"bodygroup2_set"	"0"
-			"bodygroup3_set"	"0"
-			"bodygroup4_set"	"1"
-			"bodygroup6_set"	"1"
-			"zoom_fov"			"45"
+			"zoom_fov"				"45"
 		}
 		"holosight"
 		{
+			"bodygroup1_set"		"0"
+			"bodygroup4_set"		"1"
 			"anim_alt_idleAttack"	"2"
-			"bodygroup1_set"	"0"
-			"bodygroup2_set"	"0"
-			"bodygroup3_set"	"1"
-			"bodygroup4_set"	"1"
-			"bodygroup9_set"	"1"
-			"zoom_fov"			"40"
+			"zoom_fov"				"40"
+		}
+		extended_ammo
+		{
+			"ammo_stockpile_max"							"600"
+			"ammo_clip_size"   								"40"
+			"ammo_default_total"							"600"
 		}
 		"silencer"
 		{
-			"bodygroup7_set"					"1"
+			"bodygroup5_set"					"1"
 			
-			"damage_near_value"   				"49"
-			"damage_far_value"					"34"
+			"damage_near_value"   				"40"
+			"damage_far_value"					"25"
 			"damage_near_distance"				"*0.9"
 			"damage_far_distance"				"*0.9"
-
-			"npc_damage_near_value"   				"49"
-			"npc_damage_far_value"					"34"
+					
+			"npc_damage_near_value"   				"40"
+			"npc_damage_far_value"					"25"
 			"npc_damage_near_distance"				"*0.9"
 			"npc_damage_far_distance"				"*0.9"
 
 			//"rumble"  						"4"
-			"tracer_effect"   					"weapon_tracers_pistol"
-			"tracer_effect_first_person"   		"weapon_tracers_pistol"
 			"minimap_reveal_distance"			"1"
-			"fire_sound_2"						""
+			
+			"fire_sound_2"						"Weapon_CBR101.SecondShotSuppressed"
+			"fire_sound_2_npc"					"Weapon_CBR101.SecondShotSuppressed"
+
 			"fx_muzzle_flash_view"				"wpn_muzzleflash_pistol_sup_FP"
 			"fx_muzzle_flash_world"				"wpn_muzzleflash_pistol_sup"
-			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_sq"
+			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_cyl"
 		}
-		extended_ammo
+		"laser_sight"
 		{
-			"ammo_stockpile_max"				"450"
-			"ammo_clip_size"   					"30"
-			"ammo_default_total"				"450"
+			"spread_stand_hip"								"*0.5"
+			"spread_stand_hip_run"							"*0.5"
+			"spread_stand_hip_sprint"                       "*0.5"
+			"spread_crouch_hip"   							"*0.5"
+			"spread_air_hip"  								"*0.5"
+
+			"spread_stand_ads"								"*0.5"
+			"spread_crouch_ads"   							"*0.5"
+			"spread_air_ads"  								"*0.5"
+		}
+		"burn_mod_volt"
+		{
+			"crosshair_index"								"1"
+			"is_burn_mod"									"1"
+
+			"bodygroup1_set"		"0"
+			"bodygroup4_set"		"1"
+			"anim_alt_idleAttack"	"2"
+			"zoom_fov"				"40"
+
+			"impact_effect_table"		 					"titan_bullet_elec"
+
+			"damage_near_value"   							"70"
+			"damage_far_value"								"40"
+		}
+	}
+	CrosshairData
+	{
+		BaseWeapon
+		{
+			DefaultElementBehavior
+			{
+				"rotation"					"90"
+				"size_x"					"44"
+				"size_y"					"44"
+				"scale_ads"					"0.5"
+				"fade_while_sprinting"		"1"
+				"fade_while_reloading"		"1"
+				"draw_while_ads"			"0"
+				"draw_while_hip"			"1"
+				"fade_while_zooming"		"1"
+			}
+			Element0
+			{
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus"
+			}
+			Element1
+			{
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus_shadow"
+			}
+		}
+		Burn_Mod //Match BaseWeapon + default color change.
+		{
+			DefaultElementBehavior
+			{
+				"rotation"					"90"
+				"size_x"					"44"
+				"size_y"					"44"
+				"scale_ads"					"0.5"
+				"fade_while_sprinting"		"1"
+				"fade_while_reloading"		"1"
+				"draw_while_ads"			"0"
+				"draw_while_hip"			"1"
+				"fade_while_zooming"		"1"
+				"default_color"				"246 134 40 255"
+			}
+			Element0
+			{
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus"
+			}
+			Element1
+			{
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus_shadow"
+			}
 		}
 	}
 }

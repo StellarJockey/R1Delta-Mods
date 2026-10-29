@@ -171,7 +171,7 @@ function InitPersistence()
 		mp_weapon_yh803_bullet = 48 // turret
 		mp_weapon_mega8 = 49 // Wingman Elite
 
-		mp_weapon_mega9 = 50 // Unfinished R101 SMG
+		mp_weapon_mega9 = 50 // Volt SMG
     }
 
     AddPersistenceEnum("loadoutItems", loadoutItems)
@@ -244,6 +244,8 @@ function InitPersistence()
 		gunslinger = 64
 		gunship_dmg = 65
 		burn_mod_wingman_elite = 66
+		laser_sight = 67
+		burn_mod_volt = 68
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -670,11 +672,12 @@ function InitPersistence()
 		mp_weapon_mega8_burn_mod_wingman_elite = 142,
 
 		mp_weapon_mega9_extended_ammo = 143,
-		mp_weapon_mega9_burst = 144,
+		mp_weapon_mega9_laser_sight = 144,
 		mp_weapon_mega9_silencer = 145,
 		mp_weapon_mega9_iron_sights = 146,
 		mp_weapon_mega9_hcog = 147,
 		mp_weapon_mega9_holosight = 148,
+		mp_weapon_mega9_burn_mod_volt = 149,
 		
     }
 
@@ -848,6 +851,7 @@ function InitPersistence()
 	    bc_thunderbolt_m2 = 78,		
 	    bc_titan_charge_cannon_m2 = 79,
 		bc_wingman_elite_m2 = 80,
+		bc_volt_m2 = 81,
     }
 	::struct_activeBurnCardData <- {
 		cardRef = null,
@@ -1546,6 +1550,13 @@ function InitPersistence()
 	    ch_throwing_knife_kills = 234,
 	    ch_throwing_knife_kills = 235,
 	    ch_throwing_knife_kills = 236,
+
+		ch_volt_kills = 237,
+	    ch_volt_pilot_kills = 238,
+	    ch_volt_spectre_kills = 239,
+	    ch_volt_grunt_kills = 240,
+	    ch_volt_hours_used = 241,
+	    ch_volt_headshots = 242,
     }
 
     AddPersistenceEnum("challenge", challenge)
@@ -1805,6 +1816,12 @@ function InitPersistence()
 		ch_daily_wingman_elite_spectre_kills = 208,
 		ch_daily_wingman_elite_grunt_kills = 209,
 		ch_daily_wingman_elite_headshots = 210,
+
+		ch_daily_volt_kills = 211,
+		ch_daily_volt_pilot_kills = 212,
+		ch_daily_volt_spectre_kills = 213,
+		ch_daily_volt_grunt_kills = 214,
+		ch_daily_volt_headshots = 215,
     }
 
     AddPersistenceEnum("dailychallenge", dailychallenge)

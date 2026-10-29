@@ -2133,6 +2133,7 @@ enum eChallengeCategory
 	WEAPON_DMR,
 	WEAPON_SNIPER,
 	WEAPON_VALKYRIE,
+	WEAPON_VOLT,
 
 	PILOT_SECONDARY,	// Only used by challenges menu
 
@@ -2613,6 +2614,7 @@ const WEAPON_THUNDERBOLT_NAME = "mp_weapon_mega3"
 const WEAPON_CHARGE_CANNON_NAME = "mp_weapon_mega4"
 const WEAPON_THROWING_KNIFE_NAME = "mp_weapon_mega5"
 const WEAPON_WINGMAN_ELITE_NAME = "mp_weapon_mega8"
+const WEAPON_VOLT_NAME = "mp_weapon_mega9"
 
 enum eUIEvent
 {

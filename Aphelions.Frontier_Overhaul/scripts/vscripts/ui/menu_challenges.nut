@@ -324,6 +324,7 @@ function UpdateCategoryButtons( category )
 											eChallengeCategory.WEAPON_DMR,
 											eChallengeCategory.WEAPON_SNIPER,
 											eChallengeCategory.WEAPON_VALKYRIE,
+											eChallengeCategory.WEAPON_VOLT,
 										 ] )
 			break
 

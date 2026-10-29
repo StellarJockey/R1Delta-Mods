@@ -1,0 +1,27 @@
+// v1.01
+//This file is auto-generated from reVaMpT. Edit at your own risk.
+"VertexLitGeneric"
+{
+	"$vertexcolor" "1"
+	//"$vertexalpha" "1"
+
+	"$surfaceprop" "metal"
+	"$basetexture" "models\weapons\hemlok_smg\hemlok_smg_col"
+	"$bumpmap" "models\weapons\hemlok_smg\hemlok_smg_nml"
+	"$envmap" "env_cubemap"
+	"$reflectiontint" "models\weapons\hemlok_smg\hemlok_smg_spc"
+	"$reflectiontintshininess" "models\weapons\hemlok_smg\hemlok_smg_spc"
+	"$reflectiontintcolor" "1"
+	"$fresnelamount" "1"
+	"$fresnelintensity" "10"
+	"$fresnelcurvesharpness" "1"
+	"$envmapfresnel" "1"
+	"$envmapLambertian" "3"
+	"$envmaptint" "[1 1 1]"
+	"$EnvmapSharpnessBias" "0"
+	"$specularboost" "2"
+	"$speculartint" "[1 1 1]"
+	"$shininess" "models\weapons\hemlok_smg\hemlok_smg_exp"
+	"$selfillum" "1"
+	"$selfillummask" "models\weapons\hemlok_smg\hemlok_smg_ilm"
+}
