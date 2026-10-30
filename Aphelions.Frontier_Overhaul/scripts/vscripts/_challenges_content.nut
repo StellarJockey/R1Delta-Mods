@@ -2210,7 +2210,7 @@ function CreateChallenges()
 	//------------------
 
 /*
-	local weaponRef = "mp_weapon_mega5"
+	local weaponRef = "mp_weapon_throwing_knife"
 	SetChallengeCategory( eChallengeCategory.WEAPON_THROWING_KNIFE, "#WEAPON_THROWING_KNIFE", "", weaponRef )
 
 	AddChallenge( "ch_throwing_knife_kills", "#CHALLENGE_THROWING_KNIFE_KILLS", "#CHALLENGE_THROWING_KNIFE_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
@@ -3572,7 +3572,7 @@ function CreateChallenges()
 	//  Throwing Knife
 	//------------------
 
-/*	local weaponRef = "mp_weapon_mega5"
+/*	local weaponRef = "mp_weapon_throwing_knife"
 
 	AddChallenge( "ch_daily_throwing_knife_kills", "#DAILYCHALLENGE_WEAPON_GRENADE_KILLS", "#DAILYCHALLENGE_WEAPON_GRENADE_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
 		SetChallengeStat( "weapon_kill_stats", "total", weaponRef )

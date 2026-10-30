@@ -162,15 +162,14 @@ function InitPersistence()
 	    mp_titanweapon_shotgun = 39
 	    mp_weapon_mega1 = 40 // Valkyrie
 	    mp_weapon_mega2 = 41 // Twin-B
-	    mp_weapon_mega3 = 42 // Thunderbolt (minigun)
-	    mp_weapon_mega4 = 43 // Charge Cannon
+	    mp_titanweapon_minigun = 42 // Thunderbolt (minigun)
+	    mp_titanweapon_charge_cannon = 43 // Charge Cannon
 	    mp_titanweapon_shoulder_turret = 44
-		mp_weapon_mega5 = 45 // Throwing Knife
+		mp_weapon_throwing_knife = 45 // Throwing Knife
 		mp_weapon_mega6 = 46 // Deployable Cover
 		mp_weapon_mega7 = 47 // Hologram
 		mp_weapon_yh803_bullet = 48 // turret
 		mp_weapon_mega8 = 49 // Wingman Elite
-
 		mp_weapon_mega9 = 50 // Volt SMG
     }
 
@@ -643,8 +642,8 @@ function InitPersistence()
 		mp_weapon_mega2_silencer = 119,
 		mp_weapon_mega2_burn_mod_twinb = 120,
 
-		mp_weapon_mega3_burn_mod_thunderbolt = 121,
-		mp_weapon_mega4_burn_mod_charge_cannon = 122,
+		mp_titanweapon_minigun_burn_mod_thunderbolt = 121,
+		mp_titanweapon_charge_cannon_burn_mod_charge_cannon = 122,
 
 		mp_titanweapon_triple_threat_hydraulic_launcher = 123
 		mp_weapon_sniper_scope_10x = 124,
@@ -653,7 +652,7 @@ function InitPersistence()
 		mp_weapon_dmr_scope_12x = 127
 
 		mp_titanweapon_shotgun_shredder_rounds = 128,
-		mp_weapon_mega3_extended_ammo = 129,
+		mp_titanweapon_minigun_extended_ammo = 129,
 		
 		mp_weapon_shotgun_auto_converter = 130,
 		mp_weapon_mgl_extended_ammo = 131,

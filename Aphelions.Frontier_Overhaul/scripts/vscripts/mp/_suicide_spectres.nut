@@ -721,7 +721,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 	// CHECK FOR INSTANT-KILL / INSTANT-NEUTRALIZE DAMAGE TYPES FIRST
 	switch( damageSourceId )
 	{
-		// INSTANT EXPLOSION when stepped on, hit by a Titan weapon, or a laser weapon
+		// INSTANT EXPLOSION when stepped on, hit by a Titan weapon, heavy weapon, or a laser weapon
 		case eDamageSourceId.titan_step:
 		case eDamageSourceId.titan_melee:
 		case eDamageSourceId.mp_weapon_sniper:
@@ -731,21 +731,20 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.mp_titanweapon_rocket_launcher:
 		case eDamageSourceId.mp_titanweapon_sniper:
 		case eDamageSourceId.mp_titanweapon_triple_threat:
-		case eDamageSourceId.mp_weapon_mega3:
+		case eDamageSourceId.mp_titanweapon_minigun:
 		case eDamageSourceId.mp_titanweapon_salvo_rockets:
 		case eDamageSourceId.mp_titanweapon_dumbfire_rockets:
 		case eDamageSourceId.mp_titanweapon_shoulder_rockets:
 		case eDamageSourceId.mp_titanweapon_homing_rockets:
 		case eDamageSourceId.mp_weapon_rocket_launcher:
 		case eDamageSourceId.mp_weapon_defender:
-		case eDamageSourceId.mp_weapon_mega4:
+		case eDamageSourceId.mp_titanweapon_charge_cannon:
 		case eDamageSourceId.mp_weapon_smart_pistol:
 		case eDamageSourceId.mp_weapon_yh803:
 		case eDamageSourceId.mp_weapon_yh803_bullet:
 		case eDamageSourceId.mp_weapon_mega_turret:
 		case eDamageSourceId.mp_weapon_mega_turret_aa:
 		case eDamageSourceId.mp_titanweapon_shoulder_turret:
-		case eDamageSourceId.mp_weapon_mega8:
 			thread SpectreExplode( spectre, results )
 			return
 			
@@ -764,8 +763,9 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.bubble_shield:
 		case eDamageSourceId.switchback_trap:
 		case eDamageSourceId.titanEmpField:
-		case eDamageSourceId.mp_weapon_mega5:
+		case eDamageSourceId.mp_weapon_throwing_knife:
 		case eModSourceId.burn_mod_titan_xo16:
+		case eModSourceId.burn_mod_volt:
 			thread SpectreNeutralize( spectre, results )
 			return
 	}

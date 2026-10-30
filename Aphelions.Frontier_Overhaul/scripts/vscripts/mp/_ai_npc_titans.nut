@@ -420,7 +420,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         "mp_titanweapon_triple_threat",
         "mp_titanweapon_xo16",
         "mp_titanweapon_shotgun",
-		"mp_weapon_mega3",
+		"mp_titanweapon_minigun",
     ])
 
     local titan = CreateNPCTitanFromSettings( settings, team, spawnOrigin, spawnAngles )
@@ -456,7 +456,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         mp_titanweapon_rocket_launcher = [ null, null, "rapid_fire_missiles", "rapid_fire_missiles", "extended_ammo", "extended_ammo", "burn_mod_titan_rocket_launcher", ],
         mp_titanweapon_triple_threat   = [ null, null, "mine_field", "mine_field", "extended_ammo", "extended_ammo", "burn_mod_titan_triple_threat", ],
         mp_titanweapon_shotgun         = [ null, "extended_ammo", "shredder_rounds", "plasma_rifle", ],
-		mp_weapon_mega3                = [ null, "extended_ammo", ],
+		mp_titanweapon_minigun                = [ null, "extended_ammo", ],
     }
 
     local primaryWeapon = titanDataTable.primary
@@ -1091,9 +1091,9 @@ function Spawn_TrackedPilotWithTitan_Delayed( team, spawnPoint )
 		local handicap = 0.0
 		local lethality = Riff_AILethality()
 		if ( lethality == eAILethality.High )
-			handicap = 15.0
+			handicap = 20.0
 		else if ( lethality == eAILethality.VeryHigh )
-			handicap = 30.0
+			handicap = 40.0
 
 		local spawnDelay = RandomFloat( 20.0, 90.0 )
 		if ( team == playerTeam )

@@ -2610,9 +2610,9 @@ enum eChargeCannonState
 
 const WEAPON_VALKYRIE_NAME = "mp_weapon_mega1"
 const WEAPON_TWINB_NAME = "mp_weapon_mega2"
-const WEAPON_THUNDERBOLT_NAME = "mp_weapon_mega3"
-const WEAPON_CHARGE_CANNON_NAME = "mp_weapon_mega4"
-const WEAPON_THROWING_KNIFE_NAME = "mp_weapon_mega5"
+const WEAPON_THUNDERBOLT_NAME = "mp_titanweapon_minigun"
+const WEAPON_CHARGE_CANNON_NAME = "mp_titanweapon_charge_cannon"
+const WEAPON_THROWING_KNIFE_NAME = "mp_weapon_throwing_knife"
 const WEAPON_WINGMAN_ELITE_NAME = "mp_weapon_mega8"
 const WEAPON_VOLT_NAME = "mp_weapon_mega9"
 

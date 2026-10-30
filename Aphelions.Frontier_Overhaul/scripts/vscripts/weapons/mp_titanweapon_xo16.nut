@@ -39,12 +39,6 @@ function OnWeaponDeactivate( deactivateParams )
 	self.ClearLoopingWeaponSound()
 }
 
-
-function OnClientAnimEvent( name )
-{
-	GlobalClientEventHandler( name )
-}
-
 function OnWeaponPrimaryAttack( attackParams )
 {
 	self.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )

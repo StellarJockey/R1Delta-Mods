@@ -140,9 +140,9 @@ enum eDamageSourceId
 
 	mp_weapon_mega1
 	mp_weapon_mega2
-	mp_weapon_mega3
-	mp_weapon_mega4
-	mp_weapon_mega5
+	mp_titanweapon_minigun
+	mp_titanweapon_charge_cannon
+	mp_weapon_throwing_knife
 	mp_weapon_mega6
 	mp_weapon_mega7
 	mp_weapon_mega8
@@ -315,9 +315,9 @@ else
 
 damageSourceStrings[ eDamageSourceId.mp_weapon_mega1 ] 					<- "#WPN_VALKYRIE"
 damageSourceStrings[ eDamageSourceId.mp_weapon_mega2 ] 					<- "#WPN_TWINB_SHOTGUN"
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega3 ] 					<- "#WPN_TITAN_MINIGUN"
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega4 ] 					<- "#WPN_TITAN_CHARGE_CANNON"
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega5 ] 					<- "#WPN_THROWING_KNIFE"
+damageSourceStrings[ eDamageSourceId.mp_titanweapon_minigun ] 					<- "#WPN_TITAN_MINIGUN"
+damageSourceStrings[ eDamageSourceId.mp_titanweapon_charge_cannon ] 					<- "#WPN_TITAN_CHARGE_CANNON"
+damageSourceStrings[ eDamageSourceId.mp_weapon_throwing_knife ] 					<- "#WPN_THROWING_KNIFE"
 damageSourceStrings[ eDamageSourceId.mp_weapon_mega8 ] 					<- "Wingman Elite"
 damageSourceStrings[ eDamageSourceId.mp_weapon_mega9 ] 					<- "M-18 Volt SMG"
 
@@ -394,6 +394,7 @@ enum eModSourceId
 	starburst
 	titanhammer
 	burn_mod_wingman
+
 	burn_mod_titan_shotgun
 	explosive_rounds
 	long_fuse
@@ -406,6 +407,8 @@ enum eModSourceId
 	plasma_rifle
 	double_tap
 	cyclic_receiver
+	burn_mod_wingman_elite
+	burn_mod_volt
 }
 
 //Attachments intentionally left off. This prevents them from displaying in kill cards.
@@ -477,3 +480,5 @@ modNameStrings[ eModSourceId.burn_mod_charge_cannon] 		<- "#BC_TITAN_CHARGE_CANN
 modNameStrings[ eModSourceId.hydraulic_launcher ] 			<- "#MOD_HYDRAULIC_LAUNCHER_NAME"
 modNameStrings[ eModSourceId.burn_mod_throwing_knife] 		<- "#BC_THROWING_KNIFE_M2"
 modNameStrings[ eModSourceId.plasma_rifle ] 				<- "#MOD_PLASMA_RIFLE_NAME"
+modNameStrings[ eModSourceId.burn_mod_wingman_elite] 		<- "Wingman Elite"
+modNameStrings[ eModSourceId.burn_mod_volt ] 				<- "M-18 Volt"

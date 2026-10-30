@@ -1995,7 +1995,7 @@ function TryAddGrenadeIndicator( grenade, weaponName )
 		case "mp_titanweapon_40mm":
 		case "mp_weapon_satchel":
 		case "mp_weapon_proximity_mine":
-		case "mp_weapon_mega5":
+		case "mp_weapon_throwing_knife":
 		case "mp_weapon_mega6":
 			return
 	}

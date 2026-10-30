@@ -2174,7 +2174,7 @@ function ScoreEventForMethodOfDeath( player, damageInfo )
 
 	if ( damageSourceId == eDamageSourceId.human_melee )
 	{
-    	if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+    	if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
             return "KnifeVsPilot"
         else
 			return  "MeleeHumanAttackVsPilot"
@@ -2200,7 +2200,7 @@ function ScoreEventForMethodOfDeath( player, damageInfo )
 		return "TitanStepCrushPilot"
 	}
 
-	if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+	if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
 	{
 		return "KnifeVsPilot"
 	}
@@ -2257,11 +2257,11 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "BurnMeleeHumanExecutionVsReskinnedPilot"
-            else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+            else if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
                 return "BurnKnifeVsReskinnedPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
             {
-                if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+                if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
                     return "BurnKnifeVsReskinnedPilot"
                 else
                     return "BurnMeleeHumanVsReskinnedPilot"
@@ -2277,11 +2277,11 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "MeleeHumanExecutionVsReskinnedPilot"
-            else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+            else if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
                 return "KnifeVsReskinnedPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
             {
-                if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+                if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
                     return "KnifeVsReskinnedPilot"
                 else
                     return "MeleeHumanVsReskinnedPilot"
@@ -2324,11 +2324,11 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "BurnMeleeHumanExecutionVsGhostPilot"
-            else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+            else if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
                 return "BurnKnifeVsGhostPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
             {
-                if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+                if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
                     return "BurnKnifeVsGhostPilot"
                 else
                     return "BurnMeleeHumanVsGhostPilot"
@@ -2344,11 +2344,11 @@ function ScoreEventForNPCKilled(npc, damageInfo)
         {
             if ( damageSourceId == eDamageSourceId.human_execution )
                 return "MeleeHumanExecutionVsGhostPilot"
-            else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+            else if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
                 return "KnifeVsGhostPilot"
             else if ( damageSourceId == eDamageSourceId.human_melee )
             {
-                if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+                if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
                     return "KnifeVsGhostPilot"
                 else
                     return "MeleeHumanVsGhostPilot"
@@ -2383,11 +2383,11 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 			return "MeleeHumanExecutionVsCaptain"
 		else if ( damageSourceId == eDamageSourceId.titan_step )
 			return "TitanStepVsCaptain"
-		else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+		else if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
 			return "KnifeVsCaptain"
 		else if ( damageSourceId == eDamageSourceId.human_melee )
 		{
-			if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+			if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
 				return "KnifeVsCaptain"
 			else
 				return "MeleeHumanVsCaptain"
@@ -2404,11 +2404,11 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 	{
 		if ( damageSourceId == eDamageSourceId.human_execution )
 			return "MeleeHumanExecutionVsSniper_Spectre"
-		else if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+		else if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
 			return "KnifeVsSniper_Spectre"
 		else if ( damageSourceId == eDamageSourceId.human_melee )
 		{
-			if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+			if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
 				return "KnifeVsSniper_Spectre"
 			else
 				return "MeleeHumanVsSniper_Spectre"
@@ -2442,11 +2442,11 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 
 		if ( damageSourceId == eDamageSourceId.human_execution )
 			return "MeleeHumanExecutionVsSuicideSpectre"
-		if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+		if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
 			return "KnifeVsSuicide_Spectre"
 		else if ( damageSourceId == eDamageSourceId.human_melee )
 		{
-			if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+			if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
 				return "KnifeVsSuicide_Spectre"
 			else
 				return "NeutralizedSuicideSpectre"
@@ -2560,14 +2560,14 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 					return  "MeleeHumanExecutionVsSpectre"
 				}
 				
-				if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+				if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
 					return "KnifeVsSpectre"
 
 				if ( damageSourceId == eDamageSourceId.human_melee )
 				{
 					if ( IsValid( attacker ) && attacker.IsPlayer() )
 					{
-						if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+						if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
 							return "KnifeVsSpectre"
 					}
 					else
@@ -2648,14 +2648,14 @@ function ScoreEventForNPCKilled(npc, damageInfo)
 					scoreEvent = "Electrocute_IMC_Soldier"
 			}
 
-			if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 )
+			if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife )
 				return "KnifeVsGrunt"
 
 			if ( damageSourceId == eDamageSourceId.human_melee )
 			{
 				if ( IsValid( attacker ) && attacker.IsPlayer() )
 				{
-					if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_mega5" )
+					if ( IsValid( activeWeapon ) && activeWeapon.GetClassname() == "mp_weapon_throwing_knife" )
 						return "KnifeVsGrunt"
 				}
 

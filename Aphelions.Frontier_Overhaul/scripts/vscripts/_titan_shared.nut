@@ -1,5 +1,5 @@
 TITAN_EJECT_SCREECH	<- "titan_eject_screech"
-TITAN_DECAY_LIMIT	<- 0.35 // should be the same as the frac that flames start.
+TITAN_DECAY_LIMIT	<- 0.35 // should be the same as the frac that flames start. // fo
 
 const TITAN_NUCLEAR_CORE_FX_3P = "P_xo_exp_nuke_3P"
 const TITAN_NUCLEAR_CORE_FX_1P = "P_xo_exp_nuke_1P"
@@ -1668,7 +1668,7 @@ function TitanStagger( titan, damageInfo )
 		case eDamageSourceId.mp_titanweapon_dumbfire_rockets:
 		case eDamageSourceId.mp_titanweapon_salvo_rockets:
 		case eDamageSourceId.mp_titanweapon_shotgun:
-		case eDamageSourceId.mp_weapon_mega4:
+		case eDamageSourceId.mp_titanweapon_charge_cannon:
 //		case eDamageSourceId.rodeo_caber:
 			titan.SetStaggering()
 			titan.s.lastStaggerTime = Time()

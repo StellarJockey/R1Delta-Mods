@@ -99,7 +99,7 @@ function FakeKnifeHit( attackParams, frag )
 
 	local ent = result.hitEnt
 	if ( ent && ent.IsHumanSized() && Distance( origin, ent.GetOrigin() ) <= 180 )
-		ent.TakeDamage( self.GetWeaponModSetting( "damage_near_value" ), owner, owner, { scriptType = DF_RAGDOLL | DF_INSTANT | DF_KILLSHOT, damageSourceId = eDamageSourceId.mp_weapon_mega5 } )
+		ent.TakeDamage( self.GetWeaponModSetting( "damage_near_value" ), owner, owner, { scriptType = DF_RAGDOLL | DF_INSTANT | DF_KILLSHOT, damageSourceId = eDamageSourceId.mp_weapon_throwing_knife } )
 }
 
 function OnWeaponActivate( prepParams )
@@ -191,7 +191,7 @@ function MonitorKnifeRetrieval( knife, owner )
 			local weapons = owner.GetOffhandWeapons()
 			foreach ( weapon in weapons )
 			{
-				if ( weapon.GetWeaponClassName() == "mp_weapon_mega5" )
+				if ( weapon.GetWeaponClassName() == "mp_weapon_throwing_knife" )
 				{
 					local currentAmmo = weapon.GetWeaponPrimaryClipCount()
 					local maxAmmo = PlayerHasPassive( owner, PAS_ORDNANCE_PACK ) ? 3 : 2

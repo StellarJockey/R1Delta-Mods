@@ -408,8 +408,8 @@ function main()
 	unlockLevels[ "mp_weapon_mega2" ]						<- 35
 	unlockLevels[ "mp_titanweapon_shotgun" ]				<- 36
 	unlockLevels[ "mp_weapon_mega7" ]						<- 40
-	unlockLevels[ "mp_weapon_mega3" ]                       <- 45
-	unlockLevels[ "mp_weapon_mega5" ]						<- 49
+	unlockLevels[ "mp_titanweapon_minigun" ]                <- 45
+	unlockLevels[ "mp_weapon_throwing_knife" ]				<- 49
 	unlockLevels[ "mp_weapon_mega8" ]						<- 50
 }
 
@@ -460,7 +460,7 @@ function InitItems()
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_grenade_emp", 		"../ui/menu/items/weapon_arc_grenade_v2",		"../ui/menu/items/ability_icons/arc_grenade", 		"../ui/menu/items/weapon_arc_grenade_v2" )
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_satchel", 			"../ui/menu/items/weapon_satchel_v2",			"../ui/menu/items/ability_icons/satchel", 			"../ui/menu/items/weapon_satchel_v2" )
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_proximity_mine", 	"../ui/menu/items/weapon_arcmine_v2",			"../ui/menu/items/ability_icons/proximity_mine", 	"../ui/menu/items/weapon_arcmine_v2" )
-	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega5", 			"../ui/menu/items/weapon_knife",				"../ui/menu/items/ability_icons/throwing_knife", 	"../ui/menu/items/weapon_knife" )
+	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_throwing_knife", 			"../ui/menu/items/weapon_knife",				"../ui/menu/items/ability_icons/throwing_knife", 	"../ui/menu/items/weapon_knife" )
 
 	////////////////////////
 	//PILOT ATTACHMENT DATA
@@ -955,9 +955,9 @@ function CreateR1DeltaItems()
 	////////////////////
 	CreateWeaponData( itemType.TITAN_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_titanweapon_shotgun", 				"../ui/menu/items/titanweapon_shotgun" )
 
-	CreateWeaponData( itemType.TITAN_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega3", 				"../ui/menu/items/titanweapon_minigun" )
+	CreateWeaponData( itemType.TITAN_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_titanweapon_minigun", 				"../ui/menu/items/titanweapon_minigun" )
 
-	CreateWeaponData( itemType.TITAN_SPECIAL,		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega4", 				"../ui/menu/items/ability_icons/charge_cannon",				"../ui/menu/items/ability_icons/charge_cannon", null )
+	CreateWeaponData( itemType.TITAN_SPECIAL,		DEV_ENABLED,	0, 		null, 	null, "mp_titanweapon_charge_cannon", 				"../ui/menu/items/ability_icons/charge_cannon",				"../ui/menu/items/ability_icons/charge_cannon", null )
 
 	CreateWeaponData( itemType.TITAN_ORDNANCE,		DEV_ENABLED,	0,		null, 	null, "mp_titanweapon_shoulder_turret", 	"../ui/menu/items/ability_icons/shoulder_turret",		"../ui/menu/items/ability_icons/shoulder_turret", null )
 
@@ -970,15 +970,15 @@ function CreateR1DeltaItems()
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_titan_shotgun_titan_kills", 		1, 	"mp_titanweapon_shotgun",				"shredder_rounds",		"Shredder Rounds",			"Increased burst-fire rate",			MOD_SHREDDER_LONGDESC,			5, 0, -3, 12, 0, 		"../ui/menu/items/mod_icons/shredder_rounds",	 		"../ui/menu/items/mod_icons/shredder_rounds" )
 
-	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_weapon_mega3",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	1, 		"mp_titanweapon_minigun",				"extended_ammo",		"#MOD_EXTENDED_MAG_NAME",			"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 20, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	null, 	null, 	"mp_titanweapon_shotgun",	 "plasma_rifle",			"#MOD_PLASMA_RIFLE_NAME",			"#MOD_PLASMA_RIFLE_DESC",			"#MOD_PLASMA_RIFLE_LONGDESC",			0, -10, 0, 20, 9, 		"../ui/menu/items/mod_icons/plasma_rifle", 		"../ui/menu/items/mod_icons/plasma_rifle" )
 
 	CreateModData( itemType.TITAN_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_titanweapon_shotgun",				"burn_mod_titan_shotgun", 					"#BC_TITAN_SHOTGUN_M2",				"#BC_TITAN_SHOTGUN_M2_FLYOUT_DESC",				"#BC_TITAN_SHOTGUN_M2_FLYOUT_DESC",				0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
-	CreateModData( itemType.TITAN_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega3",			"burn_mod_thunderbolt", 			"#BC_TITAN_MINIGUN_M2",			"#BC_TITAN_MINIGUN_M2_FLYOUT_DESC",			"#BC_TITAN_MINIGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp", HideFromMenus )
+	CreateModData( itemType.TITAN_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_titanweapon_minigun",			"burn_mod_thunderbolt", 			"#BC_TITAN_MINIGUN_M2",			"#BC_TITAN_MINIGUN_M2_FLYOUT_DESC",			"#BC_TITAN_MINIGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp", HideFromMenus )
 
-	CreateModData( itemType.TITAN_SPECIAL_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega4",			"burn_mod_charge_cannon", 			"#BC_TITAN_CHARGE_CANNON_M2",			"#BC_TITAN_CHARGE_CANNON_M2_FLYOUT_DESC",			"#BC_TITAN_CHARGE_CANNON_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
+	CreateModData( itemType.TITAN_SPECIAL_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_titanweapon_charge_cannon",			"burn_mod_charge_cannon", 			"#BC_TITAN_CHARGE_CANNON_M2",			"#BC_TITAN_CHARGE_CANNON_M2_FLYOUT_DESC",			"#BC_TITAN_CHARGE_CANNON_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 	
 	// Edited these in-game TFO weapon descriptions to be more complete
 	// Valkyrie Edits
@@ -990,8 +990,8 @@ function CreateR1DeltaItems()
 	itemData["mp_weapon_mega2"].longdesc = MEGA2_LONGDESC
 
 	// Titan Minigun Edits
-	itemData["mp_weapon_mega3"].desc = MEGA3_SHORTDESC
-	itemData["mp_weapon_mega3"].longdesc = MEGA3_LONGDESC
+	itemData["mp_titanweapon_minigun"].desc = MEGA3_SHORTDESC
+	itemData["mp_titanweapon_minigun"].longdesc = MEGA3_LONGDESC
 
 	// CUSTOM R1 DESCRIPTIONS
 	itemData["mp_weapon_smart_pistol"].longdesc = smart_pistol_LONGDESC
@@ -1030,8 +1030,8 @@ function CreateR1DeltaItems()
 	itemData["mp_titanweapon_arc_cannon"].longdesc =       arc_cannon_LONGDESC
 
 	itemData["mp_titanweapon_vortex_shield"].longdesc =  vortex_LONGDESC
-	itemData["mp_weapon_mega4"].desc =  mega4_Desc_v2
-	itemData["mp_weapon_mega4"].longdesc =  mega4_LONGDESC
+	itemData["mp_titanweapon_charge_cannon"].desc =  mega4_Desc_v2
+	itemData["mp_titanweapon_charge_cannon"].longdesc =  mega4_LONGDESC
 	
 }
 

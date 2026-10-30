@@ -1100,13 +1100,13 @@ function AwardStealthBonus( entity, damageInfo )
 	}
 
 	local damageSourceId = damageInfo.GetDamageSourceIdentifier()
-	if ( damageSourceId == eDamageSourceId.mp_weapon_mega5 ) // Knife counts as stealth
+	if ( damageSourceId == eDamageSourceId.mp_weapon_throwing_knife ) // Knife counts as stealth
 	{
 		hasSilencer = true
 	}
 
 	local weapon = attacker.GetActiveWeapon() // Knife melee counts as stealth
-	if ( damageSourceId == eDamageSourceId.human_melee && IsValid( weapon ) && weapon.GetClassname() == "mp_weapon_mega5" )
+	if ( damageSourceId == eDamageSourceId.human_melee && IsValid( weapon ) && weapon.GetClassname() == "mp_weapon_throwing_knife" )
 	{
 		hasSilencer = true
 	}

@@ -1082,7 +1082,7 @@ function WeaponCancelsCloak( weapon )
 		case "mp_weapon_laser_mine":
 		case "mp_weapon_satchel":
 		case "mp_weapon_proximity_mine":
-		case "mp_weapon_mega5":
+		case "mp_weapon_throwing_knife":
 			return false
 		default:
 			break
