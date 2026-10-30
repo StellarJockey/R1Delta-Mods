@@ -3081,8 +3081,10 @@ function UpdatePlayerStatusForTeam( team, teamStatusElem, burnCardStatusElem, ti
 	local teamResultTable = CountPlayerStatusTypes( teamPlayers )
 
 	local index
+	// the HUD has a fixed number of status elements (8): with more players on the team the surplus is not shown
+	local maxElems = min( teamStatusElem.len(), burnCardStatusElem.len() )
 	local lowerBound = 0
-	local upperBound =  teamResultTable.titanWithBurnCard
+	local upperBound = min( teamResultTable.titanWithBurnCard, maxElems )
 
 	/*for( index = lowerBound; index < upperBound; ++index  )
 	{
@@ -3098,7 +3100,7 @@ function UpdatePlayerStatusForTeam( team, teamStatusElem, burnCardStatusElem, ti
 	}
 
 	lowerBound = upperBound
-	upperBound += teamResultTable.titan
+	upperBound = min( upperBound + teamResultTable.titan, maxElems )
 
 	for( index = lowerBound; index < upperBound; ++index  )
 	{
@@ -3108,7 +3110,7 @@ function UpdatePlayerStatusForTeam( team, teamStatusElem, burnCardStatusElem, ti
 	}
 
 	lowerBound = upperBound
-	upperBound += teamResultTable.pilotWithBurnCard
+	upperBound = min( upperBound + teamResultTable.pilotWithBurnCard, maxElems )
 
 	for( index = lowerBound; index < upperBound; ++index  )
 	{
@@ -3118,7 +3120,7 @@ function UpdatePlayerStatusForTeam( team, teamStatusElem, burnCardStatusElem, ti
 	}
 
 	lowerBound = upperBound
-	upperBound += teamResultTable.pilot
+	upperBound = min( upperBound + teamResultTable.pilot, maxElems )
 
 	for( index = lowerBound; index < upperBound; ++index  )
 	{
@@ -3128,7 +3130,7 @@ function UpdatePlayerStatusForTeam( team, teamStatusElem, burnCardStatusElem, ti
 	}
 
 	lowerBound = upperBound
-	upperBound += teamResultTable.dead
+	upperBound = min( upperBound + teamResultTable.dead, maxElems )
 
 	for( index = lowerBound; index < upperBound; ++index  )
 	{
@@ -3137,7 +3139,7 @@ function UpdatePlayerStatusForTeam( team, teamStatusElem, burnCardStatusElem, ti
 		burnCardStatusElem[ index ].Hide()
 	}
 
-	for( index = upperBound; index < 8; ++index  ) //Assume we'll never have more than 8 players!
+	for( index = upperBound; index < maxElems; ++index  )
 	{
 		teamStatusElem[ index ].Hide()
 		burnCardStatusElem[ index ].Hide()
@@ -4031,7 +4033,12 @@ function UpdateSubText2ForRiffs( announcement )
 		}
 	}
 
-	if ( level.nv.allowNPCs != eAllowNPCs.Default )
+	if ( ModeAnnouncesFreeForAll() )
+	{
+		// These modes say what they are where a free for all with no minions says that there are none
+		riffTexts.append( "#GAMEMODE_FFA" )
+	}
+	else if ( level.nv.allowNPCs != eAllowNPCs.Default )
 	{
 		switch ( level.nv.allowNPCs )
 		{
@@ -4094,6 +4101,22 @@ function UpdateSubText2ForRiffs( announcement )
 	}
 
 	return riffTexts.len()
+}
+
+// Burn Card Escalation, Gun Game, Titan Free For All and Turbo Titan Free For All. The mode names are used rather than their constants
+// so that this also works in a build that does not have all of the modes.
+function ModeAnnouncesFreeForAll()
+{
+	switch ( GAMETYPE )
+	{
+		case "bce":
+		case "gg":
+		case "tffa":
+		case "tffa_turbo":
+			return true
+	}
+
+	return false
 }
 
 function ClientCodeCallback_ControllerModeChanged( controllerModeEnabled )

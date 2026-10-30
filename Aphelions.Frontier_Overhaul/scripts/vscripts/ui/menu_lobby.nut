@@ -926,7 +926,12 @@ function SetMapInfo( mapName )
 
 	SmartGlass_SetGameStateProperty( SMARTGLASS_PROP_NEXTLEVEL, mapName )
 
-	local mapImage = "../ui/menu/lobby/lobby_image_" + mapName
+	local mapImage
+	if ( IsTitanfall2Map( mapName ) )
+		mapImage = GetMapImage( mapName )
+	else
+		mapImage = "../ui/menu/lobby/lobby_image_" + mapName
+
 
 	nextMapImage.SetImage( mapImage )
 	nextMapImage.Show()

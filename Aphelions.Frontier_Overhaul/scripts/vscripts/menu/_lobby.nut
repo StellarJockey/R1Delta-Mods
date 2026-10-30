@@ -1,5 +1,5 @@
 //********************************************************************************************
-//	Lobby
+//	Lobby FO
 //********************************************************************************************
 
 RegisterSignal( "end_lobby_logic" )
@@ -22,6 +22,7 @@ function main()
 	file.nextMapModeCombo.modeName <- null
 
 	file.nextLaunchCommandValid <- 0
+	file.dlcReselectGaveUp <- null
 
 	Globalize( CodeCallback_OnPrecache )
 	Globalize( CodeCallback_OnClientConnectionStarted )
@@ -438,33 +439,6 @@ function ControlMatchmakingServerLobbyLogic()
 	}
 }
 
-function SelectNextVarietyPackMap( previousMap )
-{
-	local availableMaps = DLCFilterMaps( GetPlaylistUniqueMaps( VARIETY_PACK ) )
-	if ( availableMaps.len() == 0 )
-		return previousMap
-
-	local votedMap = GetConVarString( "delta_vote_next_map" )
-	if ( votedMap != "" )
-	{
-		ServerCommand( "delta_vote_next_map \"\"" )
-		if ( ArrayContains( availableMaps, votedMap ) )
-			return votedMap
-	}
-
-	local nextMaps = []
-	foreach ( mapName in availableMaps )
-	{
-		if ( mapName != previousMap )
-			nextMaps.append( mapName )
-	}
-
-	if ( nextMaps.len() == 0 )
-		return availableMaps[0]
-
-	return nextMaps[ RandomInt( 0, nextMaps.len() - 1 ) ]
-}
-
 function PrivateMatchLobbyLogic()
 {
 	OnThreadEnd(
@@ -597,6 +571,7 @@ function MatchmakingServerLobbyLogic()
 
     for ( ;; )
     {
+        ReselectNextMapIfDLCUnavailable()
         local report_timeRemaining = -1
 
         if ( ReadyToStart() )
@@ -710,6 +685,7 @@ function MatchmakingServerLobbyLogic()
     }
 
     NoteLobbyState( 0, "" )
+    ReselectNextMapIfDLCUnavailable()
     GameRules_ChangeMap( file.nextMapModeCombo.mapName, file.nextMapModeCombo.modeName )
 }
 
@@ -1086,6 +1062,7 @@ function LocalServerLobbyLogic()
 
 	for ( ;; )
 	{
+		ReselectNextMapIfDLCUnavailable()
 		if ( ReadyToStart() )
 		{
 			if ( file.nextMapModeCombo.index == null )
@@ -1138,7 +1115,10 @@ function LocalServerLobbyLogic()
 	}
 
 	if ( GetCurrentPlaylistVarInt( "local_autostart", 1 ) )
+	{
+		ReselectNextMapIfDLCUnavailable()
 		GameRules_ChangeMap( file.nextMapModeCombo.mapName, file.nextMapModeCombo.modeName )
+	}
 }
 
 function PrintServerGameHistory()
@@ -1197,6 +1177,15 @@ function GetNextComboInOrder()
 	}
 
 	mapIndex %= count
+
+	// Skip maps whose DLC group not every player owns
+	for ( local tries = 0; tries < count; tries++ )
+	{
+		if ( ServerHasDLCMapGroupEnabled( GetDLCMapGroupForMap( GetCurrentPlaylistMapByIndex( mapIndex ) ) ) )
+			break
+
+		mapIndex = (mapIndex + 1) % count
+	}
 
 	local map = GetCurrentPlaylistMapByIndex( mapIndex )
 	local mode = GetCurrentPlaylistGamemodeByIndex( mapIndex )
@@ -1335,9 +1324,10 @@ function Lobby_PickNextMapModeCombo( allowedMaps = null )
 	}
 	*/
 
-	if ( GetNextVotedMap() != GetMapName() )
+	local votedMap = GetNextVotedMap()
+	if ( votedMap != GetMapName() && ServerHasDLCMapGroupEnabled( GetDLCMapGroupForMap( votedMap ) ) )
 	{
-		nextCombo.mapName = GetNextVotedMap()
+		nextCombo.mapName = votedMap
 		nextCombo.score = 10000
 		ServerCommand( "delta_vote_next_map \"\"" )
 	}
@@ -1394,6 +1384,49 @@ function ClearNextMap()
 	level.ui.nextMapModeComboIndex = file.nextMapModeCombo.index
 	printt( "ClearNextMap(), level.ui.nextMapModeComboIndex =", level.ui.nextMapModeComboIndex )
 	printt( "Next map cleared" )
+}
+
+// A player joined (or the host's override changed) and the selected map belongs to a DLC group that not
+// every player owns any more. Pick another map from what the lobby can play. Only the selection changes:
+// level.ui.gameStartTime is not touched, so a running countdown keeps its time.
+function ReselectNextMapIfDLCUnavailable()
+{
+	if ( file.nextMapModeCombo.index == null || file.nextMapModeCombo.mapName == null )
+		return
+
+	local mapName = file.nextMapModeCombo.mapName
+	local dlcGroup = GetDLCMapGroupForMap( mapName )
+	if ( dlcGroup == 0 || ServerHasDLCMapGroupEnabled( dlcGroup ) )
+	{
+		file.dlcReselectGaveUp = null
+		return
+	}
+
+	if ( file.dlcReselectGaveUp == mapName )
+		return
+
+	printt( "Next map " + mapName + " needs DLC " + dlcGroup + " which not every player owns, selecting another map" )
+
+	// Nothing playable without the group in this playlist: keep the selection. The map change kicks whoever lacks it.
+	local nextCombo = null
+	if ( DLCFilterCombos( GetPlaylistCombos( GetCurrentPlaylistName() ) ).len() > 0 )
+	{
+		if ( GetCinematicMode() || GetCurrentPlaylistVarInt( "play_in_order", 0 ) )
+			nextCombo = GetNextComboInOrder()
+		else
+			nextCombo = Lobby_PickNextMapModeCombo()
+	}
+
+	if ( nextCombo == null || !ServerHasDLCMapGroupEnabled( GetDLCMapGroupForMap( nextCombo.mapName ) ) )
+	{
+		printt( "No map is available to every player, keeping " + mapName )
+		file.dlcReselectGaveUp = mapName
+		return
+	}
+
+	file.nextMapModeCombo = nextCombo
+	level.ui.nextMapModeComboIndex = file.nextMapModeCombo.index
+	printt( "Next map: " + file.nextMapModeCombo.mapName )
 }
 
 function PlayCampaignLobbyScene( player )
@@ -1739,6 +1772,13 @@ function ClientCommand_SetCustomMap( player, ... )
 	if ( !(mapName in getconsttable().ePrivateMatchMaps) )
 		return true
 
+	// A converted Titanfall 2 map needs the group on the server (every player owns it, or dlc5_override) and a mode it exists in
+	if ( IsTitanfall2Map( mapName ) && ( !ServerHasDLCMapGroupEnabled( R2_MAP_DLC_GROUP ) || !MapSupportsMode( mapName, GetModeNameForEnum( level.ui.privatematch_mode ) ) ) )
+	{
+		printt( player.GetPlayerName(), "tried to set the unavailable map:", mapName )
+		return true
+	}
+
 	printt( player.GetPlayerName(), "set custom map to:", mapName )
 	level.ui.privatematch_map = getconsttable().ePrivateMatchMaps[mapName]
 
@@ -1773,6 +1813,9 @@ function ClientCommand_PrivateMatchSetMode( player, ... )
 
 	printt( player.GetPlayerName(), "set private_match mode to:", modeName )
 	level.ui.privatematch_mode = getconsttable().ePrivateMatchModes[modeName]
+
+	// The converted Titanfall 2 maps only exist in some modes
+	UpdatePrivateMatchMapIfUnavailable()
 	UpdatePrivateMatchReadyStatus( true )
 
 	return true
@@ -2274,8 +2317,10 @@ function UpdatePrivateMatchMapIfUnavailable()
 	if ( mapName )
 	{
 		local dlcGroup = GetDLCMapGroupForMap( mapName )
+		local modeName = GetModeNameForEnum( level.ui.privatematch_mode )
 
-		if ( !ServerHasDLCMapGroupEnabled( dlcGroup ) )
+		// A converted Titanfall 2 map is also unavailable in a mode Titanfall 2 does not have it in
+		if ( !ServerHasDLCMapGroupEnabled( dlcGroup ) || ( modeName != null && !MapSupportsMode( mapName, modeName ) ) )
 		{
 			level.ui.privatematch_map = getconsttable().ePrivateMatchMaps["mp_fracture"]
 			UpdatePrivateMatchReadyStatus( true )

@@ -40,8 +40,10 @@ function OnOpenMapsMenu()
 	local buttons = file.buttons
 	local mapsArray = GetPrivateMatchMaps()
 
-	file.numMapButtonsOffScreen = mapsArray.len() - MAP_LIST_VISIBLE_ROWS
-	Assert( file.numMapButtonsOffScreen >= 0 )
+	if ( mapsArray.len() > buttons.len() )
+		printt( "MapsMenu: " + mapsArray.len() + " maps but only " + buttons.len() + " buttons, add more to the .menu" )
+
+	file.numMapButtonsOffScreen = max( 0, mapsArray.len() - MAP_LIST_VISIBLE_ROWS )
 
 	foreach ( button in buttons )
 	{
@@ -109,7 +111,7 @@ function UpdateMapButtonTooltip( button )
 
 	if ( button.s.dlcGroup > 0 )
 	{
-		if ( !IsDLCMapGroupEnabledForLocalPlayer( button.s.dlcGroup ) )
+		if ( !LocalPlayerOwnsDLCMapGroup( button.s.dlcGroup ) )
 			HandleLockedCustomMenuItem( menu, button, ["#DLC_REQUIRED"] )
 		else if ( !ServerHasDLCMapGroupEnabled( button.s.dlcGroup ) )
 			HandleLockedCustomMenuItem( menu, button, ["#NOT_OWNED_BY_ALL_PLAYERS"] )
@@ -124,6 +126,15 @@ function OnCloseMapsMenu()
 	DeregisterButtonPressedCallback( MOUSE_WHEEL_DOWN, OnMapListScrollDown_Activate )
 
 	Signal( uiGlobal.signalDummy, "OnCloseMapsMenu" )
+}
+
+// Titanfall 1 maps keep the FO lobby image naming; the converted Titanfall 2 maps use the base game's image lookup
+function GetMapListImage( mapName )
+{
+	if ( IsTitanfall2Map( mapName ) )
+		return GetMapImage( mapName )
+
+	return "../ui/menu/lobby/lobby_image_" + mapName + "_v2"
 }
 
 function MapButton_Focused( button )
@@ -141,8 +152,7 @@ function MapButton_Focused( button )
 
 	local mapsArray = GetPrivateMatchMaps()
 	local mapName = mapsArray[buttonID]
-	local mapImage = "../ui/menu/lobby/lobby_image_" + mapName + "_v2"
-	nextMapImage.SetImage( mapImage )
+	nextMapImage.SetImage( GetMapListImage( mapName ) )
 	
 	/*
 	if ( mapName == "mp_relic" || mapName == "mp_swampland" )
@@ -242,7 +252,7 @@ function MapButton_Activate( button )
 {
 	if ( button.IsLocked() )
 	{
-		if ( !IsDLCMapGroupEnabledForLocalPlayer( button.s.dlcGroup ) )
+		if ( !IsMapVoteMode() && !LocalPlayerOwnsDLCMapGroup( button.s.dlcGroup ) )
 			ShowDLCStore()
 
 		return
@@ -264,7 +274,7 @@ function MonitorDLCAvailability()
 {
 	EndSignal( uiGlobal.signalDummy, "OnCloseMapsMenu" )
 
-	local available = [ null, null, null ]
+	local available = [ null, null, null, null, null ]
 	local lastAvailable = clone available
 	local doUpdate
 
@@ -272,9 +282,9 @@ function MonitorDLCAvailability()
 	{
 		doUpdate = false
 
-		for ( local i = 0; i < 3; i++ )
+		for ( local i = 0; i < available.len(); i++ )
 		{
-			available[i] = ServerHasDLCMapGroupEnabled( i + 1 ) // 1-3
+			available[i] = ServerHasDLCMapGroupEnabled( i + 1 ) // 1-5
 
 			if ( available[i] != lastAvailable[i] )
 			{
@@ -308,11 +318,23 @@ function GetPrivateMatchMaps()
 		]
 	}
 
-	local mapsArray = []
-	mapsArray.resize( getconsttable().ePrivateMatchMaps.len() )
+	local allMaps = []
+	allMaps.resize( getconsttable().ePrivateMatchMaps.len() )
 
 	foreach ( mapName, mapID in getconsttable().ePrivateMatchMaps )
-		mapsArray[mapID] = mapName
+		allMaps[mapID] = mapName
+
+	// The converted Titanfall 2 maps are only listed for a player who owns the Titanfall 2 group (dlc5_enabled) and only in
+	// the modes Titanfall 2 has them in
+	local ownsTitanfall2 = LocalPlayerOwnsDLCMapGroup( R2_MAP_DLC_GROUP )
+	local mapsArray = []
+	foreach ( mapName in allMaps )
+	{
+		if ( IsTitanfall2Map( mapName ) && ( !ownsTitanfall2 || !MapSupportsMode( mapName, modeName ) ) )
+			continue
+
+		mapsArray.append( mapName )
+	}
 
 	if ( modeName != VARIETY_PACK && modeName != "all_mini" )
 		return mapsArray
