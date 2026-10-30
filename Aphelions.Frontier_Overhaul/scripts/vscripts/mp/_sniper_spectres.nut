@@ -8,7 +8,7 @@ const SNIPERNODE_TOOCLOSE_SQR	= 2500//50x50
 
 ::SNIPER_WEAPON_POOL <- [
 	"mp_weapon_dmr",
-	"mp_weapon_mega1",
+	"mp_weapon_sr_valkyrie",
 	"mp_weapon_sniper",
 ]
 

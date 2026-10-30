@@ -403,9 +403,9 @@ function main()
 	}
 
 	unlockLevels[ "mp_weapon_mega9" ]						<- 28
-	unlockLevels[ "mp_weapon_mega1" ]						<- 30
+	unlockLevels[ "mp_weapon_sr_valkyrie" ]						<- 30
 	unlockLevels[ "mp_weapon_mega6" ]						<- 34
-	unlockLevels[ "mp_weapon_mega2" ]						<- 35
+	unlockLevels[ "mp_weapon_twinb_shotgun" ]						<- 35
 	unlockLevels[ "mp_titanweapon_shotgun" ]				<- 36
 	unlockLevels[ "mp_weapon_mega7" ]						<- 40
 	unlockLevels[ "mp_titanweapon_minigun" ]                <- 45
@@ -905,35 +905,35 @@ function CreateR1DeltaItems()
 
 	CreateModData( itemType.PILOT_SECONDARY_MOD,	DEV_ENABLED,	0, 	"ch_defender_titan_kills", 					1, 		"mp_weapon_defender",			"charge_hack",					"Charge Hack",		"Faster charge time",			MOD_CHARGE_HACK_LONGDESC,					-8, 0, 0, 5, 0, 			"../ui/menu/items/mod_icons/charge_hack",				"../ui/menu/items/mod_icons/charge_hack" )
 	
-	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega1", 				"../ui/menu/items/weapon_valkyrie" )
-	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega2", 				"../ui/menu/items/weapon_twinbshotgun" )
+	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_sr_valkyrie", 				"../ui/menu/items/weapon_valkyrie" )
+	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_twinb_shotgun", 				"../ui/menu/items/weapon_twinbshotgun" )
 	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega8", 				"../ui/menu/items/weapon_wingman_elite" )
 		
 	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_volt" )  
 	
 
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		null, 						null, 	"mp_weapon_mega1",		"scope_6x",		"#MOD_SCOPE_6X_NAME",		"#MOD_SCOPE_6X_DESC",		"#MOD_SCOPE_6X_LONGDESC",				"../ui/menu/items/attachment_icons/scope_6x", 			"../ui/menu/items/attachment_icons/scope_6x" )
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_grunt_kills", 	0, 		"mp_weapon_mega1",		"aog",			"#MOD_AOG_NAME",			"#MOD_AOG_DESC",			"#MOD_AOG_LONGDESC",					"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/aog" )
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_kills", 			1, 		"mp_weapon_mega1",		"scope_4x",		"#MOD_SCOPE_4X_NAME",		"#MOD_SCOPE_4X_DESC",		"#MOD_SCOPE_4X_LONGDESC",				"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/scope_4" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		null, 						null, 	"mp_weapon_sr_valkyrie",		"scope_6x",		"#MOD_SCOPE_6X_NAME",		"#MOD_SCOPE_6X_DESC",		"#MOD_SCOPE_6X_LONGDESC",				"../ui/menu/items/attachment_icons/scope_6x", 			"../ui/menu/items/attachment_icons/scope_6x" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_grunt_kills", 	0, 		"mp_weapon_sr_valkyrie",		"aog",			"#MOD_AOG_NAME",			"#MOD_AOG_DESC",			"#MOD_AOG_LONGDESC",					"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/aog" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_kills", 			1, 		"mp_weapon_sr_valkyrie",		"scope_4x",		"#MOD_SCOPE_4X_NAME",		"#MOD_SCOPE_4X_DESC",		"#MOD_SCOPE_4X_LONGDESC",				"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/scope_4" )
 	
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"iron_sights",	"#MOD_IRON_SIGHTS_NAME",	"#MOD_IRON_SIGHTS_DESC",	"#MOD_IRON_SIGHTS_LONGDESC",			"../ui/menu/items/attachment_icons/iron_sights", 		"../ui/menu/items/attachment_icons/iron_sights" )
 	// CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"hcog",			"#MOD_HCOG_NAME",			"#MOD_HCOG_DESC",					"#MOD_HCOG_LONGDESC",				"../ui/menu/items/attachment_icons/hcog", 			"../ui/menu/items/attachment_icons/hcog" )
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_volt_grunt_kills", 			1, 		"mp_weapon_mega9",			"holosight",	"#MOD_HOLOSIGHT_NAME",		"#MOD_HOLOSIGHT_DESC",		"#MOD_HOLOSIGHT_LONGDESC",				"../ui/menu/items/attachment_icons/holosight", 			"../ui/menu/items/attachment_icons/holosight" )
 
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_spectre_kills", 			0, 		"mp_weapon_mega1",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 2, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_kills", 					0, 		"mp_weapon_mega1",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,				-10, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_pilot_kills", 			0, 		"mp_weapon_mega1",			"stabilizer",					"#MOD_STABILIZER_NAME",			"#MOD_STABILIZER_DESC",				"#MOD_STABILIZER_LONGDESC",				0, 6, 0, 0, 0, 			"../ui/menu/items/mod_icons/stabilizer", 			"../ui/menu/items/mod_icons/stabilizer" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega1",			"burn_mod_valkyrie", 				"#BC_VALKYRIE_M2",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_spectre_kills", 			0, 		"mp_weapon_sr_valkyrie",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 2, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_kills", 					0, 		"mp_weapon_sr_valkyrie",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,				-10, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_pilot_kills", 			0, 		"mp_weapon_sr_valkyrie",			"stabilizer",					"#MOD_STABILIZER_NAME",			"#MOD_STABILIZER_DESC",				"#MOD_STABILIZER_LONGDESC",				0, 6, 0, 0, 0, 			"../ui/menu/items/mod_icons/stabilizer", 			"../ui/menu/items/mod_icons/stabilizer" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_sr_valkyrie",			"burn_mod_valkyrie", 				"#BC_VALKYRIE_M2",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			"#BC_VALKYRIE_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_pilot_kills",			1, 		"mp_weapon_mega2",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/leadwall", 				"../ui/menu/items/mod_icons/leadwall" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_kills", 				1, 		"mp_weapon_mega2",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_sg_LONGDESC,				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_mega2",			"burn_mod_twinb", 			"#BC_TWINB_SHOTGUN_M2",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_pilot_kills",			1, 		"mp_weapon_twinb_shotgun",		"spread_increase_sg",			"#MOD_SPREAD_INCREASE_SG_NAME",	"#MOD_SPREAD_INCREASE_SG_DESC",		"#MOD_SPREAD_INCREASE_SG_LONGDESC",		-10, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/leadwall", 				"../ui/menu/items/mod_icons/leadwall" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_twinb_kills", 				1, 		"mp_weapon_twinb_shotgun",		"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_sg_LONGDESC,				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_DISABLED,	0, 	null, 	null, "mp_weapon_twinb_shotgun",			"burn_mod_twinb", 			"#BC_TWINB_SHOTGUN_M2",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			"#BC_TWINB_SHOTGUN_M2_FLYOUT_DESC",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_shotgun_grunt_kills", 		0, 	"mp_weapon_shotgun",				"auto_converter",		"Auto Converter",			"Fully-automatic weapon fire",			MOD_AUTO_CONVERTER_LONGDESC,			-15, -5, 0, 10, 2, 		"../ui/menu/items/mod_icons/auto_converter",	 		"../ui/menu/items/mod_icons/auto_converter" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_shotgun_grunt_kills", 		0, 	"mp_weapon_shotgun",				"pump_action",			"Pump Action",				"Pump-action weapon fire",				MOD_PUMP_ACTION_LONGDESC,				2, 0, 5,-8, 0, 			"../ui/menu/items/mod_icons/pump_action",	 			"../ui/menu/items/mod_icons/pump_action" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,	 	DEV_ENABLED,	0, 	"ch_sniper_hours_used", 		1, 	"mp_weapon_sniper",				"titan_piercer",		"Titan Piercer",			"Fires anti-Titan rounds",			MOD_AT_ROUNDS_LONGDESC,			0, 0, 0, -3, -1, 		"../ui/menu/items/mod_icons/titan_piercer",	 		"../ui/menu/items/mod_icons/titan_piercer" )
 	
-	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_mega2",			"double_tap",					"Double Tap",			"Fire both barrels",		MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 			"../ui/menu/items/mod_icons/double_tap",	 			"../ui/menu/items/mod_icons/double_tap" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_twinb_shotgun",			"double_tap",					"Double Tap",			"Fire both barrels",		MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 			"../ui/menu/items/mod_icons/double_tap",	 			"../ui/menu/items/mod_icons/double_tap" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_headshots", 			1, 	"mp_weapon_lmg",			"cyclic_receiver",				"Cyclic Receiver",		"Maximum fire rate",		lmg_SCATTER_LONGDESC,			    -5, -10, 0, 15, 0, 			"../ui/menu/items/mod_icons/cyclic_receiver", 			"../ui/menu/items/mod_icons/cyclic_receiver" )
 	
 	
@@ -982,12 +982,12 @@ function CreateR1DeltaItems()
 	
 	// Edited these in-game TFO weapon descriptions to be more complete
 	// Valkyrie Edits
-	itemData["mp_weapon_mega1"].desc = MEGA1_SHORTDESC
-	itemData["mp_weapon_mega1"].longdesc = MEGA1_LONGDESC
+	itemData["mp_weapon_sr_valkyrie"].desc = MEGA1_SHORTDESC
+	itemData["mp_weapon_sr_valkyrie"].longdesc = MEGA1_LONGDESC
 
 	// Twin-B Edits
-	itemData["mp_weapon_mega2"].desc = MEGA2_SHORTDESC
-	itemData["mp_weapon_mega2"].longdesc = MEGA2_LONGDESC
+	itemData["mp_weapon_twinb_shotgun"].desc = MEGA2_SHORTDESC
+	itemData["mp_weapon_twinb_shotgun"].longdesc = MEGA2_LONGDESC
 
 	// Titan Minigun Edits
 	itemData["mp_titanweapon_minigun"].desc = MEGA3_SHORTDESC
@@ -3165,7 +3165,7 @@ function GetDefaultAttachmentName( itemRef )
 	{
 		case "mp_weapon_dmr":
 		case "mp_weapon_sniper":
-		case "mp_weapon_mega1":
+		case "mp_weapon_sr_valkyrie":
 			return "#MOD_SCOPE_6X_NAME"
 
 		default:
@@ -3181,7 +3181,7 @@ function GetDefaultAttachmentIcon( itemRef )
 	{
 		case "mp_weapon_dmr":
 		case "mp_weapon_sniper":
-		case "mp_weapon_mega1":
+		case "mp_weapon_sr_valkyrie":
 			return "../ui/menu/items/attachment_icons/scope_6x"
 
 		default:

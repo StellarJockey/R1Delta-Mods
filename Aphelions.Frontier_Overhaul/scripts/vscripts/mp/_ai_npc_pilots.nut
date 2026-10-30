@@ -12,7 +12,7 @@ const NPC_TAC_STIM_DURATION   = 5.0
 const NPC_TAC_STIM_SPEED      = 1.35   // multiplier on the pilot's normal move speed scale
 const NPC_TAC_STIM_TICK       = 1.25   // health top-up interval
 const NPC_TAC_COVER_LIFETIME  = 10.0
-const NPC_TAC_COVER_CHANCE    = 0.50   // roll each time the pilot is "spotted"
+const NPC_TAC_COVER_CHANCE    = 0.50   // 50% roll each time the pilot is "spotted"
 const NPC_TAC_COVER_RADIUS    = 160
 const NPC_TAC_COVER_HEALTH    = 32000
 const NPC_TAC_HOLO_DURATION   = 8.0
@@ -101,7 +101,7 @@ function ChoosePilotModelForWeapon( team, weapon )
         case "mp_weapon_dmr":
         case "mp_weapon_sniper":
         case "mp_weapon_g2":
-        case "mp_weapon_mega1":
+        case "mp_weapon_sr_valkyrie":
             modelIndex = 2 // dm
             break
 
@@ -130,7 +130,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 		"mp_weapon_hemlok",
 		"mp_weapon_g2",
 		"mp_weapon_car",
-		"mp_weapon_mega1",
+		"mp_weapon_sr_valkyrie",
 		"mp_weapon_lmg",
 		"mp_weapon_sniper",
 		"mp_weapon_smart_pistol",
@@ -174,6 +174,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 	if ( giveTacAbility )
 		AssignNPCPilotTacAbility( guy )
 
+	thread NPCPilotRoamThink( guy )
     return guy
 }
 Globalize( SpawnPilotInfantry )
@@ -198,7 +199,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         "mp_weapon_hemlok",
         "mp_weapon_g2",
         "mp_weapon_car",
-        "mp_weapon_mega1",
+        "mp_weapon_sr_valkyrie",
         "mp_weapon_sniper",
         "mp_weapon_smart_pistol",
         "mp_weapon_mega8",
@@ -226,7 +227,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
     switch ( chosenWeapon )
     {
         case "mp_weapon_shotgun":
-        case "mp_weapon_mega2":
+        case "mp_weapon_twinb_shotgun":
         case "mp_weapon_autopistol":
         case "mp_weapon_semipistol":
         case "mp_weapon_smart_pistol":
@@ -237,7 +238,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
 
         case "mp_weapon_dmr":
         case "mp_weapon_sniper":
-        case "mp_weapon_mega1":
+        case "mp_weapon_sr_valkyrie":
             sightMod = "scope_6x"
             break
     }
@@ -331,24 +332,13 @@ function GhostPilotThink( ghostPilot )
 // 1-in-5: cloak / stim / cover / hologram / nothing
 function AssignNPCPilotTacAbility( npc )
 {
-	switch ( RandomInt( 5 ) )
-	{
-		case 0:
-			npc.s.cloakPilot <- true
-			break
-		case 1:
-			npc.s.stimPilot <- true
-			break
-		case 2:
-			npc.s.coverPilot <- true
-			break
-		case 3:
-			npc.s.hologramPilot <- true
-			break
-		default:
-			return   // null: no ability, no watcher thread
-	}
+	local abilities = ["cloakPilot", "stimPilot", "coverPilot", "hologramPilot"]
+	local choice = RandomInt( 5 )
+	
+	if ( choice >= 4 )
+		return // null: no ability, no watcher thread
 
+	npc.s[abilities[choice]] <- true
 	npc.s.tacNextUseTime <- Time() + RandomFloat( 3.0, 6.0 )
 	thread NPCPilotTacThink( npc )
 }
@@ -369,10 +359,8 @@ function NPCPilotTacThink( npc )
 		local enemy = npc.GetEnemy()
 		if ( !IsValid( enemy ) || !IsAlive( enemy ) )
 			continue
-
 		if ( Distance( npc.GetOrigin(), enemy.GetOrigin() ) > NPC_TAC_TRIGGER_RANGE )
 			continue
-
 		if ( !npc.CanSee( enemy ) )
 			continue
 
@@ -390,11 +378,11 @@ function UseNPCPilotTacAbility( npc )
 	{
 		if ( RandomFloat( 0.0, 1.0 ) > NPC_TAC_CLOAK_CHANCE )
 		{
-			npc.s.tacNextUseTime = Time() + 2.0   // failed the roll, try again soon
+			npc.s.tacNextUseTime = Time() + 2.0 // failed the roll, try again soon
 			return
 		}
 		duration = NPC_TAC_CLOAK_DURATION
-		thread NPCPilotCloak( npc, duration )
+		thread NPCPilotCloak( npc, enemy, duration )
 	}
 	else if ( "stimPilot" in npc.s )
 	{
@@ -405,7 +393,8 @@ function UseNPCPilotTacAbility( npc )
 	{
 		if ( RandomFloat( 0.0, 1.0 ) > NPC_TAC_COVER_CHANCE )
 		{
-			npc.s.tacNextUseTime = Time() + 2.0   // failed the roll, try again soon
+			// skipped: wait out a full cooldown before rolling again
+			npc.s.tacNextUseTime = Time() + NPC_TAC_COVER_LIFETIME + NPC_TAC_COOLDOWN
 			return
 		}
 		duration = NPC_TAC_COVER_LIFETIME
@@ -415,23 +404,32 @@ function UseNPCPilotTacAbility( npc )
 	{
 		duration = NPC_TAC_HOLO_DURATION
 		// hologram copies the pilot while still visible, then the pilot cloaks
-		thread StartHologram( npc, duration )   // runs synchronously up to its first wait, so npc.s.hologram exists now
+		thread StartHologram( npc, duration )
 		thread NPCPilotHologramWatch( npc, duration )
 		thread NPCPilotHologramCloak( npc )
 	}
-	else
-		return
+	else return
 
 	npc.s.tacNextUseTime = Time() + duration + NPC_TAC_COOLDOWN
 }
 
-function NPCPilotCloak( npc, duration )
+function NPCPilotCloak( npc, enemy, duration )
 {
 	npc.EndSignal( "OnDeath" )
 	npc.EndSignal( "OnDestroy" )
 
-	OnThreadEnd( function() : ( npc )
+	// relocate away from the enemy while cloaked (same approach as stim)
+	local assaultEnt = null
+	if ( IsValid( enemy ) )
 	{
+		local pos = FindNPCTacRelocationPoint( npc, enemy )
+		if ( pos != null )
+			assaultEnt = CreateStrictAssaultEnt( pos, null, 64 )
+	}
+
+	OnThreadEnd( function() : ( npc, assaultEnt )
+	{
+		if ( IsValid( assaultEnt ) ) assaultEnt.Kill()
 		if ( IsValid( npc ) && IsAlive( npc ) && "tacCloaked" in npc.s && npc.s.tacCloaked )
 		{
 			SniperDeCloak( npc )
@@ -441,17 +439,16 @@ function NPCPilotCloak( npc, duration )
 
 	SniperCloak( npc )
 	npc.s.tacCloaked <- true
+	if ( assaultEnt != null )
+		npc.AssaultPointEnt( assaultEnt )
 
 	wait duration
 }
 
 // Kills the pilot's hologram when the pilot dies/is destroyed (or when its time is up).
-// HologramKill has a "dying" guard, so overlapping with StartHologram's own cleanup is harmless.
 function NPCPilotHologramWatch( npc, duration )
 {
-	local hologram = null
-	if ( "hologram" in npc.s )
-		hologram = npc.s.hologram
+	local hologram = "hologram" in npc.s ? npc.s.hologram : null
 	if ( !IsValid( hologram ) )
 		return
 
@@ -495,8 +492,6 @@ function NPCPilotStim( npc, enemy, duration )
 	npc.EndSignal( "OnDestroy" )
 
 	local baseSpeed = NPC_TAC_BASE_MOVESPEED
-
-	// force a relocation away from the enemy (strict ent = no diversion, same as the hologram rush)
 	local assaultEnt = null
 	if ( IsValid( enemy ) )
 	{
@@ -507,10 +502,8 @@ function NPCPilotStim( npc, enemy, duration )
 
 	OnThreadEnd( function() : ( npc, assaultEnt, baseSpeed )
 	{
-		if ( IsValid( assaultEnt ) )
-			assaultEnt.Kill()
-		if ( IsValid( npc ) )
-			npc.SetMoveSpeedScale( baseSpeed )
+		if ( IsValid( assaultEnt ) ) assaultEnt.Kill()
+		if ( IsValid( npc ) ) npc.SetMoveSpeedScale( baseSpeed )
 	})
 
 	npc.SetMoveSpeedScale( baseSpeed * NPC_TAC_STIM_SPEED )
@@ -520,11 +513,8 @@ function NPCPilotStim( npc, enemy, duration )
 	local endTime = Time() + duration
 	while ( Time() < endTime )
 	{
-		// pilots have 200 max (ghost pilots 250), so "set to max" == "set to 200" for normal pilots
 		local maxHealth = npc.GetMaxHealth()
-		if ( npc.GetHealth() < maxHealth )
-			npc.SetHealth( maxHealth )
-
+		if ( npc.GetHealth() < maxHealth ) npc.SetHealth( maxHealth )
 		wait NPC_TAC_STIM_TICK
 	}
 }
@@ -544,10 +534,8 @@ function FindNPCTacRelocationPoint( npc, enemy )
 			continue
 
 		local pos = GetNodePos( node, HULL_HUMAN )
-		if ( Distance( pos, target ) > 150 )
-			continue   // snapped too far away
-		if ( Distance( pos, origin ) < 250 )
-			continue   // not really relocating
+		if ( Distance( pos, target ) > 150 || Distance( pos, origin ) < 250 )
+			continue
 
 		return pos
 	}
@@ -555,7 +543,6 @@ function FindNPCTacRelocationPoint( npc, enemy )
 }
 
 // Mine-less version of ProximityMineSpawnShield (mp_weapon_deployable_cover.nut): same entities,
-// anchored on the pilot's feet instead of a planted mine.
 function NPCPilotDeployCover( npc, lifetime )
 {
 	npc.EndSignal( "OnDestroy" )
@@ -644,4 +631,61 @@ function NPCPilotDeployCover( npc, lifetime )
 		if ( !IsValid( npc ) || !IsAlive( npc ) )
 			return   // owner died
 	}
+}
+
+
+///////////////////////////////////
+///////// PILOT ROAMING ///////////
+///////////////////////////////////
+
+function NPCPilotRoamThink( npc )
+{
+	npc.EndSignal( "OnDeath" )
+	npc.EndSignal( "OnDestroy" )
+
+	local lastPos = npc.GetOrigin()
+
+	while ( true )
+	{
+		wait RandomFloat( 6.0, 12.0 )
+
+		local pos = npc.GetOrigin()
+		local moved = Distance( pos, lastPos )
+		lastPos = pos
+
+		if ( moved > 150 )
+			continue   // already on the move (includes stim/cloak relocations)
+
+		local dest = FindNPCRoamPoint( npc )
+		if ( dest != null )
+			SendAIToAssaultPoint( npc, dest, null, 256 )
+	}
+}
+
+function FindNPCRoamPoint( npc )
+{
+	local origin = npc.GetOrigin()
+	local enemy = npc.GetEnemy()
+
+	// flank: perpendicular to the enemy if we have one, otherwise any direction
+	local baseYaw = RandomFloat( 0, 360 )
+	if ( IsValid( enemy ) )
+		baseYaw = VectorToAngles( enemy.GetOrigin() - origin ).y + ( RandomInt( 2 ) == 0 ? 90 : -90 )
+
+	for ( local i = 0; i < 6; i++ )
+	{
+		local ang = Vector( 0, baseYaw + RandomFloat( -40, 40 ), 0 )
+		local target = origin + ang.AnglesToForward() * RandomFloat( 500, 1000 )
+
+		local node = GetNearestNodeToPos( target )
+		if ( node == null || node < 0 )
+			continue
+
+		local pos = GetNodePos( node, HULL_HUMAN )
+		if ( Distance( pos, target ) > 150 || Distance( pos, origin ) < 300 )
+			continue
+
+		return pos
+	}
+	return null
 }

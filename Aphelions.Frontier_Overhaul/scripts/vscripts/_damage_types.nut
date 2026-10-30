@@ -64,7 +64,7 @@ enum eDamageSourceId
 	mp_weapon_satchel
 	mp_weapon_nuke_satchel
 	mp_weapon_proximity_mine
-	mp_weapon_mega17
+	mp_weapon_sr_valkyrie7
 	mp_weapon_laser_mine
 	mp_weapon_grenade_multi
 	mp_weapon_suck
@@ -138,8 +138,8 @@ enum eDamageSourceId
 	// development
 	weapon_cubemap
 
-	mp_weapon_mega1
-	mp_weapon_mega2
+	mp_weapon_sr_valkyrie
+	mp_weapon_twinb_shotgun
 	mp_titanweapon_minigun
 	mp_titanweapon_charge_cannon
 	mp_weapon_throwing_knife
@@ -147,7 +147,7 @@ enum eDamageSourceId
 	mp_weapon_mega7
 	mp_weapon_mega8
 	mp_weapon_mega9
-	mp_weapon_mega10
+	mp_weapon_sr_valkyrie0
 
 	//damageSourceId=eDamageSourceId.xxxxx
 	//fireteam
@@ -212,7 +212,7 @@ damageSourceStrings[ eDamageSourceId.mp_weapon_grenade_emp ] 			<- "#WPN_GRENADE
 damageSourceStrings[ eDamageSourceId.mp_weapon_satchel ] 				<- "#WPN_SATCHEL"
 damageSourceStrings[ eDamageSourceId.mp_weapon_nuke_satchel ] 			<- "#WPN_SATCHEL"
 damageSourceStrings[ eDamageSourceId.mp_weapon_proximity_mine ]			<- "#WPN_PROXIMITY_MINE"
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega17 ] 				<- "#DEATH_RODEO_CABER"
+damageSourceStrings[ eDamageSourceId.mp_weapon_sr_valkyrie7 ] 				<- "#DEATH_RODEO_CABER"
 
 damageSourceStrings[ eDamageSourceId.mp_extreme_environment ] 			<- "#DAMAGE_EXTREME_ENVIRONMENT"
 damageSourceStrings[ eDamageSourceId.mp_titanability_healthdrop ] 		<- "Titan Health Drop"
@@ -313,8 +313,8 @@ else
 	damageSourceStrings[ eDamageSourceId.stuck ]		 				<- "#DEATH_GENERIC_KILLED"
 }
 
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega1 ] 					<- "#WPN_VALKYRIE"
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega2 ] 					<- "#WPN_TWINB_SHOTGUN"
+damageSourceStrings[ eDamageSourceId.mp_weapon_sr_valkyrie ] 					<- "#WPN_VALKYRIE"
+damageSourceStrings[ eDamageSourceId.mp_weapon_twinb_shotgun ] 					<- "#WPN_TWINB_SHOTGUN"
 damageSourceStrings[ eDamageSourceId.mp_titanweapon_minigun ] 					<- "#WPN_TITAN_MINIGUN"
 damageSourceStrings[ eDamageSourceId.mp_titanweapon_charge_cannon ] 					<- "#WPN_TITAN_CHARGE_CANNON"
 damageSourceStrings[ eDamageSourceId.mp_weapon_throwing_knife ] 					<- "#WPN_THROWING_KNIFE"

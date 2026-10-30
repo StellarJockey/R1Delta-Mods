@@ -31,7 +31,7 @@ WeaponData
 			"fire_rate"	"*1.5"
 		}
 
-		// burn card: Replace Pilot Tactical Ability with longer lasting Hologram.
+		// burn card: Replace Pilot Tactical Ability with two Holograms.
 		/*
 		bc_super_hologram
 		{

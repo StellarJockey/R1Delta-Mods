@@ -378,7 +378,7 @@ WeaponData
 			"bodygroup1_set"		"0"
 			"bodygroup4_set"		"1"
 			"anim_alt_idleAttack"	"2"
-			"zoom_fov"				"40"
+			"zoom_fov"				"30" // "40"
 		}
 		extended_ammo
 		{

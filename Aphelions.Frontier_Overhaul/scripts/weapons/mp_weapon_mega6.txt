@@ -110,7 +110,6 @@ WeaponData
 		"I cast Circle of Protection."
 		-Bish
 		*/
-
 	}
 
 	CrosshairData

@@ -1307,7 +1307,10 @@ function TryShowHitIndicator( hitWeakpoint, hitIneffective )
 
 function PlayKillShotSound( attacker, victim, damageType, isHeadShot )
 {
-	if ( victim.IsTitan() )
+	if ( victim.IsTitan() || "isHologram" in victim.s )
+		return false
+		
+	if ("dogfighter" in victim.s || "gunshipTurrets" in victim.s || "gunshipMover" in victim.s )
 		return false
 
 	if ( !( "playedKillShotSoundTime" in victim.s ) )

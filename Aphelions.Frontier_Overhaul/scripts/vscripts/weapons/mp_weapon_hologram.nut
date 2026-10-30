@@ -231,13 +231,13 @@ function GetHologramWeaponName( player )
 		case "mp_weapon_dmr":
 		case "mp_weapon_sniper":
 		case "mp_weapon_g2":
-		case "mp_weapon_mega1":
+		case "mp_weapon_sr_valkyrie":
 		case "mp_weapon_mega9":
 		
 		case "mp_weapon_semipistol":
 		case "mp_weapon_autopistol":
 		case "mp_weapon_wingman":
-		case "mp_weapon_mega2":
+		case "mp_weapon_twinb_shotgun":
 		case "mp_weapon_mega8":
 		
 			return name
