@@ -36,21 +36,27 @@ function GetRandomPilotName( team )
 {
 	local imcCodeNames = [
 		"Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
-		"Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey",
-		"Xray", "Yankee", "Zulu", "Steel", "Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Raptor", "Roach",
+		"Monk", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Trigger", "UNKNOWN", "Victor", "Whiskey",
+		"X", "Yankee", "Zulu", "Steel", "Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Raptor", "Roach",
 		"Io", "Ganymede", "Callisto", "Europa", "Phobos", "Deimos", "Red", "Blue", "Indigo", "White", "Black",
 		"June", "August", "Four", "Five", "Six", "Seven", "Nine", "Case", "Knight", "Bishop", "Rook", "Ward", "Cross",
 		"Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mako", "Blackwell",
-		"Hammer", "Omicron", "Jester", "Rho", "Sigma", "Tau", "Upsilon", "Saber", "Hydra", "Psi", "Omega", 
+		"Hammer", "Omicron", "Jester", "Rho", "Klepto", "Tau", "Upsilon", "Saber", "Hydra", "Psi", "Omega", "Meat",
+		"Ozone", "Coma", "Baron", "Able", "Aeon", "Cannibal", "Hitman", "Poet", "Kodiak", "Anchor", "Future", "Cavalier",
+		"Zero", "Trojan", "Skully", "Akimov", "Pharaoh", "Zodiac", "Lev", "Nomad", "Arrow", "Ajax", "Trigger", "Clown", 
+		"Preacher", "Rubicon", "Achilles", 
 	]
 	local militiaNames = [
-		"Adams", "Jackson", "Rodriguez", "Williams", "Dennings", "Moore", "Asgeirsson", "Lewis", "Clark", "Irons",
+		"Adams", "Jackson", "Rodriguez", "Williams", "Dennings", "Moore", "Asgeirsson", "Lewis", "Clarke", "Irons",
 		"Radford", "Young", "Turner", "Carter", "Evans", "Hill", "Hawkins", "Campbell", "Hayes", "Stokes", "Osman",
 		"Bohr", "Crane", "Turing", "Phillips", "Feynman", "Frey", "Wilkes", "Shaver", "Freeborn", "Gundyr", "Walker",
 		"Barnes", "Hernandez", "Greene", "Higgins", "Burke", "Rodgers", "Chang", "Gore", "Vargas", "Gruzinsky",
 		"Woods", "Everett", "Namir", "Hale", "Hermann", "Dutch", "Wayans", "Griffith", "Tanhausser", "Rooker",
 		"Fisher", "Drake", "Saito", "Hawthorne", "Tomar", "Rivers", "Saunders", "Shepard", "Asadi", "Howe",
-		"Winters", "Crowe", "Omar", "Maynard", "Easton", "Rao", "Jankowski", "Reed", 
+		"Winters", "Crowe", "Omar", "Maynard", "Easton", "Rao", "Jankowski", "Reed", "Vektor", "Iran", "Jess", "Cal",
+		"Dexter", "Hawke", "Harrow", "Gridlock", "Marlin", "Buck", "Outlaw", "Mercenary", "Lance", "Polonsky", "Westcott", "Ryan",
+		"Fixer", "Loner", "Bandit", "Texas", "Blackhawk", "Utah", "Cutlass", "Thrace", "Groz", "Fasalt", "Armitage", "Bear", "Houston",
+		"Dallas", "Montana", "Bird", "Eli", "Wrangler", "Oz", "Hector", 
 	]
 
 	if ( team == TEAM_IMC )
@@ -88,6 +94,7 @@ function ChoosePilotModelForWeapon( team, weapon )
         case "mp_weapon_car":
         case "mp_weapon_lmg":
         case "mp_weapon_hemlok":
+		case "mp_weapon_mega10":
             modelIndex = 0 // br
             break
 
@@ -135,6 +142,7 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 		"mp_weapon_sniper",
 		"mp_weapon_smart_pistol",
 		"mp_weapon_mega9",
+		"mp_weapon_mega10",
 	]
 
     if ( weapon == null )
@@ -204,6 +212,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         "mp_weapon_smart_pistol",
         "mp_weapon_mega8",
 		"mp_weapon_mega9",
+		"mp_weapon_mega10",
     ]
 
     local chosenWeapon = Random( pilotWeapons )

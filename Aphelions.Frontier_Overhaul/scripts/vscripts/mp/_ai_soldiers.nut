@@ -1862,22 +1862,32 @@ function GetRandomCaptainName( team )
 {
 	local imcCaptainNames = [
 		"Heppe", "Roycewicz", "Dickinger", "Hackathorn", "Arnett", "Diamand", "Allen", "Snyder", "Sullivan",
-		"McLeod", "Ferriz", "Ichige", "Barb", "Grenier", "Lor", "Chong", "Dionne", "Yuen", "Sun-Kwon", "Pulaski",
-		"Hughes", "Lambert", "Sosnowski", "Wilson", "Burbridge", "McCoy", "Cangiano", "McCarthy", "Barcalay",
-		"Hammon", "Deerson", "Mecklenburg", "Felton", "Lerma", "Smith", "Fiedler", "Richter", "Winslow", "Sizemore", 
-		"Keefe", "Keating", "Virginia", "McCord", "Schanz", "Thurman", "McCann", "Adoti", "Calhoun", "Takenouchi",
+		"McLeod", "Ferriz", "Ichige", "Barb", "Boyle", "Lor", "Chong", "Dionne", "Yuen", "Sun-Kwon", "Pulaski",
+		"Hughes", "Lambert", "Sosnowski", "Bartlett", "Burbridge", "McCoy", "Cangiano", "McCarthy", "Barcalay",
+		"Hammon", "Deerson", "Mecklenburg", "Felton", "Lerma", "Smith", "Fiedler", "Ritchie", "Winslow", "Sizemore", 
+		"Keefe", "Keating", "Virginia", "Carver", "Schanz", "Thurman", "McCann", "Adoti", "Calhoun", "Takenouchi",
 		"Song", "Conger", "Emslie", "Gompert", "Persson", "Haggerty", "Faust", "Shiring", "Duvall", "Rahm",
-		"Lipstock", "Zavala", "Byrne", "Nelson", "Lang", "Dietrich", "Mendoza", "Slater", "Bowden", "Voight",
+		"Lipstock", "Wallcroft", "Byrne", "Nelson", "Lang", "Dietrich", "Mendoza", "Slater", "Bowden", "Voight", "Axis", "Heath",
+		"Flynn", "Fleming", "Fletcher", "Toad", "Gambler", "Falco", "Roman", "Keyes", "Almagro", "Allegro", "Scratch", "Rorke",
+		"Reece", "Mace", "Arthur", "Simone", "Spaulding", "Vance", "Erikson", "Magnusson", "Sykes", "Dane", "Price", "Sanderson", "Adler",
+		"Wolf", "Bannon", "Marshall", "Truck", "Lukin", "Lukas", "Luke", "Gordon", "Desmond", "York", "Lancaster", "Queen", "Midas", "Holt",
+		"Sage", "Joker", "Wayland", "Pepper", "Copeland", "Foster", "Haile", "Ram", "Choi", "Imagawa", "Walther", "Weber", "Loiselle", "Fujiwara", 
+		"Halden",
 	]
 	
 	local militiaCaptainNames = [
 		"Hendry", "Cotterell", "Ramirez", "Walden", "Stone", "McCandlish", "Capparelli", "Perez", "Bennett", "Palmer",
 		"Grigsby", "Biancalana", "Altamirano", "Kalas", "Miller", "Tullis", "Barfield", "Fresnel", "Rutledge", "Bryant", 
-		"Glenn", "Vinson", "Baker", "Shoberg", "Gaines", "Powers", "Abrahamsson", "Roebuck", "Bell", "Nakamura", "Payne",
+		"Glenn", "LeBlanc", "Baker", "Shoberg", "Gaines", "Powers", "Abrahamsson", "Roebuck", "Bell", "Nakamura", "Payne",
 		"Papouban", "Ehrenberg", "Hakik", "Meas", "Redetzke", "Slayback", "DeRose", "Fukuda", "Rico", "Sommers", "Reynolds", 
-		"Wong", "Oliveira", "Sue", "Minx", "Bui", "Parsons", "Zampella", "Reyes", "Delacourt", "Stroud", "Harris", 
-		"Cho", "Kim", "Aki", "Medina", "Fujita", "Grimenstein", "Mitchell", "Cole", "Beck", "Carlyle", "Webber", 
-		"Burrell", "Braxton", "Landinger", "Ibrahim", "Cruz", "Daniels", "Nguyen", "Aramaki", "Pryce", "Roberts",
+		"Wong", "Oliveira", "Sue", "Minx", "Bui", "Parsons", "Collins", "Reyes", "Delacourt", "Stroud", "Harris", 
+		"Cho", "Kim", "Aki", "Medina", "Fujita", "Grimenstein", "Mitchell", "Cole", "Beck", "Carlyle", "Webber", "Webb",
+		"Burrell", "Braxton", "Landinger", "Ibrahim", "Cruz", "Daniels", "Nguyen", "Aramaki", "Pryce", "Roberts", "Rasmus",
+		"Foley", "Gomez", "Pondsmith", "Harper", "Mason", "Salazar", "Crosby", "Dowd", "Barry", "Wilson", "Zayd", "Garnett",
+		"Kaplan", "Weston", "Griggs", "Lopez", "West", "Vasquez", "Lozano", "Cook", "Pyle", "Hoopman", "Ryan", "Drew", "Lee",
+		"Ortega", "Norris", "Lyons", "Reginald", "Shane", "Sparks", "Wyatt", "Gonzavi", "Hoyt", "Davis", "Cross", "Holden", "Rivera",
+		"Allen", "Gallagher", "Burns", "Gator", "Westbrook", "Booth", "Bones", "Grove", "Morgan", "Redd", "Manning", "Vincent", "Jules",
+		"Mann", "Neil", "Otis", "Teller", "Jackie", "Bruce", "Banks", "Oswald", "Bowman", "Leo", "London", "Franklin", "Diaz",
 	]
 
 	if ( team == TEAM_IMC )
