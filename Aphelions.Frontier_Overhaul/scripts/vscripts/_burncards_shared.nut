@@ -366,6 +366,7 @@ function CreateAllBurnCards()
 	const chargecannon_desc = "Charge Cannon reaches its maximum charge faster."
 	const wingman_e_desc = "Replace Sidearm Weapon with a more lethal Wingman Elite."
 	const volt_desc = "Replace Primary Weapon with a Volt SMG that fires arc rounds."
+	const flatline_desc = "Replace Primary Weapon with a more lethal V-47 Flatline."
 
 	const twinb_flavor = "\"Technically, it's only illegal if it's not registered.\""
 	const valk_flavor = "\"There are many like it, but this one is mine.\""
@@ -374,6 +375,7 @@ function CreateAllBurnCards()
 	const chargecannon_flavor = "\"To avoid long-term eye damage, do not look directly into the beam.\""
 	const wingman_e_flavor = "\"One good act of vengeance deserves another.\""
 	const volt_flavor = "\"Beware of a static shock when handling.\""
+	const flatline_flavor = "\"I promised you a solution that would work. I did not say it would be pretty looking.\""
 
 	const Wonyeon = "-Wonyeon Internal Memo"
 	const danforth = "-Danforth, Arms Dealer"
@@ -381,6 +383,7 @@ function CreateAllBurnCards()
 	// "#BC_FLAVOR_PILOT"
 	const warninglabel = "-Warning Label"
 	const dowd = "-Dowd, retired Ghost Pilot"
+	const venkat = "-Venkat, MCOR Engineer"
 
 	CreateBurnCardWeapon( "bc_valkyrie_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SNIPER					, "burncards/amped_valkyrie",			BC_NEXTDEATH, 		"#BC_VALKYRIE_M2"				, valk_desc							, valk_flavor							, vaughan, 					"mp_weapon_sr_valkyrie",			"burn_mod_valkyrie",			"PRIMARY"			)
 	CreateBurnCardWeapon( "bc_twinb_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SMG					, "burncards/amped_twinb",				BC_NEXTDEATH, 		"#BC_TWINB_SHOTGUN_M2"			, twinb_desc						, twinb_flavor							, "#BC_FLAVOR_DANFORTH",	"mp_weapon_twinb_shotgun",			"burn_mod_twinb",				"SIDEARM"			)
@@ -389,6 +392,7 @@ function CreateAllBurnCards()
 	//CreateBurnCardWeapon( "bc_titan_charge_cannon_m2",			BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_TACTICAL				, "burncards/amped_charge_cannon", 		BC_NEXTTITANDROP, 	"#BC_TITAN_CHARGE_CANNON_M2"	, "#BC_TITAN_CHARGE_CANNON_M2_DESC"	, chargecannon_flavor				, warninglabel,				"mp_titanweapon_charge_cannon",			"burn_mod_titan_charge_cannon",	"TITAN_OFFHAND1"	)
 	CreateBurnCardWeapon( "bc_wingman_elite_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_PISTOL					, "burncards/amped_wingman_elite", 		BC_NEXTDEATH, 		"Amped Wingman Elite"			, wingman_e_desc					, wingman_e_flavor						, dowd,						"mp_weapon_mega8", 			"burn_mod_wingman_elite",       "SIDEARM"		)
 	CreateBurnCardWeapon( "bc_volt_m2",							BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SMG					, "burncards/amped_volt", 				BC_NEXTDEATH, 		"Amped Volt"					, volt_desc							, volt_flavor							, warninglabel,				"mp_weapon_mega9", 			"burn_mod_volt",      			"PRIMARY"		)
+	CreateBurnCardWeapon( "bc_flatline_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_RIFLE					, "burncards/amped_flatline", 			BC_NEXTDEATH, 		"Amped Flatline"				, flatline_desc						, flatline_flavor						, venkat,					"mp_weapon_mega10", 		"burn_mod_flatline",      			"PRIMARY"		)
 
 	if ( IsServer() )
 	{

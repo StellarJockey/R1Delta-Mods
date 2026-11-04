@@ -313,7 +313,7 @@ function UpdateCategoryButtons( category )
 			break
 
 		case eChallengeCategory.PILOT_PRIMARY:
-			ShowCategories( [ 	eChallengeCategory.WEAPON_SMART_PISTOL,
+			ShowCategories( [ 				eChallengeCategory.WEAPON_SMART_PISTOL,
 											eChallengeCategory.WEAPON_SHOTGUN,
 											eChallengeCategory.WEAPON_R97,
 											eChallengeCategory.WEAPON_CAR,
@@ -325,11 +325,12 @@ function UpdateCategoryButtons( category )
 											eChallengeCategory.WEAPON_SNIPER,
 											eChallengeCategory.WEAPON_VALKYRIE,
 											eChallengeCategory.WEAPON_VOLT,
+											eChallengeCategory.WEAPON_FLATLINE,
 										 ] )
 			break
 
 		case eChallengeCategory.PILOT_SECONDARY:
-			ShowCategories( [ 	eChallengeCategory.WEAPON_SMR,
+			ShowCategories( [ 				eChallengeCategory.WEAPON_SMR,
 											eChallengeCategory.WEAPON_MGL,
 											eChallengeCategory.WEAPON_ARCHER,
 											eChallengeCategory.WEAPON_DEFENDER,
@@ -337,7 +338,7 @@ function UpdateCategoryButtons( category )
 			break
 
 		case eChallengeCategory.PILOT_SIDEARM:
-			ShowCategories( [ 	eChallengeCategory.WEAPON_AUTOPISTOL,
+			ShowCategories( [ 				eChallengeCategory.WEAPON_AUTOPISTOL,
 											eChallengeCategory.WEAPON_SEMIPISTOL,
 											eChallengeCategory.WEAPON_WINGMAN,
 											eChallengeCategory.WEAPON_TWINB,
@@ -346,7 +347,7 @@ function UpdateCategoryButtons( category )
 			break
 
 		case eChallengeCategory.PILOT_ORDNANCE:
-			ShowCategories( [ 	eChallengeCategory.WEAPON_FRAG_GRENADE,
+			ShowCategories( [ 				eChallengeCategory.WEAPON_FRAG_GRENADE,
 											eChallengeCategory.WEAPON_EMP_GRENADE,
 											eChallengeCategory.WEAPON_PROXIMITY_MINE,
 											eChallengeCategory.WEAPON_SATCHEL,

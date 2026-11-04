@@ -147,7 +147,7 @@ enum eDamageSourceId
 	mp_weapon_mega7
 	mp_weapon_mega8
 	mp_weapon_mega9
-	mp_weapon_sr_valkyrie0
+	mp_weapon_mega10
 
 	//damageSourceId=eDamageSourceId.xxxxx
 	//fireteam
@@ -320,6 +320,7 @@ damageSourceStrings[ eDamageSourceId.mp_titanweapon_charge_cannon ] 					<- "#WP
 damageSourceStrings[ eDamageSourceId.mp_weapon_throwing_knife ] 					<- "#WPN_THROWING_KNIFE"
 damageSourceStrings[ eDamageSourceId.mp_weapon_mega8 ] 					<- "Wingman Elite"
 damageSourceStrings[ eDamageSourceId.mp_weapon_mega9 ] 					<- "M-18 Volt SMG"
+damageSourceStrings[ eDamageSourceId.mp_weapon_mega10 ] 				<- "V-47 Flatline"
 
 //When adding new mods, they need to be added below and to persistent_player_data_version_N.pdef in r1/cfg/server.
 //Then when updating that file, save a new one and increment N.

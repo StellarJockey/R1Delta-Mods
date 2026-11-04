@@ -38,6 +38,7 @@ const OUT_OF_BOUNDS_DECAY_DELAY = 1
 
 const TEAM_DEATHMATCH = "tdm"
 const PILOT_SKIRMISH = "ps"
+const LIVE_FIRE = "lf"
 const CAPTURE_POINT = "cp"
 const ELIMINATION = "elim"
 const ATDM = "atdm"
@@ -70,6 +71,7 @@ const BURN_CARD_ESCALATION = "bce"
 const TITAN_FFA = "tffa"
 const TURBO_TITAN_BRAWL = "ttdm_turbo"
 const TURBO_TITAN_FFA = "tffa_turbo"
+
 
 const MAX_TRACKED_CHALLENGES = 3
 
@@ -1673,7 +1675,8 @@ enum ePrivateMatchModes
 	bce,
 	tffa,
 	ttdm_turbo,
-	tffa_turbo
+	tffa_turbo,
+	lf
 }
 
 
@@ -2155,6 +2158,7 @@ enum eChallengeCategory
 	WEAPON_SNIPER,
 	WEAPON_VALKYRIE,
 	WEAPON_VOLT,
+	WEAPON_FLATLINE,
 
 	PILOT_SECONDARY,	// Only used by challenges menu
 
@@ -2245,6 +2249,16 @@ pmSettingsMap["pm_score_limit"]["lts"] <- [
 	9,
 ]
 pmSettingsMap["pm_score_limit"]["wlts"] <- [
+	2,
+	3,
+	4,
+	5,
+	6,
+	7,
+	8,
+	9,
+]
+pmSettingsMap["pm_score_limit"]["lf"] <- [
 	2,
 	3,
 	4,
@@ -2636,6 +2650,7 @@ const WEAPON_CHARGE_CANNON_NAME = "mp_titanweapon_charge_cannon"
 const WEAPON_THROWING_KNIFE_NAME = "mp_weapon_throwing_knife"
 const WEAPON_WINGMAN_ELITE_NAME = "mp_weapon_mega8"
 const WEAPON_VOLT_NAME = "mp_weapon_mega9"
+const WEAPON_FLATLINE_NAME = "mp_weapon_mega10"
 
 enum eUIEvent
 {

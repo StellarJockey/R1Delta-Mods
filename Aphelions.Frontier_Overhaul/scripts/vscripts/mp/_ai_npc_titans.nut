@@ -380,6 +380,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 			"mp_weapon_sniper",
 			"mp_weapon_smart_pistol",
 			"mp_weapon_mega9",
+			"mp_weapon_mega10",
 		]
 		local pilotWeapon = Random( pilotWeapons )
 		GiveMinionWeapon( pilot, pilotWeapon )

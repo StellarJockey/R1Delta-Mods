@@ -160,17 +160,18 @@ function InitPersistence()
 	    mp_ability_sonar = 38
 
 	    mp_titanweapon_shotgun = 39
-	    mp_weapon_sr_valkyrie = 40 // Valkyrie
-	    mp_weapon_twinb_shotgun = 41 // Twin-B
-	    mp_titanweapon_minigun = 42 // Thunderbolt (minigun)
-	    mp_titanweapon_charge_cannon = 43 // Charge Cannon
+	    mp_weapon_sr_valkyrie = 40
+	    mp_weapon_twinb_shotgun = 41
+	    mp_titanweapon_minigun = 42
+	    mp_titanweapon_charge_cannon = 43
 	    mp_titanweapon_shoulder_turret = 44
-		mp_weapon_throwing_knife = 45 // Throwing Knife
+		mp_weapon_throwing_knife = 45
 		mp_weapon_mega6 = 46 // Deployable Cover
 		mp_weapon_mega7 = 47 // Hologram
 		mp_weapon_yh803_bullet = 48 // turret
 		mp_weapon_mega8 = 49 // Wingman Elite
-		mp_weapon_mega9 = 50 // Volt SMG
+		mp_weapon_mega9 = 50 // M-18 Volt SMG
+		mp_weapon_mega10 = 51 // V-47 Flatline
     }
 
     AddPersistenceEnum("loadoutItems", loadoutItems)
@@ -245,6 +246,8 @@ function InitPersistence()
 		burn_mod_wingman_elite = 66
 		laser_sight = 67
 		burn_mod_volt = 68
+		skull_piercer = 69
+		kick_switch = 70
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -677,6 +680,17 @@ function InitPersistence()
 		mp_weapon_mega9_hcog = 147,
 		mp_weapon_mega9_holosight = 148,
 		mp_weapon_mega9_burn_mod_volt = 149,
+
+		["mp_weapon_mega10_iron_sights"] = 150,
+		["mp_weapon_mega10_hcog"] = 151,
+		["mp_weapon_mega10_holosight"] = 152,
+		["mp_weapon_mega10_aog"] = 153,
+		["mp_weapon_mega10_extended_ammo"] = 154,
+		["mp_weapon_mega10_silencer"] = 155,
+
+		mp_weapon_g2_skull_piercer = 156,
+		mp_weapon_dmr_skull_piercer = 157,
+		mp_weapon_mega10_kick_switch = 158,
 		
     }
 
@@ -851,6 +865,7 @@ function InitPersistence()
 	    bc_titan_charge_cannon_m2 = 79,
 		bc_wingman_elite_m2 = 80,
 		bc_volt_m2 = 81,
+		bc_flatline_m2 = 82,
     }
 	::struct_activeBurnCardData <- {
 		cardRef = null,
@@ -1556,6 +1571,13 @@ function InitPersistence()
 	    ch_volt_grunt_kills = 240,
 	    ch_volt_hours_used = 241,
 	    ch_volt_headshots = 242,
+
+		ch_flatline_kills = 243,
+	    ch_flatline_pilot_kills = 244,
+	    ch_flatline_spectre_kills = 245,
+	    ch_flatline_grunt_kills = 246,
+	    ch_flatline_hours_used = 247,
+	    ch_flatline_headshots = 248,
     }
 
     AddPersistenceEnum("challenge", challenge)
@@ -1821,6 +1843,12 @@ function InitPersistence()
 		ch_daily_volt_spectre_kills = 213,
 		ch_daily_volt_grunt_kills = 214,
 		ch_daily_volt_headshots = 215,
+
+		ch_daily_flatline_kills = 216,
+		ch_daily_flatline_pilot_kills = 217,
+		ch_daily_flatline_spectre_kills = 218,
+		ch_daily_flatline_grunt_kills = 219,
+		ch_daily_flatline_headshots = 220,
     }
 
     AddPersistenceEnum("dailychallenge", dailychallenge)

@@ -22,6 +22,9 @@ R1-S BURRELL SMG:
 * Restored cut SMG version of the R101. Still experimenting with its role and numbers
 * Temporarily removed because it will actually break the game super hard if you try and use it outside the mod
 
+M-18 VOLT SMG:
+* Added the Volt SMG from Titanfall 2
+
 HEMLOK:
 * Reduced weapon spread
 
@@ -33,6 +36,9 @@ SPITFIRE:
 * Reduced ADS time from 0.7 sec to 0.5 sec
 * Range buff
 * Added Cyclic Receiver mod (ADS and reload are slower than the Burn Card version)
+
+V-47 FLATLINE:
+* Added the Flatline assault rifle from Titanfall 2
 
 KRABER:
 * Added Anti-Titan Rounds mod (has less ammo than the burn card version)
@@ -57,7 +63,7 @@ TWIN-B:
 * Added Double Tap mod to fire both barrels (almost) at once
 
 WINGMAN ELITE:
-* Added Wingman Elite, projectile version of the regular Wingman
+* Added Wingman Elite: a projectile version of the regular Wingman with HCOG sights
 
 ////////////////////////////////////////
 ////// PILOT ORDNANCE + TACTICAL ///////
