@@ -23,12 +23,13 @@ NPC Features:
 Weapon Features:
 -
 * New Pilot Primary: M-18 Volt SMG
+* New Pilot Primary: V-47 Flatline
 * New Pilot Sidearm: Wingman Elite
 * New Pilot Ordnance: Throwing Knife
 * New Pilot Tacticals: Deployable Cover and Hologram
 * New Titan Weapon: AG-8 Thunderbolt minigun (re-worked)
 * Restored Titan Ordnance: Shoulder Turret
-* Exclusive weapon mods/attachments with handmade icons
+* Exclusive weapon mods/attachments with unique icons
 * Added XP Stealth Bonus for getting kills with certain suppressed weapons or the throwing knife on an enemy who doesn't have LOS on you
 * Extensive weapon rebalancing (see Aphelions.Frontier_Overhaul\FAQ\WEAPON\_CHANGES.txt)
 
