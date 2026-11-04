@@ -411,6 +411,10 @@ WeaponData
 			"viewdrift_ads_speed_pitch"   					"*0.5"
 			"viewdrift_ads_speed_yaw" 						"*0.5"
 		}
+		"skull_piercer"
+		{
+			"damage_headshot_scale"							"3.4"
+		}
 		burn_mod_dmr
 		{
 			"crosshair_index"								"1"

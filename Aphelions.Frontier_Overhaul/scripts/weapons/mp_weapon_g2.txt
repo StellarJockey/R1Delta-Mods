@@ -418,6 +418,10 @@ WeaponData
 			"fx_muzzle_flash_world"				"wpn_muzzleflash_pistol_sup"
 			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_sq"
 		}
+		"skull_piercer"
+		{
+			"damage_headshot_scale"							"3.4"
+		}
 		match_trigger
 		{
 			"viewkick_pitch_base" 							"-0.3"
