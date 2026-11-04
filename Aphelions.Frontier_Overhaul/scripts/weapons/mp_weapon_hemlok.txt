@@ -86,8 +86,8 @@ WeaponData
 
 	// Ammo
 	"ammo_clip_size"   								"24"
-	"ammo_default_total"							"480"
-	"ammo_stockpile_max"							"480"
+	"ammo_default_total"							"384"
+	"ammo_stockpile_max"							"384"
 
 	// Behavior
 	"fire_rate"   									"15.5"

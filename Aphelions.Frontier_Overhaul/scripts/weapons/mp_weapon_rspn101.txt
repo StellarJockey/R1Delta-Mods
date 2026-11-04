@@ -310,7 +310,7 @@ WeaponData
 	"npc_min_range_secondary" 						"0"
 	"npc_max_range_secondary" 						"2500"
 	"npc_min_burst"   								"2"
-	"npc_max_burst"   								"3"
+	"npc_max_burst"   								"5"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
 	"deployfirst_time"								"1.25"

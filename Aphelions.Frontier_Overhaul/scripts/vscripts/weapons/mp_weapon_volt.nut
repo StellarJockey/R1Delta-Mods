@@ -110,17 +110,17 @@ function OnWeaponActivate( activateParams )
 
 	if ( self.HasMod( "silencer" ) )
 	{
-		SetLoopingWeaponSound_1p3p( "Weapon_R1SMG1.FirstShotSuppressed", "Weapon_R1SMG1.LoopSuppressed", "Weapon_R1SMG1.LoopSuppressedEnd",
-		                            "Weapon_R1SMG1.FirstShotSuppressed_3P", "Weapon_R1SMG1.LoopSuppressed_3P", "Weapon_R1SMG1.LoopSuppressedEnd_3P" )
+		SetLoopingWeaponSound_1p3p( "Weapon_Null.FirstShot", "Weapon_R1SMG1.LoopSuppressed", "Weapon_R1SMG1.LoopSuppressedEnd",
+		                            "Weapon_Null.FirstShot", "Weapon_R1SMG1.LoopSuppressed_3P", "Weapon_R1SMG1.LoopSuppressedEnd_3P" )
 	}
     else
     {
-           SetLoopingWeaponSound_1p3p( "Weapon_R1SMG1.FirstShotSuppressed", "Weapon_Volt.Loop", "Weapon_R1SMG1.LoopSuppressedEnd",
-                                    "Weapon_R1SMG1.FirstShotSuppressed_3P", "Weapon_Volt.Loop_3P", "Weapon_R1SMG1.LoopSuppressedEnd_3P" )
+           SetLoopingWeaponSound_1p3p( "Weapon_Null.FirstShot", "Weapon_Volt.Loop", "Weapon_R1SMG1.LoopSuppressedEnd",
+                                    "Weapon_Null.FirstShot", "Weapon_Volt.Loop_3P", "Weapon_R1SMG1.LoopSuppressedEnd_3P" )
     }
 }
 
 function OnWeaponDeactivate( deactivateParams )
 {
-
+	self.ClearLoopingWeaponSound()
 }

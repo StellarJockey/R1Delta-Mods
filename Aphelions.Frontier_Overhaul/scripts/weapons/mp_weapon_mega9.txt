@@ -67,7 +67,7 @@ WeaponData
 	"damage_near_value_titanarmor"					"20"
 	"damage_far_value_titanarmor" 					"10"
 	"explosion_damage"								"0"
-	"damage_rodeo" 									"100"
+	"damage_rodeo" 									"80"
 
 	// Damage - When Used by NPCs
 	"rest_time_between_bursts_min"					"0.2"
@@ -313,7 +313,7 @@ WeaponData
 	"npc_min_range_secondary" 						"0"
 	"npc_max_range_secondary" 						"2500"
 	"npc_min_burst"   								"2"
-	"npc_max_burst"   								"3"
+	"npc_max_burst"   								"5"
 
 	// Crosshair
 	"red_crosshair_range"							"1200"
@@ -378,7 +378,7 @@ WeaponData
 			"bodygroup1_set"		"0"
 			"bodygroup4_set"		"1"
 			"anim_alt_idleAttack"	"2"
-			"zoom_fov"				"30" // "40"
+			"zoom_fov"				"40"
 		}
 		extended_ammo
 		{
