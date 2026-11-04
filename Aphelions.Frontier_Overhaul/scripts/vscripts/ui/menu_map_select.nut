@@ -131,8 +131,18 @@ function OnCloseMapsMenu()
 // Titanfall 1 maps keep the FO lobby image naming; the converted Titanfall 2 maps use the base game's image lookup
 function GetMapListImage( mapName )
 {
-	if ( IsTitanfall2Map( mapName ) )
-		return GetMapImage( mapName )
+	switch ( mapName )
+	{
+		case "mp_coliseum":
+		case "mp_coliseum_column":
+		case "mp_lf_deck":
+		case "mp_lf_meadow":
+		case "mp_lf_stacks":
+		case "mp_lf_township":
+		case "mp_lf_traffic":
+		case "mp_lf_uma":
+			return GetMapImage( mapName )
+	}
 
 	return "../ui/menu/lobby/lobby_image_" + mapName + "_v2"
 }
@@ -154,12 +164,6 @@ function MapButton_Focused( button )
 	local mapName = mapsArray[buttonID]
 	nextMapImage.SetImage( GetMapListImage( mapName ) )
 	
-	/*
-	if ( mapName == "mp_relic" || mapName == "mp_swampland" )
-		nextMapImage.SetColor( 200, 200, 200 )
-	else
-		nextMapImage.SetColor( 255, 255, 255 )
-	*/
 
 	if (GetModeNameForEnum(level.ui.privatematch_mode) == "campaign_carousel") {
 		nextMapName.SetText( GetCampaignMapDisplayName( mapName ) )
@@ -169,11 +173,11 @@ function MapButton_Focused( button )
 			mp_colony =      "1604 Hours, July 20, 2710\nArriving in search of Militia fugitives, IMC recon satellites have found something far worse on planet Troy. But in trying to reclaim the Vice Admiral's lost ship, an old war hero is forced out of hiding..."
 			mp_relic =       "1800 Hours, July 20, 2710\nMacAllan makes a deal with the Militia. Their mission is to get the surviving colonists out of harm's way. In exchange, they will receive the Odyssey's black box. If MacAllan is to be believed, it may hold the key to defeating the IMC..."
 			mp_angel_city =  "1530 Hours, August 2, 2710\nAfter some digging, Bish has found the next part of MacAllan's plan: an air traffic controller in Angel City's harbor district. But the IMC's Spyglass Network is everywhere. Getting in is the easy part. Getting out will be... less so."
-			mp_outpost_207 = "0105 Hours, August 4, 2710\nMacAllan's gambit during the Battle of Angel City paid off. The IMS Sentinel retreats to the drydock, guarded by Outpost 207. The Militia sends in a strike team to take out the ship, with the Vice Admiral still onbaord."
+			mp_outpost_207 = "0105 Hours, August 4, 2710\nMacAllan's gambit during the Battle of Angel City paid off. The IMS Sentinel retreats to a space drydock, guarded by Outpost 207. The Militia sends in a strike team to take out the ship, with the Vice Admiral still onbaord."
 			mp_boneyard =    "1311 Hours, August 12, 2710\nAgainst his better judgement, Barker takes the Militia to the Boneyard, the site of an abandoned IMC research facility. Bish's job is to collect data on the tower before the IMC can scuttle the base."
 			mp_airbase =     "0506 Hours, August 29, 2710\nAt the eleventh hour, IMC reinforcements prepare to lift off from Airbase Sierra. Commander Sarah Briggs leads a strike team inside the base, now armed with Bish's tower-crippling virus: a program he calls the 'Icepick.'"
 			mp_o2 =          "0700 Hours, August 29, 2710\nThe 1st Militia Fleet launches its final assault on the gate-world of Demeter. While Bish leads a cyber-attack against the Spyglass Network, MacAllan and Vice Admiral Graves play out their long-awaited endgame..."
-			mp_corporate =   "1530 Hours, December 5, 2710\nIn the epilogue of Demeter's destruction, Marcus Graves was court-martialed for lying under oath about the Odyssey. But after being rescued from a Colonial Navy black site, he now forms an uneasy alliance with the Militia."
+			mp_corporate =   "1530 Hours, December 5, 2710\nIn the epilogue of Demeter's destruction, Marcus Graves was court-martialed for lying under oath about his role in the Odyssey's mutiny. But after being rescued from a Colonial Navy black site, he now forms an uneasy alliance with the Militia."
 		}
 
 		if ( mapName in campaignDescriptions ) {
@@ -202,20 +206,35 @@ function MapButton_Focused( button )
 			mp_rise = "Planet Gridiron, Wichita System\nMilitia forces have set up a reconnaissance outpost in an abandoned IMC reservoir. Gridiron lies on the inner edge of its star's habitable zone, but the star has since expanded, leaving its surface baked by solar radiation.",
 			mp_boneyard = "Planet Leviathan, Badlands System\nMany years ago, the first Dog-Whistle Tower was built at this IMC facility, using ultrasonic frequencies to repel hostile wildlife. Its existence has since been purged from all written records.",
 			mp_training_ground = "Planet Gridiron, Wichita System\nWith \"Only the Strong Survive\" as its slogan, this Pilot training regiment claims to have a 98 percent fatality rate - but that assumes their numbers are to be trusted. The IMC are well known for their propaganda.",
-			mp_haven = "Planet Harmony, Freeport System\nThis luxury retreat for the wealthy was built on the edge of a massive crater lake. Many of its frequenters have stocks in defense contracting, and are very interested in seeing the Frontier's war continue.",
-			mp_swampland = "Planet Calidus, Sector Delta-139\nDrainage operations have revealed ancient ruins of unknown origin. Vice Admiral Spyglass dispatches a team to investigate, at the request of the IMC's secretive Archeological Research Division...",
-			mp_runoff = "Planet Calidus, Sector Delta-139\nOnce owned by a neutral terraforming company, the IMC has forcefully taken this water treatment facility. This world has been chosen as the new Fleet Operations Base for the IMC Navy following the Battle of Demeter.",
-			mp_harmony_mines = "Planet Harmony, Freeport System\nEnergy-rich ores are extracted at this mining facility owned by Kodai Industries. Lithium, cobalt, and tungsten carbide are instrumental for the Frontier's war machine.",
 			mp_corporate = "Northwestern continent, Planet Galen\nApplied Robotics labs on the Frontier, such as this one, developed the first automated infantry \"Spectre\" units. Hammond Robotics is an IMC Premier Technology Company, with many secrets being hidden under NDAs.",
 			mp_lagoon = "Planet Navaria, Freeport System\nAn IMC carrier makes an emergency landing on a small fishing village, though it is unlikely they're here to ask the locals for directions.",
+
+			mp_haven = "Planet Harmony, Freeport System\nThis luxury retreat for the wealthy was built on the edge of a massive crater lake. Many of its frequenters have stocks in defense contracting, and are very interested in seeing the Frontier's war continue.",
+			mp_swampland = "Planet Calidus, Delta Sector\nDrainage operations have revealed ancient ruins of unknown origin. Vice Admiral Spyglass dispatches a team to investigate, at the request of the IMC's secretive Archeological Research Division...",
+			mp_runoff = "Planet Calidus, Delta Sector\nOnce owned by a neutral terraforming company, the IMC has forcefully taken this water treatment facility. This world has been chosen as the new Fleet Operations Base for the IMC Navy following the Battle of Demeter.",
+			mp_harmony_mines = "Planet Harmony, Freeport System\nEnergy-rich ores are extracted at this mining facility owned by Kodai Industries. Lithium, cobalt, and tungsten carbide are instrumental for the Frontier's war machine.",
 			mp_backwater = "Planet Angelia, Wichita System\nHigh in the mountains, ex-IMC pilot Barker and his cohort made a comfortable living producing moonshine in this hidden bootlegging colony - prior to his abduction in Angel City. It brings memories of Earth and other worlds that were left behind.",
 			mp_switchback = "Planet Harmony, Freeport System\nSituated near a Kodai mining facility, this mountainside settlement is responsible for cheaply transporting goods and materials. It harkens back to the Gold Rush-era boomtowns of centuries prior.",
-			mp_zone_18 = "Planet Cybele, Dakota System\nHidden in a vast wilderness, an abandoned IMC research facility has been reactivated after the destruction of Hammond Robotics' corporate HQ. Intel suggests a new Spectre model is being developed here."
+			mp_zone_18 = "Planet Cybele, Dakota System\nHidden in a vast wilderness, an abandoned IMC research facility has been reactivated after the attack on Hammond Robotics' corporate HQ. Intel suggests a new Spectre model is being developed here."
 			mp_sandtrap = "Midas, desert moon of Cybele\nBeyond the Frontier's established shipping lanes, this facility holds deep reservoirs of unrefined fuel. This fuel creates a negative energy density that satisfies the Einstein-Alcubierre metric, allowing for faster-than-light travel.",
-			mp_box = "-LOCATION UNAVAILABLE-\nHammond Robotics' \"Dev-Box\" Environment was an early proof of concept for using VR in combat simulations. It is now used for debugging and stress testing new features.",
-			mp_npe = "MCS Alexandria, en route to Horizon Station\nSimulation Training Pods are used for Pilot certification exams, though many have been cracked and distributed by criminal networks. Remember, piracy is a crime.",
+			
+			mp_box = "Bish's Personal Computer, MCS Annapolis\nHammond Robotics' \"Dev-Box\" Environment was an early proof of concept for using VR in combat simulations. It is now used for debugging and stress testing new features.",
 			mp_nest2 = "Planet Meridian, Everglades System\nFollowing a massive data breach, IMC operatives must infiltrate one of their own facilities to destroy critical information related to Project PERISCOPE before it can be leaked.",
-			mp_mia = "Southern continent, Planet Demeter\nA group of IMC and Militia forces make their last stand near the crash site of the MCS Rubicon. After several days of holding out in the desert, rescue teams have finally arrived.",
+			mp_mia = "Southern continent, Planet Demeter\nA group of IMC and Militia forces make their last stand near the crash site of the IMS Rubicon. After several days of holding out in the desert, rescue teams have finally arrived.",
+			mp_npe = "MCS Alexandria, en route to Horizon Station\nSimulation Training Pods are used for Pilot certification exams, though many have been cracked and distributed by criminal networks. Remember, piracy is a crime.",
+
+			mp_complex3 = "Planet Typhon, Sector Echo-152\nThe Fermi Research Complex is dedicated to studying xenoarcheology and galactic fossil records, operated by the IMC’s ARES Division. Ruins found on Calidus have led them to a megastructure of unknown origin on Typhon.",
+			mp_eden = "Planet Eden, Yuma System\nThis settlement in the Meng desert was sold as a prosperous worker village for oil drilling, but became a ghost town due to poor working conditions. The few who remain are bound by the IMC’s strict employee contracts.",
+			mp_thaw = "Planet Tiamat, Badlands System\nThis BSL-5 research outpost is set on a remote Frontier world owned by Grow Incorporated. An invasive species that produces highly toxic spores has been quarantined here, and is now being carefully monitored.",
+			mp_black_water_canal = "Planet Cibus, Coyote System\nThis fuel storage depot was built by Dionysys, a respected IMC subsidiary. With the loss of Demeter, this world has become an important pitstop for ships traveling between Demeter and the Frontier's Heartland systems.",
+			mp_grave = "Planet Typhon, Sector Echo-152\nThis IMC Simulation Dome was built deep underground, made for simulating combat scenarios in urban environments. Its construction was outsourced to Vinson Dynamics, as a way for the IMC to avoid liability for any accidents.",
+			mp_crashsite3 = "Planet Typhon, Sector Echo-152\nAfter the MCS James MacAllan was shot down during Operation Broadsword, the surviving crew members band together to form a resistance on a hostile new planet.",
+			mp_drydock = "Planet Navaria, Freeport System\nRetired carriers are scrapped for parts at this old shipping yard. Unlike the one guarded by Outpost 207, this drydock is planet-side, with large derelicts slowly collapsing under their own weight.",
+			mp_forwardbase_kodai = "Planet Meridian, Everglades System\nThis IMC interstellar beacon is the middle part of a three-beacon chain between the Wichita system and Sector Echo-152. It was the first to report an unknown cataclysmic event that shattered the moons of several inhabited worlds."
+			mp_homestead = "Planet Lemuria, Somnus System\nDescended from the Frontier’s first colonists, this settlement has remained untouched by the IMC. Though Lemuria's wealth of resources would make it a target, its distance from the Frontier Heartlands makes frequent FTL travel unfeasible.",
+			mp_glitch = "OSET Sever 8-1, Planet Harmony\nBased on the Silver Coast of Harmony's eastern continent, this MCOR training program was decompiled from a low-end IMC cluster.",
+			mp_colony02 = "NS-5 Server Cluster, Planet Calidus\nAfter being burned down by the IMC as part of their failed cover-up, this township has been digitally re-created as part of the their War Games 2.0 initiative.",
+			mp_relic02 = "NS-5 Server Cluster, Planet Calidus\nThough the real IMS Odyssey was scrapped during the IMC's failed cover-up, this re-creation now exists as part of the War Games 2.0 initiative.\"",
 		}
 
 		if ( mapName in customDescriptions ) {

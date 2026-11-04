@@ -47,6 +47,13 @@ function main() // FO
 	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_nest2" )
 	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_npe" )
 
+	/*
+	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_thaw" )
+	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_homestead" )
+	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_complex3" )
+	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_black_water_canal" )
+	*/
+
 	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_fracture_v2" )
 	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_colony_v2" )
 	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_relic_v2" )
@@ -75,6 +82,13 @@ function main() // FO
 	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_mia_v2" )
 	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_nest2_v2" )
 	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_npe_v2" )
+
+	/*
+	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_thaw_v2" )
+	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_homestead_v2" )
+	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_complex3_v2" )
+	PrecacheHUDMaterial( "../ui/menu/lobby/lobby_image_mp_black_water_canal_v2" )
+	*/
 
 	PrecacheHUDMaterial( "../ui/menu/common/menu_background_neutral_legacy" )
 	PrecacheHUDMaterial( "../ui/menu/common/menu_background_neutral_legacy_blur" )
@@ -928,7 +942,7 @@ function SetMapInfo( mapName )
 
 	local mapImage
 	if ( IsTitanfall2Map( mapName ) )
-		mapImage = GetMapImage( mapName )
+		mapImage = "../ui/menu/lobby/lobby_image_" + mapName // mapImage = GetMapImage( mapName )
 	else
 		mapImage = "../ui/menu/lobby/lobby_image_" + mapName
 

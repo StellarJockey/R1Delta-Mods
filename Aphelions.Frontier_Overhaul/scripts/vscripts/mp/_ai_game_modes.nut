@@ -77,6 +77,7 @@ function main()
 
 	level.max_npc_per_side <- 12
 	level.max_npc_per_side_small <- 9
+	level.max_npc_per_side_large <- 15
 
 	level.aiSpottingEnabled <- true  // Can be disabled per-mode
 	level.aiHuntThinkEnabled <- true
@@ -223,6 +224,7 @@ function UpdateNPCCaps( usePilots )
 	// Change the caps first: the Set*AICount asserts compare against level.max_npc_per_side
 	level.max_npc_per_side = usePilots ? 24 : 12
 	level.max_npc_per_side_small = usePilots ? 20 : 9
+	level.max_npc_per_side_large = usePilots ? 28 : 15
 
 	local npcPerSide = GetGameModeNPCPerSide()
 
@@ -294,13 +296,28 @@ function SetupLevelAICount()
 		case "mp_lagoon":
 		case "mp_outpost_207":
 		case "mp_colony":
+		case "mp_colony02":
 		case "mp_relic":
+		case "mp_relic02":
 		case "mp_overlook":
 		case "mp_smugglers_cove":
 		case "mp_switchback":
 		case "mp_zone_18":
 		case "mp_backwater":
 			aiCount = level.max_npc_per_side_small
+			break
+
+		case "mp_crashsite3":
+		case "mp_black_water_canal":
+		case "mp_complex3":
+		case "mp_drydock":
+		case "mp_eden":
+		case "mp_forwardbase_kodai":
+		case "mp_glitch":
+		case "mp_homestead":
+		case "mp_grave":
+		case "mp_thaw":
+			aiCount = level.max_npc_per_side_large
 			break
 
 		case "mp_box":
@@ -1108,7 +1125,7 @@ function GunshipWaveThink( team )
 
 		// 45% chance for gunships spawn
         if ( RandomFloat( 0.0, 1.0 ) > 0.45 )
-            continue
+			continue
 
         // Find valid spawn points for the wave using existing drop pod points
         local spawnPoints = SpawnPoints_GetDropPodStart( team ) 

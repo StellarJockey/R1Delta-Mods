@@ -16,7 +16,7 @@ function EnableRebreatherMasks( entity )
 	// Outpost 207 takes place on a moon. Moons don't have much atmosphere (aside from Staurn's moon Titan, funnily enough)
 	// Sandtrap takes place on a moon similar to Outpost 207
 	// Airbase is explicitly stated to be one of the moons of Demeter
-	if ( GetMapName() == "mp_sandtrap" ||  GetMapName() == "mp_airbase" )
+	if ( GetMapName() == "mp_sandtrap" ||  GetMapName() == "mp_airbase" || GetMapName() == "mp_thaw" )
 	{
 		SetRebreatherMaskVisible( entity, true )
 		return
