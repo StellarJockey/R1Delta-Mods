@@ -17,7 +17,7 @@
 	"$fresnelcurvesharpness" "0.95"
 	"$envmapfresnel" "1"
 	"$envmapLambertian" "3"
-	"$envmaptint" "[4 4 4]"
+	"$envmaptint" "[1 1 1]"
 	"$EnvmapSharpnessBias" "0"
 	"$speculartint" "[1 1 1]"
 	"$shininess" "models\weapons\b3_wingman\b3_wingman_exp"
