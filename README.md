@@ -4,9 +4,9 @@ HOW TO INSTALL MODS
 -
 * Step 1: Download the repo in bulk. Click the big green button that says `<> Code ▼` and extract the zip file.
 
-* Step 2: In the Titanfall 1 main menu, open the `ADDONS` menu, click `OPEN ADDONS FOLDER`, and simply place the desired mods into the folder.
+* Step 2: In the Titanfall 1 main menu, open the `ADDONS` menu, click `OPEN ADDONS FOLDER`, and simply place the desired mods (the folders named `Aphelions.Frontier_Overhaul`, `Aphelions.Custom_Backgrounds`, etc.) into the addons folder.
 
-* Step 3: Hit `RELOAD`. Make sure they're all yellow (enabled), otherwise the engine may throw a fit.
+* Step 3: Hit `RELOAD`. Make sure they're all yellow (enabled), otherwise the engine may throw a fit. If the mod content still doesn't appear in-game, try restarting the game. Be sure to pin the addons folder to your Quick Access in File Explorer so you can quickly and easily add mods.
 
 READ THIS BEFORE INSTALLING FRONTIER OVERHAUL
 -
