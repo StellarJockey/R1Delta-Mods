@@ -14,6 +14,7 @@ NPC Features:
 * Grunt Captains and NPC Pilots
 * Sniper Spectres, Suicide Spectres, Ghost Pilots, and Cloak Drones will spawn mid-late game
 * New Gunship enemy type
+* New combat drone enemy type
 * Destroyer Titan as a rare NPC mini-boss (temporarily disabled)
 * All NPC weapons will do the same damage as the player's
 * Grunts have a bit more health now
@@ -82,4 +83,4 @@ Good luck, have fun!
 -
 That's an order.
 
-**Mod contributors**: ASillyNeko, Frann, 07zj, NachosChipeados, StoneCold, Wulfheart, Claude (AI), and Aphelion
+**Mod contributors**: ASillyNeko, Frann, 07zj, NachosChipeados, StoneCold, Wulfheart, sgtmajorjefferson, Claude (AI), and Aphelion
