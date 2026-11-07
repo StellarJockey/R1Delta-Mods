@@ -1954,6 +1954,7 @@ const MODEL_BUBBLESHIELD_SPECTRE		= "models/Robots/spectre/spectre_corporate.mdl
 const SUICIDE_SPECTRE_MODEL				= "models/Robots/spectre/spectre_corporate.mdl"
 const SNIPER_SPECTRE_MODEL				= "models/Robots/spectre/spectre_corporate.mdl"
 const CLOAKED_DRONE_MODEL				= "models/robots/agp/agp_hemlok_larger.mdl"
+const COMBAT_DRONE_MODEL				= "models/robots/drone_air_attack/drone_air_attack_plasma.mdl"
 const LAPTOP_MODEL_SMALL 				= "models/communication/terminal_usable_airbase.mdl"
 
 const FX_GEN_HARVESTER_BEAM				= "P_harvester_beam"

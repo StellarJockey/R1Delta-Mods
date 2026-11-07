@@ -1313,8 +1313,8 @@ function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, a
 	Assert( type( spawnFunc ) == "function" )
 	local guy
 
-	// 15% Chance for an NPC Pilot inside Grunt Pods, but only when bots aren't present
-	if ( spawnFunc.getinfos().name == "SpawnGrunt" && ShouldUseNPCPilots() && RandomFloat( 0.0, 1.0 ) <= 0.15 )
+	// 10% Chance for an NPC Pilot inside Grunt Pods, but only when bots aren't present
+	if ( spawnFunc.getinfos().name == "SpawnGrunt" && ShouldUseNPCPilots() && RandomFloat( 0.0, 1.0 ) <= 0.10 )
 	{
 		guy = SpawnPilotInfantry( team, squadName, origin, angles )
 	}
@@ -1867,11 +1867,11 @@ function GetRandomCaptainName( team )
 		"Hammon", "Deerson", "Mecklenburg", "Felton", "Lerma", "Smith", "Fiedler", "Ritchie", "Winslow", "Sizemore", 
 		"Keefe", "Keating", "Virginia", "Carver", "Schanz", "Thurman", "McCann", "Adoti", "Calhoun", "Takenouchi",
 		"Song", "Conger", "Emslie", "Gompert", "Persson", "Haggerty", "Faust", "Shiring", "Duvall", "Rahm",
-		"Lipstock", "Wallcroft", "Byrne", "Nelson", "Lang", "Dietrich", "Mendoza", "Slater", "Bowden", "Voight", "Axis", "Heath",
-		"Flynn", "Fleming", "Fletcher", "Toad", "Gambler", "Falco", "Roman", "Keyes", "Almagro", "Allegro", "Scratch", "Rorke",
-		"Reece", "Mace", "Arthur", "Simone", "Spaulding", "Vance", "Erikson", "Magnusson", "Sykes", "Dane", "Price", "Sanderson", "Adler",
-		"Wolf", "Bannon", "Marshall", "Truck", "Lukin", "Lukas", "Luke", "Gordon", "Desmond", "York", "Lancaster", "Queen", "Midas", "Holt",
-		"Sage", "Joker", "Wayland", "Pepper", "Copeland", "Foster", "Haile", "Ram", "Choi", "Imagawa", "Walther", "Weber", "Loiselle", "Fujiwara", 
+		"Lipstock", "Wallcroft", "Byrne", "Nelson", "Lang", "Dietrich", "Mendoza", "Slater", "Bowden", "Voight", "Heath",
+		"Flynn", "Fleming", "Fletcher", "Roman", "Keyes", "Almagro", "Rorke",
+		"Reece", "Mace", "Arthur", "Simone", "Vance", "Erikson", "Magnusson", "Sykes", "Dane", "Price", "Sanderson", "Adler",
+		"Wolf", "Bannon", "Marshall", "Lukin", "Lukas", "Luke", "Gordon", "Desmond", "York", "Lancaster", "Midas", "Holt",
+		"Wayland", "Pepper", "Copeland", "Foster", "Haile", "Ram", "Choi", "Imagawa", "Walther", "Weber", "Loiselle", "Fujiwara", 
 		"Halden",
 	]
 	
@@ -1884,9 +1884,9 @@ function GetRandomCaptainName( team )
 		"Cho", "Kim", "Aki", "Medina", "Fujita", "Grimenstein", "Mitchell", "Cole", "Beck", "Carlyle", "Webber", "Webb",
 		"Burrell", "Braxton", "Landinger", "Ibrahim", "Cruz", "Daniels", "Nguyen", "Aramaki", "Pryce", "Roberts", "Rasmus",
 		"Foley", "Gomez", "Pondsmith", "Harper", "Mason", "Salazar", "Crosby", "Dowd", "Barry", "Wilson", "Zayd", "Garnett",
-		"Kaplan", "Weston", "Griggs", "Lopez", "West", "Vasquez", "Lozano", "Cook", "Pyle", "Hoopman", "Ryan", "Drew", "Lee",
-		"Ortega", "Norris", "Lyons", "Reginald", "Shane", "Sparks", "Wyatt", "Gonzavi", "Hoyt", "Davis", "Cross", "Holden", "Rivera",
-		"Allen", "Gallagher", "Burns", "Gator", "Westbrook", "Booth", "Bones", "Grove", "Morgan", "Redd", "Manning", "Vincent", "Jules",
+		"Kaplan", "Weston", "Griggs", "Lopez", "West", "Vasquez", "Lozano", "Cook", "Pyle", "Ryan", "Drew", "Lee",
+		"Ortega", "Norris", "Lyons", "Reginald", "Shane", "Wyatt", "Gonzavi", "Hoyt", "Davis", "Cross", "Holden", "Rivera",
+		"Allen", "Gallagher", "Burns", "Westbrook", "Booth", "Grove", "Morgan", "Redd", "Manning", "Vincent", "Jules",
 		"Mann", "Neil", "Otis", "Teller", "Jackie", "Bruce", "Banks", "Oswald", "Bowman", "Leo", "London", "Franklin", "Diaz",
 	]
 
@@ -1990,7 +1990,11 @@ function SimulateGrenadeThrowing( npc, onlyRooftopCombat = true, targetGrunts = 
 }
 Globalize( SimulateGrenadeThrowing )
 
-function SimulateGrenadeThink(npc, onlyRooftopCombat, targetGrunts) {
+function SimulateGrenadeThink(npc, onlyRooftopCombat, targetGrunts)
+{
+	if ( "isHologram" in npc.s )
+		return
+
 	npc.EndSignal("OnDestroy")
 	npc.EndSignal("OnDeath")
 	npc.EndSignal("Stop_SimulateGrenadeThink")

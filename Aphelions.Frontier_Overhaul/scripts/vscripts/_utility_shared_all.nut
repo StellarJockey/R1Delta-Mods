@@ -1,5 +1,5 @@
 
-function PrintObject( obj, indent, depth, maxDepth )
+function PrintObject( obj, indent, depth, maxDepth ) // FO
 {
 	if ( IsTable( obj ) )
 	{
@@ -366,9 +366,19 @@ function GetTitanfall2MapModes( mapName )
 	return [ "at", "cp", "lts", "tdm", "mfd", "mfdp", "ps", "lf", "ttdm", "ffa", "coop" ]
 }
 
-// false for a Titanfall 2 map that does not have the given ePrivateMatchModes name; true for every other map
+// M.I.A., Nest, Box and Certification are not in the Hardpoint, Frontier Defense or campaign playlists: Frontier Defense in
+// particular has no setup for M.I.A. (16 minute start, error models) or Certification.
+function IsSpecialMap( mapName )
+{
+	return mapName == "mp_mia" || mapName == "mp_nest2" || mapName == "mp_box" || mapName == "mp_npe"
+}
+
+// false for a map that does not have the given ePrivateMatchModes name (Titanfall 2 maps and special maps); true for every other map
 function MapSupportsMode( mapName, modeName )
 {
+	if ( IsSpecialMap( mapName ) )
+		return modeName != CAPTURE_POINT && modeName != COOPERATIVE && modeName != CAMPAIGN
+
 	if ( !IsTitanfall2Map( mapName ) )
 		return true
 
@@ -776,11 +786,10 @@ function GetStarBestScores( mapName, modeName, player = null )
 		Assert( player.IsPlayer() )
 	}
 
-	if ( !PersistenceEnumValueIsValid( "maps", mapName ) )
-		return 0
-
-	if ( !PersistenceEnumValueIsValid( "gameModesWithStars", modeName ) )
-		return 0
+	// Maps and modes outside the persistence enums (converted Titanfall 2 maps, modes without stars) store no scores.
+	// Callers read .now/.previous, so this must be a table like the stored case, not a bare integer.
+	if ( !PersistenceEnumValueIsValid( "maps", mapName ) || !PersistenceEnumValueIsValid( "gameModesWithStars", modeName ) )
+		return { now = 0, previous = 0 }
 
 	local scores = {}
 

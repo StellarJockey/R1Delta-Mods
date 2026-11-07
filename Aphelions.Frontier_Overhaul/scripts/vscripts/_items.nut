@@ -29,7 +29,7 @@ const MEGA2_LONGDESC =     "The TWIN-B is a 12-gauge break-action shotgun. Origi
 const r97_SCATTER_LONGDESC =  "This mod increases the R-97's rate of fire even further to 1,260 RPM, tightens the hipfire spread, and grants a small boost to rodeo damage. However, this also comes with a 25% increase to the weapon's recoil."
 const slammer_LONGDESCv2 =    "This mod upgrades the Spitfire with high-powered anti-Titan rounds, giving it a 50% increase in rodeo damage against enemy Titans."
 const suppressor_LONGDESC =   "The suppressor minimizes the weapon's firing noise and muzzle flash, ensuring that enemies will not detect you on their minimap when you fire. However, due to also using subsonic rounds, your damage and range are slightly reduced."
-const suppressor_sg_LONGDESC =  "The suppressor minimizes the weapon's firing noise and muzzle flash, ensuring that enemies will not detect you on their minimap when you fire. While your damage and range are slightly lower, this also reduces shotgun recoil."
+const suppressor_sg_LONGDESC =  "The suppressor minimizes the weapon's firing noise and muzzle flash, ensuring that enemies will not detect you on their minimap when you fire. While your damage and range are slightly lower, this also reduces the weapon's base recoil by 30%."
 
 // Secondary DESCRIPTIONS
 const semipistol_LONGDESC =   "The Hammond P2011 is a semi-auto 11.43x23mm handgun. It is the standard-issue sidearm for IMC infantry. What it lacks in damage, it makes up for with accuracy and minimal recoil - a jack of all trades, master of none."
@@ -121,7 +121,7 @@ const lmg_SCATTER_LONGDESC =  				"This mod maximizes the Spitfire's rate of fir
 const r101_BURST_LONGDESC =  				"This mod makes the weapon fire in three-round bursts, allowing for more controlled and precise damage output."
 const GUNSLINGER_LONGDESC = 				"Years of training have steadied your hand. This mod removes all weapon spread from both ADS and hipfire, making its aim perfectly accurate at all ranges."
 const LASER_SIGHT_LONGDESC = 			  	"This mod attaches a laser under the weapon's barrel that activates when the trigger is pulled, reducing your overall spread by 50%."
-const SKULL_PIERCER_LONGDESC =				"This mod upgrades your rounds with tungsten cores that maintain their shape upon impact, making headshots do 3.4x more damage than a normal body shot."
+const SKULL_PIERCER_LONGDESC =				"This mod upgrades your rounds with tungsten cores that maintain their shape upon impact, ensuring that a single headshot will instant-kill any human-sized target."
 const KICK_SWITCH_LONGDESC = 				"This mod gives the Flatline a rotated compensator, making its vertical muzzle climb easier to manage. However, this unconventional design greatly increases its side-to-side recoil."
 
 const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
@@ -961,7 +961,7 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 							null,		"mp_weapon_mega9",			"burn_mod_volt", 			"Amped M-18 Volt",			"Fires electric bullets",			"Temp",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_spectre_kills", 	1, 		"mp_weapon_mega10",			"extended_ammo",			"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 6, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_kills", 			1, 		"mp_weapon_mega10",			"silencer",					"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,				-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_kills", 			1, 		"mp_weapon_mega10",			"silencer",					"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_sg_LONGDESC,				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_pilot_kills", 		1, 		"mp_weapon_mega10",			"kick_switch",				"Kick Switch",					"Horizontal Recoil",							KICK_SWITCH_LONGDESC,			0, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/kick_switch", 		"../ui/menu/items/mod_icons/kick_switch" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 							1, 		"mp_weapon_mega10",			"burn_mod_flatline",		"Amped Flatline",				"Increased damage",					"Temp",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 

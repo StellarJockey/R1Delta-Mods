@@ -461,8 +461,8 @@
  	"clampVolume"       		"0"
 
 
-           "wave"                                  "weapons\Valkyrie\Wpn_Valkyrie_1p_WpnFire_Reduced_2ch_01.wav"
-           "wave"                                  "weapons\Valkyrie\Wpn_Valkyrie_1p_WpnFire_Reduced_2ch_02.wav"
+           "wave"                     "weapons\Valkyrie\Wpn_Valkyrie_1p_WpnFire_Reduced_2ch_01.wav"
+           "wave"                     "weapons\Valkyrie\Wpn_Valkyrie_1p_WpnFire_Reduced_2ch_02.wav"
 
 	}
 
@@ -487,9 +487,9 @@
  	"falloffCurve"      		"5"
  	"clampVolume"       		"0"
 
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Close_Reduced_2ch_01.wav"
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Close_Reduced_2ch_02.wav"
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Close_Reduced_2ch_03.wav"
+	"wave"				"weapons\valkyrie\g3sg1_01.wav"
+	"wave"				"weapons\valkyrie\g3sg1_02.wav"
+	"wave"				"weapons\valkyrie\g3sg1_03.wav"
 	}
 
 ///// 2000
@@ -511,8 +511,9 @@
  	"falloffCurve"      		"5"
  	"clampVolume"       		"0"
 
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Dist_Reduced_2ch_01.wav"
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Dist_Reduced_2ch_02.wav"
+	"wave"				"weapons\DMR\g3sg1_distant_01.wav"
+	"wave"				"weapons\DMR\g3sg1_distant_02.wav"
+	"wave"				"weapons\DMR\g3sg1_distant_03.wav"
 
 	}
 
@@ -1188,7 +1189,7 @@
 
 	"rndwave"
 	{
-	"volume"			"5.5"
+	"volume"			"3.0"
 	"limit"				"1"
 	"startDistance"     "0"
     "peakDistance"      "0"
@@ -1198,11 +1199,14 @@
     "falloffCurve"      "0"
     "clampVolume"       "0"
 
+	/*
 	"wave"				"weapons/shotgun/Wpn_Shotgun_1p_WpnFire_Reduced_6ch_01.wav"
 	"wave"				"weapons/shotgun/Wpn_Shotgun_1p_WpnFire_Reduced_6ch_02.wav"
 	"wave"				"weapons/shotgun/Wpn_Shotgun_1p_WpnFire_Reduced_6ch_03.wav"
 	"wave"				"weapons/shotgun/Wpn_Shotgun_1p_WpnFire_Reduced_6ch_04.wav"
 	"wave"				"weapons/shotgun/Wpn_Shotgun_1p_WpnFire_Reduced_6ch_05.wav"
+	*/
+	"wave"				"weapons/twinb/sawedoff_1.wav"
 	}
 
 
@@ -1403,7 +1407,7 @@
 
 	"rndwave"
 	{
-	"wave"				"weapons\Wingman\Wpn_Wingman_Reload_Open_fr7_2ch_v1_01.wav"
+	"wave"				"weapons\twinb\m4a1_boltback.wav"
 	}
 
 }
@@ -1412,13 +1416,14 @@
 
 {
 	"mixgroup"		"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Reloads,SFX_Weapons_Pilot_1P_Reloads_Shotgun"
-	"volume"			"1.5"
+	"volume"			"4.5"
 	"radius"			"400"
 	"pitch"				"90,110"
 
 	"rndwave"
 	{
-	"wave"				"weapons\Wingman\Wpn_Wingman_Reload_Eject_fr21_2ch_v1_01.wav"
+		"wave"				"weapons/twinb/wpn_lstar_lensburnoutreload_pt4_2ch_v1_01.wav"
+		// "wave"				"weapons\Wingman\Wpn_Wingman_Reload_Eject_fr21_2ch_v1_01.wav"
 	}
 
 }
@@ -1427,15 +1432,16 @@
 
 {
 	"mixgroup"		"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Reloads,SFX_Weapons_Pilot_1P_Reloads_Shotgun"
-	"volume"			"1.5"
+	"volume"			"2.5"
 	"radius"			"400"
 	"pitch"				"90,110"
 
 	"rndwave"
 	{
-	"wave"				"weapons\Wingman\Wpn_Wingman_Reload_InsertMag_fr47_2ch_v1_01.wav"
+		"wave"				"weapons\twinb\sawedoff_insertshell_boost_01.wav"
+		"wave"				"weapons\twinb\sawedoff_insertshell_boost_02.wav"
+		"wave"				"weapons\twinb\sawedoff_insertshell_boost_03.wav"
 	}
-
 }
 
 "SG_Twin_B.Reload_Close"
@@ -1448,8 +1454,8 @@
 
 	"rndwave"
 	{
+		
 		"wave" 				"weapons/shotgun/Wpn_Shotgun_Reload_PumpIn_2ch_v1_01.wav"
-	//"wave"				"weapons\R101\Wpn_R101_FirstDraw_fr19_2ch_v1_02.wav"
 	}
 
 }
@@ -1564,6 +1570,145 @@
 //	"wave"				"weapons\Foley\Wpn_Rifle_Holster_LR_v1_3.wav"
 	}
 }
+
+/////////////////////////
+///// TITAN MINIGUN /////
+/////////////////////////
+
+"Weapon_Titan_Minigun_WindUp"
+{
+	"mixgroup"		"weapon,SFX,SFX_Weapons,SFX_Weapons_Titan_1P,SFX_Weapons_Titan_1P_Gunfire,SFX_Weapons_Titan_1P_Gunfire_Minigun"
+	"volume"			"4"
+	"pitch"				"100"
+	"flags"				"layered"
+
+	"rndwave"
+   	{
+	"limit"				"2"
+	"panwidth"			"45"
+
+	"startDistance"     		"0"
+ 	"peakDistance"     			"0"
+ 	"startCurve"       			"0"
+ 	"falloffStart"      		"100"
+ 	"falloffEnd"        		"200"
+ 	"falloffCurve"      		"0"
+ 	"clampVolume"       		"0"
+
+	"wave"				"weapons\titan_minigun\minigun_wind_up.wav"
+	}
+
+	"rndwave"
+   	{
+	"limit"				"2"
+	"flags"				"spatialized"
+	"panwidth"			"45"
+	"folddownDistance"	"200"
+
+	"startDistance"     		"50"
+ 	"peakDistance"     			"75"
+ 	"startCurve"       			"0"
+ 	"falloffStart"      		"150"
+ 	"falloffEnd"        		"2000"
+ 	"falloffCurve"      		"0"
+ 	"clampVolume"       		"0"
+
+	"wave"				"weapons\titan_minigun\minigun_wind_up.wav"
+	}
+}
+
+"Weapon.minigun_fire_loop"
+{
+	"mixgroup"			"weapons,SFX,SFX_Weapons,SFX_Weapons_Titan_1P,SFX_Weapons_Titan_1P_Gunfire,SFX_Weapons_Titan_1P_Gunfire_Minigun"
+	"volumescale"		"3.0"
+//	"pitch" 			"90,110"
+
+	"flags"			"loop,layered"
+
+
+	"rndwave"
+	{
+	"pitch"			"100,110"
+	"volume"		"3"
+	"delay"			"0"
+	"limit"			"1"
+
+	"startDistance"     		"0"
+ 	"peakDistance"     		"0"
+ 	"startCurve"       		"0"
+ 	"falloffStart"      		"100"
+ 	"falloffEnd"        		"100"
+ 	"falloffCurve"      		"0"
+ 	"clampVolume"       		"0"
+
+	"wave"			"weapons\titan_minigun\minigun_fire.wav"
+	}
+
+	"rndwave"
+	{
+	"pitch"			"110"
+	"volume"		"2"
+	"delay"			"0"
+	"limit"			"1"
+		"ducks"				"SFX_Weapons_AI,0.7a:0,1000,0,0"
+		"ducks"				"SFX_AMB,0.7a:0,1000,0,0"
+		"ducks"				"Music,0.5a:0,1000,0,0"
+		//"ducks"				"DIAL_AI,0.5a:0,1000,0,0"
+	"startDistance"     		"0"
+ 	"peakDistance"     		"0"
+ 	"startCurve"       		"0"
+ 	"falloffStart"      		"100"
+ 	"falloffEnd"        		"100"
+ 	"falloffCurve"      		"0"
+ 	"clampVolume"       		"0"
+
+	"wave"			"weapons\XO16\Wpn_XO16_1p_WpnFire_Loop_Mech_6ch_v1_01.wav"
+	}
+
+}
+
+"Weapon_Titan_Minigun_WindDown"
+{
+	"mixgroup"		"weapon,SFX,SFX_Weapons,SFX_Weapons_Titan_1P,SFX_Weapons_Titan_1P_Gunfire,SFX_Weapons_Titan_1P_Gunfire_Minigun"
+	"volume"			"4"
+	"pitch"				"100"
+	"flags"				"layered"
+
+	"rndwave"
+   	{
+	"limit"				"2"
+	"panwidth"			"45"
+
+	"startDistance"     		"0"
+ 	"peakDistance"     			"0"
+ 	"startCurve"       			"0"
+ 	"falloffStart"      		"100"
+ 	"falloffEnd"        		"200"
+ 	"falloffCurve"      		"0"
+ 	"clampVolume"       		"0"
+
+	"wave"				"weapons\titan_minigun\minigun_wind_down.wav"
+	}
+
+	"rndwave"
+   	{
+	"limit"				"2"
+	"flags"				"spatialized"
+	"panwidth"			"45"
+	"folddownDistance"	"200"
+
+	"startDistance"     		"50"
+ 	"peakDistance"     			"75"
+ 	"startCurve"       			"0"
+ 	"falloffStart"      		"150"
+ 	"falloffEnd"        		"2000"
+ 	"falloffCurve"      		"0"
+ 	"clampVolume"       		"0"
+
+	"wave"				"weapons\titan_minigun\minigun_wind_down.wav"
+	}
+}
+
 
 ///////////////
 // Titan Charge Cannon

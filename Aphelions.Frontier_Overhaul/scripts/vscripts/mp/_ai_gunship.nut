@@ -251,7 +251,7 @@ function AI_GunshipAddTurrets( gunship, team )
 		turret.kv.FieldOfView = 0.4
 		turret.kv.FieldOfViewAlert = 0.4
 		turret.kv.additionalequipment = AI_GUNSHIP_TURRET_WEAPON
-		turret.kv.CollisionGroup = 21
+		turret.kv.CollisionGroup = TRACE_COLLISION_GROUP_NONE
 		turret.kv.WeaponProficiency = weaponProficiency
 		turret.kv.AccuracyMultiplier = accuracyMultiplier
 

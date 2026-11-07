@@ -880,6 +880,7 @@ function InitPeople()
 	AddNameOnly( "overhaulteam", "NachosChipeados" )
 	AddNameOnly( "overhaulteam", "StoneCold" )
 	AddNameOnly( "overhaulteam", "Wulfheart" )
+	AddNameOnly( "overhaulteam", "sgtmajorjefferson" )
 	AddNameOnly( "overhaulteam", "Claude (AI)" )
 
 //============================

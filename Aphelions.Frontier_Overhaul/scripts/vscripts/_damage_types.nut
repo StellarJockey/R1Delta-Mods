@@ -406,10 +406,22 @@ enum eModSourceId
 	hydraulic_launcher
 	burn_mod_throwing_knife
 	plasma_rifle
+
 	double_tap
+	laser_sight
+	skull_piercer
+	pump_action
 	cyclic_receiver
+	shredder_rounds
+	gunship_dmg
+	charge_hack
+	kick_switch
+	titan_piercer
+	gunslinger
+	auto_converter
 	burn_mod_wingman_elite
 	burn_mod_volt
+	burn_mod_flatline
 }
 
 //Attachments intentionally left off. This prevents them from displaying in kill cards.
@@ -463,7 +475,7 @@ modNameStrings[	eModSourceId.overcharge ] 					<- "#MOD_OVERCHARGE_NAME"
 modNameStrings[ eModSourceId.quick_shot ]					<- "#MOD_QUICK_SHOT_NAME"
 modNameStrings[ eModSourceId.rapid_fire_missiles ] 			<- "#MOD_RAPID_FIRE_MISSILES_NAME"
 modNameStrings[ eModSourceId.recoil_compensator ]			<- "#MOD_RECOIL_COMPENSATOR_NAME"
-modNameStrings[ eModSourceId.burn_mod_shotgun ] 	<- "#BC_SHOTGUN_M2"
+modNameStrings[ eModSourceId.burn_mod_shotgun ] 			<- "#BC_SHOTGUN_M2"
 modNameStrings[	eModSourceId.silencer ] 					<- "#MOD_SILENCER_NAME"
 modNameStrings[ eModSourceId.slammer ] 						<- "#MOD_SLAMMER_NAME"
 modNameStrings[ eModSourceId.spread_increase_sg ]			<- "#MOD_SPREAD_INCREASE_SG_NAME"
@@ -471,8 +483,8 @@ modNameStrings[ eModSourceId.spread_increase_ttt ]			<- "#MOD_SPREAD_INCREASE_TT
 modNameStrings[ eModSourceId.stabilizer ]					<- "#MOD_STABILIZER_NAME"
 modNameStrings[ eModSourceId.starburst ] 					<- "#MOD_STARBURST_NAME"
 modNameStrings[ eModSourceId.titanhammer ] 					<- "#MOD_TITANHAMMER_NAME"
-modNameStrings[ eModSourceId.burn_mod_wingman ] 	<- "#BC_WINGMAN_M2"
-modNameStrings[ eModSourceId.burn_mod_titan_shotgun ] 			<- "#BC_TITAN_SHOTGUN_M2"
+modNameStrings[ eModSourceId.burn_mod_wingman ] 			<- "#BC_WINGMAN_M2"
+modNameStrings[ eModSourceId.burn_mod_titan_shotgun ] 		<- "#BC_TITAN_SHOTGUN_M2"
 modNameStrings[ eModSourceId.explosive_rounds ] 			<- "#MOD_EXPLOSIVE_ROUNDS_NAME"
 modNameStrings[ eModSourceId.burn_mod_valkyrie ] 			<- "#BC_VALKYRIE_M2"
 modNameStrings[ eModSourceId.burn_mod_twinb ] 				<- "#BC_TWINB_SHOTGUN_M2"
@@ -481,5 +493,15 @@ modNameStrings[ eModSourceId.burn_mod_charge_cannon] 		<- "#BC_TITAN_CHARGE_CANN
 modNameStrings[ eModSourceId.hydraulic_launcher ] 			<- "#MOD_HYDRAULIC_LAUNCHER_NAME"
 modNameStrings[ eModSourceId.burn_mod_throwing_knife] 		<- "#BC_THROWING_KNIFE_M2"
 modNameStrings[ eModSourceId.plasma_rifle ] 				<- "#MOD_PLASMA_RIFLE_NAME"
-modNameStrings[ eModSourceId.burn_mod_wingman_elite] 		<- "Wingman Elite"
-modNameStrings[ eModSourceId.burn_mod_volt ] 				<- "M-18 Volt"
+modNameStrings[ eModSourceId.cyclic_receiver] 				<- "Cyclic Receiver"
+modNameStrings[ eModSourceId.double_tap] 					<- "Double Tap"
+modNameStrings[ eModSourceId.pump_action] 					<- "Pump Action"
+modNameStrings[ eModSourceId.auto_converter] 				<- "Auto Converter"
+modNameStrings[ eModSourceId.skull_piercer] 				<- "Skull Piercer"
+modNameStrings[ eModSourceId.kick_switch] 					<- "Kick Switch"
+modNameStrings[ eModSourceId.laser_sight] 					<- "Laser Sight"
+modNameStrings[ eModSourceId.titan_piercer] 				<- "Titan Piercer"
+modNameStrings[ eModSourceId.gunslinger] 					<- "Gunslinger"
+modNameStrings[ eModSourceId.burn_mod_wingman_elite] 		<- "Amped Wingman Elite"
+modNameStrings[ eModSourceId.burn_mod_volt ] 				<- "Amped Volt"
+modNameStrings[ eModSourceId.burn_mod_flatline ]			<- "Amped Flatline"

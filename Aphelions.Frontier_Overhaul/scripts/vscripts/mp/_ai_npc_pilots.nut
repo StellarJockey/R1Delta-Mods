@@ -36,15 +36,14 @@ function GetRandomPilotName( team )
 {
 	local imcCodeNames = [
 		"Alpha", "Bravo", "Charlie", "Echo", "Foxtrot", "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
-		"Monk", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Trigger", "UNKNOWN", "Victor", "Whiskey",
-		"X", "Yankee", "Zulu", "Steel", "Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Raptor", "Roach",
+		"Monk", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Victor", "Whiskey",
+		"X-ray", "Yankee", "Zulu", "Steel", "Gold", "Silver", "Hawk", "Raven", "Falcon", "Crow", "Raptor", "Roach",
 		"Io", "Ganymede", "Callisto", "Europa", "Phobos", "Deimos", "Red", "Blue", "Indigo", "White", "Black",
 		"June", "August", "Four", "Five", "Six", "Seven", "Nine", "Case", "Knight", "Bishop", "Rook", "Ward", "Cross",
 		"Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mako", "Blackwell",
-		"Hammer", "Omicron", "Jester", "Rho", "Klepto", "Tau", "Upsilon", "Saber", "Hydra", "Psi", "Omega", "Meat",
-		"Ozone", "Coma", "Baron", "Able", "Aeon", "Cannibal", "Hitman", "Poet", "Kodiak", "Anchor", "Future", "Cavalier",
-		"Zero", "Trojan", "Skully", "Akimov", "Pharaoh", "Zodiac", "Lev", "Nomad", "Arrow", "Ajax", "Trigger", "Clown", 
-		"Preacher", "Rubicon", "Achilles", 
+		"Hammer", "Omicron", "Jester", "Rho", "Tau", "Upsilon", "Saber", "Hydra", "Psi", "Omega",
+		"Ozone", "Coma", "Baron", "Kodiak", "Anchor", "Cavalier", "Zero", "Trojan",
+		"Pharaoh", "Zodiac", "Nomad", "Arrow",
 	]
 	local militiaNames = [
 		"Adams", "Jackson", "Rodriguez", "Williams", "Dennings", "Moore", "Asgeirsson", "Lewis", "Clarke", "Irons",
@@ -53,10 +52,10 @@ function GetRandomPilotName( team )
 		"Barnes", "Hernandez", "Greene", "Higgins", "Burke", "Rodgers", "Chang", "Gore", "Vargas", "Gruzinsky",
 		"Woods", "Everett", "Namir", "Hale", "Hermann", "Dutch", "Wayans", "Griffith", "Tanhausser", "Rooker",
 		"Fisher", "Drake", "Saito", "Hawthorne", "Tomar", "Rivers", "Saunders", "Shepard", "Asadi", "Howe",
-		"Winters", "Crowe", "Omar", "Maynard", "Easton", "Rao", "Jankowski", "Reed", "Vektor", "Iran", "Jess", "Cal",
-		"Dexter", "Hawke", "Harrow", "Gridlock", "Marlin", "Buck", "Outlaw", "Mercenary", "Lance", "Polonsky", "Westcott", "Ryan",
-		"Fixer", "Loner", "Bandit", "Texas", "Blackhawk", "Utah", "Cutlass", "Thrace", "Groz", "Fasalt", "Armitage", "Bear", "Houston",
-		"Dallas", "Montana", "Bird", "Eli", "Wrangler", "Oz", "Hector", 
+		"Winters", "Crowe", "Omar", "Maynard", "Easton", "Rao", "Jankowski", "Reed", "Dallas", "Bird", 
+		"Dexter", "Hawke", "Harrow", "Marlin", "Buck", "Lance", "Polonsky", "Westcott", "Ryan",
+		"Blackhawk", "Utah", "Cutlass", "Groz", "Fasalt", "Armitage", "Bear", "Houston",
+		
 	]
 
 	if ( team == TEAM_IMC )
@@ -262,8 +261,8 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
     else
         ghostPilot.GiveWeapon( chosenWeapon )
 
-    ghostPilot.kv.health = 250
-    ghostPilot.kv.max_health = 250
+    ghostPilot.kv.health = 300
+    ghostPilot.kv.max_health = 300
     ghostPilot.s.useRPGPreference = RPG_USE_ALWAYS
     ghostPilot.SetAISettings( "fireteam_pilot" )
     CommonInit( ghostPilot )
@@ -656,7 +655,7 @@ function NPCPilotRoamThink( npc )
 
 	while ( true )
 	{
-		wait RandomFloat( 6.0, 12.0 )
+		wait RandomFloat( 5.0, 10.0 )
 
 		local pos = npc.GetOrigin()
 		local moved = Distance( pos, lastPos )

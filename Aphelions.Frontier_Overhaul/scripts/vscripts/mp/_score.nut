@@ -11,6 +11,7 @@ function main()
 {
 	FlagInit( "firstStrikeGiven" )
 	Globalize( AddPlayerScore )
+	Globalize( AddCombatDroneKillScore )
 	Globalize( AddTeamScore )
 	Globalize( ScoreEvent_TitanKilled )
 	Globalize( ScoreEvent_PlayerKilled )
@@ -47,47 +48,6 @@ function SetGameModeScoreEventOverrideFunc( func )
 }
 Globalize ( SetGameModeScoreEventOverrideFunc )
 
-/*
-// iskyfish.2016.10.31, setting 값으로만 동작하게 해봅니다!
-function AddPlayerScore( player, scoreEvent, targetEnt = null, pointValueOverride = null )
-{
-	if ( !IsValid_ThisFrame( player ) || !player.IsPlayer() )
-		return
-
-	if ( !player.hasConnected )
-		return
-
-	if ( IsTrainingLevel() )
-		return
-
-	local event = ScoreEventFromName( scoreEvent )
-
-	if ( level.onScoreEventFunc != null )
-		level.onScoreEventFunc.func.acall( [ level.onScoreEventFunc.scope, player, event ] )
-
-	local eventType = event.GetType()
-	local pointValue = event.GetPointValue()
-
-
-	pointValue = floor( pointValue )
-
-	if ( pointValue <=0 ) return
-
-	player.SetScore( player.GetScore() + pointValue )
-
-	if ( eventType == scoreEventType.ASSAULT )
-		player.SetAssaultScore( player.GetAssaultScore() + pointValue )
-	else if ( eventType == scoreEventType.DEFENSE )
-		player.SetDefenseScore( player.GetDefenseScore() + pointValue )
-
-	AddTitanBuildPoint( player, scoreEvent )
-
-	// display score splash message
-	local multiple = 1.0
-	ShowPlayerScoreEvent( player, event, targetEnt, pointValueOverride, multiple )
-	if ( event.HasConversation() )
-		thread PlayPrioritisedConversation( event, player )
-}*/
 
 // iskyfish.2016.10.31, backup
 function AddPlayerScore( player, scoreEvent, targetEnt = null, pointValueOverride = null )
@@ -154,6 +114,23 @@ function AddPlayerScore( player, scoreEvent, targetEnt = null, pointValueOverrid
 		thread PlayPrioritisedConversation( event, player )
 }
 
+
+// Combat drones are awarded from SearchShip_TookDamage (cinematic_mp/_cinematic_mp_server.nut).
+// The attacker is already known to be on the enemy team.
+function AddCombatDroneKillScore( player )
+{
+	// Attrition splash goes out first: the client stacks the newest splash on top, so the kill ends up above it
+	if ( GameRules.GetGameMode() == ATTRITION && GetGameState() == eGameState.Playing )
+	{
+		local scoreVal = ATTRITION_SCORE_DRONE
+
+		ShowPlayerAttritionScoreEvent( player, scoreVal )
+		GameScore.AddTeamScore( player.GetTeam(), scoreVal )
+		player.SetAssaultScore( player.GetAssaultScore() + scoreVal )
+	}
+
+	AddPlayerScore( player, "KillCombatDrone" )
+}
 
 function GetPlayerXPMultiple( player, targetEnt )
 {
