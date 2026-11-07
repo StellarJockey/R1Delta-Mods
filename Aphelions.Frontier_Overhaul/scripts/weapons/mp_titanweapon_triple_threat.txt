@@ -134,23 +134,23 @@ WeaponData
 	"bob_roll"										"-0.75"
 
 	// View Drift
-	"viewdrift_hipfire_stand_scale_pitch" 			"0.1"
-	"viewdrift_hipfire_crouch_scale_pitch"			"0.1"
-	"viewdrift_hipfire_air_scale_pitch"   			"0.1"
-	"viewdrift_hipfire_stand_scale_yaw"   			"0.075"
-	"viewdrift_hipfire_crouch_scale_yaw"  			"0.075"
-	"viewdrift_hipfire_air_scale_yaw" 				"0.075"
-	"viewdrift_hipfire_speed_pitch"   				"0.6"
-	"viewdrift_hipfire_speed_yaw" 					"1.22"
+	"viewdrift_hipfire_stand_scale_pitch" 			"0.0" // "0.1"
+	"viewdrift_hipfire_crouch_scale_pitch"			"0.0" // "0.1"
+	"viewdrift_hipfire_air_scale_pitch"   			"0.0" // "0.1"
+	"viewdrift_hipfire_stand_scale_yaw"   			"0.0" // "0.075"
+	"viewdrift_hipfire_crouch_scale_yaw"  			"0.0" // "0.075"
+	"viewdrift_hipfire_air_scale_yaw" 				"0.0" // "0.075"
+	"viewdrift_hipfire_speed_pitch"   				"0.0" // "0.6"
+	"viewdrift_hipfire_speed_yaw" 					"0.0" // "1.22"
 
-	"viewdrift_ads_stand_scale_pitch" 				"0.1"
-	"viewdrift_ads_crouch_scale_pitch"				"0.1"
-	"viewdrift_ads_air_scale_pitch"   				"0.1"
-	"viewdrift_ads_stand_scale_yaw"   				"0.075"
-	"viewdrift_ads_crouch_scale_yaw"  				"0.075"
-	"viewdrift_ads_air_scale_yaw" 					"0.075"
-	"viewdrift_ads_speed_pitch"   					"0.6"
-	"viewdrift_ads_speed_yaw" 						"1.22"
+	"viewdrift_ads_stand_scale_pitch" 				"0.0" // "0.1"
+	"viewdrift_ads_crouch_scale_pitch"				"0.0" // "0.1"
+	"viewdrift_ads_air_scale_pitch"   				"0.0" // "0.1"
+	"viewdrift_ads_stand_scale_yaw"   				"0.0" // "0.075"
+	"viewdrift_ads_crouch_scale_yaw"  				"0.0" // "0.075"
+	"viewdrift_ads_air_scale_yaw" 					"0.0" // "0.075"
+	"viewdrift_ads_speed_pitch"   					"0.0" // "0.6"
+	"viewdrift_ads_speed_yaw" 						"0.0" // "1.22"
 
 	// Rumble
 	"fire_rumble"									"titan_triple_threat"
@@ -197,7 +197,7 @@ WeaponData
 
 	"npc_min_range"   								"0"
 	"npc_max_range"   								"2500"
-
+	"npc_vortex_block"								"1"
 	"npc_min_burst"									"1"
 	"npc_max_burst"									"2"
 	"rest_time_between_bursts_min"					"2.4"

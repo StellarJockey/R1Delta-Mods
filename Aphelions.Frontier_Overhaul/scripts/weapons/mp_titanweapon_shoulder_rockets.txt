@@ -150,6 +150,7 @@ WeaponData
 	"npc_max_range_secondary" 						"2500"
 	"npc_min_burst"   								"1"
 	"npc_max_burst"   								"1"
+	"npc_vortex_block"								"1"
 	"rest_time_between_bursts_min"					"0.2"
 	"rest_time_between_bursts_max"					"0.3"
 

@@ -196,12 +196,12 @@ WeaponData
 	//"bob_roll_zoomed"								".002"
 
 	// View Drift
-	"viewdrift_ads_stand_scale_pitch" 				"0.3"
-	"viewdrift_ads_crouch_scale_pitch"				"0.3"
-	"viewdrift_ads_air_scale_pitch"   				"0.3"
-	"viewdrift_ads_stand_scale_yaw"   				"0.12"
-	"viewdrift_ads_crouch_scale_yaw"  				"0.12"
-	"viewdrift_ads_air_scale_yaw" 					"0.12"
+	"viewdrift_ads_stand_scale_pitch" 				"0.0" // "0.3"
+	"viewdrift_ads_crouch_scale_pitch"				"0.0" // "0.3"
+	"viewdrift_ads_air_scale_pitch"   				"0.0" // "0.3"
+	"viewdrift_ads_stand_scale_yaw"   				"0.0" // "0.12"
+	"viewdrift_ads_crouch_scale_yaw"  				"0.0" // "0.12"
+	"viewdrift_ads_air_scale_yaw" 					"0.0" // "0.12"
 
 	// Rumble
 	"fire_rumble"									"pilot_autoshot_strong_fire"
@@ -262,16 +262,17 @@ WeaponData
 	"rest_time_between_bursts_max"					"0.6"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
-	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
-	"viewdrift_hipfire_crouch_scale_pitch"			"0.275"
-	"viewdrift_hipfire_air_scale_pitch"   			"0.5"
-	"viewdrift_hipfire_stand_scale_yaw"   			"0.12"
-	"viewdrift_hipfire_crouch_scale_yaw"  			"0.10"
-	"viewdrift_hipfire_air_scale_yaw" 				"0.22"
-	"viewdrift_hipfire_speed_pitch"   				"0.6"
-	"viewdrift_hipfire_speed_yaw" 					"1.22"
-	"viewdrift_ads_speed_pitch"   					"0.6"
-	"viewdrift_ads_speed_yaw" 						"1.22"
+	"viewdrift_hipfire_stand_scale_pitch" 			"0.0" // "0.325"
+	"viewdrift_hipfire_crouch_scale_pitch"			"0.0" // "0.275"
+	"viewdrift_hipfire_air_scale_pitch"   			"0.0" // "0.5"
+	"viewdrift_hipfire_stand_scale_yaw"   			"0.0" // "0.12"
+	"viewdrift_hipfire_crouch_scale_yaw"  			"0.0" // "0.10"
+	"viewdrift_hipfire_air_scale_yaw" 				"0.0" // "0.22"
+	"viewdrift_hipfire_speed_pitch"   				"0.0" // "0.6"
+	"viewdrift_hipfire_speed_yaw" 					"0.0" // "1.22"
+	"viewdrift_ads_speed_pitch"   					"0.0" // "0.6"
+	"viewdrift_ads_speed_yaw" 						"0.0" // "1.22"
+
 	"deployfirst_time"								"1.25"
 	"sprintcycle_time"								".55"
 	"is_anti_titan"  							    "1"

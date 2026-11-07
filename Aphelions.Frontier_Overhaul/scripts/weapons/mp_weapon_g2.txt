@@ -218,23 +218,23 @@ WeaponData
 	//"bob_roll_zoomed"								".002"
 
 	// View Drift
-	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
-	"viewdrift_hipfire_crouch_scale_pitch"			"0.275"
-	"viewdrift_hipfire_air_scale_pitch"   			"0.5"
-	"viewdrift_hipfire_stand_scale_yaw"   			"0.12"
-	"viewdrift_hipfire_crouch_scale_yaw"  			"0.10"
-	"viewdrift_hipfire_air_scale_yaw" 				"0.22"
-	"viewdrift_hipfire_speed_pitch"   				"0.6"
-	"viewdrift_hipfire_speed_yaw" 					"1.22"
+	"viewdrift_hipfire_stand_scale_pitch" 			"0.0" // "0.325"
+	"viewdrift_hipfire_crouch_scale_pitch"			"0.0" // "0.275"
+	"viewdrift_hipfire_air_scale_pitch"   			"0.0" // "0.5"
+	"viewdrift_hipfire_stand_scale_yaw"   			"0.0" // "0.12"
+	"viewdrift_hipfire_crouch_scale_yaw"  			"0.0" // "0.10"
+	"viewdrift_hipfire_air_scale_yaw" 				"0.0" // "0.22"
+	"viewdrift_hipfire_speed_pitch"   				"0.0" // "0.6"
+	"viewdrift_hipfire_speed_yaw" 					"0.0" // "1.22"
 
-	"viewdrift_ads_stand_scale_pitch" 				"0.2"
-	"viewdrift_ads_crouch_scale_pitch"				"0.1"
-	"viewdrift_ads_air_scale_pitch"   				"0.6"
-	"viewdrift_ads_air_scale_yaw" 					"0.5"
-	"viewdrift_ads_stand_scale_yaw"   				"0.2"
-	"viewdrift_ads_crouch_scale_yaw"  				"0.1"
-	"viewdrift_ads_speed_pitch"   					"0.6"
-	"viewdrift_ads_speed_yaw" 						"1.22"
+	"viewdrift_ads_stand_scale_pitch" 				"0.0" // "0.2"
+	"viewdrift_ads_crouch_scale_pitch"				"0.0" // "0.1"
+	"viewdrift_ads_air_scale_pitch"   				"0.0" // "0.6"
+	"viewdrift_ads_air_scale_yaw" 					"0.0" // "0.5"
+	"viewdrift_ads_stand_scale_yaw"   				"0.0" // "0.2"
+	"viewdrift_ads_crouch_scale_yaw"  				"0.0" // "0.1"
+	"viewdrift_ads_speed_pitch"   					"0.0" // "0.6"
+	"viewdrift_ads_speed_yaw" 						"0.0" // "1.22"
 
 	// Rumble
 	"fire_rumble"									"pilot_singleshot_mid_fire"
@@ -420,7 +420,8 @@ WeaponData
 		}
 		"skull_piercer"
 		{
-			"damage_headshot_scale"							"3.4"
+			"damage_headshot_scale"      					"4.0"
+			"critical_hit_damage_scale"  					"4.0"
 		}
 		match_trigger
 		{

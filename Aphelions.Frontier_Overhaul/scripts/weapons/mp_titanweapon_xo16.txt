@@ -176,23 +176,23 @@ WeaponData
 	"bob_roll"										"-0.75"
 
 	// View Drift
-	"viewdrift_hipfire_stand_scale_pitch" 			"0.1"
-	"viewdrift_hipfire_crouch_scale_pitch"			"0.1"
-	"viewdrift_hipfire_air_scale_pitch"   			"0.1"
-	"viewdrift_hipfire_stand_scale_yaw"   			"0.075"
-	"viewdrift_hipfire_crouch_scale_yaw"  			"0.075"
-	"viewdrift_hipfire_air_scale_yaw" 				"0.075"
-	"viewdrift_hipfire_speed_pitch"   				"0.6"
-	"viewdrift_hipfire_speed_yaw" 					"1.22"
+	"viewdrift_hipfire_stand_scale_pitch" 			"0.0" // "0.1"
+	"viewdrift_hipfire_crouch_scale_pitch"			"0.0" // "0.1"
+	"viewdrift_hipfire_air_scale_pitch"   			"0.0" // "0.1"
+	"viewdrift_hipfire_stand_scale_yaw"   			"0.0" // "0.075"
+	"viewdrift_hipfire_crouch_scale_yaw"  			"0.0" // "0.075"
+	"viewdrift_hipfire_air_scale_yaw" 				"0.0" // "0.075"
+	"viewdrift_hipfire_speed_pitch"   				"0.0" // "0.6"
+	"viewdrift_hipfire_speed_yaw" 					"0.0" // "1.22"
 
-	"viewdrift_ads_stand_scale_pitch" 				"0.05"
-	"viewdrift_ads_crouch_scale_pitch"				"0.05"
-	"viewdrift_ads_air_scale_pitch"   				"0.05"
-	"viewdrift_ads_stand_scale_yaw"   				"0.037"
-	"viewdrift_ads_crouch_scale_yaw"  				"0.037"
-	"viewdrift_ads_air_scale_yaw" 					"0.037"
-	"viewdrift_ads_speed_pitch"   					"0.6"
-	"viewdrift_ads_speed_yaw" 						"1.22"
+	"viewdrift_ads_stand_scale_pitch" 				"0.0" // "0.05"
+	"viewdrift_ads_crouch_scale_pitch"				"0.0" // "0.05"
+	"viewdrift_ads_air_scale_pitch"   				"0.0" // "0.05"
+	"viewdrift_ads_stand_scale_yaw"   				"0.0" // "0.037"
+	"viewdrift_ads_crouch_scale_yaw"  				"0.0" // "0.037"
+	"viewdrift_ads_air_scale_yaw" 					"0.0" // "0.037"
+	"viewdrift_ads_speed_pitch"   					"0.0" // "0.6"
+	"viewdrift_ads_speed_yaw" 						"0.0" // "1.22"
 
 	// Rumble
 	"fire_rumble"									"titan_xo16"
@@ -249,6 +249,7 @@ WeaponData
 	"npc_max_range"   								"8000"
 	"npc_min_burst"   								"20"
 	"npc_max_burst"   								"25"
+	"npc_vortex_block"								"1"
 
 	// Crosshair
 	"red_crosshair_range" 							"3200"

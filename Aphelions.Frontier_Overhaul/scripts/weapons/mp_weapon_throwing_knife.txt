@@ -101,8 +101,6 @@ WeaponData
 	"trigger_snipercam"   							"0"
 	"grenade_impact_velocity_dampen_factor"			"0.85"
 	"allow_headshots" 								"1" // "0"
-	"primary_fire_does_not_block_sprint"			"1"
-	"ads_move_speed_scale"							"0.75"
 	"aimassist_disable_hipfire"						"1"
 	"aimassist_disable_ads"							"1"
 	"move_speed_modifier" 							"1.00"//Bug with move speed > 1.0, temporary work around.
@@ -135,18 +133,17 @@ WeaponData
 	"viewkick_spring"									"pistol"
 
 	// View Drift
-	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
-	"viewdrift_hipfire_crouch_scale_pitch"			"0.275"
-	"viewdrift_hipfire_air_scale_pitch"   			"0.5"
-	"viewdrift_hipfire_stand_scale_yaw"   			"0.12"
-	"viewdrift_hipfire_crouch_scale_yaw"  			"0.10"
-	"viewdrift_hipfire_air_scale_yaw" 				"0.22"
-	"viewdrift_hipfire_speed_pitch"   				"0.6"
-	"viewdrift_hipfire_speed_yaw" 					"1.22"
+	"viewdrift_hipfire_stand_scale_pitch" 			"0.0" // "0.325"
+	"viewdrift_hipfire_crouch_scale_pitch"			"0.0" // "0.275"
+	"viewdrift_hipfire_air_scale_pitch"   			"0.0" // "0.5"
+	"viewdrift_hipfire_stand_scale_yaw"   			"0.0" // "0.12"
+	"viewdrift_hipfire_crouch_scale_yaw"  			"0.0" // "0.10"
+	"viewdrift_hipfire_air_scale_yaw" 				"0.0" // "0.22"
+	"viewdrift_hipfire_speed_pitch"   				"0.0" // "0.6"
+	"viewdrift_hipfire_speed_yaw" 					"0.0" // "1.22"
 
 	"deployfirst_time"								"1.25"
 	"deploycatch_time"								"1.33"
-	"sprintcycle_time"								".55"
 	"is_anti_titan"  							    "0"
 
 	// Crosshair
@@ -188,37 +185,43 @@ WeaponData
 		{
 			DefaultElementBehavior
 			{
-				"size_x"					"36"
-				"size_y"					"36"
-				"rotation"					"180"
-				"fade_while_sprinting"		"0"
-				"fade_while_reloading"		"1"
-				"fade_while_zooming"		"1"
-				"draw_while_ads"			"0"
-				"draw_while_hip"			"1"
+				"rotation"					"90"
+				"size_x"					"44"
+				"size_y"					"44"
 			}
 			Element0
 			{
-				"type"						"static"
-				"material"					"hud/crosshairs/b3wingman"
-				"size_x"					"28"
-				"size_y"					"28"
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus"
+				"spread_initial_offset"		"-12"
 			}
 			Element1
 			{
-				"type"						"static"
-				"material"					"hud/crosshairs/b3wingman_shadow"
-				"size_x"					"28"
-				"size_y"					"28"
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus_shadow"
+				"spread_initial_offset"		"-12"
 			}
 		}
 		Burn_Mod //Match BaseWeapon + default color change until override setting.
 		{
-			"inherit_data_from"				"BaseWeapon"
-
 			DefaultElementBehavior
 			{
+				"rotation"					"90"
+				"size_x"					"44"
+				"size_y"					"44"
 				"default_color"				"246 134 40 255"
+			}
+			Element0
+			{
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus"
+				"spread_initial_offset"		"-12"
+			}
+			Element1
+			{
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus_shadow"
+				"spread_initial_offset"		"-12"
 			}
 		}
 	}
