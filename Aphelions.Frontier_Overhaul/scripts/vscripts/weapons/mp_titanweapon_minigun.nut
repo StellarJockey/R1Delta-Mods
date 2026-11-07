@@ -25,6 +25,21 @@ function OnWeaponActivate( activateParams )
             self.s[b] <- false
     }
 
+	local weaponOwner = self.GetWeaponOwner()
+	if ( !IsValid_ThisFrame( weaponOwner ) )
+		return
+        
+    if ( weaponOwner.IsPlayer() )
+    {
+		SetLoopingWeaponSound_1p3p( "Weapon_Null.FirstShot", "Weapon.minigun_fire_loop", "Weapon.XO16_fire_last",
+		                            "Weapon_Null.FirstShot", "Weapon.minigun_fire_loop", "Weapon.XO16_fire_last_3P" )
+    }
+    else
+    {
+		SetLoopingWeaponSound_1p3p( "Weapon_Null.FirstShot", "Weapon.minigun_fire_loop", "Weapon.XO16_fire_last",
+		                            "Weapon_Null.FirstShot", "Weapon.minigun_fire_loop", "Weapon.XO16_fire_last_3P" )
+    }
+
     thread MinigunMovementThink( self )
 }
 
@@ -176,19 +191,26 @@ function OnWeaponNpcPrimaryAttack( attackParams )
 
 function OnWeaponChargeBegin( chargeParams )
 {
-    StopSoundOnEntity( self, "Weapon_Titan_Sniper_WindDown" )
+    StopSoundOnEntity( self, "Weapon_Titan_Minigun_WindDown" )
     if( IsClient() )
-        EmitSoundOnEntityWithSeek( self, "Weapon_Titan_Sniper_WindUp", self.GetWeaponChargeTime() )
+        EmitSoundOnEntityWithSeek( self, "Weapon_Titan_Minigun_WindUp", self.GetWeaponChargeTime() )
 }
 
 function OnWeaponChargeEnd( chargeParams )
 {
-    StopSoundOnEntity( self, "Weapon_Titan_Sniper_SustainLoop" )
-    StopSoundOnEntity( self, "Weapon_Titan_Sniper_WindUp" )
+    StopSoundOnEntity
+    EmitSoundOnEntity( self, "Weapon_Titan_Minigun_WindDown" )
 }
 
-function OnWeaponStartZoomIn() { HandleWeaponSoundZoomIn( self, "Weapon_40mm.ADS_In" ) }
-function OnWeaponStartZoomOut() { HandleWeaponSoundZoomOut( self, "Weapon_40mm.ADS_Out" ) }
+function OnWeaponStartZoomIn()
+{
+    HandleWeaponSoundZoomIn( self, "Weapon_40mm.ADS_In" )
+}
+
+function OnWeaponStartZoomOut()
+{
+    HandleWeaponSoundZoomOut( self, "Weapon_40mm.ADS_Out" )
+}
 
 function OnWeaponOwnerChanged( changeParams )
 {

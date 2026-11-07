@@ -152,6 +152,18 @@ WeaponDataWeaponData
 			"fire_sound_2"									"Weapon_LMG_SecondShot1"
 			"fire_sound_2_npc"								"Weapon_LMG_SecondShot1"
 		}
+		"combat_drone_dmg"
+		{
+			"npc_damage_near_value"   						"30"
+			"npc_damage_far_value"							"25"
+			"npc_damage_near_value_titanarmor"				"40"
+			"npc_damage_far_value_titanarmor" 				"30"
+
+			"fire_sound_1_player_1p"						"LMG_shell"
+			"fire_sound_1_player_3p"						"LMG_shell"
+			"fire_sound_2"									"Weapon_LMG_SecondShot1"
+			"fire_sound_2_npc"								"Weapon_LMG_SecondShot1"
+		}
 	}
 
 	TextureData

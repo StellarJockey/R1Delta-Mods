@@ -4,8 +4,8 @@ fireteam_pilot
 	DefaultWeapon			"mp_weapon_rspn101"
 
 	FOV_Vert_Offset			10
-	FOV_Near_Dist			150
-	FOV_Far_Dist			2000
+	FOV_Near_Dist			500
+	FOV_Far_Dist			3000
 
 	FOV_Idle_Near_Horz		130
 	FOV_Idle_Near_Vert		180
