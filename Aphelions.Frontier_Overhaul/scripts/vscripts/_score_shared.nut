@@ -911,6 +911,12 @@ function InitScoreEvents()
 	event.SetSplashText( "#SCORE_EVENT_KILLED_DRONE" )
 	event.SetXPType( XP_TYPE.NPC_KILL )
 
+	event = cScoreEvent( "KillCombatDrone" )
+	event.SetPointValue( POINTVALUE_KILL_COMBAT_DRONE )
+	event.SetSplashText( "Killed Combat Drone%s1" )
+	event.SetXPType( XP_TYPE.NPC_KILL )
+	event.SetShouldStackDisplay( true )
+	
 	event = cScoreEvent( "DroppodKill" )
 	event.SetPointValue( POINTVALUE_DROPPOD_KILL )
 	event.SetSplashText( "#SCORE_EVENT_DROPPOD_SMASH_KILL" )

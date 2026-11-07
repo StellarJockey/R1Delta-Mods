@@ -2819,12 +2819,15 @@ const ATTRITION_SCORE_PILOT   = 4
 const ATTRITION_SCORE_GUNSHIP = 3
 const ATTRITION_SCORE_GRUNT   = 1
 const ATTRITION_SCORE_SPECTRE = 1
+const ATTRITION_SCORE_DRONE   = 1
 const ATTRITION_SCORE_MARVIN  = 0
 
 function AttritionScoreValueForVictim( victim )
 {
 	if ( victim.IsPlayer() )
 		return ATTRITION_SCORE_PILOT
+	else if ( "combatDrone" in victim.s )
+		return ATTRITION_SCORE_DRONE
 	else if ( victim.IsNPC() && ( "isPilot" in victim.s || "isPilotProp" in victim.s || "isGhostPilot" in victim.s ) )
 		return ATTRITION_SCORE_PILOT
 	else if ( victim.IsTitan() && !victim.IsPlayer() )

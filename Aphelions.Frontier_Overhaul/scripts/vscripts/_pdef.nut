@@ -248,6 +248,8 @@ function InitPersistence()
 		burn_mod_volt = 68
 		skull_piercer = 69
 		kick_switch = 70
+		burn_mod_flatline = 71
+		combat_drone_dmg = 72
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -691,7 +693,8 @@ function InitPersistence()
 		mp_weapon_g2_skull_piercer = 156,
 		mp_weapon_dmr_skull_piercer = 157,
 		mp_weapon_mega10_kick_switch = 158,
-		
+		mp_weapon_mega10_burn_mod_flatline = 159,
+		mp_weapon_yh803_bullet_combat_drone_dmg = 160,
     }
 
     AddPersistenceEnum("modsCombined", modsCombined)

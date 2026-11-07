@@ -50,6 +50,8 @@ function main()
 	PrecacheModel( "models/robots/agp/agp_hemlok_larger.mdl" )
 	Minimap_PrecacheMaterial( "vgui/hud/cloak_drone_minimap_orange" )
 	Minimap_PrecacheMaterial( "vgui/hud/cloak_drone_minimap" )
+	Minimap_PrecacheMaterial( "vgui/hud/combat_drone_minimap_orange" )
+	Minimap_PrecacheMaterial( "vgui/hud/combat_drone_minimap" )
 	Minimap_PrecacheMaterial( "vgui/hud/gunship_minimap_orange" )
 	Minimap_PrecacheMaterial( "vgui/hud/gunship_minimap" )
 
@@ -159,6 +161,7 @@ function main()
 	{
 		IncludeFile( "mp/_cloak_drone_alt" )
 		IncludeFile( "mp/_ai_gunship" )
+		IncludeFile( "mp/_ai_combat_drone" )
 		level.cloakedDronesManagedEntArrayID <- CreateScriptManagedEntArray()
 		level.cloakedDroneClaimedSquadList <- {}
 		RegisterSignal( "DroneCleanup" )
@@ -871,6 +874,7 @@ function TeamDeathmatchSpawnNPCsThink()
 			thread SniperSpectreWaveThink( TEAM_IMC )
 			thread GhostPilotWaveThink( TEAM_IMC )
 			thread GunshipWaveThink( TEAM_IMC )
+			thread CombatDroneWaveThink( TEAM_IMC )
 		}
 		if ( !Flag( "Disable_MILITIA" ) )
 		{
@@ -879,6 +883,7 @@ function TeamDeathmatchSpawnNPCsThink()
 			thread SniperSpectreWaveThink( TEAM_MILITIA )
 			thread GhostPilotWaveThink( TEAM_MILITIA )
 			thread GunshipWaveThink( TEAM_MILITIA )
+			thread CombatDroneWaveThink( TEAM_MILITIA )
 		}
 	}
     
@@ -1142,6 +1147,56 @@ function GunshipWaveThink( team )
 				// Pick a random spawn point instead of using 'i'
 				local sp = spawnPoints[ RandomInt( spawnPoints.len() ) ]
 				SpawnAIGunship( team, sp.GetOrigin(), sp.GetAngles() )
+				wait RandomFloat( 0.5, 1.5 ) 
+			}
+        }
+    }
+}
+
+function CombatDroneWaveThink( team )
+{
+	// Drones will only spawn on modern day IMC bases in Campaign
+	// ...We can assume that Bish hacked some, which is why Militia drones spawn
+	if ( GetCurrentPlaylistName() == "campaign_carousel" )
+	{
+		switch ( GetMapName() )
+		{
+			case "mp_fracture":
+			case "mp_colony":
+			case "mp_relic":
+			case "mp_angel_city":
+			case "mp_boneyard":
+				return
+		}
+	}
+
+    // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
+    wait 60.0 + RandomFloat( 0.0, 45.0 )
+
+    while ( IsNPCSpawningEnabled() )
+    {
+        // Wait between 1 to 2.5 min between ship waves
+        wait RandomFloat( 60.0, 150.0 )
+
+		// 65% chance for drones to spawn
+        if ( RandomFloat( 0.0, 1.0 ) > 0.45 )
+			continue
+
+        // Find valid spawn points for the wave using existing drop pod points
+        local spawnPoints = SpawnPoints_GetDropPodStart( team ) 
+		if ( spawnPoints.len() == 0 )
+			spawnPoints = SpawnPoints_GetDropPod()
+        
+        // Define how many drones you want per wave
+        local dronesToSpawn = RandomIntRange( 0, 3 )
+
+		for ( local i = 0; i < dronesToSpawn; i++ )
+		{
+			if ( spawnPoints.len() > 0 )
+			{
+				// Pick a random spawn point instead of using 'i'
+				local sp = spawnPoints[ RandomInt( spawnPoints.len() ) ]
+				SpawnAI_Combat_Drone( team, sp.GetOrigin(), sp.GetAngles() )
 				wait RandomFloat( 0.5, 1.5 ) 
 			}
         }
@@ -2908,26 +2963,15 @@ function GetHardpointObjectiveForTeam( team, squadOrigin )
 		local score = DistanceSqr( hp.GetOrigin(), squadOrigin )
 		local npcCount = GetHardpointNPCCount( hp, team )
 
-		if ( isEnemyAI )
-		{
-			if ( hp.GetTeam() == playerTeam )
-				score -= 10000000
-			else if ( hp.GetTeam() == TEAM_UNASSIGNED )
-				score -= 1000000
-			else
-				score += 10000000
-
-			score += npcCount * 100000
-		}
+		// Same priorities for both teams. Lower score wins.
+		if ( hp.GetTeam() == team )
+			score += 10000000
+		else if ( hp.GetTeam() == TEAM_UNASSIGNED )
+			score -= 1000000
 		else
-		{
-			if ( hp.GetTeam() == team )
-				score += 1000000
-			else if ( hp.GetTeam() == TEAM_UNASSIGNED )
-				score += 500000
+			score -= 10000000
 
-			score += npcCount * 100000
-		}
+		score += npcCount * 100000
 
 		if ( score < bestScore )
 		{

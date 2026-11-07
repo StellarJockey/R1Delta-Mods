@@ -543,6 +543,7 @@ const POINTVALUE_KILL_LIGHT_TURRET					= 25		// Player kills a light turret
 const POINTVALUE_KILL_DRONE							= 50		// Player kills a hover drone ( dropped by an operator )
 
 // Frontier Overhaul AI
+const POINTVALUE_KILL_COMBAT_DRONE					= 20
 const POINTVALUE_KILL_GRUNT_CAPTAIN					= 30
 const POINTVALUE_KILL_GUNSHIP						= 200
 
