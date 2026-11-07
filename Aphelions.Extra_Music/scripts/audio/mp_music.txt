@@ -483,7 +483,7 @@
 "Music_ClassicMP_MCOR_Opening" {
 
 	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_Militia"
-	"volume"		"1.7"
+	"volume"		"1.8" // "1.7"
 	"radius"		"0"
 	"flags"			"music"
 
@@ -509,7 +509,7 @@
 "Music_ClassicMP_IMC_Opening" {
 
 	"mixgroup"		"MUSIC_ClassicMP,MUSIC_ClassicMP_Intro,MUSIC_ClassicMP_Intro_IMC"
-	"volume"		"1.7"
+	"volume"		"1.8" // "1.7"
 	"radius"		"0"
 	"flags"			"music"
 

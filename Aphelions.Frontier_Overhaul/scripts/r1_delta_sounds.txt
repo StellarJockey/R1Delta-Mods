@@ -1578,7 +1578,7 @@
 "Weapon_Titan_Minigun_WindUp"
 {
 	"mixgroup"		"weapon,SFX,SFX_Weapons,SFX_Weapons_Titan_1P,SFX_Weapons_Titan_1P_Gunfire,SFX_Weapons_Titan_1P_Gunfire_Minigun"
-	"volume"			"4"
+	"volume"			"1.0"
 	"pitch"				"100"
 	"flags"				"layered"
 
@@ -1620,7 +1620,7 @@
 "Weapon.minigun_fire_loop"
 {
 	"mixgroup"			"weapons,SFX,SFX_Weapons,SFX_Weapons_Titan_1P,SFX_Weapons_Titan_1P_Gunfire,SFX_Weapons_Titan_1P_Gunfire_Minigun"
-	"volumescale"		"3.0"
+	"volumescale"		"1.0"
 //	"pitch" 			"90,110"
 
 	"flags"			"loop,layered"
@@ -1670,7 +1670,7 @@
 "Weapon_Titan_Minigun_WindDown"
 {
 	"mixgroup"		"weapon,SFX,SFX_Weapons,SFX_Weapons_Titan_1P,SFX_Weapons_Titan_1P_Gunfire,SFX_Weapons_Titan_1P_Gunfire_Minigun"
-	"volume"			"4"
+	"volume"			"1.0"
 	"pitch"				"100"
 	"flags"				"layered"
 
