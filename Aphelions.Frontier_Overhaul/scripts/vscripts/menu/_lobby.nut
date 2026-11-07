@@ -479,8 +479,6 @@ function PrivateMatchLobbyLogic()
 		modeName = "at"
 
 	local mapName = GetLastServerMap()
-	if ( modeName == VARIETY_PACK )
-		mapName = SelectNextVarietyPackMap( GetConVarString( "host_mostRecentMap" ) )
 
 	if ( mapName in getconsttable().ePrivateMatchMaps )
 		level.ui.privatematch_map = getconsttable().ePrivateMatchMaps[mapName]
@@ -1772,8 +1770,10 @@ function ClientCommand_SetCustomMap( player, ... )
 	if ( !(mapName in getconsttable().ePrivateMatchMaps) )
 		return true
 
-	// A converted Titanfall 2 map needs the group on the server (every player owns it, or dlc5_override) and a mode it exists in
-	if ( IsTitanfall2Map( mapName ) && ( !ServerHasDLCMapGroupEnabled( R2_MAP_DLC_GROUP ) || !MapSupportsMode( mapName, GetModeNameForEnum( level.ui.privatematch_mode ) ) ) )
+	// A converted Titanfall 2 map needs the group on the server (every player owns it, or dlc5_override); no map is allowed in a mode it
+	// does not exist in (outside a private match the picker is the Frontier Defense one)
+	local modeName = IsPrivateMatch() ? GetModeNameForEnum( level.ui.privatematch_mode ) : COOPERATIVE
+	if ( ( IsTitanfall2Map( mapName ) && !ServerHasDLCMapGroupEnabled( R2_MAP_DLC_GROUP ) ) || !MapSupportsMode( mapName, modeName ) )
 	{
 		printt( player.GetPlayerName(), "tried to set the unavailable map:", mapName )
 		return true

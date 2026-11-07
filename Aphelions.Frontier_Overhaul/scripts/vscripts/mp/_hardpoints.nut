@@ -1,4 +1,5 @@
-const HARDPOINT_SHIFT_DELAY = 5
+const HARDPOINT_SHIFT_DELAY = 5 // FO
+
 const CP_AWARD_TEAM_OWNED_POINTS_SIGNAL = "CP_AWARD_TEAM_OWNED_POINTS_SIGNAL"
 const CP_AWARD_PLAYER_HOLD_POINTS_SIGNAL = "CP_AWARD_PLAYER_HOLD_POINTS_SIGNAL"
 const CP_END_CAPPING_WAIT_SIGNAL = "CP_END_CAPPING_WAIT_SIGNAL"
@@ -6,6 +7,7 @@ const CP_LEAVE_TRIGGER = "CP_LEAVE_TRIGGER"
 const CP_REINFORCE_INTERVAL = 1.0
 const CP_CAPTURE_HINT_RADIUS = 1536
 const CP_NAG_DEBOUNCE_TIME = 90
+const HARDPOINT_MIN_DEFENDERS = 4
 
 function main()
 {
@@ -956,11 +958,9 @@ function SetupHardpointTerminal( hardpoint )
 
 	local terminal = CreatePropDynamic( model, origin, angles, 6 )
 
-	if ( !nearTarget )
-	{
-		Assert( hardpoint.HasKey( "nearTarget" ), "The info_hardpoint must target at least 4 assault_assaultpoints with it's nearTarget key/value." )
+	// the converted Titanfall 2 hardpoints have no nearTarget key: their terminal nodes come from the assault points alone
+	if ( !nearTarget && hardpoint.HasKey( "nearTarget" ) )
 		nearTarget = hardpoint.kv.nearTarget
-	}
 
 	terminal.s.captureDialogue <- { [TEAM_IMC] = false, [TEAM_MILITIA] = false }
 	terminal.s.deathTimestamp <- 0
@@ -974,18 +974,19 @@ function SetupHardpointTerminal( hardpoint )
 	local terminalOrigin = terminal.GetOrigin()
 
 	local nodeArray = []
-	nodeArray = GetEntArrayByNameWildCard_Expensive( nearTarget )
+	if ( nearTarget )
+		nodeArray = GetEntArrayByNameWildCard_Expensive( nearTarget )
 
 	if ( nodeArray.len() < 4 )
 	{
-		// if we don't have enough
+		// if we don't have enough, top up with the closest assault points; never pad with null nodes
 		local array = clone hardpoint.s.assaultPoints
 		array = ArrayClosest( array, terminalOrigin )
 		nodeArray.extend( array )
-		nodeArray.resize( 4 )
+		if ( nodeArray.len() > 4 )
+			nodeArray.resize( 4 )
 	}
 
-	Assert( nodeArray.len() >= 4, "couldn't find 4 assault_assaultpoint for the hardpoint terminal at " + terminal.GetOrigin() )
 	terminal.s.nodeArray <- nodeArray
 
 	terminal.SetTeam( hardpoint.GetTeam() )
@@ -1209,6 +1210,9 @@ function HardpointTerminal_HaveRecentEnemy( guys, terminal )
 function GetSlot( guy, terminal, hardpoint )
 {
 	if ( "suicideBehavior" in guy.s )
+		return false
+
+	if ( "isHologram" in guy.s )
 		return false
 
 	if ( terminal.s.slotsInUse >= 2 )
@@ -1620,6 +1624,12 @@ function SquadCapturePointThink( squadName, capturepoint, team )
 
 		local state = GetCapturePointThinkState( capturepoint, team, guys )
 
+		if ( state == "OWNED"
+			&& RedeployHardpointAttackers( guys, capturepoint, team ) )
+		{
+			continue // Refresh squad membership after reassignment.
+		}
+
 		switch ( state )
 		{
 			case "OWNED":
@@ -1772,6 +1782,81 @@ function SquadCapturePointThink( squadName, capturepoint, team )
 	}
 }
 
+const HARDPOINT_MIN_DEFENDERS = 4
+
+//////////////////////////////////////////////////////////
+// Called while a squad owns its point. Keeps at least HARDPOINT_MIN_DEFENDERS
+// on this point and sends any spare NPCs to the hardpoint that needs them most.
+// Returns true if anyone was reassigned, so the caller refreshes the squad.
+function RedeployHardpointAttackers( guys, capturepoint, team )
+{
+	if ( guys.len() <= HARDPOINT_MIN_DEFENDERS )
+		return false
+
+	// pick the best other hardpoint: fewest friendly NPCs, and prefer points we don't own yet
+	local targetPoint = null
+	local bestScore = 999999
+
+	foreach ( hp in GetHardpoints() )
+	{
+		if ( hp == capturepoint )
+			continue
+
+		if ( !hp.Enabled() )
+			continue
+
+		local score = GetHardpointNPCCount( hp, team ) * 10
+
+		if ( hp.GetTeam() == team )
+			score += 100	// already ours, lower priority
+
+		if ( score < bestScore )
+		{
+			bestScore = score
+			targetPoint = hp
+		}
+	}
+
+	if ( !targetPoint )
+		return false
+
+	// guys is sorted closest-to-terminal first, so the extras are at the end of the array.
+	// Walk backwards so the farthest NPCs leave first and the closest stay as defenders.
+	local extraCount = guys.len() - HARDPOINT_MIN_DEFENDERS
+	local targetSquadName = GetHardpointSquadName( targetPoint, team )
+	local moved = 0
+
+	for ( local i = guys.len() - 1; i >= 0 && moved < extraCount; i-- )
+	{
+		local guy = guys[ i ]
+
+		if ( !IsAlive( guy ) )
+			continue
+
+		// don't yank anyone out of a terminal animation / slot transition
+		if ( NPCBusyAtHardpoint( guy ) )
+			continue
+
+		// drop whatever they're doing at this point and release claimed nodes/slots
+		guy.Signal( "Interrupt" )
+		guy.Signal( "StopHardpointBehavior" )
+
+		if ( "cpState" in guy.s )
+			guy.s.cpState = eNPCStateCP.NONE
+
+		SetSquad( guy, targetSquadName )
+		moved++
+	}
+
+	if ( !moved )
+		return false
+
+	// (re)start the state machine for the squad that just received reinforcements
+	thread SquadCapturePointThink( targetSquadName, targetPoint, team )
+
+	return true
+}
+
 //////////////////////////////////////////////////////////
 function GetCapturePointThinkState( capturepoint, team, guys )
 {
@@ -1812,7 +1897,11 @@ function WaitForUpdate( capturepoint, guys, state )
 
 	if ( state == "CONTESTED" )
 	{
-		wait 1.0 // check the state periodically in case we haven't seen the enemy in a while.
+		wait 1.0
+	}
+	else if ( state == "OWNED" )
+	{
+		wait 5.0
 	}
 	else
 	{

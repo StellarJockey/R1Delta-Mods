@@ -2043,6 +2043,11 @@ const MAX_ACTIVITY_CONGER_MODE = 4
 function GetPilotBotFlag()
 {
 	// IMPORTANT: Please call this consistently instead of Flag( "PilotBot" )
+	// A mode that never spawns anyone as a Titan (Live Fire, Titan Escort, ...) has no Titan spawnpoints to put a Titan bot on
+	// (the converted Titanfall 2 maps have none), so its bots are always Pilots, whatever the max activity mode says.
+	if ( Riff_SpawnAsTitan() == eSpawnAsTitan.Never )
+		return true
+
 	// Force titan or pilot bots according to max activity mode if it is enabled.
 	// Otherwise, leave the "pilotBot" flag alone and do what the game mode wants.
 	local max_activity_mode = GetConVarInt( "max_activity_mode" )
@@ -2054,6 +2059,21 @@ function GetPilotBotFlag()
 		return rand() % 2 != 0    // conger mode: 50/50 pilot and titan bots!
 	else
 		return Flag( "PilotBot" )
+}
+
+// Test bots (bot_dummy) appear next to the first player, at the point that player's Titan would drop to.
+function MoveBotNearFirstPlayer( bot )
+{
+	local botCaller = GetPlayerArray()[0]
+	local spot = GetTitanReplacementPoint( botCaller )
+
+	// Maps without Titan drop space (the converted Titanfall 2 ones have no drop nodes or spawnpoints) keep the bot at its own spawn.
+	if ( !spot )
+		return
+
+	local dir = botCaller.GetOrigin() - spot.origin
+	bot.SetOrigin( spot.origin )
+	bot.SetAngles( dir.GetAngles() )
 }
 
 function ShouldSpawnAsTitan( player )
@@ -2530,19 +2550,7 @@ function TitanPlayerHotDropsIntoLevel( player, rematchOrigin = null, token = nul
 	PostDropSpawnData( player, spawnDataIndex )
 
 	if ( player.IsBot() )
-	{
-		local botCaller = GetPlayerArray()[0]
-		local spot = GetTitanReplacementPoint(botCaller)
-		local origin = spot.origin
-		local dir =  botCaller.GetOrigin() - origin
-		local angles = dir.GetAngles()//Vector(0,0,0)
-
-		printt("Angle: ", angles)
-
-		player.SetOrigin( origin )
-		player.SetAngles( angles )
-
-	}
+		MoveBotNearFirstPlayer( player )
 		break
 	}
 }
@@ -2943,7 +2951,7 @@ function ShouldAutoBalancePlayer( player, manualSwitch, forceSwitch = false )
 
 	// Prevent the player controlling the titan in ctt from changing teams
 	// level.teamFlag = the titans soul
-	if ( GameRules.GetGameMode() == CAPTURE_THE_TITAN && level.teamFlag && level.teamFlag.GetBossPlayer() == player )
+	if ( GameRules.GetGameMode() == CAPTURE_THE_TITAN && IsValid( level.teamFlag ) && level.teamFlag.GetBossPlayer() == player )
 		return false
 
 	// Cant be evacing
@@ -3130,6 +3138,7 @@ function CodeCallback_WeaponFireInCloak( player )
 	DisableCloak( player, 0.5 )
 }
 
+
 function CodeCallback_OnClientConnectionStarted( player )
 {
 	// not a real player?
@@ -3283,7 +3292,12 @@ function SetPlayerToDefaultViewPoint( player )
 	//if( level.isTestmap )		// 테스트 맵일 경우에도 체크하지 않는다.
 	//	return
 
-	Assert( viewPoint )
+	// a map can have no info_intermission usable for this mode/team: leave the connecting player where the engine put them
+	if ( !viewPoint )
+	{
+		printt( "No info_intermission for " + GAMETYPE + " team " + player.GetTeam() + " on " + GetMapName() + ", not setting a default view point" )
+		return
+	}
 
 	player.SetOrigin( viewPoint.GetOrigin() )
 	local viewTarget = GetEnt( viewPoint.kv.target )
@@ -3457,14 +3471,7 @@ function CodeCallback_OnClientConnectionCompleted( player )
 
 			DecideRespawnPlayer( player )
 
-			local botCaller = GetPlayerArray()[0]
-			local spot = GetTitanReplacementPoint(botCaller)
-			local origin = spot.origin
-			local dir =  botCaller.GetOrigin() - origin
-			local angles = dir.GetAngles()//Vector(0,0,0)
-
-			player.SetOrigin( origin )
-			player.SetAngles( angles )
+			MoveBotNearFirstPlayer( player )
 			return
 		}
 
@@ -4259,4 +4266,5 @@ function SaveScoreForMapStars( player )
 
 
 main()
+
 
