@@ -466,7 +466,7 @@
 
 	}
 
-//3P Assets
+///// 3P ASSETS ///////
 
 ///// 1000
 
@@ -511,9 +511,9 @@
  	"falloffCurve"      		"5"
  	"clampVolume"       		"0"
 
-	"wave"				"weapons\DMR\g3sg1_distant_01.wav"
-	"wave"				"weapons\DMR\g3sg1_distant_02.wav"
-	"wave"				"weapons\DMR\g3sg1_distant_03.wav"
+	"wave"				"weapons\valkyrie\g3sg1_distant_01.wav"
+	"wave"				"weapons\valkyrie\g3sg1_distant_02.wav"
+	"wave"				"weapons\valkyrie\g3sg1_distant_03.wav"
 
 	}
 
@@ -628,9 +628,9 @@
  	"falloffCurve"      		"5"
  	"clampVolume"       		"0"
 
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Close_Reduced_2ch_01.wav"
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Close_Reduced_2ch_02.wav"
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Close_Reduced_2ch_03.wav"
+	"wave"				"weapons\valkyrie\g3sg1_01.wav"
+	"wave"				"weapons\valkyrie\g3sg1_02.wav"
+	"wave"				"weapons\valkyrie\g3sg1_03.wav"
 	}
 
 ///// 2000
@@ -652,8 +652,9 @@
  	"falloffCurve"      		"5"
  	"clampVolume"       		"0"
 
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Dist_Reduced_2ch_01.wav"
-	"wave"				"weapons\DMR\Wpn_DMR_3p_WpnFire_Dist_Reduced_2ch_02.wav"
+	"wave"				"weapons\valkyrie\g3sg1_distant_01.wav"
+	"wave"				"weapons\valkyrie\g3sg1_distant_02.wav"
+	"wave"				"weapons\valkyrie\g3sg1_distant_03.wav"
 
 	}
 
@@ -1407,7 +1408,7 @@
 
 	"rndwave"
 	{
-	"wave"				"weapons\twinb\m4a1_boltback.wav"
+
 	}
 
 }
@@ -1423,7 +1424,6 @@
 	"rndwave"
 	{
 		"wave"				"weapons/twinb/wpn_lstar_lensburnoutreload_pt4_2ch_v1_01.wav"
-		// "wave"				"weapons\Wingman\Wpn_Wingman_Reload_Eject_fr21_2ch_v1_01.wav"
 	}
 
 }
@@ -1620,10 +1620,9 @@
 "Weapon.minigun_fire_loop"
 {
 	"mixgroup"			"weapons,SFX,SFX_Weapons,SFX_Weapons_Titan_1P,SFX_Weapons_Titan_1P_Gunfire,SFX_Weapons_Titan_1P_Gunfire_Minigun"
-	"volumescale"		"1.0"
-//	"pitch" 			"90,110"
+	"volumescale"		"2.0"
 
-	"flags"			"loop,layered"
+	"flags"			"loop,layered,mobile"
 
 
 	"rndwave"
@@ -1641,31 +1640,83 @@
  	"falloffCurve"      		"0"
  	"clampVolume"       		"0"
 
-	"wave"			"weapons\titan_minigun\minigun_fire.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_1.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_2.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_3.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_4.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_5.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_6.wav"
+	}
+
+///// 3P ASSETS ///////
+
+	"rndwave"
+	{
+	"volume"			"3"
+	"delay"				"0"
+	"limit"				"1"
+	"flags"				"spatialized"
+	"panWidth"			"45"
+	"folddownDistance"	"200"
+	"startDistance"     		"100"
+ 	"peakDistance"     			"100"
+ 	"startCurve"       			"0"
+ 	"falloffStart"      		"100"
+ 	"falloffEnd"        		"3000"
+ 	"falloffCurve"      		"5"
+ 	"clampVolume"       		"0"
+
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_1.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_2.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_3.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_4.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_5.wav"
+	"wave"			"weapons\titan_minigun\MiniGunFireCombined_6.wav"
+	}
+
+
+	"rndwave"
+	{
+	"volume"			"3"
+	"pitch"				"80,110"
+	"delay"				"0"
+	"limit"				"1"
+	"flags"				"spatialized"
+	"panWidth"			"45"
+	"folddownDistance"	"200"
+	"startDistance"     		"70"
+ 	"peakDistance"     			"70"
+ 	"startCurve"       			"0"
+ 	"falloffStart"      		"70"
+ 	"falloffEnd"        		"5000"
+ 	"falloffCurve"      		"5"
+ 	"clampVolume"       		"0"
+
+	"wave"				"weapons\titan_minigun\Wpn_Predator_3p_FireLoop_Mid_2ch_v1_01.wav"
 	}
 
 	"rndwave"
 	{
-	"pitch"			"110"
-	"volume"		"2"
-	"delay"			"0"
-	"limit"			"1"
-		"ducks"				"SFX_Weapons_AI,0.7a:0,1000,0,0"
-		"ducks"				"SFX_AMB,0.7a:0,1000,0,0"
-		"ducks"				"Music,0.5a:0,1000,0,0"
-		//"ducks"				"DIAL_AI,0.5a:0,1000,0,0"
-	"startDistance"     		"0"
- 	"peakDistance"     		"0"
- 	"startCurve"       		"0"
- 	"falloffStart"      		"100"
- 	"falloffEnd"        		"100"
- 	"falloffCurve"      		"0"
+	"volume"			"2.1"
+	"pitch"				"60,90"
+	"delay"				"0"
+	"limit"				"1"
+	"flags"				"spatialized"
+	"panWidth"			"45"
+	"folddownDistance"	"200"
+	"startDistance"     		"70"
+ 	"peakDistance"     			"70"
+ 	"startCurve"       			"0"
+ 	"falloffStart"      		"70"
+ 	"falloffEnd"        		"6000"
+ 	"falloffCurve"      		"5"
  	"clampVolume"       		"0"
 
-	"wave"			"weapons\XO16\Wpn_XO16_1p_WpnFire_Loop_Mech_6ch_v1_01.wav"
+	"wave"				"weapons\titan_minigun\Wpn_Predator_3p_FireLoop_Dist_2ch_v1_01.wav"
 	}
 
 }
+
 
 "Weapon_Titan_Minigun_WindDown"
 {
