@@ -6,6 +6,15 @@ const NUKE_TITAN_PLAYER_DETECT_RANGE 	= 500
 const NUKE_TITAN_RANGE_CHECK_SLEEP_SECS = 1.0
 const NUKE_TITAN_DAMAGES_OTHER_NPCS = false
 
+// Combat movement: once in range, circle the target instead of standing still
+const AI_TITAN_CHASE_DIST_SQR = 3240000        // 1800 units: farther than this, walk straight at the target
+const AI_TITAN_COMBAT_MIN_RADIUS = 600         // closest/farthest distance of a strafe spot from the target
+const AI_TITAN_COMBAT_MAX_RADIUS = 1400
+const AI_TITAN_COMBAT_GOAL_RADIUS = 128        // how close to the strafe spot counts as arrived
+const AI_TITAN_REPOSITION_MIN = 3.0            // seconds between picking a new strafe spot
+const AI_TITAN_REPOSITION_MAX = 7.0
+const AI_TITAN_COMBAT_TRIES = 6                // random spots to try per pick before falling back
+
 function main()
 {
     Globalize( TitanHasPilotInTitan )
@@ -379,8 +388,8 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 			"mp_weapon_lmg",
 			"mp_weapon_sniper",
 			"mp_weapon_smart_pistol",
-			"mp_weapon_mega9",
-			"mp_weapon_mega10",
+			"mp_weapon_volt",
+			"mp_weapon_flatline",
 		]
 		local pilotWeapon = Random( pilotWeapons )
 		GiveMinionWeapon( pilot, pilotWeapon )
@@ -1184,25 +1193,14 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 		return false
     
     local playerTeam = players[0].GetTeam()
-    
+    local teamPlayerCount = GetPlayerArrayOfTeam( team ).len()
+
     // Titan NPC spawn limit
     local limit = 0
-	
-	switch ( GameRules.GetGameMode() )
-	{
-		case TITAN_BRAWL:
-		case LAST_TITAN_STANDING:
-			limit = ( team == playerTeam ) ? 5 : 6   // 5 for your team, 6 for enemy team
-			break
-			
-		default: // Attrition, Hardpoint, Campaign, etc.
-			limit = ( team == playerTeam ) ? 5 : 6   // 5 for your team, 6 for enemy team
-			break
-	}
 
 	if ( GameRules.GetGameMode() == COOPERATIVE )
 	{
-		if ( players.len() == 1 )
+		if ( players.len() == 1 )                    // Solo, just for your team (Militia)
 			limit = ( team == playerTeam ) ? 3 : 0   // 3 if you're alone in Frontier Defense
 		else if ( players.len() == 2 )
 			limit = ( team == playerTeam ) ? 2 : 0
@@ -1210,6 +1208,23 @@ function ShouldSpawnPilotWithTitan( team ) // Titan Spawns per Team
 			limit = ( team == playerTeam ) ? 1 : 0 
 		else if ( players.len() >= 4 )
 			limit = ( team == playerTeam ) ? 0 : 0 
+	}
+	else
+	{
+		if ( teamPlayerCount == 0 )
+			limit = 6
+		else if ( teamPlayerCount == 1 )
+			limit = 5
+		else if ( teamPlayerCount == 2 )
+			limit = 4
+		else if ( teamPlayerCount == 3 )
+			limit = 3
+		else if ( teamPlayerCount == 4 )
+			limit = 2
+		else if ( teamPlayerCount == 5 )
+			limit = 1
+		else if ( teamPlayerCount >= 6 )
+			limit = 0
 	}
 
 	local mapName = GetMapName()
@@ -1384,6 +1399,36 @@ function AI_SpottingThink( titan, team = null )
 	}
 }
 
+// Pick a spot on a ring around the target that still has line of sight to it.
+// It is biased to the side of where the titan already is, so titans circle
+// the target rather than backing straight up or walking straight in.
+function AI_PickCombatPosition( titan, target )
+{
+	local titanOrigin = titan.GetOrigin()
+	local targetOrigin = target.GetOrigin()
+
+	// Airborne targets (dropships) are not on the ground, so keep the titan's own height.
+	local groundZ = target.GetClassname() == "npc_dropship" ? titanOrigin.z : targetOrigin.z
+
+	local away = titanOrigin - targetOrigin
+	away.z = 0
+	local baseYaw = VectorToAngles( away ).y
+
+	for ( local i = 0; i < AI_TITAN_COMBAT_TRIES; i++ )
+	{
+		local side = RandomInt( 2 ) == 0 ? 1 : -1
+		local yaw = ( baseYaw + side * RandomFloat( 50, 130 ) ) * 0.0174532925
+		local radius = RandomFloat( AI_TITAN_COMBAT_MIN_RADIUS, AI_TITAN_COMBAT_MAX_RADIUS )
+		local spot = Vector( targetOrigin.x + cos( yaw ) * radius, targetOrigin.y + sin( yaw ) * radius, groundZ )
+
+		local trace = TraceLine( spot + Vector( 0, 0, 200 ), target.EyePosition(), [ titan ], TRACE_MASK_SHOT, TRACE_COLLISION_GROUP_NONE )
+		if ( trace.fraction >= 0.99 || trace.hitEnt == target )
+			return spot
+	}
+
+	return null
+}
+
 function AI_HuntThink( titan, team = null )
 {
     if ( !IsValid( titan ) || !IsAlive( titan ) )
@@ -1394,14 +1439,12 @@ function AI_HuntThink( titan, team = null )
 
     local titanTeam = team != null ? team : titan.GetTeam()
 
-    if ( !IsValid( titan ) || !IsAlive( titan ) )
-        return
-
     local lastValidTargetTime = Time()
     local lastPosition = titan.GetOrigin()
     local lastPositionCheckTime = Time()
     local stuckThreshold = 2.0
     local minMovementDistance = 100.0
+    local nextRepositionTime = 0.0
 
     while ( true )
     {
@@ -1411,53 +1454,47 @@ function AI_HuntThink( titan, team = null )
 
         local currentTime = Time()
         local currentPosition = titan.GetOrigin()
-        local timeSinceLastCheck = currentTime - lastPositionCheckTime
+        local stuck = false
 
-        if ( timeSinceLastCheck >= stuckThreshold )
+        if ( currentTime - lastPositionCheckTime >= stuckThreshold )
         {
-            local distanceMoved = Distance( currentPosition, lastPosition )
-
-            if ( distanceMoved < minMovementDistance )
-            {
-                if ( IsValid( titan ) && IsAlive( titan ) )
-                    AI_SendToRandomLocation( titan, titanTeam )
-
-                lastValidTargetTime = currentTime
-            }
-
+            stuck = Distance( currentPosition, lastPosition ) < minMovementDistance
             lastPosition = currentPosition
             lastPositionCheckTime = currentTime
         }
-
-        if ( !IsValid( titan ) || !IsAlive( titan ) )
-            return
 
         local target = AI_SelectTarget( titan, titanTeam )
 
         if ( IsValid( target ) )
         {
-            if ( !IsValid( titan ) || !IsAlive( titan ) )
-                return
-
             titan.SetEnemy( target )
-            SendAIToAssaultPoint( titan, target.GetOrigin(), null, 256 )
             lastValidTargetTime = currentTime
-        }
-        else
-        {
-            local timeSinceLastTarget = currentTime - lastValidTargetTime
 
-            if ( timeSinceLastTarget >= 1.0 )
+            if ( DistanceSqr( currentPosition, target.GetOrigin() ) > AI_TITAN_CHASE_DIST_SQR )
             {
-                if ( !IsValid( titan ) || !IsAlive( titan ) )
-                    return
+                // Too far to fight: close the distance, and pick a strafe spot as soon as we are in range.
+                SendAIToAssaultPoint( titan, target.GetOrigin(), null, 256 )
+                nextRepositionTime = 0.0
+            }
+            else if ( stuck || currentTime >= nextRepositionTime )
+            {
+                // In range: keep moving to a fresh spot around the target.
+                local spot = AI_PickCombatPosition( titan, target )
+                if ( spot == null )
+                    SendAIToAssaultPoint( titan, target.GetOrigin(), null, 256 )
+                else
+                    SendAIToAssaultPoint( titan, spot, null, AI_TITAN_COMBAT_GOAL_RADIUS )
 
-                AI_SendToRandomLocation( titan, titanTeam )
-                lastValidTargetTime = currentTime
+                nextRepositionTime = currentTime + RandomFloat( AI_TITAN_REPOSITION_MIN, AI_TITAN_REPOSITION_MAX )
             }
         }
+        else if ( stuck || currentTime - lastValidTargetTime >= 1.0 )
+        {
+            AI_SendToRandomLocation( titan, titanTeam )
+            lastValidTargetTime = currentTime
+        }
 
-        wait RandomFloat( 1.5, 3.0 )
+        wait RandomFloat( 1.0, 2.0 )
     }
 }
 

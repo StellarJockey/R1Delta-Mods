@@ -367,6 +367,7 @@ function CreateAllBurnCards()
 	const wingman_e_desc = "Replace Sidearm Weapon with a more lethal Wingman Elite."
 	const volt_desc = "Replace Primary Weapon with a Volt SMG that fires arc rounds."
 	const flatline_desc = "Replace Primary Weapon with a more lethal V-47 Flatline."
+	// "Replace Ordnance Weapon with infinite, more leathal Electric Smoke Grenades."
 
 	const twinb_flavor = "\"Technically, it's only illegal if it's not registered.\""
 	const valk_flavor = "\"There are many like it, but this one is mine.\""
@@ -375,7 +376,8 @@ function CreateAllBurnCards()
 	const chargecannon_flavor = "\"To avoid long-term eye damage, do not look directly into the beam.\""
 	const wingman_e_flavor = "\"One good act of vengeance deserves another.\""
 	const volt_flavor = "\"Beware of a static shock when handling.\""
-	const flatline_flavor = "\"I promised you a solution that would work. I did not say it would be pretty looking.\""
+	const flatline_flavor = "\"I promised you a solution that would work... I did not say it would be pretty looking.\""
+	const smoke_gren_flavor = "\"You feel that in the air? Yeah, it's time to go.\""
 
 	const Wonyeon = "-Wonyeon Internal Memo"
 	const danforth = "-Danforth, Arms Dealer"
@@ -390,9 +392,10 @@ function CreateAllBurnCards()
 	CreateBurnCardWeapon( "bc_titan_shotgun_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_titan_shotgun", 		BC_NEXTTITANDROP, 	"#BC_TITAN_SHOTGUN_M2"			, "#BC_TITAN_SHOTGUN_M2_DESC"		, "#BC_TITAN_SHOTGUN_M2_FLAVOR"			, "#BC_FLAVOR_WONYEON",		"mp_titanweapon_shotgun",	"burn_mod_titan_shotgun", 		"TITAN_PRIMARY"		)
 	//CreateBurnCardWeapon( "bc_thunderbolt_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_thunderbolt", 		BC_NEXTTITANDROP, 	"#BC_TITAN_MINIGUN_M2"			, "#BC_TITAN_MINIGUN_M2_DESC"		, "#BC_TITAN_MINIGUN_M2_FLAVOR"			, "#BC_FLAVOR_PILOT",		"mp_titanweapon_minigun",			"burn_mod_thunderbolt", 		"TITAN_PRIMARY"		)
 	//CreateBurnCardWeapon( "bc_titan_charge_cannon_m2",			BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_TACTICAL				, "burncards/amped_charge_cannon", 		BC_NEXTTITANDROP, 	"#BC_TITAN_CHARGE_CANNON_M2"	, "#BC_TITAN_CHARGE_CANNON_M2_DESC"	, chargecannon_flavor				, warninglabel,				"mp_titanweapon_charge_cannon",			"burn_mod_titan_charge_cannon",	"TITAN_OFFHAND1"	)
-	CreateBurnCardWeapon( "bc_wingman_elite_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_PISTOL					, "burncards/amped_wingman_elite", 		BC_NEXTDEATH, 		"Amped Wingman Elite"			, wingman_e_desc					, wingman_e_flavor						, dowd,						"mp_weapon_mega8", 			"burn_mod_wingman_elite",       "SIDEARM"		)
-	CreateBurnCardWeapon( "bc_volt_m2",							BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SMG					, "burncards/amped_volt", 				BC_NEXTDEATH, 		"Amped Volt"					, volt_desc							, volt_flavor							, warninglabel,				"mp_weapon_mega9", 			"burn_mod_volt",      			"PRIMARY"		)
-	CreateBurnCardWeapon( "bc_flatline_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_RIFLE					, "burncards/amped_flatline", 			BC_NEXTDEATH, 		"Amped Flatline"				, flatline_desc						, flatline_flavor						, venkat,					"mp_weapon_mega10", 		"burn_mod_flatline",      			"PRIMARY"		)
+	CreateBurnCardWeapon( "bc_wingman_elite_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_PISTOL					, "burncards/amped_wingman_elite", 		BC_NEXTDEATH, 		"Amped Wingman Elite"			, wingman_e_desc					, wingman_e_flavor						, dowd,						"mp_weapon_wingman_elite", 			"burn_mod_wingman_elite",       "SIDEARM"		)
+	CreateBurnCardWeapon( "bc_volt_m2",							BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SMG					, "burncards/amped_volt", 				BC_NEXTDEATH, 		"Amped Volt"					, volt_desc							, volt_flavor							, warninglabel,				"mp_weapon_volt", 			"burn_mod_volt",      			"PRIMARY"		)
+	CreateBurnCardWeapon( "bc_flatline_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_RIFLE					, "burncards/amped_flatline", 			BC_NEXTDEATH, 		"Amped Flatline"				, flatline_desc						, flatline_flavor						, venkat,					"mp_weapon_flatline", 		"burn_mod_flatline",      			"PRIMARY"		)
+	// CreateBurnCardWeapon( "bc_smoke_grenade_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_FRAG					, "burncards/amped_smoke_grenade", 		BC_NEXTDEATH, 		"Fog of War"					, smoke_gren_desc					, smoke_gren_flavor						, venkat,					"mp_weapon_smoke_grenade", 		"burn_mod_flatline",      			"OFFHAND0"		)
 
 	if ( IsServer() )
 	{

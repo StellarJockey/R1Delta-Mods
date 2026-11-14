@@ -1,6 +1,5 @@
 //=========================================================
 // MP spawner for fake NPC Pilots in FO
-// Maybe one day we'll have actual bots... one day
 //=========================================================
 
 // ---- NPC pilot tactical ability tuning ----
@@ -12,10 +11,10 @@ const NPC_TAC_STIM_DURATION   = 5.0
 const NPC_TAC_STIM_SPEED      = 1.35   // multiplier on the pilot's normal move speed scale
 const NPC_TAC_STIM_TICK       = 1.25   // health top-up interval
 const NPC_TAC_COVER_LIFETIME  = 10.0
-const NPC_TAC_COVER_CHANCE    = 0.50   // 50% roll each time the pilot is "spotted"
+const NPC_TAC_COVER_CHANCE    = 0.35   // 35% roll each time the pilot is "spotted"
 const NPC_TAC_COVER_RADIUS    = 160
 const NPC_TAC_COVER_HEALTH    = 32000
-const NPC_TAC_HOLO_DURATION   = 8.0
+const NPC_TAC_HOLO_DURATION   = 10.0
 const NPC_TAC_BASE_MOVESPEED  = 1.20
 
 function main()
@@ -93,14 +92,14 @@ function ChoosePilotModelForWeapon( team, weapon )
         case "mp_weapon_car":
         case "mp_weapon_lmg":
         case "mp_weapon_hemlok":
-		case "mp_weapon_mega10":
+		case "mp_weapon_flatline":
             modelIndex = 0 // br
             break
 
         case "mp_weapon_shotgun":
         case "mp_weapon_r97":
         case "mp_weapon_smart_pistol":
-		case "mp_weapon_mega9":
+		case "mp_weapon_volt":
             modelIndex = 1 // cq
             break
 
@@ -140,8 +139,8 @@ function SpawnPilotInfantry( team, squadName, origin, angles, alert = true, weap
 		"mp_weapon_lmg",
 		"mp_weapon_sniper",
 		"mp_weapon_smart_pistol",
-		"mp_weapon_mega9",
-		"mp_weapon_mega10",
+		"mp_weapon_volt",
+		"mp_weapon_flatline",
 	]
 
     if ( weapon == null )
@@ -209,9 +208,9 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         "mp_weapon_sr_valkyrie",
         "mp_weapon_sniper",
         "mp_weapon_smart_pistol",
-        "mp_weapon_mega8",
-		"mp_weapon_mega9",
-		"mp_weapon_mega10",
+        "mp_weapon_wingman_elite",
+		"mp_weapon_volt",
+		"mp_weapon_flatline",
     ]
 
     local chosenWeapon = Random( pilotWeapons )
@@ -240,7 +239,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         case "mp_weapon_semipistol":
         case "mp_weapon_smart_pistol":
         case "mp_weapon_wingman":
-        case "mp_weapon_mega8":
+        case "mp_weapon_wingman_elite":
             sightMod = ""
             break
 
@@ -655,7 +654,7 @@ function NPCPilotRoamThink( npc )
 
 	while ( true )
 	{
-		wait RandomFloat( 5.0, 10.0 )
+		wait RandomFloat( 2.0, 6.0 )
 
 		local pos = npc.GetOrigin()
 		local moved = Distance( pos, lastPos )

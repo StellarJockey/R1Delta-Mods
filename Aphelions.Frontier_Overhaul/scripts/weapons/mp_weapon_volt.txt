@@ -51,8 +51,8 @@ WeaponData
 	"sound_trigger_release"							"assault_rifle_dryfire"
 	"fire_sound_1_player_1p"						"Weapon_bulletCasings.Bounce"
 	"fire_sound_1_player_3p"						"Weapon_bulletCasings.Bounce"
-	"fire_sound_2"									"Weapon_Volt.SecondShot1"
-	"fire_sound_2_npc"								"Weapon_Volt.SecondShot1"
+	"fire_sound_2"									""
+	"fire_sound_2_npc"								""
 	"looping_sounds"								"1"
 
 	// Network

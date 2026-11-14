@@ -131,10 +131,12 @@ function main()
 	AddCallback_OnClientConnecting( AiSoldiers_InitPlayer )
 	AddDeathCallback( "npc_spectre", CommonDeath )
 	AddDeathCallback( "npc_soldier", CommonDeath )
-
-	AddSpawnCallback("npc_soldier", CoopTD_OnSoldierOrSpectreSpawn)
-	AddSpawnCallback("npc_spectre", CoopTD_OnSoldierOrSpectreSpawn)
-	AddSpawnCallback("npc_spectre", CoopTD_EnableSpectreRodeo)
+	if ( GameRules.GetGameMode() != COOPERATIVE )
+	{
+		AddSpawnCallback("npc_soldier", CoopTD_OnSoldierOrSpectreSpawn)
+		AddSpawnCallback("npc_spectre", CoopTD_OnSoldierOrSpectreSpawn)
+		AddSpawnCallback("npc_spectre", CoopTD_EnableSpectreRodeo)
+	}
 
 	Globalize( ClientCommand_SpawnViewGrunt )
 	Globalize( ClientCommand_SpawnViewCaptainGrunt )
@@ -608,7 +610,11 @@ function SpawnGrunt( team, squadName, origin, angles, alert = true, weapon = nul
 
 	soldier.SetDoFaceAnimations( team == TEAM_MILITIA )
 
-	soldier.SetAISettings( "fireteam_soldier" )	// do this after spawning
+	if ( "isCaptain" in soldier.s )
+		soldier.SetAISettings( "fireteam_captain" )
+	else
+		soldier.SetAISettings( "fireteam_soldier" )	// do this after spawning
+
 
 	SetupSoldierForRPGs( soldier, team )
 
@@ -773,8 +779,6 @@ function SpawnGruntCaptain( team, squadName, origin, angles, alert = true, weapo
 
 	if ( "s" in guy && "isPilot" in guy.s )
 		guy.s.isPilot <- false
-	if ( "s" in guy && "IsSoldier" in guy.s )
-		guy.s.IsSoldier <- false
 		
 	guy.s.isCaptain <- true
 
@@ -850,7 +854,7 @@ function GetGruntModel( team, captain = false )
 	"mp_weapon_rspn101",
 	"mp_weapon_car",
 	"mp_weapon_hemlok",
-	"mp_weapon_mega9",
+	"mp_weapon_volt",
 ]
 
 function GetGruntWeapon( team ) 
@@ -1191,7 +1195,7 @@ function TrySpottedCallout( guy, enemy )
 			else
 				PlaySpectreChatterToAll( "spectre_gs_spotfartitan_1_1", guy )
 		}
-		else if ( !IsReskinnedPilot( guy ) || !IsGhostPilot( guy ) ) // Grunt callouts
+		else if ( !IsGhostPilot( guy ) ) // Grunt callouts
 		{
 			if ( Distance( guy.GetOrigin(), enemy.GetOrigin() ) < 1000 )
 				PlaySquadConversationToAll( "aichat_spot_titan_close", guy )
@@ -1211,7 +1215,7 @@ function TrySpottedCallout( guy, enemy )
 				PlaySpectreChatterToAll( "spectre_gs_spotenemypilot_01_1", guy )
 
 		}
-		else if ( !IsReskinnedPilot( guy ) || !IsGhostPilot( guy ) ) // Grunt callouts
+		else if ( !IsGhostPilot( guy ) ) // Grunt callouts, excludes ghost pilots only!
 		{
 			if ( Distance( guy.GetOrigin(), enemy.GetOrigin() ) < 1000 )
 			{
@@ -1313,8 +1317,8 @@ function __SpawnFuncWrapper( count, index, spawnFunc, team, squadName, origin, a
 	Assert( type( spawnFunc ) == "function" )
 	local guy
 
-	// 10% Chance for an NPC Pilot inside Grunt Pods, but only when bots aren't present
-	if ( spawnFunc.getinfos().name == "SpawnGrunt" && ShouldUseNPCPilots() && RandomFloat( 0.0, 1.0 ) <= 0.10 )
+	// 15% Chance for an NPC Pilot inside Grunt Pods, but only when bots aren't present
+	if ( spawnFunc.getinfos().name == "SpawnGrunt" && ShouldUseNPCPilots() && RandomFloat( 0.0, 1.0 ) <= 0.15 )
 	{
 		guy = SpawnPilotInfantry( team, squadName, origin, angles )
 	}
@@ -1465,6 +1469,7 @@ function GetPlayerSpectreSquadName( player )
 //////////////////////////////////////////////////////////
 function SpawnSpectre( team, squadName, origin, angles, alert = true, weapon = null, hidden = false )
 {
+	team = GetProperTeamValue( team )
     local model
     local alertVal = alert ? 1 : 0
 
@@ -1502,9 +1507,6 @@ function SpawnSpectre( team, squadName, origin, angles, alert = true, weapon = n
 	ApplyIronsights( spectre, weapon )
 
     spectre.ConnectOutput( "OnGainEnemyLOS", OnSpectreSeeEnemy )
-
-	spectre.SetEnemyChangeCallback( "EnemyChanged_Standard" )
-	CommonInit( spectre )
 
     return spectre
 }
@@ -1565,6 +1567,7 @@ function disable_npcs()
 		if ( guy.GetClassname() == "npc_titan" )
 			continue
 		if (guy.GetClassname() == "npc_dropship" && "dogfighter" in guy.s )
+			continue
 
 		guy.Kill()
 	}
@@ -1938,7 +1941,7 @@ function GiveMinionWeapon( npc, weapon )
 		case "mp_weapon_semipistol":
 		case "mp_weapon_smart_pistol":
 		case "mp_weapon_wingman":
-		case "mp_weapon_mega8":
+		case "mp_weapon_wingman_elite":
 			sightMod = ""
 			break
 
@@ -1967,7 +1970,7 @@ function ApplyIronsights( npc, weapon )
 		case "mp_weapon_semipistol":
 		case "mp_weapon_smart_pistol":
 		case "mp_weapon_wingman":
-		case "mp_weapon_mega8":
+		case "mp_weapon_wingman_elite":
 			return
 
 		case "mp_weapon_dmr":
@@ -1983,7 +1986,57 @@ function ApplyIronsights( npc, weapon )
 }
 Globalize( ApplyIronsights )
 
-// Somewhat hacky way to get AI to throw grenades. Good enough for now.
+
+//npc grenade settings
+const NPC_GRENADE_TARGET_LOCK = 8.0
+const NPC_GRENADE_SQUAD_COOLDOWN = 12.0
+const NPC_GRENADE_MIN_DIST = 300
+const NPC_GRENADE_MAX_DIST = 1800
+
+//determines if a target is valid for a grenade throw: living guys, spectres, players, turrets, megaturret, checks the entity classname directly 
+function NPCGrenade_IsValidTarget( target, targetGrunts) 
+{
+	if (!IsAlive( target))
+		return false
+	if ( target.IsPlayer())
+		return true
+	local cls = target.GetClassname()
+	if ( cls == "npc_turret_sentry"  || cls == "npc_turret_mega")
+		return true
+	if ( targetGrunts && (cls == "npc_soldier" || cls == "npc_spectre") )
+		return true
+	return false  //Claire: no else required, returns false anyway
+}
+function NPCGrenade_CanThrow( npc, target ) // checks if we can even throw to avoid excess work
+{ 
+	local now = Time()
+	if ( "grenadeLockedUntil" in target.s && target.s.grenadeLockedUntil > now ) 
+		return false
+	
+	local squad = npc.Get( "squadname" )
+	if (squad != "" && "npcGrenadeSquadTime" in level && squad in level.npcGrenadeSquadTime )
+	{
+		if( level.npcGrenadeSquadTime[ squad] > now)
+			return false
+	}
+return true
+
+}
+function NPCGrenade_Claim( npc, target ) //claims a target that we want to throw a grenade at, nobody else in our squad will throw
+{
+	local now = Time()
+	target.s.grenadeLockedUntil <- now + NPC_GRENADE_TARGET_LOCK
+
+	local squad = npc.Get( "squadname" )
+	if ( squad == "" )
+		return
+	
+	if ( !( "npcGrenadeSquadTime" in level ) )
+		level.npcGrenadeSquadTime <- {} 
+	level.npcGrenadeSquadTime[ squad ] <- now + NPC_GRENADE_SQUAD_COOLDOWN
+}
+
+// Somewhat hacky way to get AI to throw grenades. Good enough for now. <==== (Thank you respawn very cool!!!! -claire)
 function SimulateGrenadeThrowing( npc, onlyRooftopCombat = true, targetGrunts = false )
 {
 	thread SimulateGrenadeThink( npc, onlyRooftopCombat, targetGrunts )
@@ -2008,59 +2061,61 @@ function SimulateGrenadeThink(npc, onlyRooftopCombat, targetGrunts)
 		}
 	)
 
-	if ( !npc.GetOffhandWeapon( 0 ) ) 
-		if (RandomInt(100) < 50)
-			npc.GiveOffhandWeapon("mp_weapon_frag_grenade", 0)
-		else
-			npc.GiveOffhandWeapon("mp_weapon_grenade_emp", 0)
 
-	local npcRadius = 2000
-	local npcRadiusSqr = npcRadius * npcRadius
+	local grenades = Random( [ "mp_weapon_frag_grenade", "mp_weapon_frag_grenade", "mp_weapon_frag_grenade", 
+							   "mp_weapon_grenade_emp", "mp_weapon_grenade_emp", 
+							   "mp_weapon_smoke_grenade" ] )
+							   
+	if ( !npc.GetOffhandWeapon( 0 ) ) 
+		npc.GiveOffhandWeapon( grenades, 0)
+
+	local minDistSqr = NPC_GRENADE_MIN_DIST * NPC_GRENADE_MIN_DIST
+	local maxDistSqr = NPC_GRENADE_MAX_DIST * NPC_GRENADE_MAX_DIST //squares your min/max values for proper ranging
+
+	wait RandomFloat( 0.0, 15.0 ) 
 
 	for (;;) {
 		wait RandomFloat(4.5, 5.5)
 
+		local target = npc.GetEnemy()
+
+		if ( !NPCGrenade_IsValidTarget( target, targetGrunts) )
+			continue
+
 		local npcPos = npc.GetWorldSpaceCenter()
-		local enemyTeam = GetOtherTeam( npc.GetTeam() )
-		local grenadeTargets = GetPlayerArray()
-		grenadeTargets.extend(GetNPCArrayEx("npc_turret_sentry", enemyTeam, npcPos, npcRadius))
+		local targetPosition = target.IsPlayer() ? target.EyePosition() : target.GetWorldSpaceCenter( ) 
 
-		if (targetGrunts) {
-			grenadeTargets.extend(GetNPCArrayEx("npc_soldier", enemyTeam, npcPos, npcRadius))
-			grenadeTargets.extend(GetNPCArrayEx("npc_spectre", enemyTeam, npcPos, npcRadius))
-		}
+		local distSqr = DistanceSqr( targetPosition, npcPos )
+		if( distSqr > maxDistSqr || distSqr < minDistSqr) 
+			continue 
 
-		foreach(target in grenadeTargets) {
-			if (!IsAlive(target))
-				continue
+		//Intent is to use this as a rooftop deterent, not normal combat.
+		if (onlyRooftopCombat && targetPosition.z - npcPos.z < 75)
+			continue
 
-			local targetPosition
-			if (target.IsPlayer())
-				targetPosition = target.EyePosition()
-			else
-				targetPosition = target.GetWorldSpaceCenter()
+		if ( !npc.IsInterruptable() || !NPCGrenade_CanThrow( npc, target))
+			continue
 
-			if (DistanceSqr(targetPosition, npcPos) > npcRadiusSqr)
-				continue
-			//Intent is to use this as a rooftop deterent, not normal combat.
-			if (onlyRooftopCombat && targetPosition.z - npcPos.z < 75)
-				continue
-
-			if (npc.IsInterruptable() == false)
-				continue
-
-			if (npc.CanSee(target) && npc.GetEnemy() == target) {
-				npc.Anim_ScriptedAllowPain(true)
-				npc.Anim_ScriptedPlay("coop_grenade_throw")
-				npc.WaittillAnimDone()
-				npc.Anim_ScriptedAllowPain(false)
-				npc.AssaultPointEnt(npc.s.assaultPoint)
-				npc.Signal("Stop_SimulateGrenadeThink")
-			}
-			wait 0
-		}
+		if (!npc.CanSee( target ) )
+			continue 
+		
+		//if (npc.CanSee( target ) ) 
+			//continue
+			//Claire commented out: this results in NPCs throwing at in-range-but-not-visible enemies. leaving to retool for blind-throwing behavior later
+			//i hate the players and want them to die
+	
+		
+		NPCGrenade_Claim( npc, target ) 
+		npc.Anim_ScriptedAllowPain(true)
+		npc.Anim_ScriptedPlay("coop_grenade_throw")
+		npc.WaittillAnimDone()
+		npc.Anim_ScriptedAllowPain(false)
+		npc.AssaultPointEnt(npc.s.assaultPoint)
+			
+		wait RandomFloat( 20.0, 50.0) //wait a random amount of time, then keep looking
 	}
 }
+
 
 function NPCGrenadeThrow( npc )
 {
@@ -2092,7 +2147,7 @@ function NPCGrenadeThrow( npc )
 
 	if ( npc.IsSpectre() )
 		EmitSoundOnEntity( npc, SPECTRE_GRENADE_OUT )
-	else if ( !IsReskinnedPilot( npc ) || !IsGhostPilot( npc ) ) // Grunt callouts
+	else  // Grunt callouts, INCLUDES GHOST PILOTS AND NPC PILOTS
 		PlaySquadConversationToAll( "aichat_grenade_incoming", npc )
 		//EmitSoundOnEntity( npc, GRUNT_GRENADE_OUT )
 }
@@ -2151,8 +2206,8 @@ function SimulateSpectreRodeoThink(spectre) {
 }
 
 function CoopTD_OnSoldierOrSpectreSpawn(npc) {
-	if (RandomInt(100) < 20)
-		SimulateGrenadeThrowing( npc )
+	if (RandomInt(100) < 50)
+		SimulateGrenadeThrowing( npc, false, true )
 }
 
 function CoopTD_EnableSpectreRodeo(spectre) {

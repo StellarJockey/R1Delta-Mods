@@ -28,9 +28,9 @@
 
 	// Effects
 	"tracer_effect"   								"weapon_tracers_sniper"
-	"tracer_effect_first_person"  					"weapon_tracers_sniper"
+	//"tracer_effect_first_person"  				"weapon_tracers_sniper"
 	"impact_effect_table" 							"titan_bullet"
-	"projectile_trail_effect_0" 					"garand_trail_smoke"
+	//"projectile_trail_effect_0" 						"garand_trail_smoke"
 	"projectile_do_predict_impact_effects"			"0"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_20mm_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_20mm"
@@ -60,7 +60,7 @@
 	"damage_far_value"								"160"
 	"damage_near_value_titanarmor"					"100"
 	"damage_far_value_titanarmor" 					"100"
-	"damage_rodeo" 									"800"
+	"damage_rodeo" 									"400"
 
 	"damage_headshot_scale"							"2.0"
 	"damage_torso_scale"							"1.0"
@@ -316,6 +316,8 @@
 		}
 		silencer
 		{
+			"fire_sound_1"						"player_B3_Elite_fireSuppressed"
+
 			"bodygroup2_set"					"1"
 			"damage_near_value"   				"135"
 			"damage_far_value"					"135"
@@ -335,10 +337,6 @@
 			"fx_muzzle_flash_view"				"wpn_muzzleflash_pistol_sup_FP"
 			"fx_muzzle_flash_world"				"wpn_muzzleflash_pistol_sup"
 			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_cyl"
-		}
-		"improved_rifling"
-		{
-			"damage_far_value"								"160"
 		}
 		"gunslinger"
 		{
