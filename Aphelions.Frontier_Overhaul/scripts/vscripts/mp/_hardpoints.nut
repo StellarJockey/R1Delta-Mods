@@ -1782,8 +1782,6 @@ function SquadCapturePointThink( squadName, capturepoint, team )
 	}
 }
 
-const HARDPOINT_MIN_DEFENDERS = 4
-
 //////////////////////////////////////////////////////////
 // Called while a squad owns its point. Keeps at least HARDPOINT_MIN_DEFENDERS
 // on this point and sends any spare NPCs to the hardpoint that needs them most.

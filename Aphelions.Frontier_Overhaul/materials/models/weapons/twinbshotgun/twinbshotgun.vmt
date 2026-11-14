@@ -13,7 +13,7 @@
 	"$reflectiontintshininess" "models\weapons\twinBshotgun\twinBshotgun_spc"
 	"$reflectiontintcolor" "1"
 	"$fresnelamount" "2"
-	"$fresnelintensity" "10" // "15"
+	"$fresnelintensity" "15"
 	"$fresnelcurvesharpness" "1"
 	"$envmapfresnel" "1"
 	"$envmapLambertian" "2"
