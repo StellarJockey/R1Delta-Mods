@@ -70,7 +70,10 @@ WINGMAN ELITE:
 ////////////////////////////////////////
 
 THROWING KNIFE:
-* Added the knife from Gun Game as an ordnance, ideal for stealthy builds
+* Added the knife from Gun Game as a new Pilot Ordnance, ideal for stealthy builds
+
+ELECTRIC SMOKE GRENADE:
+* Added the Electric Smoke Grenade as a new Pilot Ordnance
 
 ARC GRENADES:
 * Will only insta-kill grunts, takes two to kill NPC Pilots and Grunt Captains

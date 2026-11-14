@@ -73,6 +73,16 @@ const DEADMANSv2 =        "The Dead Man's Trigger auto-detonates all of your pla
 const GEAR_RUNGUN_KIT_DESCv2 = 		"Pistols, SMGs, and shotguns can be fired while sprinting"
 const GEAR_RUNGUN_KIT_LONGDESCv2 =  "The Run N Gun Kit allows you to fire small arms such as pistols, SMGs, and shotguns while sprinting."
 
+
+// TITANS
+const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
+const STRYDER_DESC = "The Stryder is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
+const OGRE_DESC = "The Ogre chassis is a walking tank. Although it is slow moving, it can absorb more damage than any other Titan frame."
+
+const DMG_CORE_DESC = "All forms of damage output are increased by 40% while active."
+const DASH_CORE_DESC = "Grants unlimited dash capacity while active."
+const SHIELD_CORE_DESC = "Shield is fully replenished upon activation. All incoming damage is then reduced by 50% while active."
+
 // TITAN KIT DESCRIPTIONS
 const BIG_PUNCHv2 = 				"Your Titan's melee power is significantly increased and knocks enemies back 25% further.\nSTRYDER: 80% Damage increase\nATLAS: 78% Damage Increase\nOGRE: 23% Damage Increase"
 const DASH_QUICKCHARGERv2 = 		"Your Titan's dashes recharge at a faster rate. The decrease in time for a single dash goes from:\nSTRYDER: 3.3 to 2.6 seconds\nATLAS: 4.2 to 3.5 seconds\nOGRE: 4.6 to 4.1 seconds"
@@ -92,7 +102,7 @@ const titan_shotgun_LONGDESC =   "The WYS-0404 Shotgun is the predecessor to the
 const titan_sniper_LONGDESC =    "The PR-01 Plasma Railgun is a sniper weapon that fires hypersonic tungsten. When zoomed, the weapon's power will charge up over several stages. The weapon may be fired at any stage, even zero."
 
 const MEGA3_SHORTDESC =    "Titan rotary cannon"
-const MEGA3_LONGDESC =     "The AG-8 Thunderbolt is a six-barreled autocannon that fires 30mm rounds at 900 RPM. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
+const MEGA3_LONGDESC =     "The AG-8 Thunderbolt is a six-barreled autocannon that fires 30mm rounds at 900 RPM, similar what was used by old-world aircraft. Ammo will passively regenerate when not firing. If the ammo depletes fully, the gun will overheat."
 
 const vortex_LONGDESC =    "The Vortex Shield captures incoming projectiles and fires them back at the enemy upon release. It can only reflect ballistics and projectile weapons, though it will still protect you against most forms of damage."
 const mega4_Desc_v2 = 		"Fires a directed energy beam"
@@ -124,13 +134,6 @@ const LASER_SIGHT_LONGDESC = 			  	"This mod attaches a laser under the weapon's
 const SKULL_PIERCER_LONGDESC =				"This mod upgrades your rounds with tungsten cores that maintain their shape upon impact, ensuring that a single headshot will instant-kill any human-sized target."
 const KICK_SWITCH_LONGDESC = 				"This mod gives the Flatline a rotated compensator, making its vertical muzzle climb easier to manage. However, this unconventional design greatly increases its side-to-side recoil."
 
-const ATLAS_DESC = "The Atlas is the original Titan chassis produced by Hammond Robotics. It offers a balance of speed and durability."
-const STRYDER_DESC = "The Stryder is the lightest, most agile Titan chassis. It is optimized for superior speed at the expense of durability."
-const OGRE_DESC = "The Ogre chassis is a walking tank. Although it is slow moving, it can absorb more damage than any other Titan frame."
-
-const DMG_CORE_DESC = "All forms of damage output are increased by 40% while active."
-const DASH_CORE_DESC = "Grants unlimited dash capacity while active."
-const SHIELD_CORE_DESC = "Shield is fully replenished upon activation. All incoming damage is then reduced by 50% while active."
 
 
 function main()
@@ -407,16 +410,17 @@ function main()
 		InitBurncardPackLevels( 0, 5 ) // number of commons and rares to include in burn card packs
 	}
 
-	unlockLevels[ "mp_weapon_mega9" ]						<- 28
+	unlockLevels[ "mp_weapon_smoke_grenade" ]				<- 25
+	unlockLevels[ "mp_weapon_volt" ]						<- 28
 	unlockLevels[ "mp_weapon_sr_valkyrie" ]					<- 30
-	unlockLevels[ "mp_weapon_mega6" ]						<- 34
+	unlockLevels[ "mp_weapon_deployable_cover" ]			<- 34
 	unlockLevels[ "mp_weapon_twinb_shotgun" ]				<- 35
 	unlockLevels[ "mp_titanweapon_shotgun" ]				<- 36
-	unlockLevels[ "mp_weapon_mega7" ]						<- 40
-	unlockLevels[ "mp_weapon_mega10" ]						<- 42
+	unlockLevels[ "mp_weapon_hologram" ]					<- 40
+	unlockLevels[ "mp_weapon_flatline" ]					<- 42
 	unlockLevels[ "mp_titanweapon_minigun" ]                <- 45
 	unlockLevels[ "mp_weapon_throwing_knife" ]				<- 49
-	unlockLevels[ "mp_weapon_mega8" ]						<- 50
+	unlockLevels[ "mp_weapon_wingman_elite" ]				<- 50
 }
 
 function InitItems()
@@ -459,14 +463,15 @@ function InitItems()
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0, 		null, 	null, "mp_ability_cloak", 			"../ui/menu/items/ability_icons/cloak", 		"../ui/menu/items/ability_icons/cloak" )
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0,		null, 	null, "mp_ability_heal", 			"../ui/menu/items/ability_icons/heal", 			"../ui/menu/items/ability_icons/heal" )
 	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0,		null, 	null, "mp_ability_sonar", 			"../ui/menu/items/ability_icons/sonar", 		"../ui/menu/items/ability_icons/sonar" )
-	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega6", 			"../ui/menu/items/ability_icons/deployable_cover", 		"../ui/menu/items/ability_icons/deployable_cover" )
-	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega7", 			"../ui/menu/items/ability_icons/hologram", 		"../ui/menu/items/ability_icons/hologram" )
+	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_deployable_cover", 			"../ui/menu/items/ability_icons/deployable_cover", 		"../ui/menu/items/ability_icons/deployable_cover" )
+	CreateWeaponData( itemType.PILOT_SPECIAL,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_hologram", 			"../ui/menu/items/ability_icons/hologram", 		"../ui/menu/items/ability_icons/hologram" )
 
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_frag_grenade", 	"../ui/menu/items/weapon_frag_grenade_v2", 		"../ui/menu/items/ability_icons/frag_grenade", 		"../ui/menu/items/weapon_frag_grenade_v2" )
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_grenade_emp", 		"../ui/menu/items/weapon_arc_grenade_v2",		"../ui/menu/items/ability_icons/arc_grenade", 		"../ui/menu/items/weapon_arc_grenade_v2" )
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_satchel", 			"../ui/menu/items/weapon_satchel_v2",			"../ui/menu/items/ability_icons/satchel", 			"../ui/menu/items/weapon_satchel_v2" )
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_proximity_mine", 	"../ui/menu/items/weapon_arcmine_v2",			"../ui/menu/items/ability_icons/proximity_mine", 	"../ui/menu/items/weapon_arcmine_v2" )
 	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_throwing_knife", 			"../ui/menu/items/weapon_knife",				"../ui/menu/items/ability_icons/throwing_knife", 	"../ui/menu/items/weapon_knife" )
+	CreateWeaponData( itemType.PILOT_ORDNANCE,	DEV_ENABLED,	0, 		null, 	null, "mp_weapon_smoke_grenade", 	"../ui/menu/items/weapon_smoke_grenade",			"../ui/menu/items/ability_icons/smoke_grenade", 	"../ui/menu/items/weapon_smoke_grenade" )
 
 	////////////////////////
 	//PILOT ATTACHMENT DATA
@@ -913,24 +918,24 @@ function CreateR1DeltaItems()
 	
 	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_sr_valkyrie", 				"../ui/menu/items/weapon_valkyrie" )
 	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_twinb_shotgun", 				"../ui/menu/items/weapon_twinbshotgun" )
-	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega8", 				"../ui/menu/items/weapon_wingman_elite" )
+	CreateWeaponData( itemType.PILOT_SIDEARM, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_wingman_elite", 				"../ui/menu/items/weapon_wingman_elite" )
 		
-	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega9", 				"../ui/menu/items/weapon_volt" )  
-	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_mega10", 				"../ui/menu/items/weapon_flatline" )  
+	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_volt", 				"../ui/menu/items/weapon_volt" )  
+	CreateWeaponData( itemType.PILOT_PRIMARY, 		DEV_ENABLED,	0, 		null, 	null, "mp_weapon_flatline", 				"../ui/menu/items/weapon_flatline" )  
 	
 
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		null, 						null, 	"mp_weapon_sr_valkyrie",		"scope_6x",		"#MOD_SCOPE_6X_NAME",		"#MOD_SCOPE_6X_DESC",		"#MOD_SCOPE_6X_LONGDESC",				"../ui/menu/items/attachment_icons/scope_6x", 			"../ui/menu/items/attachment_icons/scope_6x" )
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_grunt_kills", 	0, 		"mp_weapon_sr_valkyrie",		"aog",			"#MOD_AOG_NAME",			"#MOD_AOG_DESC",			"#MOD_AOG_LONGDESC",					"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/aog" )
 	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,	DEV_ENABLED,	0, 		"ch_valkyrie_kills", 			1, 		"mp_weapon_sr_valkyrie",		"scope_4x",		"#MOD_SCOPE_4X_NAME",		"#MOD_SCOPE_4X_DESC",		"#MOD_SCOPE_4X_LONGDESC",				"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/scope_4" )
 	
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega9",			"iron_sights",	"#MOD_IRON_SIGHTS_NAME",	"#MOD_IRON_SIGHTS_DESC",	"#MOD_IRON_SIGHTS_LONGDESC",			"../ui/menu/items/attachment_icons/iron_sights", 		"../ui/menu/items/attachment_icons/iron_sights" )
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_volt_grunt_kills", 			1, 		"mp_weapon_mega9",			"hcog",			"#MOD_HCOG_NAME",			"#MOD_HCOG_DESC",					"#MOD_HCOG_LONGDESC",				"../ui/menu/items/attachment_icons/hcog", 			"../ui/menu/items/attachment_icons/hcog" )
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_volt_grunt_kills", 			1, 		"mp_weapon_mega9",			"holosight",	"#MOD_HOLOSIGHT_NAME",		"#MOD_HOLOSIGHT_DESC",		"#MOD_HOLOSIGHT_LONGDESC",				"../ui/menu/items/attachment_icons/holosight", 			"../ui/menu/items/attachment_icons/holosight" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_volt",			"iron_sights",	"#MOD_IRON_SIGHTS_NAME",	"#MOD_IRON_SIGHTS_DESC",	"#MOD_IRON_SIGHTS_LONGDESC",			"../ui/menu/items/attachment_icons/iron_sights", 		"../ui/menu/items/attachment_icons/iron_sights" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_volt_grunt_kills", 			1, 		"mp_weapon_volt",			"hcog",			"#MOD_HCOG_NAME",			"#MOD_HCOG_DESC",					"#MOD_HCOG_LONGDESC",				"../ui/menu/items/attachment_icons/hcog", 			"../ui/menu/items/attachment_icons/hcog" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_volt_grunt_kills", 			1, 		"mp_weapon_volt",			"holosight",	"#MOD_HOLOSIGHT_NAME",		"#MOD_HOLOSIGHT_DESC",		"#MOD_HOLOSIGHT_LONGDESC",				"../ui/menu/items/attachment_icons/holosight", 			"../ui/menu/items/attachment_icons/holosight" )
 
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_mega10",			"iron_sights",	"#MOD_IRON_SIGHTS_NAME",	"#MOD_IRON_SIGHTS_DESC",	"#MOD_IRON_SIGHTS_LONGDESC",			"../ui/menu/items/attachment_icons/iron_sights", 		"../ui/menu/items/attachment_icons/iron_sights" )
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_flatline_grunt_kills", 		1, 		"mp_weapon_mega10",			"hcog",			"#MOD_HCOG_NAME",			"#MOD_HCOG_DESC",					"#MOD_HCOG_LONGDESC",				"../ui/menu/items/attachment_icons/hcog", 			"../ui/menu/items/attachment_icons/hcog" )
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_flatline_grunt_kills", 		1, 		"mp_weapon_mega10",			"holosight",	"#MOD_HOLOSIGHT_NAME",		"#MOD_HOLOSIGHT_DESC",		"#MOD_HOLOSIGHT_LONGDESC",				"../ui/menu/items/attachment_icons/holosight", 			"../ui/menu/items/attachment_icons/holosight" )
-	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_flatline_kills", 			1, 		"mp_weapon_mega10",			"aog",			"#MOD_AOG_NAME",			"#MOD_AOG_DESC",			"#MOD_AOG_LONGDESC",					"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/aog" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	null, 			1, 		"mp_weapon_flatline",			"iron_sights",	"#MOD_IRON_SIGHTS_NAME",	"#MOD_IRON_SIGHTS_DESC",	"#MOD_IRON_SIGHTS_LONGDESC",			"../ui/menu/items/attachment_icons/iron_sights", 		"../ui/menu/items/attachment_icons/iron_sights" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_flatline_grunt_kills", 		1, 		"mp_weapon_flatline",			"hcog",			"#MOD_HCOG_NAME",			"#MOD_HCOG_DESC",					"#MOD_HCOG_LONGDESC",				"../ui/menu/items/attachment_icons/hcog", 			"../ui/menu/items/attachment_icons/hcog" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_flatline_grunt_kills", 		1, 		"mp_weapon_flatline",			"holosight",	"#MOD_HOLOSIGHT_NAME",		"#MOD_HOLOSIGHT_DESC",		"#MOD_HOLOSIGHT_LONGDESC",				"../ui/menu/items/attachment_icons/holosight", 			"../ui/menu/items/attachment_icons/holosight" )
+	CreateAttachmentData( itemType.PILOT_PRIMARY_ATTACHMENT,		DEV_ENABLED,	0, 	"ch_flatline_kills", 			1, 		"mp_weapon_flatline",			"aog",			"#MOD_AOG_NAME",			"#MOD_AOG_DESC",			"#MOD_AOG_LONGDESC",					"../ui/menu/items/attachment_icons/aog", 				"../ui/menu/items/attachment_icons/aog" )
 
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_spectre_kills", 			0, 		"mp_weapon_sr_valkyrie",			"extended_ammo",				"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_MAG_DESC",			"#MOD_EXTENDED_MAG_LONGDESC",			0, 0, 0, 0, 2, 			"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_valkyrie_kills", 					0, 		"mp_weapon_sr_valkyrie",			"silencer",						"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,				-10, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
@@ -948,22 +953,22 @@ function CreateR1DeltaItems()
 	CreateModData( itemType.PILOT_SIDEARM_MOD,	 	DEV_ENABLED,	0, 	"ch_twinb_spectre_kills", 		1, 	"mp_weapon_twinb_shotgun",			"double_tap",					"Double Tap",			"Fire both barrels",		MOD_DOUBLE_TAP_LONGDESC,			15, -5, 0, -5, 0, 			"../ui/menu/items/mod_icons/double_tap",	 			"../ui/menu/items/mod_icons/double_tap" )
 	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_lmg_headshots", 			1, 	"mp_weapon_lmg",			"cyclic_receiver",				"Cyclic Receiver",		"Maximum fire rate",		lmg_SCATTER_LONGDESC,			    -5, -10, 0, 15, 0, 			"../ui/menu/items/mod_icons/cyclic_receiver", 			"../ui/menu/items/mod_icons/cyclic_receiver" )
 	
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_dmr_headshots", 		1, 	"mp_weapon_dmr",		"skull_piercer",				"Skull Piercer",		"Increased headshot damage",		SKULL_PIERCER_LONGDESC,			    5, 0, 0, 0, 0, 			"../ui/menu/items/mod_icons/cyclic_receiver", 			"../ui/menu/items/mod_icons/skull_piercer" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_g2_headshots", 			1, 	"mp_weapon_g2",			"skull_piercer",				"Skull Piercer",		"Increased headshot damage",		SKULL_PIERCER_LONGDESC,			    10, 0, 0, 0, 0, 		"../ui/menu/items/mod_icons/cyclic_receiver", 			"../ui/menu/items/mod_icons/skull_piercer" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_dmr_headshots", 		1, 	"mp_weapon_dmr",		"skull_piercer",				"Skull Piercer",		"Increased headshot damage",		SKULL_PIERCER_LONGDESC,			    5, 0, 0, 0, 0, 			"../ui/menu/items/mod_icons/skull_piercer", 			"../ui/menu/items/mod_icons/skull_piercer" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_g2_headshots", 			1, 	"mp_weapon_g2",			"skull_piercer",				"Skull Piercer",		"Increased headshot damage",		SKULL_PIERCER_LONGDESC,			    10, 0, 0, 0, 0, 		"../ui/menu/items/mod_icons/skull_piercer", 			"../ui/menu/items/mod_icons/skull_piercer" )
 
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_elite_kills", 			1, 		"mp_weapon_mega8",			"silencer",						"#MOD_SILENCER_NAME",		"#MOD_SILENCER_DESC",		suppressor_LONGDESC,			-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_elite_pilot_kills", 	1, 		"mp_weapon_mega8",			"gunslinger",				"Gunslinger",			"Zero hipfire spread",		GUNSLINGER_LONGDESC,	    0, 15, 0, 0, 0,	 		"../ui/menu/items/mod_icons/gunslinger", 				"../ui/menu/items/mod_icons/gunslinger" )
-	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	null, 	null, "mp_weapon_mega8",			"burn_mod_wingman_elite", 				"Amped Wingman Elite",			"Increased damage",			"Temp",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_elite_kills", 			1, 		"mp_weapon_wingman_elite",			"silencer",						"#MOD_SILENCER_NAME",		"#MOD_SILENCER_DESC",		suppressor_LONGDESC,			-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	"ch_wingman_elite_pilot_kills", 	1, 		"mp_weapon_wingman_elite",			"gunslinger",				"Gunslinger",			"Zero hipfire spread",		GUNSLINGER_LONGDESC,	    0, 15, 0, 0, 0,	 		"../ui/menu/items/mod_icons/gunslinger", 				"../ui/menu/items/mod_icons/gunslinger" )
+	CreateModData( itemType.PILOT_SIDEARM_MOD,		DEV_ENABLED,	0, 	null, 	null, "mp_weapon_wingman_elite",			"burn_mod_wingman_elite", 				"Amped Wingman Elite",			"Increased damage",			"Temp",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_volt_spectre_kills", 			1, 		"mp_weapon_mega9",			"extended_ammo",			"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 7, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_volt_pilot_kills", 				1, 		"mp_weapon_mega9",			"laser_sight",				"Laser Sight",				"Increased accuracy",					LASER_SIGHT_LONGDESC,			0, 13, 0, 0, 0, 		"../ui/menu/items/mod_icons/laser_sight", 		"../ui/menu/items/mod_icons/laser_sight" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_volt_kills", 					1, 		"mp_weapon_mega9",			"silencer",					"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,				-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 							null,		"mp_weapon_mega9",			"burn_mod_volt", 			"Amped M-18 Volt",			"Fires electric bullets",			"Temp",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_volt_spectre_kills", 			1, 		"mp_weapon_volt",			"extended_ammo",			"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 7, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_volt_pilot_kills", 				1, 		"mp_weapon_volt",			"laser_sight",				"Laser Sight",				"Increased accuracy",					LASER_SIGHT_LONGDESC,			0, 13, 0, 0, 0, 		"../ui/menu/items/mod_icons/laser_sight", 		"../ui/menu/items/mod_icons/laser_sight" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_volt_kills", 					1, 		"mp_weapon_volt",			"silencer",					"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_LONGDESC,				-5, 0, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 							null,		"mp_weapon_volt",			"burn_mod_volt", 			"Amped M-18 Volt",			"Fires electric bullets",			"Temp",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_spectre_kills", 	1, 		"mp_weapon_mega10",			"extended_ammo",			"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 6, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_kills", 			1, 		"mp_weapon_mega10",			"silencer",					"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_sg_LONGDESC,				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_pilot_kills", 		1, 		"mp_weapon_mega10",			"kick_switch",				"Kick Switch",					"Horizontal Recoil",							KICK_SWITCH_LONGDESC,			0, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/kick_switch", 		"../ui/menu/items/mod_icons/kick_switch" )
-	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 							1, 		"mp_weapon_mega10",			"burn_mod_flatline",		"Amped Flatline",				"Increased damage",					"Temp",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_spectre_kills", 	1, 		"mp_weapon_flatline",			"extended_ammo",			"#MOD_EXTENDED_MAG_NAME",		"#MOD_EXTENDED_AMMO_DESC",			"#MOD_EXTENDED_AMMO_LONGDESC",			0, 0, 0, 0, 6, 		"../ui/menu/items/mod_icons/extended_ammo", 		"../ui/menu/items/mod_icons/extended_ammo" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_kills", 			1, 		"mp_weapon_flatline",			"silencer",					"#MOD_SILENCER_NAME",			"#MOD_SILENCER_DESC",				suppressor_sg_LONGDESC,				-5, 5, -5, 0, 0, 		"../ui/menu/items/mod_icons/silencer", 				"../ui/menu/items/mod_icons/silencer" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	"ch_flatline_pilot_kills", 		1, 		"mp_weapon_flatline",			"kick_switch",				"Kick Switch",					"Horizontal Recoil",							KICK_SWITCH_LONGDESC,			0, 10, 0, 0, 0, 		"../ui/menu/items/mod_icons/kick_switch", 		"../ui/menu/items/mod_icons/kick_switch" )
+	CreateModData( itemType.PILOT_PRIMARY_MOD,		DEV_ENABLED,	0, 	null, 							1, 		"mp_weapon_flatline",			"burn_mod_flatline",		"Amped Flatline",				"Increased damage",					"Temp",			0, 0, 0, 0, 0,	 	"../ui/temp",	"../ui/temp",	HideFromMenus )
 
 	////////////////////
 	//TITAN WEAPON DATA

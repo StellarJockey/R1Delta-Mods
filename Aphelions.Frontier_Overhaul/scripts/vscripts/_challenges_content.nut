@@ -82,6 +82,7 @@ level.weaponCategories.append( eChallengeCategory.WEAPON_SATCHEL )
 level.weaponCategories.append( eChallengeCategory.WEAPON_THROWING_KNIFE )
 level.weaponCategories.append( eChallengeCategory.WEAPON_VOLT )
 level.weaponCategories.append( eChallengeCategory.WEAPON_FLATLINE )
+level.weaponCategories.append( eChallengeCategory.WEAPON_SMOKE_GRENADE )
 
 level.regenChallenges <- {}
 level.dailyChallenges <- {}
@@ -1632,7 +1633,7 @@ function CreateChallenges()
 	//	  Volt SMG
 	//------------------
 
-	local weaponRef = "mp_weapon_mega9"
+	local weaponRef = "mp_weapon_volt"
 	SetChallengeCategory( eChallengeCategory.WEAPON_VOLT, "M-18 Volt SMG", "", weaponRef )
 
 	AddChallenge( "ch_volt_kills", "#CHALLENGE_WEAPON_KILLS", "#CHALLENGE_WEAPON_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
@@ -1688,7 +1689,7 @@ function CreateChallenges()
 	//	  V-47 Flatline
 	//--------------------
 
-	local weaponRef = "mp_weapon_mega10"
+	local weaponRef = "mp_weapon_flatline"
 	SetChallengeCategory( eChallengeCategory.WEAPON_FLATLINE, "V-47 Flatline", "", weaponRef )
 
 	AddChallenge( "ch_flatline_kills", "#CHALLENGE_WEAPON_KILLS", "#CHALLENGE_WEAPON_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
@@ -2060,7 +2061,7 @@ function CreateChallenges()
 	// 	   Wingman Elite
 	//----------------------
 
-	local weaponRef = "mp_weapon_mega8"
+	local weaponRef = "mp_weapon_wingman_elite"
 	SetChallengeCategory( eChallengeCategory.WEAPON_WINGMAN_ELITE, "Wingman Elite", "", weaponRef )
 
 	AddChallenge( "ch_wingman_elite_kills", "#CHALLENGE_WEAPON_KILLS", "#CHALLENGE_WEAPON_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
@@ -2128,6 +2129,7 @@ function CreateChallenges()
 									eChallengeCategory.WEAPON_PROXIMITY_MINE,
 									eChallengeCategory.WEAPON_SATCHEL,
 									// eChallengeCategory.WEAPON_THROWING_KNIFE,
+									// eChallengeCategory.WEAPON_SMOKE_GRENADE,
 								]
 	SetChallengeCategory( eChallengeCategory.PILOT_ORDNANCE, "#CHALLENGE_CATEGORY_PILOT_ORDNANCE", "#CHALLENGE_CATEGORY_DESC_PILOT_ORDNANCE", "edit_pilots", linkedCategories )
 
@@ -2295,6 +2297,41 @@ function CreateChallenges()
 		SetChallengeTierBurnCards( 3, ["bc_throwing_knife_m2"] )
 		SetChallengeTierBurnCards( 4, ["bc_throwing_knife_m2"] )
 */
+
+
+	//------------------------
+	//  Electric Smoke Grenade
+	//------------------------
+
+/*
+	local weaponRef = "mp_weapon_smoke_grenade"
+	SetChallengeCategory( eChallengeCategory.WEAPON_SMOKE_GRENADE, "#WEAPON_SMOKE_GRENADE", "", weaponRef )
+
+	AddChallenge( "ch_throwing_knife_kills", "#CHALLENGE_THROWING_KNIFE_KILLS", "#CHALLENGE_THROWING_KNIFE_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
+		SetChallengeStat( "weapon_kill_stats", "total", weaponRef )
+		SetChallengeTiers( [ 10, 25, 50, 100, 150 ] )
+		SetChallengeTierBurnCards( 1, ["bc_throwing_knife_m2"] )
+		SetChallengeTierBurnCards( 2, ["bc_throwing_knife_m2"] )
+		SetChallengeTierBurnCards( 3, ["bc_throwing_knife_m2"] )
+		SetChallengeTierBurnCards( 4, ["bc_throwing_knife_m2"] )
+
+	AddChallenge( "ch_throwing_knife_pilot_kills", "#CHALLENGE_THROWING_KNIFE_PILOT_KILLS", "#CHALLENGE_THROWING_KNIFE_PILOT_KILLS_DESC", ICON_PILOT, weaponRef )
+		SetChallengeStat( "weapon_kill_stats", "pilots", weaponRef )
+		SetChallengeTiers( [ 1, 5, 15, 30, 50 ] )
+		SetChallengeTierBurnCards( 1, ["bc_throwing_knife_m2"] )
+		SetChallengeTierBurnCards( 2, ["bc_throwing_knife_m2"] )
+		SetChallengeTierBurnCards( 3, ["bc_throwing_knife_m2"] )
+		SetChallengeTierBurnCards( 4, ["bc_throwing_knife_m2"] )
+
+	AddChallenge( "ch_throwing_knife_grunt_kills", "#CHALLENGE_THROWING_KNIFE_GRUNT_KILLS", "#CHALLENGE_THROWING_KNIFE_GRUNT_KILLS_DESC", ICON_GRUNT, weaponRef )
+		SetChallengeStat( "weapon_kill_stats", "grunts", weaponRef )
+		SetChallengeTiers( [ 5, 15, 30, 50, 100 ] )
+		SetChallengeTierBurnCards( 1, ["bc_throwing_knife_m2"] )
+		SetChallengeTierBurnCards( 2, ["bc_throwing_knife_m2"] )
+		SetChallengeTierBurnCards( 3, ["bc_throwing_knife_m2"] )
+		SetChallengeTierBurnCards( 4, ["bc_throwing_knife_m2"] )
+*/
+
 
 	/*#######################################################################
 					COOP
@@ -3303,7 +3340,7 @@ function CreateChallenges()
 	//   Volt
 	//------------------
 
-	local weaponRef = "mp_weapon_mega9"
+	local weaponRef = "mp_weapon_volt"
 
 	AddChallenge( "ch_daily_volt_kills", "#DAILYCHALLENGE_WEAPON_KILLS", "#DAILYCHALLENGE_WEAPON_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
 		SetChallengeStat( "weapon_kill_stats", "total", weaponRef )
@@ -3335,7 +3372,7 @@ function CreateChallenges()
 	//   V-47 Flatline
 	//------------------
 
-	local weaponRef = "mp_weapon_mega10"
+	local weaponRef = "mp_weapon_flatline"
 
 	AddChallenge( "ch_daily_flatline_kills", "#DAILYCHALLENGE_WEAPON_KILLS", "#DAILYCHALLENGE_WEAPON_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
 		SetChallengeStat( "weapon_kill_stats", "total", weaponRef )
@@ -3541,7 +3578,7 @@ function CreateChallenges()
 	//   Wingan Elite
 	//------------------
 
-	local weaponRef = "mp_weapon_mega8"
+	local weaponRef = "mp_weapon_wingman_elite"
 
 	AddChallenge( "ch_daily_wingman_elite_kills", "#DAILYCHALLENGE_WEAPON_KILLS", "#DAILYCHALLENGE_WEAPON_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
 		SetChallengeStat( "weapon_kill_stats", "total", weaponRef )
@@ -3663,6 +3700,29 @@ function CreateChallenges()
 	//------------------
 
 /*	local weaponRef = "mp_weapon_throwing_knife"
+
+	AddChallenge( "ch_daily_throwing_knife_kills", "#DAILYCHALLENGE_WEAPON_GRENADE_KILLS", "#DAILYCHALLENGE_WEAPON_GRENADE_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
+		SetChallengeStat( "weapon_kill_stats", "total", weaponRef )
+		SetChallengeTiers( [ 10 ] )
+		SetChallengeTierBurnCards( 0, ["bc_satchel_m2"] )
+
+	AddChallenge( "ch_daily_throwing_knife_pilot_kills", "#DAILYCHALLENGE_WEAPON_GRENADE_PILOT_KILLS", "#DAILYCHALLENGE_WEAPON_GRENADE_PILOT_KILLS_DESC", ICON_PILOT, weaponRef )
+		SetChallengeStat( "weapon_kill_stats", "pilots", weaponRef )
+		SetChallengeTiers( [ 5 ] )
+		SetChallengeTierBurnCards( 0, ["bc_satchel_m2"] )
+
+	AddChallenge( "ch_daily_throwing_knife_grunt_kills", "#DAILYCHALLENGE_WEAPON_GRENADE_GRUNT_KILLS", "#DAILYCHALLENGE_WEAPON_GRENADE_GRUNT_KILLS_DESC", ICON_GRUNT, weaponRef )
+		SetChallengeStat( "weapon_kill_stats", "grunts", weaponRef )
+		SetChallengeTiers( [ 10 ] )
+		SetChallengeTierBurnCards( 0, ["bc_satchel_m2"] )
+
+*/
+
+	//------------------
+	//  Electric Smoke Grenade
+	//------------------
+
+/*	local weaponRef = "mp_weapon_smoke_grenade"
 
 	AddChallenge( "ch_daily_throwing_knife_kills", "#DAILYCHALLENGE_WEAPON_GRENADE_KILLS", "#DAILYCHALLENGE_WEAPON_GRENADE_KILLS_DESC", ICON_WEAPON_KILLS, weaponRef )
 		SetChallengeStat( "weapon_kill_stats", "total", weaponRef )

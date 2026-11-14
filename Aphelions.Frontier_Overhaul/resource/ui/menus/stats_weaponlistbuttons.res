@@ -245,7 +245,15 @@
 		InheritProperties		StatsWeaponListButton
 		scriptID				26
 		navUp					BtnWeapon25
-		navDown					BtnWeapon26
+		navDown					BtnWeapon27
 	}
 
+	BtnWeapon27
+	{
+		ControlName				BaseModHybridButton
+		InheritProperties		StatsWeaponListButton
+		scriptID				27
+		navUp					BtnWeapon26
+		navDown					BtnWeapon27
+	}
 }

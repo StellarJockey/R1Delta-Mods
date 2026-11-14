@@ -166,12 +166,14 @@ function InitPersistence()
 	    mp_titanweapon_charge_cannon = 43
 	    mp_titanweapon_shoulder_turret = 44
 		mp_weapon_throwing_knife = 45
-		mp_weapon_mega6 = 46 // Deployable Cover
-		mp_weapon_mega7 = 47 // Hologram
+		mp_weapon_deployable_cover = 46
+		mp_weapon_hologram = 47
 		mp_weapon_yh803_bullet = 48 // turret
-		mp_weapon_mega8 = 49 // Wingman Elite
-		mp_weapon_mega9 = 50 // M-18 Volt SMG
-		mp_weapon_mega10 = 51 // V-47 Flatline
+		mp_weapon_wingman_elite = 49
+		mp_weapon_volt = 50
+		mp_weapon_flatline = 51
+		mp_weapon_yh803 = 52 // rocket turret
+		mp_weapon_smoke_grenade = 53
     }
 
     AddPersistenceEnum("loadoutItems", loadoutItems)
@@ -671,30 +673,31 @@ function InitPersistence()
 
 		mp_weapon_yh803_bullet_gunship_dmg = 138,
 		mp_titanweapon_shotgun_plasma_rifle = 139,
-		mp_weapon_mega8_silencer = 140,
-		mp_weapon_mega8_gunslinger = 141,
-		mp_weapon_mega8_burn_mod_wingman_elite = 142,
+		mp_weapon_wingman_elite_silencer = 140,
+		mp_weapon_wingman_elite_gunslinger = 141,
+		mp_weapon_wingman_elite_burn_mod_wingman_elite = 142,
 
-		mp_weapon_mega9_extended_ammo = 143,
-		mp_weapon_mega9_laser_sight = 144,
-		mp_weapon_mega9_silencer = 145,
-		mp_weapon_mega9_iron_sights = 146,
-		mp_weapon_mega9_hcog = 147,
-		mp_weapon_mega9_holosight = 148,
-		mp_weapon_mega9_burn_mod_volt = 149,
+		mp_weapon_volt_extended_ammo = 143,
+		mp_weapon_volt_laser_sight = 144,
+		mp_weapon_volt_silencer = 145,
+		mp_weapon_volt_iron_sights = 146,
+		mp_weapon_volt_hcog = 147,
+		mp_weapon_volt_holosight = 148,
+		mp_weapon_volt_burn_mod_volt = 149,
 
-		["mp_weapon_mega10_iron_sights"] = 150,
-		["mp_weapon_mega10_hcog"] = 151,
-		["mp_weapon_mega10_holosight"] = 152,
-		["mp_weapon_mega10_aog"] = 153,
-		["mp_weapon_mega10_extended_ammo"] = 154,
-		["mp_weapon_mega10_silencer"] = 155,
+		["mp_weapon_flatline_iron_sights"] = 150,
+		["mp_weapon_flatline_hcog"] = 151,
+		["mp_weapon_flatline_holosight"] = 152,
+		["mp_weapon_flatline_aog"] = 153,
+		["mp_weapon_flatline_extended_ammo"] = 154,
+		["mp_weapon_flatline_silencer"] = 155,
 
 		mp_weapon_g2_skull_piercer = 156,
 		mp_weapon_dmr_skull_piercer = 157,
-		mp_weapon_mega10_kick_switch = 158,
-		mp_weapon_mega10_burn_mod_flatline = 159,
+		mp_weapon_flatline_kick_switch = 158,
+		mp_weapon_flatline_burn_mod_flatline = 159,
 		mp_weapon_yh803_bullet_combat_drone_dmg = 160,
+		mp_weapon_yh803_combat_drone_dmg = 161,
     }
 
     AddPersistenceEnum("modsCombined", modsCombined)

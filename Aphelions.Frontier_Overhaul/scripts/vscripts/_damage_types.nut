@@ -143,11 +143,12 @@ enum eDamageSourceId
 	mp_titanweapon_minigun
 	mp_titanweapon_charge_cannon
 	mp_weapon_throwing_knife
-	mp_weapon_mega6
-	mp_weapon_mega7
-	mp_weapon_mega8
-	mp_weapon_mega9
-	mp_weapon_mega10
+	mp_weapon_deployable_cover
+	mp_weapon_hologram
+	mp_weapon_wingman_elite
+	mp_weapon_volt
+	mp_weapon_flatline
+	mp_weapon_smoke_grenade
 
 	//damageSourceId=eDamageSourceId.xxxxx
 	//fireteam
@@ -318,9 +319,10 @@ damageSourceStrings[ eDamageSourceId.mp_weapon_twinb_shotgun ] 					<- "#WPN_TWI
 damageSourceStrings[ eDamageSourceId.mp_titanweapon_minigun ] 					<- "#WPN_TITAN_MINIGUN"
 damageSourceStrings[ eDamageSourceId.mp_titanweapon_charge_cannon ] 					<- "#WPN_TITAN_CHARGE_CANNON"
 damageSourceStrings[ eDamageSourceId.mp_weapon_throwing_knife ] 					<- "#WPN_THROWING_KNIFE"
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega8 ] 					<- "Wingman Elite"
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega9 ] 					<- "M-18 Volt SMG"
-damageSourceStrings[ eDamageSourceId.mp_weapon_mega10 ] 				<- "V-47 Flatline"
+damageSourceStrings[ eDamageSourceId.mp_weapon_wingman_elite ] 					<- "Wingman Elite"
+damageSourceStrings[ eDamageSourceId.mp_weapon_volt ] 					<- "M-18 Volt SMG"
+damageSourceStrings[ eDamageSourceId.mp_weapon_flatline ] 				<- "V-47 Flatline"
+damageSourceStrings[ eDamageSourceId.mp_weapon_smoke_grenade ] 			<- "Electric Smoke Grenade"
 
 //When adding new mods, they need to be added below and to persistent_player_data_version_N.pdef in r1/cfg/server.
 //Then when updating that file, save a new one and increment N.

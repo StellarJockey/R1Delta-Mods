@@ -1,0 +1,8 @@
+Basic
+{
+	$basetexture		"ui/menu/items/ability_icons/smoke_grenade"
+	$translucent		1
+	$vertexcolor		1
+	$vertexalpha		1
+	$ignorez			1
+}

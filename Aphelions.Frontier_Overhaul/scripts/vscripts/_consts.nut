@@ -2183,6 +2183,7 @@ enum eChallengeCategory
 	WEAPON_PROXIMITY_MINE,
 	WEAPON_SATCHEL,
 	WEAPON_THROWING_KNIFE,
+	WEAPON_SMOKE_GRENADE,
 
 	COOP,
 	REGEN_REQUIREMENTS,
@@ -2649,9 +2650,10 @@ const WEAPON_TWINB_NAME = "mp_weapon_twinb_shotgun"
 const WEAPON_THUNDERBOLT_NAME = "mp_titanweapon_minigun"
 const WEAPON_CHARGE_CANNON_NAME = "mp_titanweapon_charge_cannon"
 const WEAPON_THROWING_KNIFE_NAME = "mp_weapon_throwing_knife"
-const WEAPON_WINGMAN_ELITE_NAME = "mp_weapon_mega8"
-const WEAPON_VOLT_NAME = "mp_weapon_mega9"
-const WEAPON_FLATLINE_NAME = "mp_weapon_mega10"
+const WEAPON_WINGMAN_ELITE_NAME = "mp_weapon_wingman_elite"
+const WEAPON_VOLT_NAME = "mp_weapon_volt"
+const WEAPON_FLATLINE_NAME = "mp_weapon_flatline"
+const WEAPON_SMOKE_GRENADE = "mp_weapon_smoke_grenade"
 
 enum eUIEvent
 {
