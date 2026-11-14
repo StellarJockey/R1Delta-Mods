@@ -224,8 +224,17 @@ function CookGrenade( weapon, weaponOwner, fuseTime )
 	local angularVelocity = Vector( 0, 0, 0 )
 	local frag = weapon.FireWeaponGrenade( weapon.GetOrigin(), velocity, angularVelocity, 0.1, damageTypes.Explosive, damageTypes.Explosive, PROJECTILE_NOT_PREDICTED, false, false )
 	frag.SetOrigin( weaponOwner.GetOrigin() + Vector( 0, 0, 50 ) )
-	frag.Explode( Vector( 0, 0, 0 ) )
-	weaponOwner.Signal("ThrowGrenade")
+
+	if ( weapon.GetWeaponClassName() == "mp_weapon_smoke_grenade" )
+	{
+		thread ElectricGrenadeSmokescreen( weaponOwner, frag.GetOrigin(), ELECTRIC_SMOKESCREEN_FX_LIFETIME_TITAN, weapon )
+		frag.Kill()
+	}
+	else
+	{
+		frag.Explode( Vector( 0, 0, 0 ) )
+	}
+	weaponOwner.Signal( "ThrowGrenade" )
 }
 
 function DropGrenadeOnDeath( weapon, weaponOwner, baseFuseTime = DEFAULT_FUSE_TIME )

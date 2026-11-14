@@ -138,6 +138,7 @@ function SpawnAIGunship( team, origin, angles = Vector( 0, 0, 0 ), squadname = n
 	gunship.SetTitle( title )
 
 	DispatchSpawn( gunship, true )
+	gunship.SetAISettings( "gunship" )
 
 	// Warp-in: just pops in for now (placeholder until proper FX are added)
 	EmitSoundAtPosition( spawnOrigin, "dropship_warpin" )
@@ -248,8 +249,10 @@ function AI_GunshipAddTurrets( gunship, team )
 		turret.kv.spawnflags = 0
 		turret.kv.model = SENTRY_TURRET_MODEL
 		turret.kv.TurretRange = AI_GUNSHIP_MAX_ENEMY_DIST
+		turret.kv.TurretRange = 3000 // match the "gunship_dmg" damage_far value
 		turret.kv.FieldOfView = 0.4
 		turret.kv.FieldOfViewAlert = 0.4
+		turret.kv.reactChance = 100
 		turret.kv.additionalequipment = AI_GUNSHIP_TURRET_WEAPON
 		turret.kv.CollisionGroup = TRACE_COLLISION_GROUP_NONE
 		turret.kv.WeaponProficiency = weaponProficiency
@@ -262,7 +265,7 @@ function AI_GunshipAddTurrets( gunship, team )
 		turret.s.skipTurretFX <- true
 		turret.s.gunshipOwner <- gunship
 		turret.s.isGunshipTurret <- true
-		turret.SetAISettings( "turret_shoulder" )
+		turret.SetAISettings( "turret_sentry" )
 
 		DispatchSpawn( turret, true )
 

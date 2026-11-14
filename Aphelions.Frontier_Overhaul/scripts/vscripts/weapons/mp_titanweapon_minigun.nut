@@ -32,12 +32,12 @@ function OnWeaponActivate( activateParams )
     if ( weaponOwner.IsPlayer() )
     {
 		SetLoopingWeaponSound_1p3p( "Weapon.XO16_fire_first", "Weapon.minigun_fire_loop", "Weapon.XO16_fire_last",
-		                            "Weapon.XO16_fire_first_3P", "Weapon.minigun_fire_loop", "Weapon.XO16_fire_last_3P" )
+		                            "Weapon.XO16_fire_first_3P", "Weapon.minigun_fire_loop_3P", "XO16_fire_last_3P" )
     }
     else
     {
 		SetLoopingWeaponSound_1p3p( "Weapon.XO16_fire_first", "Weapon.minigun_fire_loop", "Weapon.XO16_fire_last",
-		                            "Weapon.XO16_fire_first_3P", "Weapon.minigun_fire_loop", "Weapon.XO16_fire_last_3P" )
+		                            "Weapon.XO16_fire_first_3P", "Weapon.minigun_fire_loop_3P", "XO16_fire_last_3P" )
     }
 
     thread MinigunMovementThink( self )

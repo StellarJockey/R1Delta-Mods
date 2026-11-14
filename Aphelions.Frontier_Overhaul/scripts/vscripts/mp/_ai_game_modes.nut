@@ -227,7 +227,7 @@ function UpdateNPCCaps( usePilots )
 	// Change the caps first: the Set*AICount asserts compare against level.max_npc_per_side
 	level.max_npc_per_side = usePilots ? 24 : 12
 	level.max_npc_per_side_small = usePilots ? 20 : 9
-	level.max_npc_per_side_large = usePilots ? 28 : 15
+	level.max_npc_per_side_large = usePilots ? 28 : 16
 
 	local npcPerSide = GetGameModeNPCPerSide()
 
@@ -337,6 +337,8 @@ function SetupLevelAICount()
 
 	SetLevelAICount( aiCount, TEAM_MILITIA )
 	SetLevelAICount( aiCount, TEAM_IMC )
+
+	RefreshSquadCount()
 }
 
 function RestoreAICount() // FOR FRACTURE
@@ -347,6 +349,31 @@ function RestoreAICount() // FOR FRACTURE
 
 	SetLevelAICount( level.max_npc_per_side, TEAM_MILITIA )
 	SetLevelAICount( level.max_npc_per_side, TEAM_IMC )
+
+	RefreshSquadCount()
+}
+
+const MAX_SQUADS_PER_TEAM = 8	// must match the number of SquadHardpointRunThink signals registered in main()
+
+// Number of squads needed to hold 'aiCount' NPCs with at most SQUAD_SIZE each (rounds UP).
+function GetSquadCountForAI( aiCount )
+{
+	local squads = ( aiCount + SQUAD_SIZE - 1 ) / SQUAD_SIZE	// integer ceiling
+	return min( MAX_SQUADS_PER_TEAM, max( 1, squads ) )
+}
+
+// Derives level.aiSquadCount from the AI count that will actually be spawned.
+// Mid-match it only ever GROWS: shrinking would orphan NPCs sitting in squads above the new count.
+function RefreshSquadCount()
+{
+	local aiCount = 0
+	foreach ( team in [ TEAM_IMC, TEAM_MILITIA ] )
+		aiCount = max( aiCount, min( level.levelAICount[ team ], level.gameModeAICount[ team ] ) )
+
+	local newCount = GetSquadCountForAI( aiCount )
+
+	if ( !Flag( "GamePlaying" ) || newCount > level.aiSquadCount )
+		level.aiSquadCount = newCount
 }
 
 function GetMaxAICount( team )
@@ -387,7 +414,10 @@ function SetMidSpecAICount( count, team )
 function GetSpawnSquadSize( team )
 {
 	local maxAICount = GetMaxAICount( team )
-	local squadSize = max( 1, floor( maxAICount / 3 ) )	// 3 is the number of squads we have per side.
+
+	local numberOfSquads = max( 1, floor( (maxAICount + SQUAD_SIZE - 1).tofloat() / SQUAD_SIZE ) )
+	local squadSize = max( 1, floor( maxAICount.tofloat() / numberOfSquads ) )
+
 	return min( squadSize, SQUAD_SIZE )	// never higher then SQUAD_SIZE, it's the max we can spawn with droppods
 }
 
@@ -1171,15 +1201,15 @@ function CombatDroneWaveThink( team )
 	}
 
     // Wait until the 1-minute mark before starting waves, can spawn as soon as 2 minutes
-    wait 60.0 + RandomFloat( 0.0, 45.0 )
+   wait 60.0 + RandomFloat( 0.0, 45.0 )
 
     while ( IsNPCSpawningEnabled() )
     {
-        // Wait between 1 to 2.5 min between ship waves
+        // Wait between 1 to 2.5 min between drone waves
         wait RandomFloat( 60.0, 150.0 )
 
 		// 65% chance for drones to spawn
-        if ( RandomFloat( 0.0, 1.0 ) > 0.45 )
+        if ( RandomFloat( 0.0, 1.0 ) > 0.65 )
 			continue
 
         // Find valid spawn points for the wave using existing drop pod points
@@ -2822,7 +2852,7 @@ function EntitiesDidLoad()
 const SQUADSIZE = 4
 function ScriptedSquadAssault( squad, index )
 {
-	Assert( index >= 0 && index <= 2 )
+	Assert( index >= 0 && index < level.aiSquadCount )
 	Assert( squad.len() <= SQUADSIZE, "Squad " + index + " is too big: " + squad.len() )
 	level.AssaultFunc( squad, index )
 }
@@ -2853,8 +2883,10 @@ function AssaultHP( guys, index )
 	startOrigin = startOrigin * ( 1.0 / count.tofloat() )
 
 	local hardpoints 	= ArrayFarthest( GetHardpoints(), startOrigin )
-	local hpIndex 		= GetHardpointIndex( hardpoints[ index ] )
-	local squadName 	= MakeSquadName( team, hpIndex )
+	// with more squads than hardpoints, extra squads share a hardpoint but keep their own squad name
+	local hardpoint 	= hardpoints[ index % hardpoints.len() ]
+	local hpIndex 		= GetHardpointIndex( hardpoint )
+	local squadName 	= MakeSquadName( team, index < hardpoints.len() ? hpIndex : index )
 
 	foreach ( guy in guys )
 	{
@@ -2869,7 +2901,7 @@ function AssaultHP( guys, index )
 		return
 
 	//ok we got everyone - lets assault some shit
-	thread SquadCapturePointThink( squadName, hardpoints[ index ], team )
+	thread SquadCapturePointThink( squadName, hardpoint, team )
 }
 
 

@@ -37,7 +37,7 @@ function OnWeaponActivate( activateParams )
 	else if( self.HasMod( "combat_drone_dmg" ) )
 	{
 		SetLoopingWeaponSound_1p3p( "Weapon_LMG_FirstShot", "Weapon_R1SMG1.Loop", "Weapon_LMG_LoopEnd", // Weapon_LMG_Loop
-									"Weapon_LMG_FirstShot_3P", "Weapon_LMG_Loop_3P", "Weapon_LMG_LoopEnd_3P" )
+									"Weapon_LMG_FirstShot_3P", "Weapon_Drone_Loop_3P", "Weapon_LMG_LoopEnd_3P" )
 	}
 	else
 	{
