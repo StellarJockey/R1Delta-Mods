@@ -297,7 +297,8 @@ WeaponData
 			"projectile_trail_effect_0" 					"garand_trail"
 			"explosionradius"								"80"
 			"explosion_inner_radius"						"40"
-			"explosion_damage_heavy_armor"					"300"
+			"explosion_damage_heavy_armor"					"250" // "300"
+			
 			//These next 4 should be set to subtract the base damage of the weapon.
 			"damage_near_value"								"20"
 			"damage_far_value"								"20"

@@ -46,7 +46,7 @@ WeaponData
 
 	// Sound
 	"looping_sounds"								"1"
-	// "fire_sound_1"									"megaturret_fire"
+	"fire_sound_1"									"Weapon_XO16.Single"
 	"fire_sound_2"									"Weapon_bulletCasings.Bounce"
 	"sound_dryfire"									"titan_dryfire"
 
