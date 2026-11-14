@@ -2061,7 +2061,6 @@ function SimulateGrenadeThink(npc, onlyRooftopCombat, targetGrunts)
 		}
 	)
 
-
 	local grenades = Random( [ "mp_weapon_frag_grenade", "mp_weapon_frag_grenade", "mp_weapon_frag_grenade", 
 							   "mp_weapon_grenade_emp", "mp_weapon_grenade_emp", 
 							   "mp_weapon_smoke_grenade" ] )
@@ -2127,7 +2126,7 @@ function NPCGrenadeThrow( npc )
 
 	local enemy = npc.GetEnemy()
 
-	if (!IsValid(weapon) || !IsValid(enemy))
+	if ( !IsValid(weapon) || !IsValid( enemy ) )
 		return
 
 	local throwPosition
@@ -2205,12 +2204,14 @@ function SimulateSpectreRodeoThink(spectre) {
 	}
 }
 
-function CoopTD_OnSoldierOrSpectreSpawn(npc) {
-	if (RandomInt(100) < 50)
+function CoopTD_OnSoldierOrSpectreSpawn(npc)
+{
+	if (RandomInt(100) < 25)
 		SimulateGrenadeThrowing( npc, false, true )
 }
 
-function CoopTD_EnableSpectreRodeo(spectre) {
+function CoopTD_EnableSpectreRodeo(spectre)
+{
 	local mode = GameRules.GetGameMode()
 	
 	if ( mode != TITAN_BRAWL )
