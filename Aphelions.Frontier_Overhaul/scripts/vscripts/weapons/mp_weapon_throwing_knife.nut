@@ -27,6 +27,13 @@ function OnWeaponTossReleaseAnimEvent( tossParams )
 	return 1
 }
 
+function OnWeaponTossPrep( prepParams )
+{
+	if ( !( "startTime" in self.s ) )
+		self.s.startTime <- null
+	self.s.startTime = Time()
+}
+
 function Knife_Throw( weapon, attackParams, baseFuseTime = DEFAULT_FUSE_TIME )
 {
 	if ( IsClient() && !weapon.ShouldPredictProjectiles() )
