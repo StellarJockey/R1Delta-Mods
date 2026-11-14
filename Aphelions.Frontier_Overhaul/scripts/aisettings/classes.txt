@@ -17,4 +17,6 @@ classes
 	import	suicidespectre.txt
 	import	vehicle.txt
 	import	turret_shoulder.txt
+	import  gunship.txt
+	import  fireteam_captain.txt
 }

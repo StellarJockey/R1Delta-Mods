@@ -1,46 +1,43 @@
 fireteam_pilot
 {
-	DefaultModelName		"models/humans/imc_grunt/battle_rifle/imc_grunt_battle_rifle.mdl"
+	DefaultModelName		"models/humans/imc_pilot/male_br/imc_pilot_male_br.mdl"
 	DefaultWeapon			"mp_weapon_rspn101"
 
 	FOV_Vert_Offset			10
 	FOV_Near_Dist			500
 	FOV_Far_Dist			3000
 
-	FOV_Idle_Near_Horz		130
+	FOV_Idle_Near_Horz		170
 	FOV_Idle_Near_Vert		180
-	FOV_Idle_Far_Horz		60
-	FOV_Idle_Far_Vert		60
+	FOV_Idle_Far_Horz		90
+	FOV_Idle_Far_Vert		90
 
-	FOV_Alert_Near_Horz		130
+	FOV_Alert_Near_Horz		160
 	FOV_Alert_Near_Vert		180
-	FOV_Alert_Far_Horz		60
-	FOV_Alert_Far_Vert		60
+	FOV_Alert_Far_Horz		120
+	FOV_Alert_Far_Vert		90
 
-	FOV_Combat_Near_Horz	130
+	FOV_Combat_Near_Horz	160
 	FOV_Combat_Near_Vert	180
-	FOV_Combat_Far_Horz		60
-	FOV_Combat_Far_Vert		60
+	FOV_Combat_Far_Horz		130
+	FOV_Combat_Far_Vert		100
 
-	YawSpeed				35
-	MoveYawSpeed			30
+	YawSpeed				40
+	MoveYawSpeed			35
 	AimAngularSpeed			10
 
-	MeleeDamageMin			200
-	MeleeDamageMax			200
+	MeleeDamageMin			400
+	MeleeDamageMax			400
 	MeleeDamageRadius		32
 
-	// FO: pilots do not flinch/surrender near Titans.
-	// Grunt pain values cause the drop-weapon-kneel reaction.
-	// Matches spectre.txt's pain suppression.
-	HeavyDamageThresholdAmt		300
-	PainOnRepeatDamageThreshold	1
+	HeavyDamageThresholdAmt		99999
+	PainOnRepeatDamageThreshold	99999
 	PainOnSurpriseHit		0
 	PainWhileRunning		0
 
 	MinStartMoveDist		100
 	MaxArrivalDist			150
-	MinForceWalkDist		150
+	MinForceWalkDist		0 // 150
 
 	showFriendlyIcon		1
 
@@ -53,6 +50,7 @@ fireteam_pilot
 	BodyType				human
 	ArmorType				normal
 
-	aiEnemy_usePriorityDist	1000
+	aiEnemy_usePriorityDist	1500
 	aiEnemy_priority		10
+
 }

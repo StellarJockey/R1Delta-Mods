@@ -459,7 +459,7 @@
 {
 	"mixgroup"		"weapons,SFX,SFX_Vehicles,SFX_Vehicles_Goblins"
 	"radius"		"4000"
-	"volume"		"4"
+	"volume"		"5"
 	"falloff"		"8"
 	"flags"			"loop"
 
