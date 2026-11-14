@@ -2206,7 +2206,7 @@ function SimulateSpectreRodeoThink(spectre) {
 
 function CoopTD_OnSoldierOrSpectreSpawn(npc)
 {
-	if (RandomInt(100) < 25)
+	if (RandomInt(100) < 20)
 		SimulateGrenadeThrowing( npc, false, true )
 }
 

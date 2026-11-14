@@ -162,8 +162,8 @@ WeaponData
 
 			"npc_damage_near_value"   						"30"
 			"npc_damage_far_value"							"20"
-			"npc_damage_near_value_titanarmor"				"20"
-			"npc_damage_far_value_titanarmor" 				"20"
+			"npc_damage_near_value_titanarmor"				"15"
+			"npc_damage_far_value_titanarmor" 				"15"
 
 			"fire_sound_1_player_1p"						"LMG_shell"
 			"fire_sound_1_player_3p"						"LMG_shell"
