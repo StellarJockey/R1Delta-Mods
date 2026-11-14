@@ -4,8 +4,7 @@
 // This thing was vibe-coded to hell and back... but it works for now
 // Everybody say "Thank you, Claude!"
 
-
-const AI_COMBAT_DRONE_HEALTH = 450
+const AI_COMBAT_DRONE_HEALTH = 350
 const AI_COMBAT_DRONE_AIRSPEED = 1000
 const AI_COMBAT_DRONE_ACCEL = 1.75
 const AI_COMBAT_DRONE_YAWRATE = 60
@@ -13,7 +12,10 @@ const AI_COMBAT_DRONE_HOVER_HEIGHT = 150
 const AI_COMBAT_DRONE_MAX_ENEMY_DIST = 12000
 
 const AI_COMBAT_DRONE_TURRET_WEAPON = "mp_weapon_yh803_bullet"
+const AI_COMBAT_DRONE_ROCKET_WEAPON = "mp_weapon_yh803"
 const AI_COMBAT_DRONE_TURRET_HEALTH = 700
+
+const COMBAT_DRONE_HOVER_LOOP_SFX = "Combat_Drone_Hover_Loop"
 
 const AI_COMBAT_DRONE_TARGET_OFFSET_RADIUS = 700
 const AI_COMBAT_DRONE_TARGET_OFFSET_HEIGHT = 60
@@ -23,11 +25,10 @@ const AI_COMBAT_DRONE_SEPARATION_STRENGTH = 250
 const AI_COMBAT_DRONE_ARRIVE_DIST_SQR = 65536       // 256 units: close enough, stop and hover
 const AI_COMBAT_DRONE_RESUME_DIST_SQR = 202500      // 450 units: once idle, target must drift this far before moving again
 
-const AI_COMBAT_DRONE_HULL_HALF_WIDTH = 64         // matches the cloak drone's own path trace hull
+const AI_COMBAT_DRONE_HULL_HALF_WIDTH = 64          // matches the cloak drone's own path trace hull
 const AI_COMBAT_DRONE_HULL_HALF_HEIGHT = 64
-const AI_COMBAT_DRONE_HULL_PADDING = 30             // safety margin on every trace
-const AI_COMBAT_DRONE_ROUTE_ALT_STEP = 250          // how much higher to try each time
-const AI_COMBAT_DRONE_ROUTE_ALT_MAX = 3500          // highest cruise altitude above start/dest
+const AI_COMBAT_DRONE_HULL_PADDING = 0              // extra safety margin on every trace (cloak drone uses none)
+const AI_COMBAT_DRONE_WANDER_GROUND_TRACE = 2000    // how far below a wander spot to look for a floor
 const AI_COMBAT_DRONE_WAYPOINT_RADIUS_SQR = 90000   // 300 units: "reached the waypoint"
 const AI_COMBAT_DRONE_REPLAN_DEST_DIST_SQR = 640000 // 800 units: target moved enough to replan
 
@@ -43,9 +44,11 @@ const AI_COMBAT_DRONE_WANDER_PAUSE_MAX = 6.0
 const AI_COMBAT_DRONE_WANDER_PICK_TRIES = 6         // random spots to try per pick before giving up
 
 const MINIMAP_COMBAT_DRONE_SCALE = 0.08
+const DEG_TO_RAD = 0.0174532925
 
 PrecacheModel( COMBAT_DRONE_MODEL )
 PrecacheWeapon( AI_COMBAT_DRONE_TURRET_WEAPON )
+PrecacheWeapon( AI_COMBAT_DRONE_ROCKET_WEAPON )
 
 function main()
 {
@@ -120,14 +123,14 @@ function SpawnAI_Combat_Drone( team, origin, angles = Vector( 0, 0, 0 ), squadna
 	drone.MarkAsNonMovingAttachment()
 	drone.EnableAttackableByAI()
 
-	EmitSoundOnEntity( drone, CLOAKED_DRONE_HOVER_LOOP_SFX )
+	EmitSoundOnEntity( drone, COMBAT_DRONE_HOVER_LOOP_SFX )
 	EmitSoundOnEntity( drone, CLOAKED_DRONE_WARP_IN_SFX )
 
 	SetObjectCanBeMeleed( drone, true )
 	SetVisibleEntitiesInConeQueriableEnabled( drone, true )
 
 	// Each drone hovers at its own spot around the target so they don't all stack up.
-	local offsetAngle = ( drone.GetEntIndex() % 8 ) * 45.0 * 0.0174532925
+	local offsetAngle = ( drone.GetEntIndex() % 8 ) * 45.0 * DEG_TO_RAD
 
 	drone.s.droneTarget <- null
 	drone.s.droneTargetOffset <- Vector(
@@ -169,7 +172,7 @@ function SpawnAI_Combat_Drone( team, origin, angles = Vector( 0, 0, 0 ), squadna
 	records.append( record )
 	drone.s.combatRecord <- record
 
-	// Turrets and the brain start last so all the state above already exists when the first think tick runs.
+	// Turrets and the brain start last so all the state above exists when the first think tick runs.
 	AI_Combat_Drone_AddTurrets( drone, team )
 
 	thread AI_Combat_Drone_CleanupThink( drone, mover )
@@ -190,36 +193,27 @@ function AI_Combat_Drone_AddTurrets( drone, team )
 
 	switch ( Riff_AILethality() )
 	{
-		case eAILethality.TD_Low:
-			accuracyMultiplier = 0.75
-			break
-
-		case eAILethality.TD_Medium:
-			accuracyMultiplier = 2.5
-			weaponProficiency = 2.5
-			break
-
+		case eAILethality.TD_Low:    accuracyMultiplier = 0.75; break
+		case eAILethality.TD_Medium: accuracyMultiplier = 2.5; weaponProficiency = 2.5; break
 		case eAILethality.TD_High:
-		case eAILethality.High:
-			accuracyMultiplier = 3.0
-			weaponProficiency = 3
-			break
-
-		case eAILethality.VeryHigh:
-			accuracyMultiplier = 4.0
-			weaponProficiency = 4
-			break
+		case eAILethality.High:      accuracyMultiplier = 3.0; weaponProficiency = 3; break
+		case eAILethality.VeryHigh:  accuracyMultiplier = 4.0; weaponProficiency = 4; break
 	}
 
 	local turret = CreateEntity( "npc_turret_sentry" )
 
+	local droneWeapon = AI_COMBAT_DRONE_TURRET_WEAPON
+	if ( RandomFloat( 0.0, 1.0 ) < 0.33 ) // 33% chance to have a rocket instead of a turret
+		droneWeapon = AI_COMBAT_DRONE_ROCKET_WEAPON
+
 	turret.kv.solid = 8
 	turret.kv.spawnflags = 0
 	turret.kv.model = SENTRY_TURRET_MODEL
-	turret.kv.TurretRange = AI_COMBAT_DRONE_MAX_ENEMY_DIST
+	turret.kv.TurretRange = 2500 // match the "combat_drone_dmg" damage_far value
 	turret.kv.FieldOfView = 0.4
 	turret.kv.FieldOfViewAlert = 0.4
-	turret.kv.additionalequipment = AI_COMBAT_DRONE_TURRET_WEAPON
+	turret.kv.reactChance = 100
+	turret.kv.additionalequipment = droneWeapon
 	turret.kv.CollisionGroup = TRACE_COLLISION_GROUP_NONE
 	turret.kv.WeaponProficiency = weaponProficiency
 	turret.kv.AccuracyMultiplier = accuracyMultiplier
@@ -231,7 +225,7 @@ function AI_Combat_Drone_AddTurrets( drone, team )
 	turret.s.skipTurretFX <- true
 	turret.s.droneOwner <- drone
 	turret.s.isCombatDroneGun <- true
-	turret.SetAISettings( "turret_shoulder" )
+	turret.SetAISettings( "turret_sentry" )
 
 	DispatchSpawn( turret, true )
 
@@ -322,13 +316,15 @@ function AI_Combat_Drone_FindClosestValid( drone, candidates, origin )
 	return best
 }
 
-// This is the opposite of the gunship, which hunts drones and Titans first.
+// Infantry and players first, then Titans, then enemy drones as a last resort.
+// (The opposite of the gunship, which hunts drones and Titans first.)
 function AI_Combat_Drone_SelectTarget( drone, team )
 {
 	local enemyTeam = GetOtherTeam( team )
 	local origin = drone.GetOrigin()
 	local maxDist = AI_COMBAT_DRONE_MAX_ENEMY_DIST
 
+	// Stick with the current infantry/player target while it's still valid.
 	local current = drone.s.droneTarget
 	if ( AI_Combat_Drone_CanTarget( drone, current ) && !AI_IsCombatDrone( current ) && ( current.IsPlayer() || current.IsSoldier() || current.IsSpectre() ) )
 		return current
@@ -345,7 +341,6 @@ function AI_Combat_Drone_SelectTarget( drone, team )
 	if ( best )
 		return best
 
-	// Last resort: enemy drones
 	local rivals = []
 	local maxDistSqr = maxDist * maxDist
 	foreach ( enemy in GetNPCCombatDrones() )
@@ -355,6 +350,23 @@ function AI_Combat_Drone_SelectTarget( drone, team )
 	}
 
 	return AI_Combat_Drone_FindClosestValid( drone, rivals, origin )
+}
+
+// Horizontal speed of the mover, measured between think ticks (gates heading changes).
+function AI_Combat_Drone_UpdateSpeed( drone, mover )
+{
+	local pos = mover.GetOrigin()
+	local dt = Time() - drone.s.droneLastPosTime
+
+	if ( dt > 0 )
+	{
+		local moved = pos - drone.s.droneLastPos
+		moved.z = 0
+		drone.s.droneSpeed2D = moved.Length() / dt
+	}
+
+	drone.s.droneLastPos = pos
+	drone.s.droneLastPosTime = Time()
 }
 
 // The drone's brain. Runs every 0.25s until it dies
@@ -375,17 +387,8 @@ function AI_Combat_Drone_HuntThink( drone, team = null )
 	{
 		if ( !IsValid( mover ) )
 			return
-			
-		local pos = mover.GetOrigin()
-		local dt = Time() - drone.s.droneLastPosTime
-		if ( dt > 0 )
-		{
-			local moved = pos - drone.s.droneLastPos
-			moved.z = 0
-			drone.s.droneSpeed2D = moved.Length() / dt
-		}
-		drone.s.droneLastPos = pos
-		drone.s.droneLastPosTime = Time()
+
+		AI_Combat_Drone_UpdateSpeed( drone, mover )
 
 		local target = AI_Combat_Drone_SelectTarget( drone, team )
 		drone.s.droneTarget = target
@@ -401,8 +404,8 @@ function AI_Combat_Drone_HuntThink( drone, team = null )
 			}
 		}
 
-		// If the (padded) hull is currently overlapping geometry, nothing else can
-		// work: every trace starts in solid and fails. Pull the ship out first.
+		// If the (padded) hull is overlapping geometry, every trace starts in solid and
+		// fails, so pull the ship out first.
 		if ( !AI_Combat_Drone_EscapeIfStuck( drone, mover ) )
 		{
 			if ( target != null )
@@ -429,9 +432,8 @@ function AI_Combat_Drone_HuntThink( drone, team = null )
 }
 
 // Is the straight line a -> b clear for the full (padded) hull?
-// A swept hull trace already covers everything between a and b, so no
-// segmenting is needed. With a == b this tells you if the hull is currently
-// overlapping geometry.
+// A swept hull trace covers everything between a and b. With a == b this tells
+// you whether the hull is currently overlapping geometry.
 function AI_Combat_Drone_LegIsClear( drone, a, b )
 {
 	local w = AI_COMBAT_DRONE_HULL_HALF_WIDTH + AI_COMBAT_DRONE_HULL_PADDING
@@ -453,42 +455,38 @@ function AI_Combat_Drone_LegIsClear( drone, a, b )
 	return trace.fraction >= 0.999
 }
 
-// Build a list of waypoints the mover will visit IN ORDER.
-// Returns an array of positions, or null if nothing safe was found.
+// Build the waypoints the mover will visit IN ORDER, or null if nothing safe was found.
+// The mover flies a straight line to each SetMoveToPosition, so every leg validated
+// here is a leg it will actually fly.
 //
-// The mover only flies in a straight line to whatever SetMoveToPosition it is
-// given, so every leg we validate must be a leg it will actually fly. That's
-// why waypoints are handed over one at a time instead of only the final point.
+// Cruise heights are measured from the DESTINATION (like the cloak drone's heights are
+// measured from its target), never from the drone's current altitude, so a replan from
+// a high position can't stack more height on top.
 function AI_Combat_Drone_BuildRoute( drone, start, dest )
 {
 	if ( AI_Combat_Drone_LegIsClear( drone, start, dest ) )
 		return [ dest ]
 
-	// Climb straight up, cruise level, then descend onto the destination.
-	// Try the lowest cruise altitude first so we don't fly higher than needed.
-	local baseZ = start.z > dest.z ? start.z : dest.z
-
-	for ( local alt = AI_COMBAT_DRONE_ROUTE_ALT_STEP; alt <= AI_COMBAT_DRONE_ROUTE_ALT_MAX; alt += AI_COMBAT_DRONE_ROUTE_ALT_STEP )
+	// Climb/descend straight to a cruise height, fly level, then settle onto the destination.
+	// Lower heights first, highest only as a last resort.
+	foreach ( alt in [ -150, -75, 0, 150, 300, 800, 1500 ] )
 	{
-		local z = baseZ + alt
+		local z = dest.z + alt
 		local up   = Vector( start.x, start.y, z )
 		local over = Vector( dest.x,  dest.y,  z )
 
-		// If we can't climb this high, we can't climb any higher either
-		// (ceiling / overhang), so stop searching.
-		if ( !AI_Combat_Drone_LegIsClear( drone, start, up ) )
-			break
-
-		if ( AI_Combat_Drone_LegIsClear( drone, up, over ) && AI_Combat_Drone_LegIsClear( drone, over, dest ) )
+		if ( AI_Combat_Drone_LegIsClear( drone, start, up )
+			&& AI_Combat_Drone_LegIsClear( drone, up, over )
+			&& AI_Combat_Drone_LegIsClear( drone, over, dest ) )
 			return [ up, over, dest ]
 	}
 
 	return null
 }
 
-// If the hull is stuck in geometry, fly out to the nearest clear spot.
-// The mover is NotSolid, so it can fly straight out through the wall.
-// Returns true while escaping, false if the ship is not stuck (or no clear spot was found).
+// If the hull is stuck in geometry, fly out to the nearest clear spot (the mover is
+// NotSolid, so it can pass straight through walls).
+// Returns true while escaping, false if not stuck (or no clear spot was found).
 function AI_Combat_Drone_EscapeIfStuck( drone, mover )
 {
 	local origin = mover.GetOrigin()
@@ -496,12 +494,13 @@ function AI_Combat_Drone_EscapeIfStuck( drone, mover )
 	if ( AI_Combat_Drone_LegIsClear( drone, origin, origin ) )
 		return false
 
+	// Sideways first, straight up only as a last resort at each distance.
 	local dirs = [
-		Vector( 0, 0, 1 ),
 		Vector( 1, 0, 0 ),  Vector( -1, 0, 0 ),
 		Vector( 0, 1, 0 ),  Vector( 0, -1, 0 ),
 		Vector( 0.7, 0.7, 0 ),  Vector( -0.7, 0.7, 0 ),
-		Vector( 0.7, -0.7, 0 ), Vector( -0.7, -0.7, 0 )
+		Vector( 0.7, -0.7, 0 ), Vector( -0.7, -0.7, 0 ),
+		Vector( 0, 0, 1 )
 	]
 
 	for ( local d = 150; d <= 1800; d += 150 )
@@ -525,8 +524,7 @@ function AI_Combat_Drone_EscapeIfStuck( drone, mover )
 }
 
 // Hover in place and keep the last travel heading. Also drops any route.
-// Safe to call every tick: the hold is only set up the first time, after that
-// it just re-asserts the stored heading.
+// Safe to call every tick: the hold is only set up the first time.
 function AI_Combat_Drone_StopMover( drone, mover )
 {
 	AI_Combat_Drone_ClearRoute( drone )
@@ -570,16 +568,10 @@ function AI_Combat_Drone_MoveTo( drone, mover, target )
 	AI_Combat_Drone_Navigate( drone, mover, destination )
 }
 
-// Steer toward destination along a collision-checked route.
-// Returns true once the ship has arrived (or no safe route exists) and is
-// holding position, false while it is still flying.
-//
-// droneHeading is the ONE stored heading for this ship, and the only thing
-// that ever gets sent to SetDesiredYaw. It only changes when the leg is long
-// enough horizontally and points meaningfully away from the current heading.
-// That means the straight-up climb, short hops, and jitter from separation or
-// a moving target never rotate the ship. When it stops, it keeps this heading,
-// i.e. the direction it was most recently travelling.
+// Steer toward destination along a collision-checked route. Returns true once
+// arrived (or no safe route exists) and holding, false while still flying.
+// droneHeading is the only value ever sent to SetDesiredYaw; it changes only on a long,
+// fast, clearly-different leg, so climbs, short hops and jitter never spin the ship.
 function AI_Combat_Drone_Navigate( drone, mover, destination )
 {
 	local start = mover.GetOrigin()
@@ -605,8 +597,7 @@ function AI_Combat_Drone_Navigate( drone, mover, destination )
 			route.remove( 0 )
 
 		// Re-check the leg we're about to fly every tick
-		if ( !AI_Combat_Drone_LegIsClear( drone, start, route[0] ) )
-			needsReplan = true
+		needsReplan = !AI_Combat_Drone_LegIsClear( drone, start, route[0] )
 	}
 
 	if ( needsReplan )
@@ -614,7 +605,7 @@ function AI_Combat_Drone_Navigate( drone, mover, destination )
 		route = null
 
 		// If the ideal hover spot is inside geometry, try a few spots above it.
-		foreach ( lift in [ 0, 300, 600, 1000 ] )
+		foreach ( lift in [ 0, 300, 600 ] )
 		{
 			route = AI_Combat_Drone_BuildRoute( drone, start, destination + Vector( 0, 0, lift ) )
 			if ( route != null )
@@ -654,6 +645,43 @@ function AI_Combat_Drone_WanderPauseEnd()
 	return Time() + RandomFloat( AI_COMBAT_DRONE_WANDER_PAUSE_MIN, AI_COMBAT_DRONE_WANDER_PAUSE_MAX )
 }
 
+// A hover spot AI_COMBAT_DRONE_HOVER_HEIGHT above whatever floor lies below pos,
+// or null if pos is inside geometry or there is no floor nearby.
+function AI_Combat_Drone_HoverSpot( drone, pos )
+{
+	local trace = TraceLine( pos, pos - Vector( 0, 0, AI_COMBAT_DRONE_WANDER_GROUND_TRACE ), [ drone, drone.s.searchShipMover ], TRACE_MASK_NPCWORLDSTATIC, TRACE_COLLISION_GROUP_NONE )
+
+	if ( trace.startSolid || trace.fraction >= 1.0 )
+		return null
+
+	return Vector( pos.x, pos.y, trace.endPos.z + AI_COMBAT_DRONE_HOVER_HEIGHT )
+}
+
+// Accept the first random spot that has a safe route. Returns true if one was found.
+// Spots are ground-relative, so a drone that ended up high settles back to hover height.
+function AI_Combat_Drone_PickWanderLeg( drone, start )
+{
+	for ( local i = 0; i < AI_COMBAT_DRONE_WANDER_PICK_TRIES; i++ )
+	{
+		local angle = RandomFloat( 0, 360 ) * DEG_TO_RAD
+		local dist = RandomFloat( AI_COMBAT_DRONE_WANDER_MIN_DIST, AI_COMBAT_DRONE_WANDER_RADIUS )
+		local spot = AI_Combat_Drone_HoverSpot( drone, start + Vector( cos( angle ) * dist, sin( angle ) * dist, 0 ) )
+		if ( spot == null )
+			continue
+
+		local route = AI_Combat_Drone_BuildRoute( drone, start, spot )
+		if ( route == null )
+			continue
+
+		drone.s.droneWanderDest = spot
+		drone.s.droneRoute = route
+		drone.s.droneRouteDest = spot
+		return true
+	}
+
+	return false
+}
+
 // Called every think tick while there is nothing to hunt.
 // Hover for a few seconds, pick a random reachable spot nearby, fly there
 // slowly, repeat. Any target found by the hunt think cancels it.
@@ -670,34 +698,13 @@ function AI_Combat_Drone_Wander( drone, mover )
 
 	if ( drone.s.droneWanderDest == null )
 	{
-		if ( Time() < drone.s.droneWanderResumeTime )
-		{
-			AI_Combat_Drone_StopMover( drone, mover )
-			return
-		}
+		// Pick a new leg once the pause is over; if nothing is reachable, retry shortly.
+		if ( Time() >= drone.s.droneWanderResumeTime && !AI_Combat_Drone_PickWanderLeg( drone, mover.GetOrigin() ) )
+			drone.s.droneWanderResumeTime = Time() + 1.0
 
-		// Accept the first random spot that has a safe route.
-		local start = mover.GetOrigin()
-
-		for ( local i = 0; i < AI_COMBAT_DRONE_WANDER_PICK_TRIES && drone.s.droneWanderDest == null; i++ )
-		{
-			local angle = RandomFloat( 0, 360 ) * 0.0174532925
-			local dist = RandomFloat( AI_COMBAT_DRONE_WANDER_MIN_DIST, AI_COMBAT_DRONE_WANDER_RADIUS )
-			local spot = start + Vector( cos( angle ) * dist, sin( angle ) * dist, 0 )
-
-			local route = AI_Combat_Drone_BuildRoute( drone, start, spot )
-			if ( route == null )
-				continue
-
-			drone.s.droneWanderDest = spot
-			drone.s.droneRoute = route
-			drone.s.droneRouteDest = spot
-		}
-
-		// Nothing reachable right now; hover and try again shortly.
+		// Still pausing (or nothing reachable): hover.
 		if ( drone.s.droneWanderDest == null )
 		{
-			drone.s.droneWanderResumeTime = Time() + 1.0
 			AI_Combat_Drone_StopMover( drone, mover )
 			return
 		}
@@ -728,7 +735,7 @@ function AI_Combat_Drone_CleanupThink( drone, mover )
 
 			if ( IsValid( drone ) )
 			{
-				StopSoundOnEntity( drone, AngelCity_Scr_DroneSearchHover )
+				StopSoundOnEntity( drone, COMBAT_DRONE_HOVER_LOOP_SFX )
 
 				foreach ( turret in drone.s.droneTurrets )
 				{
