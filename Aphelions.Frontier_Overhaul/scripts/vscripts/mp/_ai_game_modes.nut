@@ -1,5 +1,5 @@
 //=========================================================
-// MP ai functions for game modes
+// MP ai functions for game modes FO
 //
 //=========================================================
 
@@ -109,7 +109,7 @@ function main()
 
 	level.reservedAISquadSlots <- {}
 	level.dropship_team <- 0
-	level.aiSquadCount <- 3
+	level.aiSquadCount <- 6
 	level.aiSpawnCounter <- {}
 	level.aiSpawnCounter[ TEAM_IMC ] <- 0
 	level.aiSpawnCounter[ TEAM_MILITIA ] <- 0
@@ -1486,8 +1486,8 @@ function InitFrontLine()
 
 	AddDeathCallback( "npc_soldier", FrontlineDeathNPC )
 	AddDeathCallback( "npc_spectre", FrontlineDeathNPC )
-	AddDeathCallback( "player", FrontlineDeath )
-	AddDeathCallback( "npc_titan", FrontlineDeath )
+	//AddDeathCallback( "player", FrontlineDeath )
+	//AddDeathCallback( "npc_titan", FrontlineDeath )
 
 	// select current frontline group
 	// this will most likely be the one closest to the center of the map
@@ -1745,6 +1745,7 @@ function MoveFrontline( winningTeam )
 	if ( gamemode == CAPTURE_THE_FLAG || gamemode == CAPTURE_THE_FLAG_PRO )
 		return
 
+	local prevFrontline = file.currentFrontline
 	local prevFrontlineName = file.currentFrontline.name
 
 	// switch to different frontline
@@ -1755,7 +1756,14 @@ function MoveFrontline( winningTeam )
 	DebugSendClientFrontlineAllPlayers()
 
 	// determine what sides of the new fronline belong to what team
-	SetFrontlineSides( file.currentFrontline, winningTeam )
+	local newFrontline = file.currentFrontline
+	if (newFrontline != prevFrontline )
+	{
+		local towardOld = prevFrontline.frontlineCenter - newFrontline.frontlineCenter
+		local winnerSide = towardOld.Dot( newFrontline.combatDir ) < 0 ? 0 : 1 
+		file.frontlineTeamSide[ winningTeam ] = winnerSide
+		file.frontlineTeamSide[ GetOtherTeam(winningTeam)] = 1 - winnerSide
+	}
 
 	// reset the KPS stuff
 	ResetFrontlineKillsPerSecond()
@@ -2193,9 +2201,40 @@ function RateFrontLineNPCSpawnpoint( spawnpoint, team, edgeOrigin, combatDir )
 
 
 //////////////////////////////////////////////////////////
+const NPC_LOSS_MARGIN = 4 // the losing team must have lost this many npcs
 function FrontlineDeathNPC( ent, damageInfo )
 {
-	FrontlineDeath( ent, damageInfo )
+	local team = ent.GetTeam()
+	if ( team != TEAM_IMC && team != TEAM_MILITIA )
+		return
+	
+	if ( IsSuicideSpectre( ent ) )
+		return 
+	
+	file.npcDeathPerTeam[ team].append( Time() )
+	CheckFrontlineNPCLosses( team )
+
+}
+
+function CheckFrontlineNPCLosses( losingTeam )
+{	
+	//winner determined? 
+	if ( GetGameState() >= eGameState.WinnerDetermined )
+		return
+	
+	//frontline min_time not yet reached?
+	if ( Time() < file.nextOverrunCheck )
+		return 
+	
+	local winningTeam = GetOtherTeam( losingTeam ) //lmaooooo
+	local lost = GetFrontlineNPCKillsPerSec( losingTeam ) * KPS_TIMEFRAME //deaths over the past 20s
+	local won = GetFrontlineNPCKillsPerSec( winningTeam ) * KPS_TIMEFRAME //for the margin test
+
+	//if we've lost more than the NPS limit in the last 20 seconds and the margin is above or equal to 4, move the frontline
+	if ( lost >= NPC_KPS_LIMIT && lost - won >= NPC_LOSS_MARGIN )
+		MoveFrontline( winningTeam )
+
+	
 }
 
 //////////////////////////////////////////////////////////
