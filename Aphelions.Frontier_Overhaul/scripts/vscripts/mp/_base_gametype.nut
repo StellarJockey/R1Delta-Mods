@@ -801,13 +801,26 @@ function PlayerOrNPCKilledByEnemy( entity, damageInfo )
 			attacker.SetPersistentVar( "respawnKillInfected", true )
 	}
 
-	// ???: Why are we running score related functions before checking for friendly fire? Answer: Because they all check team internally
+	// ???: Why are we running score related functions before checking for friendly fire?
+	// Answer: Because they all check team internally
+
 	if ( entity.IsPlayer() || (entity.IsTitan() && GAMETYPE == TITAN_BRAWL_AUTO) )
 	{
 		ScoreEvent_PlayerKilled( entity, attacker, damageInfo )
 	}
 	else if ( entity.IsTitan() && entity.IsNPC() && GAMETYPE != TITAN_BRAWL_AUTO )
 	{
+		// Pilot/captain bonus by default; skipped if the occupant fake-ejected
+		if ( GAMETYPE != COOPERATIVE && attacker.IsPlayer() && !ShouldPreventFriendlyFire( entity, attacker )
+			&& !( "npcPilotEjected" in entity.s )
+			&& damageSourceID != eDamageSourceId.titan_execution )
+		{
+			if ( "pilotIsNPCCaptain" in entity.s )
+				GenericCaptainKillScore( attacker )
+			else if ( "isFO_Titan" in entity.s )
+				GenericNPCPilotKillScore( attacker )
+		}
+
 		if ( !entity.GetDoomedState() )
 			ScoreEvent_TitanKilled( entity, attacker, damageInfo.GetInflictor(), damageSourceID, _GetWeaponNameFromDamageInfo( damageInfo ), damageInfo.GetCustomDamageType() )
 	}
@@ -3791,12 +3804,12 @@ if ( !reloadingScripts )
 function CodeCallback_GetWeaponDamageSourceId( weapon )
 {
 	local classname = weapon.GetClassname()
-
-	//Assert( classname in getconsttable().eDamageSourceId, classname + " not added to eDamageSourceId enum" )
-	//if ( classname in level.megaMaps )
-	//{
-	//	classname = level.megaMaps[ classname ]
-	//}
+	
+	/*
+	if ( classname == "mp_weapon_smoke_grenade" )
+		classname = "mp_titanability_smoke"
+	*/
+	
 	local damageSourceInt = getconsttable().eDamageSourceId[ classname ]
 
 	Assert( damageSourceInt in damageSourceStrings, classname + " not added to damageSourceStrings table" )

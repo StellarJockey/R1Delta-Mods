@@ -113,6 +113,13 @@ function InitScoreEvents()
 	event.SetXPType( XP_TYPE.PILOT_KILL )  
 	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
 
+	event = cScoreEvent( "KillReskinnedPilotGeneric" )
+	event.SetPointValue( POINTVALUE_KILL_PILOT )  
+	event.SetSplashText( "Killed Pilot%s1" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetXPType( XP_TYPE.PILOT_KILL )  
+	event.SetScoreSplashColors( SCORE_SPLASH_COLORS_PLAYERKILLS )
+
 	event = cScoreEvent( "MeleeHumanVsReskinnedPilot" )
 	event.SetPointValue( POINTVALUE_KILL_PILOT )
 	event.SetSplashText( "Jump Kicked %s1" )
@@ -387,6 +394,12 @@ function InitScoreEvents()
 	event.SetSplashText( "Turret Killed %s1" )
 	event.SetSplashTextAppendTargetName( true )
 	event.SetXPType( XP_TYPE.NPC_KILL )
+
+	event = cScoreEvent( "KillCaptainGeneric" )
+	event.SetPointValue( POINTVALUE_KILL_GRUNT_CAPTAIN )  
+	event.SetSplashText( "Killed Grunt Captain%s1" )
+	event.SetSplashTextAppendTargetName( false )
+	event.SetXPType( XP_TYPE.NPC_KILL )  
 
 	///////// KNIFE KILLS /////////
 
@@ -2096,6 +2109,7 @@ function ScoreEventForTitanEntityKilled( titan, inflictor, damageSourceId )
 		else if ( IsEMPTitan( titan ) )
 			return "Killed_EMP_Titan"
 	}
+
 	//Default case
 	return "KillTitan"
 }

@@ -93,6 +93,7 @@ function main()
 	AddDamageCallback( "npc_titan", NoPain )
 	AddDamageCallback( "npc_soldier", NoPain )
 	AddDamageCallback( "npc_titan", AutoTitan_NuclearPayload_DamageCallback )
+	AddCallback_OnTitanDoomed( AutoTitan_FakeEject_OnDoomed )
 
 	RegisterSignal( "TitanHotDropComplete" )
 	RegisterSignal( "DisableRocketPods" )
@@ -1251,6 +1252,9 @@ function Coop_SpawnTitansAfterDelay()
 
 function AutoTitan_NuclearPayload_DamageCallback( titan, damageInfo )
 {
+	if ( GameRules.GetGameMode() == TITAN_BRAWL )
+		return 
+		
 	if ( !IsAlive( titan ) )
 		return
 
@@ -1297,6 +1301,7 @@ function AutoTitan_NuclearPayload_DamageCallback( titan, damageInfo )
 		printt( "PLAYER TITAN IN RANGE, NUKING!" )
 	}
 
+	titan.s.npcPilotEjected <- true
 	thread TitanEjectPlayer( titan )
 }
 
@@ -1602,4 +1607,60 @@ function DecayNPCDomeShield( titan, delay )
             soul.bubbleShield.Destroy()
         }
     }
+}
+
+
+///////////////////////////////////////////////////////////
+////////////// FAKE EJECT SEQUENCE HELPER /////////////////
+///////////////////////////////////////////////////////////
+
+function AutoTitan_FakeEject_OnDoomed( titan, damageInfo )
+{
+	if ( GameRules.GetGameMode() == TITAN_BRAWL )
+		return 
+
+	if ( !IsAlive( titan ) )
+		return
+
+	// Player's Titan never fake-ejects
+	if ( IsValid( titan.GetBossPlayer() ) )
+		return
+
+	// Only FO's Titans that carry an NPC occupant
+	if ( !( "isFO_Titan" in titan.s ) && !( "pilotIsNPCCaptain" in titan.s ) )
+		return
+
+	// Nuke Titans have their own eject trigger
+	if ( NPC_GetNuclearPayload( titan ) )
+		return
+
+	thread AutoTitan_FakeEject_Think( titan )
+}
+
+function AutoTitan_FakeEject_Think( titan )
+{
+	titan.EndSignal( "OnDestroy" )
+	titan.EndSignal( "OnDeath" )
+
+	local pollInterval = 2.0
+	local ejectChance = 0.50
+
+	// The doomed callback fires just before the doomed flag is set, so let it settle
+	wait 0.5
+
+	while ( IsAlive( titan ) && titan.GetDoomedState() )
+	{
+		local soul = titan.GetTitanSoul()
+		if ( !IsValid( soul ) || soul.IsEjecting() )
+			return
+
+		if ( RandomFloat( 0.0, 1.0 ) < ejectChance )
+		{
+			titan.s.npcPilotEjected <- true
+			thread TitanEjectPlayer( titan )
+			return
+		}
+
+		wait pollInterval
+	}
 }
