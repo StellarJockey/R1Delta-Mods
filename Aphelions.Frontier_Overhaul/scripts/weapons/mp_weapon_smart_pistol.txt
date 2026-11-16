@@ -285,12 +285,14 @@ WeaponData
 	"smart_ammo_track_cloaked_targets"				"1"
 	"smart_ammo_targeting_time_min"					"0.37"
 	"smart_ammo_targeting_time_max"					"0.65"
-	"smart_ammo_targeting_time_min_npc"				"0.1"
-	"smart_ammo_targeting_time_max_npc"				"0.2"
-	"smart_ammo_targeting_time_modifier_projectile_owner"	"0.35"
+	
+	"smart_ammo_targeting_time_min_npc"				"0.2" // "0.1"
+	"smart_ammo_targeting_time_max_npc"				"0.4" // "0.2"
+	"smart_ammo_target_max_locks_soldier"			"3" // "1"
+	"smart_ammo_target_max_locks_spectre"			"4" // "2"
 	"smart_ammo_target_max_locks_player"			"3"
-	"smart_ammo_target_max_locks_spectre"			"2"
-	"smart_ammo_target_max_locks_soldier"			"1"
+
+	"smart_ammo_targeting_time_modifier_projectile_owner"	"0.35"
 	"smart_ammo_new_target_delay"					"0.1"
 	"smart_ammo_draw_acquisition_lines"				"1"
 	"smart_ammo_hud_lock_style"						"pilot_pistol"
@@ -340,8 +342,8 @@ WeaponData
 			"minimap_reveal_distance"			"1"
 			"smart_ammo_targeting_time_min"					"0.45"
 			"smart_ammo_targeting_time_max"					"0.8"
-			"smart_ammo_targeting_time_min_npc"				"0.1"
-			"smart_ammo_targeting_time_max_npc"				"0.25"
+			"smart_ammo_targeting_time_min_npc"				"0.2" // "0.1"
+			"smart_ammo_targeting_time_max_npc"				"0.45" // "0.25"
 			"smart_ammo_new_target_delay"					"0.22"
 
 			"fx_muzzle_flash_view"				"wpn_muzzleflash_pistol_sup_FP"
@@ -374,8 +376,8 @@ WeaponData
 			"smart_ammo_search_angle" 				"36"
 			"smart_ammo_targeting_time_min"			"0.34"
 			"smart_ammo_targeting_time_max"			"0.59"
-			"smart_ammo_targeting_time_min_npc"		"0.1"
-			"smart_ammo_targeting_time_max_npc"		"0.15"
+			"smart_ammo_targeting_time_min_npc"		"0.15" // "0.1"
+			"smart_ammo_targeting_time_max_npc"		"0.3" // "0.15"
 			"smart_ammo_new_target_delay"			"0.0"
 
 			"damage_near_distance"							"1250" // match to search distance and red crosshair range
@@ -396,7 +398,7 @@ WeaponData
 			"smart_ammo_target_max_locks_player"			"2"
 			"damage_near_value"   							"100"
 			"damage_far_value"								"67"
-			"is_burn_mod"		"1"
+			"is_burn_mod"									"1"
 		}
 
 		grunts_emulate_pilot_multilock
