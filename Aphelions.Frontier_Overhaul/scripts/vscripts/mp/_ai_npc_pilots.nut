@@ -270,7 +270,6 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
     ghostPilot.SetMoveSpeedScale( 1.20 )
     ghostPilot.PreferSprint( true )
     ghostPilot.SetHearingSensitivity( 10 )
-
     ghostPilot.AllowFlee( false )
 	ghostPilot.AllowHandSignals( true )
 
@@ -300,6 +299,9 @@ function GhostPilotThink( ghostPilot )
     ghostPilot.Minimap_Hide( TEAM_IMC, null )
     ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
 
+	ghostPilot.SetNoTargetSmartAmmo( true )
+	SetCustomSmartAmmoTarget( ghostPilot, false )
+
     while ( true )
     {
         local enemy = ghostPilot.GetEnemy()
@@ -312,6 +314,10 @@ function GhostPilotThink( ghostPilot )
         {
             SniperDeCloak( ghostPilot )
             ghostPilot.s.cloaked = false
+
+			// Can only be targeted by smart pistol when un-cloaked
+			ghostPilot.SetNoTargetSmartAmmo( false )
+			SetCustomSmartAmmoTarget( ghostPilot, true )
 
             // SniperDeCloak calls Minimap_AlwaysShow internally; immediately re-hide
             ghostPilot.Minimap_Hide( TEAM_IMC, null )
