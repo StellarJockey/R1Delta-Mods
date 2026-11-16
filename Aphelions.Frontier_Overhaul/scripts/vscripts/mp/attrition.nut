@@ -36,23 +36,24 @@ function Attrition_OnTitanDoomed( victim, damageInfo )
 		return
 
 	local attacker = GetAttackerOrLastAttacker( victim, damageInfo )
-
 	if ( !IsValid( attacker ) )
 		return
 
-	attacker = GetAttackerPlayerOrBossPlayer( attacker )
+	local scorer = GetAttackerPlayerOrBossPlayer( attacker )
+	if ( !IsValid( scorer ) )
+		scorer = attacker	// NPC with no owner: team score only
 
-	if ( !IsValid( attacker ) )
-		return
-
-	if ( attacker.GetTeam() != GetOtherTeam(victim))
+	if ( scorer.GetTeam() != GetOtherTeam(victim))
 		return
 
 	local scoreVal = ATTRITION_SCORE_TITAN
-	ShowPlayerAttritionScoreEvent( attacker, scoreVal )
+	GameScore.AddTeamScore( scorer.GetTeam(), scoreVal )
 
-	GameScore.AddTeamScore( attacker.GetTeam(), scoreVal )
-	attacker.SetAssaultScore( attacker.GetAssaultScore() + scoreVal )
+	if ( scorer.IsPlayer() )
+	{
+		ShowPlayerAttritionScoreEvent( scorer, scoreVal )
+		scorer.SetAssaultScore( scorer.GetAssaultScore() + scoreVal )
+	}
 }
 
 function ScriptCallback_OnClientConnecting( player )
@@ -95,8 +96,18 @@ function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
     if ( GetGameState() != eGameState.Playing )
         return
 
-    if ( victim.IsTitan() && !victim.IsPlayer() )
-        return
+	if ( GetGameState() != eGameState.Playing )
+		return
+
+	if ( victim.IsTitan() && !victim.IsPlayer() )
+	{
+		if ( ( "isFO_Titan" in victim.s || "pilotIsNPCCaptain" in victim.s )
+			&& !( "npcPilotEjected" in victim.s )
+			&& damageInfo.GetDamageSourceIdentifier() != eDamageSourceId.titan_execution )
+			Attrition_AwardPilotTermination( attacker, victim )
+
+		return
+	}
 
     if ( victim.IsMarvin() )
         return
@@ -179,6 +190,8 @@ function Attrition_AwardPilotTermination( attacker, titan, isCaptain = false )
 		return
 
 	local scoreVal = ATTRITION_SCORE_PILOT
+	if ( isCaptain || ( IsValid( titan ) && "pilotIsNPCCaptain" in titan.s ) )
+		scoreVal = ATTRITION_SCORE_GRUNT
 
 	if ( attacker.IsPlayer() )
 	{

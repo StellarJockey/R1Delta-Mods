@@ -715,6 +715,18 @@ function SearchShip_TookDamage( ship, damageInfo )
 				scoreEvent = "AngelCity_SearchDroneKill"
 			}
 		}
+
+		else if ( isCombatDrone && IsValid( attacker ) && attacker.IsNPC() )
+		{
+			// NPC kill (spectre, grunt, Titan): credit the owning player if there is one, else team only
+			local scorer = GetPlayerFromEntity( attacker )
+			if ( !IsValid( scorer ) )
+				scorer = attacker
+
+			if ( scorer.GetTeam() != shipTeam )
+				AddCombatDroneKillScore( scorer )
+		}
+
 		if ( scoreEvent != null )
 			AddPlayerScore( attacker, scoreEvent, ship )
 	}

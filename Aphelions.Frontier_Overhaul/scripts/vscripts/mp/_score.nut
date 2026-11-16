@@ -117,20 +117,63 @@ function AddPlayerScore( player, scoreEvent, targetEnt = null, pointValueOverrid
 
 // Combat drones are awarded from SearchShip_TookDamage (cinematic_mp/_cinematic_mp_server.nut).
 // The attacker is already known to be on the enemy team.
-function AddCombatDroneKillScore( player )
+function AddCombatDroneKillScore( killer )
 {
-	// Attrition splash goes out first: the client stacks the newest splash on top, so the kill ends up above it
+	if ( !IsValid( killer ) )
+		return
+
+	local isPlayer = killer.IsPlayer()
+
 	if ( GameRules.GetGameMode() == ATTRITION && GetGameState() == eGameState.Playing )
 	{
 		local scoreVal = ATTRITION_SCORE_DRONE
 
-		ShowPlayerAttritionScoreEvent( player, scoreVal )
-		GameScore.AddTeamScore( player.GetTeam(), scoreVal )
-		player.SetAssaultScore( player.GetAssaultScore() + scoreVal )
+		// splash first so the kill ends up above it
+		if ( isPlayer )
+			ShowPlayerAttritionScoreEvent( killer, scoreVal )
+		else
+		{
+			local boss = killer.GetBossPlayer()
+			if ( IsValid( boss ) )
+				ShowPlayerAttritionScoreEvent( boss, scoreVal )
+		}
+
+		GameScore.AddTeamScore( killer.GetTeam(), scoreVal )
+
+		if ( isPlayer )
+			killer.SetAssaultScore( killer.GetAssaultScore() + scoreVal )
 	}
 
-	AddPlayerScore( player, "KillCombatDrone" )
+	if ( isPlayer )
+		AddPlayerScore( killer, "KillCombatDrone" )
 }
+
+function GenericNPCPilotKillScore( player )
+{
+	if ( !IsValid( player ) || !player.IsPlayer() )
+		return
+
+	if ( GameRules.GetGameMode() == COOPERATIVE )
+		return
+
+	if ( GetConVarBool( "delta_play_killsounds" ) )
+		EmitSoundOnEntityOnlyToPlayer( player, player, "Pilot_Killed_Indicator" )
+
+	AddPlayerScore( player, "KillReskinnedPilotGeneric" )
+}
+Globalize( GenericNPCPilotKillScore )
+
+function GenericCaptainKillScore( player )
+{
+	if ( !IsValid( player ) || !player.IsPlayer() )
+		return
+
+	if ( GameRules.GetGameMode() == COOPERATIVE )
+		return
+
+	AddPlayerScore( player, "KillCaptainGeneric" )
+}
+Globalize( GenericCaptainKillScore )
 
 function GetPlayerXPMultiple( player, targetEnt )
 {
@@ -240,7 +283,6 @@ function ScoreEvent_TitanKilled( titan, attacker, inflictor, damageSourceId, wea
 	if ( player.IsPlayer())
 		player.SetTitanKillCount( player.GetTitanKillCount() + 1 )
 	AddTitanBuildPoint( player, "TitanKilled" )
-
 
 	titan.GetTitanSoul()
 
