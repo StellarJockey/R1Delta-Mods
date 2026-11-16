@@ -4835,7 +4835,7 @@
 			"titan_kill_credit"	"60"
 			"prematch_time"	"30"
 			"titan_build_time"	"270" // "240"
-			"min_players"	"2"
+			"min_players"	"1"
 			"lobby_countdown"	"15"
 			"script_leak"	"0"
 			"titan_rebuild_time"	"180" // "135"
