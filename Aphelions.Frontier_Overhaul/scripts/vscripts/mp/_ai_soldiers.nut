@@ -524,9 +524,9 @@ function CreateGrunt( team, model, weapon, alert = true, captain = false )
 function SetGruntTitleFromTeam( grunt, team, captain = false )
 {
 
-	local captainRanks = [ "Captain", "Captain", "Captain", "Captain",
-		"Lance Cpl.", "Cpl.", "Cpl.", "Sgt.", "Sgt.", 
-    	"Staff Sgt.", "Gunnery Sgt.", "2nd Lt.", "1st Lt."
+	local captainRanks = [ "Captain", "Captain", "Captain", "Captain", "Captain", "Captain",
+		"Lance Cpl.", "Cpl.", "Cpl.", "Sgt.", "Sgt.",  "Commander", "Commander",
+    	"Staff Sgt.", "Gunnery Sgt.", "2nd Lt.", "1st Lt.", "Major", "Major",
 	]
 	local rank = Random( captainRanks )
 	local captainName = ""
@@ -1864,18 +1864,18 @@ Globalize( SendAIToAssaultPoint )
 function GetRandomCaptainName( team )
 {
 	local imcCaptainNames = [
-		"Heppe", "Roycewicz", "Dickinger", "Hackathorn", "Arnett", "Diamand", "Allen", "Snyder", "Sullivan",
-		"McLeod", "Ferriz", "Ichige", "Barb", "Boyle", "Lor", "Chong", "Dionne", "Yuen", "Sun-Kwon", "Pulaski",
-		"Hughes", "Lambert", "Sosnowski", "Bartlett", "Burbridge", "McCoy", "Cangiano", "McCarthy", "Barcalay",
-		"Hammon", "Deerson", "Mecklenburg", "Felton", "Lerma", "Smith", "Fiedler", "Ritchie", "Winslow", "Sizemore", 
-		"Keefe", "Keating", "Virginia", "Carver", "Schanz", "Thurman", "McCann", "Adoti", "Calhoun", "Takenouchi",
-		"Song", "Conger", "Emslie", "Gompert", "Persson", "Haggerty", "Faust", "Shiring", "Duvall", "Rahm",
-		"Lipstock", "Wallcroft", "Byrne", "Nelson", "Lang", "Dietrich", "Mendoza", "Slater", "Bowden", "Voight", "Heath",
-		"Flynn", "Fleming", "Fletcher", "Roman", "Keyes", "Almagro", "Rorke",
+		"Heppe", "Roycewicz", "Dickinger", "Hackathorn", "Arnett", "Diamand", "Allen", "Snyder", "Sullivan", "Hatchett",
+		"McLeod", "Ferriz", "Ichige", "Barb", "Boyle", "Lor", "Chong", "Dionne", "Yuen", "Sun-Kwon", "Pulaski", "Cunningham", 
+		"Hughes", "Lambert", "Sosnowski", "Bartlett", "Burbridge", "McCoy", "Cangiano", "McCarthy", "Barcalay", "Sturges", 
+		"Hammon", "Deerson", "Mecklenburg", "Felton", "Lerma", "Smith", "Fiedler", "Ritchie", "Winslow", "Sizemore", "Mensa",
+		"Keefe", "Keating", "Virginia", "Carver", "Schanz", "Thurman", "McCann", "Adoti", "Calhoun", "Takenouchi", "Warren",
+		"Song", "Conger", "Emslie", "Gompert", "Persson", "Haggerty", "Faust", "Shiring", "Duvall", "Rahm", "Harding", "Sagan",
+		"Lipstock", "Wallcroft", "Byrne", "Nelson", "Lang", "Dietrich", "Mendoza", "Slater", "Bowden", "Voight", "Heath", 
+		"Flynn", "Fleming", "Fletcher", "Roman", "Keyes", "Almagro", "Rorke", "Roche", "Tariq", "Tyndall", "Bates", "Radcliffe",
 		"Reece", "Mace", "Arthur", "Simone", "Vance", "Erikson", "Magnusson", "Sykes", "Dane", "Price", "Sanderson", "Adler",
-		"Wolf", "Bannon", "Marshall", "Lukin", "Lukas", "Luke", "Gordon", "Desmond", "York", "Lancaster", "Midas", "Holt",
+		"Wolf", "Bannon", "Marshall", "Lukin", "Lukas", "Luke", "Gordon", "Desmond", "York", "Lancaster", "Midas", "Holt", 
 		"Wayland", "Pepper", "Copeland", "Foster", "Haile", "Ram", "Choi", "Imagawa", "Walther", "Weber", "Loiselle", "Fujiwara", 
-		"Halden",
+		"Halden", "Laswell", "Chernov", "Sato",
 	]
 	
 	local militiaCaptainNames = [
@@ -1883,13 +1883,13 @@ function GetRandomCaptainName( team )
 		"Grigsby", "Biancalana", "Altamirano", "Kalas", "Miller", "Tullis", "Barfield", "Fresnel", "Rutledge", "Bryant", 
 		"Glenn", "LeBlanc", "Baker", "Shoberg", "Gaines", "Powers", "Abrahamsson", "Roebuck", "Bell", "Nakamura", "Payne",
 		"Papouban", "Ehrenberg", "Hakik", "Meas", "Redetzke", "Slayback", "DeRose", "Fukuda", "Rico", "Sommers", "Reynolds", 
-		"Wong", "Oliveira", "Sue", "Minx", "Bui", "Parsons", "Collins", "Reyes", "Delacourt", "Stroud", "Harris", 
+		"Wong", "Oliveira", "Sue", "Minx", "Bui", "Parsons", "Collins", "Reyes", "Delacourt", "Stroud", "Harris", "Garcia",
 		"Cho", "Kim", "Aki", "Medina", "Fujita", "Grimenstein", "Mitchell", "Cole", "Beck", "Carlyle", "Webber", "Webb",
 		"Burrell", "Braxton", "Landinger", "Ibrahim", "Cruz", "Daniels", "Nguyen", "Aramaki", "Pryce", "Roberts", "Rasmus",
 		"Foley", "Gomez", "Pondsmith", "Harper", "Mason", "Salazar", "Crosby", "Dowd", "Barry", "Wilson", "Zayd", "Garnett",
-		"Kaplan", "Weston", "Griggs", "Lopez", "West", "Vasquez", "Lozano", "Cook", "Pyle", "Ryan", "Drew", "Lee",
+		"Kaplan", "Weston", "Griggs", "Lopez", "West", "Vasquez", "Lozano", "Cook", "Pyle", "Ryan", "Drew", "Lee", "Freeman",
 		"Ortega", "Norris", "Lyons", "Reginald", "Shane", "Wyatt", "Gonzavi", "Hoyt", "Davis", "Cross", "Holden", "Rivera",
-		"Allen", "Gallagher", "Burns", "Westbrook", "Booth", "Grove", "Morgan", "Redd", "Manning", "Vincent", "Jules",
+		"Allen", "Gallagher", "Burns", "Westbrook", "Booth", "Grove", "Morgan", "Redd", "Manning", "Vincent", "Jules", "Torres",
 		"Mann", "Neil", "Otis", "Teller", "Jackie", "Bruce", "Banks", "Oswald", "Bowman", "Leo", "London", "Franklin", "Diaz",
 	]
 
