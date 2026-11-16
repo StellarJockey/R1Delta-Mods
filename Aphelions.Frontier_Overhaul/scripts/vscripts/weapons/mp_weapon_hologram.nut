@@ -85,6 +85,9 @@ function CreateHologram( player )
 	hologram.kv.allowshoot = 0
 	hologram.SetAllowMelee( false )
 
+	hologram.SetNoTargetSmartAmmo( true )
+	SetCustomSmartAmmoTarget( hologram, false )
+
 	GiveMinionWeapon( hologram, weaponName )
 	if ( atWeaponName )
 	{
