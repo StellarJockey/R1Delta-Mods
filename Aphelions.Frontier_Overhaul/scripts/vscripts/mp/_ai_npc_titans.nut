@@ -447,6 +447,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         titan.SetSubclass( eSubClass.nukeTitan )
     }
 
+	/*
     if ( titans == "titan_stryder" )
         titan.SetTitle( "#CHASSIS_STRYDER_NAME" )
     else if ( titans == "titan_atlas" )
@@ -455,6 +456,9 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
         titan.SetTitle( "#CHASSIS_OGRE_NAME" )
 	else if ( titans == "titan_ctt" )
 		titan.SetTitle( "Destroyer" )
+	*/
+	titan.SetTitle( title )
+	titan.SetName( title )
     
 	titan.s.isTitan <- true
 	titan.s.isFO_Titan <- true
@@ -1643,7 +1647,7 @@ function AutoTitan_FakeEject_Think( titan )
 	titan.EndSignal( "OnDeath" )
 
 	local pollInterval = 2.0
-	local ejectChance = 0.50
+	local ejectChance = 0.40
 
 	// The doomed callback fires just before the doomed flag is set, so let it settle
 	wait 0.5

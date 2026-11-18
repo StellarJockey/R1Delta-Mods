@@ -416,6 +416,7 @@ function MeleeThread_TitanRipsPilot( e, actions, action, attacker, target )
 	    prop.SetOrigin( target.GetOrigin() )
 	    prop.SetInvulnerable()
 	    prop.SetTeam( target.GetTeam() )
+		prop.SetTitle( target.GetName() )
 	    prop.SetModel( attackerViewBody.GetModelName() )
 
 		if ( ( "pilotIsNPCCaptain" in target.s) || ( "isFO_Titan" in target.s ) )

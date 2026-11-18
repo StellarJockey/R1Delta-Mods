@@ -816,9 +816,9 @@ function PlayerOrNPCKilledByEnemy( entity, damageInfo )
 			&& damageSourceID != eDamageSourceId.titan_execution )
 		{
 			if ( "pilotIsNPCCaptain" in entity.s )
-				GenericCaptainKillScore( attacker )
+				GenericCaptainKillScore( attacker, entity )
 			else if ( "isFO_Titan" in entity.s )
-				GenericNPCPilotKillScore( attacker )
+				GenericNPCPilotKillScore( attacker, entity )
 		}
 
 		if ( !entity.GetDoomedState() )

@@ -524,9 +524,9 @@ function CreateGrunt( team, model, weapon, alert = true, captain = false )
 function SetGruntTitleFromTeam( grunt, team, captain = false )
 {
 
-	local captainRanks = [ "Captain", "Captain", "Captain", "Captain", "Captain", "Captain",
-		"Lance Cpl.", "Cpl.", "Cpl.", "Sgt.", "Sgt.",  "Commander", "Commander",
-    	"Staff Sgt.", "Gunnery Sgt.", "2nd Lt.", "1st Lt.", "Major", "Major",
+	local captainRanks = [ "Captain", "Captain", "Captain", "Captain",
+		"Lance Cpl.", "Cpl.", "Cpl.", "Sgt.", "Sgt.", 
+    	"Staff Sgt.", "Gunnery Sgt.", "2nd Lt.", "1st Lt.",
 	]
 	local rank = Random( captainRanks )
 	local captainName = ""
@@ -2148,7 +2148,7 @@ function NPCGrenadeThrow( npc )
 		EmitSoundOnEntity( npc, SPECTRE_GRENADE_OUT )
 	else  // Grunt callouts, INCLUDES GHOST PILOTS AND NPC PILOTS
 		PlaySquadConversationToAll( "aichat_grenade_incoming", npc )
-		//EmitSoundOnEntity( npc, GRUNT_GRENADE_OUT )
+		// EmitSoundOnEntity( npc, GRUNT_GRENADE_OUT )
 }
 
 //HACK! -> DO NOT SHIP - this should be in code
@@ -2158,7 +2158,8 @@ function SimulateSpectreRodeo( spectre )
 }
 Globalize( SimulateSpectreRodeo )
 
-function SimulateSpectreRodeoThink(spectre) {
+function SimulateSpectreRodeoThink(spectre)
+{
 	spectre.EndSignal("OnDestroy")
 	spectre.EndSignal("OnDeath")
 	spectre.EndSignal("OnLeeched")

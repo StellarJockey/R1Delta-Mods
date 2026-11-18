@@ -221,6 +221,7 @@ function SpawnGhostPilot( team, squadName, origin, angles, alert = true )
         return null
 
     ghostPilot.SetTitle( "Ghost Pilot" )
+	ghostPilot.SetName( "Ghost Pilot" )
 
 	if ( "s" in ghostPilot && "isPilot" in ghostPilot.s )
 		ghostPilot.s.isPilot <- false
@@ -298,9 +299,8 @@ function GhostPilotThink( ghostPilot )
     // Re-enforce minimap-hide in case other code tries to show them
     ghostPilot.Minimap_Hide( TEAM_IMC, null )
     ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
-
-	ghostPilot.SetNoTargetSmartAmmo( true )
-	SetCustomSmartAmmoTarget( ghostPilot, false )
+	
+	// SetCustomSmartAmmoTarget( ghostPilot, false )
 
     while ( true )
     {
@@ -316,8 +316,7 @@ function GhostPilotThink( ghostPilot )
             ghostPilot.s.cloaked = false
 
 			// Can only be targeted by smart pistol when un-cloaked
-			ghostPilot.SetNoTargetSmartAmmo( false )
-			SetCustomSmartAmmoTarget( ghostPilot, true )
+			// SetCustomSmartAmmoTarget( ghostPilot, true )
 
             // SniperDeCloak calls Minimap_AlwaysShow internally; immediately re-hide
             ghostPilot.Minimap_Hide( TEAM_IMC, null )
@@ -331,6 +330,7 @@ function GhostPilotThink( ghostPilot )
             // re-enforce (defensive)
             ghostPilot.Minimap_Hide( TEAM_IMC, null )
             ghostPilot.Minimap_Hide( TEAM_MILITIA, null )
+			// SetCustomSmartAmmoTarget( ghostPilot, false )
         }
 
         wait 0.25

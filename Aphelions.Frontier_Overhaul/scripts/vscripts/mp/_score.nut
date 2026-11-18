@@ -148,7 +148,7 @@ function AddCombatDroneKillScore( killer )
 		AddPlayerScore( killer, "KillCombatDrone" )
 }
 
-function GenericNPCPilotKillScore( player )
+function GenericNPCPilotKillScore( player, titan = null )
 {
 	if ( !IsValid( player ) || !player.IsPlayer() )
 		return
@@ -159,11 +159,11 @@ function GenericNPCPilotKillScore( player )
 	if ( GetConVarBool( "delta_play_killsounds" ) )
 		EmitSoundOnEntityOnlyToPlayer( player, player, "Pilot_Killed_Indicator" )
 
-	AddPlayerScore( player, "KillReskinnedPilotGeneric" )
+	AddPlayerScore( player, "KillReskinnedPilot", titan )
 }
 Globalize( GenericNPCPilotKillScore )
 
-function GenericCaptainKillScore( player )
+function GenericCaptainKillScore( player, titan = null )
 {
 	if ( !IsValid( player ) || !player.IsPlayer() )
 		return
@@ -171,7 +171,7 @@ function GenericCaptainKillScore( player )
 	if ( GameRules.GetGameMode() == COOPERATIVE )
 		return
 
-	AddPlayerScore( player, "KillCaptainGeneric" )
+	AddPlayerScore( player, "KillCaptain", titan )
 }
 Globalize( GenericCaptainKillScore )
 
