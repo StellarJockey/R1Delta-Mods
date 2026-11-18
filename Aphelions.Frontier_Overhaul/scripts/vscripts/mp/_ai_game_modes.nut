@@ -2199,21 +2199,24 @@ function RateFrontLineNPCSpawnpoint( spawnpoint, team, edgeOrigin, combatDir )
 */
 }
 
-
 //////////////////////////////////////////////////////////
 const NPC_LOSS_MARGIN = 4 // the losing team must have lost this many npcs
 function FrontlineDeathNPC( ent, damageInfo )
 {
-	local team = ent.GetTeam()
-	if ( team != TEAM_IMC && team != TEAM_MILITIA )
-		return
-	
-	if ( IsSuicideSpectre( ent ) )
-		return 
-	
-	file.npcDeathPerTeam[ team].append( Time() )
-	CheckFrontlineNPCLosses( team )
+    local team = ent.GetTeam()
 
+    if ( team != TEAM_IMC && team != TEAM_MILITIA )
+        return
+    
+    //we dont count suicidespectres bc they die by design
+    if ( IsSuicideSpectre( ent ) ) 
+        return 
+
+    //weights gruntcaptains and pilots 3x normal
+    local weight = ( IsGruntCaptain(ent) || IsReskinnedPilot(ent) ) ? 3 : 1  
+    for( local i = 0; i < weight; i++ ) //appends timestamps for each unit death according to weight
+        file.npcDeathPerTeam[ team].append( Time() ) 
+    CheckFrontlineNPCLosses( team )
 }
 
 function CheckFrontlineNPCLosses( losingTeam )
@@ -2234,7 +2237,6 @@ function CheckFrontlineNPCLosses( losingTeam )
 	if ( lost >= NPC_KPS_LIMIT && lost - won >= NPC_LOSS_MARGIN )
 		MoveFrontline( winningTeam )
 
-	
 }
 
 //////////////////////////////////////////////////////////

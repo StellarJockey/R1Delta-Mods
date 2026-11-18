@@ -289,6 +289,7 @@ function AI_GunshipAddTurrets( gunship, team )
 
 		turret.EnableTurret()
 		turret.Hide()
+		turret.SetNoTarget( true )
 		HideName( turret )
 		turret.NotSolid()
 

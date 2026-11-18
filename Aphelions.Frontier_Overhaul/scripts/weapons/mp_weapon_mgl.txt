@@ -38,6 +38,10 @@ WeaponData
 	"vortex_drain"									".08"
 	"adjust_to_gun_barrel"							"1"
 
+	"fx_shell_eject_view"							"wpn_shelleject_mgl_FP"
+	"fx_shell_eject_world"							"wpn_shelleject_mgl"
+	"fx_shell_eject_attach"							"shell"
+
 	"fx_muzzle_flash_view"							"P_wpn_muzzleflash_mgl_FP_FULL"
 	"fx_muzzle_flash_world"							"P_wpn_muzzleflash_mgl_FULL"
 	"fx_muzzle_flash_attach"						"muzzle_flash"

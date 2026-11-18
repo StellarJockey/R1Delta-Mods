@@ -76,11 +76,6 @@ function SpawnCloakDrone( team, origin, angles )
 	thread CloakedDronePathThink( cloakedDrone )
 	thread CloakedDroneCloakThink( cloakedDrone )
 
-
-	local players = GetPlayerArray()
-    if ( players.len() == 0 )
-        return false // If no player is in yet, don't spawn
-
 	cloakedDrone.Minimap_SetDefaultMaterial( "vgui/hud/cloak_drone_minimap" )
 	cloakedDrone.Minimap_SetEnemyMaterial( "vgui/hud/cloak_drone_minimap_orange" )
 	cloakedDrone.Minimap_SetFriendlyMaterial( "vgui/hud/cloak_drone_minimap" )
@@ -659,7 +654,7 @@ function CloakedDroneWarpOut( cloakedDrone, origin )
 
 		wait 0.3	// wait a bit before hidding the done so that the fx looks better
 		cloakedDrone.Hide()
-		// SetCustomSmartAmmoTarget( cloakedDrone, false )
+		// SetCustomSmartAmmoTarget( cloakedDrone, true )
 	}
 
 	wait 2.0

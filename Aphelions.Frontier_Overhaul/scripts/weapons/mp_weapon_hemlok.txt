@@ -297,7 +297,7 @@ WeaponData
 	"proficiency_perfect_spreadscale" 				"1.0"
 	"proficiency_perfect_bias"						"1.0"
 
-	"rest_time_between_bursts_min"					"1.0"
+	"rest_time_between_bursts_min"					"0.5"
 	"rest_time_between_bursts_max"					"1.0"
 	"npc_min_range"   								"0"
 	"npc_max_range"   								"2000"

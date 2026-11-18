@@ -122,6 +122,7 @@ function SpawnAI_Combat_Drone( team, origin, angles = Vector( 0, 0, 0 ), squadna
 	drone.SetParent( mover, "", true, 0 )
 	drone.MarkAsNonMovingAttachment()
 	drone.EnableAttackableByAI()
+	// SetCustomSmartAmmoTarget( drone, true )
 
 	EmitSoundOnEntity( drone, COMBAT_DRONE_HOVER_LOOP_SFX )
 	EmitSoundOnEntity( drone, CLOAKED_DRONE_WARP_IN_SFX )
@@ -228,6 +229,7 @@ function AI_Combat_Drone_AddTurrets( drone, team )
 	turret.SetAISettings( "turret_sentry" )
 
 	DispatchSpawn( turret, true )
+	// SetCustomSmartAmmoTarget( turret, false )
 
 	turret.SetTeam( team )
 	turret.SetHealth( AI_COMBAT_DRONE_TURRET_HEALTH )
@@ -237,8 +239,9 @@ function AI_Combat_Drone_AddTurrets( drone, team )
 	// Preserve the drone as the damage/kill attribution owner.
 	turret.SetOwner( drone )
 
-	turret.SetParent( drone, "muzzle_flash", false )
-	turret.SetLocalOrigin( Vector( -38.956, 0.006, -47.928 ) )
+	// Parent to the mover (not the drone) so the turret isn't a child of the smart ammo target
+	turret.SetParent( drone.GetParent(), "", false )
+	turret.SetLocalOrigin( Vector( 0, 0, -48 ) )
 	turret.SetLocalAngles( Vector( 0, 0, 0 ) )
 	turret.SetAimAssistAllowed( false )
 
@@ -251,6 +254,7 @@ function AI_Combat_Drone_AddTurrets( drone, team )
 
 	turret.EnableTurret()
 	turret.Hide()
+	turret.SetNoTarget( true )
 	HideName( turret )
 	turret.NotSolid()
 
