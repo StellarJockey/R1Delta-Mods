@@ -286,6 +286,7 @@ WeaponData
 	"npc_max_burst"									"1"
 	"rest_time_between_bursts_min"					"2.0"
 	"rest_time_between_bursts_max"					"3.0"
+	"npc_vortex_block"								"1"
 
 	"smart_ammo_search_angle" 						"20"
 	"smart_ammo_search_distance"  					"5000"

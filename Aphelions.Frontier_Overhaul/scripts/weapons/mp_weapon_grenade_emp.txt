@@ -98,7 +98,7 @@ WeaponData
 	// Sway
 
 	// NPC
-
+	"npc_vortex_block"								"1"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
 	"fire_anim_rate"  								"1"

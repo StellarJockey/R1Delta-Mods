@@ -293,6 +293,7 @@ WeaponData
 	"npc_max_burst"   								"5"
 	"rest_time_between_bursts_min"					"0.2"
 	"rest_time_between_bursts_max"					"0.3"
+	"npc_vortex_block"								"1"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
 	"sprintcycle_time"								"0.55"

@@ -253,6 +253,7 @@ WeaponData
 	"npc_max_range_secondary" 						"2500"
 	"npc_min_burst"   								"1"
 	"npc_max_burst"   								"3"
+	"npc_vortex_block"								"1"
 
 	// Spread
 	"spread_stand_hip" 								"1.0"

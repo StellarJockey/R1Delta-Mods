@@ -274,6 +274,7 @@ WeaponData
 	"npc_max_range_secondary" 						"2500"
 	"npc_min_burst"   								"2"
 	"npc_max_burst"   								"5"
+	"npc_vortex_block"								"1"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
 	"spread_stand_hip"								"3.5"

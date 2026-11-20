@@ -270,7 +270,8 @@ WeaponData
 	"npc_max_burst"   								"4"
 	"rest_time_between_bursts_min"					"0.2"
 	"rest_time_between_bursts_max"					"1.0"
-
+	"npc_vortex_block"								"1"
+	
 	// WeaponED Unhandled Key/Values and custom script Key/Values
 	"sprintcycle_time"								"0.55"
 	"smart_ammo_search_angle" 						"45"

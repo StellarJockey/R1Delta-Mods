@@ -145,6 +145,7 @@ WeaponData
 	"deployfirst_time"								"1.25"
 	"deploycatch_time"								"1.33"
 	"is_anti_titan"  							    "0"
+	"npc_vortex_block"								"1"
 
 	// Crosshair
 	"red_crosshair_range" 							"1500"

@@ -203,6 +203,7 @@ WeaponData
 	"npc_max_burst"   								"1"
 	"rest_time_between_bursts_min"					"0.2"
 	"rest_time_between_bursts_max"					"0.3"
+	"npc_vortex_block"								"1"
 
 	// Icon
 	"hud_icon"										"HUD/dpad_call_in_charge_cannon"

@@ -70,8 +70,6 @@ WeaponData
 	"damage_leg_scale"								"1.0"
 
 	// Damage - When Used by NPCs
-	"rest_time_between_bursts_min"					"0.2"
-	"rest_time_between_bursts_max"					"1.0"
 	"npc_damage_near_distance"						"860" // "900"
 	"npc_damage_far_distance" 						"1150" // "1080"
 	"npc_damage_near_value"   						"40"
@@ -269,8 +267,9 @@ WeaponData
 	"npc_max_range_secondary" 						"2500"
 	"npc_min_burst"   								"3"	//was 3
 	"npc_max_burst"   								"6"	//was 6
-	//"rest_time_between_bursts_min"					"1.0"
-	//"rest_time_between_bursts_max"					"1.0"
+	"rest_time_between_bursts_min"					"0.2" // "1.0"
+	"rest_time_between_bursts_max"					"1.0"
+	"npc_vortex_block"								"1"
 
 	"spread_stand_hip"								"3.5"
 	"spread_stand_hip_run"							"4.5"

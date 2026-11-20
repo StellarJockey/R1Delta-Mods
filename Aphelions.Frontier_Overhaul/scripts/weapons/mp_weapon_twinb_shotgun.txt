@@ -252,11 +252,11 @@ WeaponData
 
 	"npc_min_range"   								"0"
 	"npc_max_range"   								"768"
-
 	"npc_min_burst"									"1"
 	"npc_max_burst"									"1"
 	"rest_time_between_bursts_min"					"0.5"
 	"rest_time_between_bursts_max"					"0.5"
+	"npc_vortex_block"								"1"
 
 
 	"bob_tilt_angle"  								"0.5"

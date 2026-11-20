@@ -129,7 +129,7 @@ WeaponData
 	"sway_turn_down_rotate_pitch" 					"-1"
 
 	// NPC
-	"npc_vortex_block"								"0"
+	"npc_vortex_block"								"1"
 
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
