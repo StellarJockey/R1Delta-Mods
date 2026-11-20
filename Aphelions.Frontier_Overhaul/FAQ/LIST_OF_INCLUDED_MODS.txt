@@ -1,9 +1,15 @@
 The Frontier Overhaul mod currently includes:
 
-    * Nachos' One-Handed Wallrun
-    * Nachos' Weapon Script Fixes
-    * Nachos' Rebreather Masks for Militia Grunts
-    * ASillyNeko's Extended Attrition
+* Nachos' One-Handed Wallrun
+* Nachos' Weapon Script Fixes
+* Nachos' Rebreather Masks for Militia Grunts
+* ASillyNeko's Extended Attrition
 
-* These come included because, taken separately, they will cause scripting conflicts with FO and break the game.
-* This also serves as an unofficial modpack for R1Delta.
+These come included because, taken separately, they will cause scripting conflicts with FO and break the game.
+(This also serves as an unofficial modpack for R1Delta!)
+
+Mods that are currently NOT compatible with FO:
+
+* Yoshi's Titan Transfer Project
+* ynformal's Powder, Metal, and Bone 
+* Gearhead's Frontier Defense 2
