@@ -113,8 +113,8 @@ function PilotSmokeCloud( origin, owner, team )
 	
 	damage.kv.damageSourceId = eDamageSourceId.mp_weapon_smoke_grenade
 	damage.kv.scriptDamageType = DF_ELECTRICAL | DF_NO_HITBEEP
-	damage.kv.iMagnitude = 15
-	damage.kv.iMagnitudeHeavyArmor = 30
+	damage.kv.iMagnitude = 20
+	damage.kv.iMagnitudeHeavyArmor = 40
 	damage.kv.iInnerRadius = 50
 	damage.kv.iRadiusOverride = PILOT_SMOKE_RADIUS
 	damage.SetOrigin( origin )
