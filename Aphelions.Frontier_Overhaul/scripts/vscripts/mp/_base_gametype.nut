@@ -813,6 +813,7 @@ function PlayerOrNPCKilledByEnemy( entity, damageInfo )
 		// Pilot/captain bonus by default; skipped if the occupant fake-ejected
 		if ( GAMETYPE != COOPERATIVE && attacker.IsPlayer() && !ShouldPreventFriendlyFire( entity, attacker )
 			&& !( "npcPilotEjected" in entity.s )
+			&& !( "pilotHandledByExecution" in entity.s )
 			&& damageSourceID != eDamageSourceId.titan_execution )
 		{
 			if ( "pilotIsNPCCaptain" in entity.s )
@@ -826,6 +827,10 @@ function PlayerOrNPCKilledByEnemy( entity, damageInfo )
 	}
 	else
 	{
+		if ( "isPilotProp" in entity.s && attacker.IsPlayer() && damageSourceID == eDamageSourceId.titan_execution
+			&& !ShouldPreventFriendlyFire( entity, attacker ) )
+			PilotPropTerminated( attacker, entity )
+
 		ScoreEvent_NPCKilled( entity, attacker, damageInfo )
 	}
 

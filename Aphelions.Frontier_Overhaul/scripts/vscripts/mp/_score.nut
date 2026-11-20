@@ -1265,6 +1265,20 @@ function AwardPilotTermination( attacker, titan, hadPilot = null, isCaptain = nu
 }
 Globalize( AwardPilotTermination )
 
+// Called when the Pilot prop of an Atlas execution dies. The prop is valid and carries the Pilot's name,
+// unlike the Titan, which has already fallen and been destroyed by this point.
+function PilotPropTerminated( attacker, prop )
+{
+	if ( "pilotTerminationPaid" in prop.s )
+		return
+
+	prop.s.pilotTerminationPaid <- true
+
+	local isCaptain = ( "pilotPropIsCaptain" in prop.s ) ? prop.s.pilotPropIsCaptain : false
+	AwardPilotTermination( attacker, prop, true, isCaptain, false )	// Attrition +4 already comes from the prop kill
+}
+Globalize( PilotPropTerminated )
+
 
 function SavedFromRodeoSpectre( spectreEntity, attacker )
 {

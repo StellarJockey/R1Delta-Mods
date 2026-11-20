@@ -126,7 +126,16 @@ function MeleeThread_TitanVsTitan_Internal( actions, action, attacker, target )
 
 	local awardAttrition = ( func == MeleeThread_OgreVsTitan )
 
+	// Atlas/Stryder: the Titan can be destroyed before the Pilot prop is killed, so by the time this
+	// function resumes the Titan is invalid and the splash has no name. The prop pays the "Terminated"
+	// splash itself when it dies (see PilotPropTerminated in _score.nut), while it is still valid.
+	local propPaysTermination = ( ( func == MeleeThread_AtlasVsTitan || func == MeleeThread_StryderVsTitan ) && target.IsNPC()
+		&& ( "pilotIsNPCCaptain" in target.s || "isFO_Titan" in target.s ) )
+
 	waitthread func( actions, action, attacker, target )
+
+	if ( propPaysTermination )
+		return
 
 	printt( "Titan execution finished: hadPilot=" + hadPilot + " isCaptain=" + isCaptain + " attackerValid=" + IsValid( attacker ) )
 	thread AwardPilotTermination( attacker, IsValid( target ) ? target : null, hadPilot, isCaptain, awardAttrition )
@@ -416,11 +425,19 @@ function MeleeThread_TitanRipsPilot( e, actions, action, attacker, target )
 	    prop.SetOrigin( target.GetOrigin() )
 	    prop.SetInvulnerable()
 	    prop.SetTeam( target.GetTeam() )
-		prop.SetTitle( target.GetName() )
+
+		local pilotName = target.GetName()
+		prop.SetTitle( pilotName )
+		prop.SetName( pilotName )
+		prop.s.pilotName <- pilotName
+
 	    prop.SetModel( attackerViewBody.GetModelName() )
 
 		if ( ( "pilotIsNPCCaptain" in target.s) || ( "isFO_Titan" in target.s ) )
+		{
 			prop.s.isPilotProp <- true
+			prop.s.pilotPropIsCaptain <- ( "pilotIsNPCCaptain" in target.s )
+		}
 	}
 
 	local soul = targetTitan.GetTitanSoul()
@@ -443,9 +460,10 @@ function MeleeThread_TitanRipsPilot( e, actions, action, attacker, target )
 	}
 	else if ( IsValid( prop ) )
 	{
-	    prop.SetOwner( attacker )
-	    prop.kv.VisibilityFlags = 6 //owner cant see
-	    target = prop
+		prop.SetOwner( attacker )
+		prop.kv.VisibilityFlags = 6 //owner cant see
+		targetTitan.s.pilotHandledByExecution <- true   // Titan death must not pay pilot bonus
+		target = prop
 	}
 	e.targetTitan <- targetTitan
 	if ( GameRules.GetGameMode() == ATTRITION )
