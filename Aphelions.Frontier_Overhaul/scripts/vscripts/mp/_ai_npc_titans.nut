@@ -94,6 +94,7 @@ function main()
 	AddDamageCallback( "npc_soldier", NoPain )
 	AddDamageCallback( "npc_titan", AutoTitan_NuclearPayload_DamageCallback )
 	AddCallback_OnTitanDoomed( AutoTitan_FakeEject_OnDoomed )
+	AddCallback_OnTitanEject( FakeEject_NPC_Pilot )
 
 	RegisterSignal( "TitanHotDropComplete" )
 	RegisterSignal( "DisableRocketPods" )
@@ -357,6 +358,7 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 {
     local isTitanBrawl = ( GameRules.GetGameMode() == TITAN_BRAWL )
     local pilot = null
+	local pilotInfo = null
     local title = GetRandomPilotName( team )
 
 	local pilotmodels = file.pilotmodels
@@ -410,9 +412,11 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
 		SetNPCAsPilot( pilot, true )
 
 		local model = ChoosePilotModelForWeapon( team, pilotWeapon )
+		pilotInfo = { name = title, weapon = pilotWeapon, model = model }
+
     	pilot.SetModel( model )
 		thread PilotReveal( pilot )
-		
+	
 		SniperCloak( pilot )
 		pilot.SetCloakDuration( 0, 3.0, 1.0 )		
     }
@@ -462,6 +466,9 @@ function CreateTitanForTeam( team, spawnPoint, spawnOrigin, spawnAngles )
     
 	titan.s.isTitan <- true
 	titan.s.isFO_Titan <- true
+
+	if ( pilotInfo != null )
+		titan.s.pilotInfo <- pilotInfo
 
     local weaponMods = []
     local weaponModPools = {
@@ -1615,7 +1622,7 @@ function DecayNPCDomeShield( titan, delay )
 
 
 ///////////////////////////////////////////////////////////
-////////////// FAKE EJECT SEQUENCE HELPER /////////////////
+////////////// FAKE EJECT SEQUENCE HELPERS ////////////////
 ///////////////////////////////////////////////////////////
 
 function AutoTitan_FakeEject_OnDoomed( titan, damageInfo )
@@ -1631,7 +1638,7 @@ function AutoTitan_FakeEject_OnDoomed( titan, damageInfo )
 		return
 
 	// Only FO's Titans that carry an NPC occupant
-	if ( !( "isFO_Titan" in titan.s ) && !( "pilotIsNPCCaptain" in titan.s ) )
+	if ( !( "isFO_Titan" in titan.s ) )
 		return
 
 	// Nuke Titans have their own eject trigger
@@ -1667,4 +1674,99 @@ function AutoTitan_FakeEject_Think( titan )
 
 		wait pollInterval
 	}
+}
+
+function FakeEject_NPC_Pilot( player, soul )
+{
+	// callback also fires for real player Titans
+	if ( player != null || !IsValid( soul ) )
+		return
+
+	local titan = soul.GetTitan()
+	if ( !IsValid( titan ) )
+		return
+
+	// only Titans that were created with a stashed pilot (not Titan Brawl)
+	if ( !( "pilotInfo" in titan.s ) )
+		return
+
+	if ( "pilotFakeEjected" in titan.s ) // avoid any double ejects
+		return
+
+	titan.s.pilotFakeEjected <- true
+
+	local inDeepWater = ( "isInDeepWater" in titan.s && titan.s.isInDeepWater )
+	thread FakeEject_NPC_PilotThread( titan.GetTeam(), titan.GetOrigin(), titan.GetAngles(), titan.s.pilotInfo, NPC_GetNuclearPayload( titan ), inDeepWater )
+}
+
+function FakeEject_NPC_PilotThread( team, titanOrigin, titanAngles, info, nuclearPayload, inDeepWater )
+{
+	local ejectDuration = 0.8
+	if ( nuclearPayload )
+		ejectDuration = 1.6
+	wait 0.15 + ( ejectDuration - 0.4 )
+
+	// recreate the pilot from the stashed values (mirrors CreateTitanForTeam)
+	local pilot = CreateEntity( "npc_soldier" )
+	pilot.SetOrigin( titanOrigin + Vector( 0, 0, 120 ) )  // roughly cockpit height
+	pilot.SetAngles( Vector( 0, titanAngles.y, 0 ) )
+	pilot.SetTeam( team )
+	pilot.kv.squadname = "npc_pilot_squad_" + file.pilotSquadCount++
+
+	if ( "s" in pilot && "IsSoldier" in pilot.s )
+		pilot.s.IsSoldier <- false
+	pilot.s.isPilot <- true
+
+	GiveMinionWeapon( pilot, info.weapon )
+	DispatchSpawn( pilot )
+
+	pilot.SetModel( info.model )
+	pilot.SetTitle( info.name )
+	pilot.SetName( info.name )
+	pilot.s.pilotName <- info.name
+
+	pilot.SetMaxHealth( 200 )
+	pilot.SetHealth( 200 )
+	pilot.AllowFlee( false )
+
+	AssignNPCPilotTacAbility( pilot )
+
+	// ---- launch: same math as TitanEjectPlayer ----
+	local ejectAngles = titanAngles
+	ejectAngles.x = 270
+
+	local speed = RandomInt( 1500, 1700 )
+	if ( nuclearPayload )
+		speed += 400
+	if ( inDeepWater )
+		speed += 1000
+
+	local velocity = ejectAngles.AnglesToForward() * speed
+
+	// don't get caught on the Titan / its eject explosion on the way out
+	pilot.DisableBehavior( "Assault" )
+	pilot.DisableBehavior( "Follow" )
+	pilot.Anim_Stop()
+	pilot.SetInvulnerable()
+	pilot.NotSolid()
+	pilot.SetVelocity( velocity )
+
+	thread FakeEject_NPC_PilotLanding( pilot )
+}
+
+function FakeEject_NPC_PilotLanding( pilot )
+{
+	pilot.EndSignal( "OnDestroy" )
+	pilot.EndSignal( "OnDeath" )
+
+	// clear the Titan's eject explosion first (it fires 0.15s after launch)
+	wait 0.4
+	pilot.Solid()
+	pilot.ClearInvulnerable()
+
+	// let it fly, then hand the AI back
+	wait 1.0
+	pilot.EnableBehavior( "Assault" )
+	pilot.EnableBehavior( "Follow" )
+	thread NPCPilotRoamThink( pilot )
 }

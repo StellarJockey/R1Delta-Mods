@@ -103,6 +103,7 @@ function Attrition_OnPlayerOrNPCKilled( victim, attacker, damageInfo )
 	{
 		if ( ( "isFO_Titan" in victim.s || "pilotIsNPCCaptain" in victim.s )
 			&& !( "npcPilotEjected" in victim.s )
+			&& !( "pilotHandledByExecution" in victim.s )
 			&& damageInfo.GetDamageSourceIdentifier() != eDamageSourceId.titan_execution )
 			Attrition_AwardPilotTermination( attacker, victim )
 

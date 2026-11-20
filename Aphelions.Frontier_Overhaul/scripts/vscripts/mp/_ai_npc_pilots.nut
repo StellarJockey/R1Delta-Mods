@@ -394,7 +394,7 @@ function UseNPCPilotTacAbility( npc )
 			npc.s.tacNextUseTime = Time() + 2.0 // failed the roll, try again soon
 			return
 		}
-		duration = NPC_TAC_CLOAK_DURATION
+		duration = RandomFloat( 3.5, NPC_TAC_CLOAK_DURATION )
 		thread NPCPilotCloak( npc, enemy, duration )
 	}
 	else if ( "stimPilot" in npc.s )
@@ -674,6 +674,7 @@ function NPCPilotRoamThink( npc )
 			SendAIToAssaultPoint( npc, dest, null, 256 )
 	}
 }
+Globalize( NPCPilotRoamThink )
 
 function FindNPCRoamPoint( npc )
 {
