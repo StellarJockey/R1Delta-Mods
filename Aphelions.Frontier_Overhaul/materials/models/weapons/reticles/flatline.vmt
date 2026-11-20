@@ -1,0 +1,47 @@
+UnlitTwoTexture
+{
+	"$nocull" "1"
+	"$nodecal" "1"
+	"$no_fullbright" 1
+	"$model" "1"
+	"$nofog" "1"
+	"$allowoverbright" "1"
+	"$translucent" "1"
+
+	"$basetexture" "models\weapons\reticles\flatline"
+	"$Texture2" "dev\noise_post"
+	"$color" "[1 1 1]"
+	"$color2" "[8.31373 8.31373 8.31373]"
+
+	"$t2offset" 0
+	"$t2scale" 6
+	"$t2rot" 0
+	"$scroll" "[0 1]"
+
+	"Proxies"
+	{
+		"UniformNoise"
+		{
+			"minVal" 0.5
+			"maxVal" 1
+			"resultVar" "$scroll[0]"
+		}
+		"UniformNoise"
+		{
+			"minVal" 0.5
+			"maxVal" 1
+			"resultVar" "$scroll[1]"
+		}
+		"TextureTransform"
+		{
+			"translateVar" "$scroll"
+			"scaleVar" "$t2scale"
+			"rotateVar" "$t2rot"
+			"resultvar" "$texture2transform"
+		}
+		"HoloSight"
+		{
+			resultVar $alpha
+		}
+	}
+}

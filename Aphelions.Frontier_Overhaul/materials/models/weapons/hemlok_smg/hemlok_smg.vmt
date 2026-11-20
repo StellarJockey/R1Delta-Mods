@@ -13,7 +13,7 @@
 	"$reflectiontintshininess" "models\weapons\hemlok_smg\hemlok_smg_spc"
 	"$reflectiontintcolor" "1"
 	"$fresnelamount" "1"
-	"$fresnelintensity" "10"
+	"$fresnelintensity" "11"
 	"$fresnelcurvesharpness" "1"
 	"$envmapfresnel" "1"
 	"$envmapLambertian" "3"
