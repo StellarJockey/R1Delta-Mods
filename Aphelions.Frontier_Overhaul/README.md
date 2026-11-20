@@ -1,11 +1,9 @@
-(Thank you to ASillyNeko and Frann for making the original Extended Attrition mod!)
-
 **FRONTIER OVERHAUL** is a heavily modified version of Extended Attrition. This is meant to be an immersive, hardcore solo experience, like playing the TF|2 campaign on Master difficulty. This was NOT designed for PvP servers. NPCs are now an actual threat and will kill you very quickly. You'll need to pick and choose your battles, use cover, and retreat when necessary to survive.
 
 
 Supported Game Modes:
 -
-Campaign, Attrition, Hardpoint, Frontier Defense, and Titan Brawl. Friends can also join your games for co-op sessions.
+Campaign, Attrition, Hardpoint, Frontier Defense, and Titan Brawl. Friends can also join your games for co-op sessions!
 
 
 NPC Features:
@@ -17,26 +15,24 @@ NPC Features:
 * New Combat Drone enemy type
 * Destroyer Titan as a rare NPC mini-boss (temporarily disabled)
 * All NPC weapons will do the same damage as the player's
-* Grunts have a bit more health now
-* Grunts will capture points faster in Hardpoint
-
+* Grunts have a bit more health now and will capture points faster in Hardpoint
 
 Weapon Features:
 -
 * New Pilot Primaries: M-18 Volt SMG and V-47 Flatline
 * New Pilot Sidearm: Wingman Elite
-* New Pilot Ordnances: Electric Smoke Grenade and Throwing Knife
+* New Pilot Ordnance: Electric Smoke Grenade and Throwing Knife
 * New Pilot Tacticals: Deployable Cover and Hologram
-* New Titan Weapon: AG-8 Thunderbolt minigun (re-worked)
+* New Titan Weapon: AG-8 Thunderbolt minigun (reworked)
 * Restored Titan Ordnance: Shoulder Turret
-* Exclusive weapon mods/attachments with unique icons
+* Exclusive weapon mods/attachments with handmade icons
 * Added XP Stealth Bonus for getting kills with certain suppressed weapons or the throwing knife on an enemy who doesn't have LOS on you
 * Extensive weapon rebalancing (see `Aphelions.Frontier_Overhaul\FAQ\WEAPON\_CHANGES.txt`)
 
 
 FO's Legacy NPC Pilots and Titans
 -
-* Bot players have been created for R1Delta outside of this mod. However, if there are only 4 or fewer players/bots in the match, FO's original NPC Pilots and Titans will spawn instead. The NPC "Pilots" are essentially just re-skinned Grunts I tricked the game into treating like players, although the bots' advanced movement was never possible to program for them. They have a 15% chance to spawn along Grunts in drop pods (à la Battle of Demeter). They can also (kinda) use Pilot tacticals such as cloak, stim, hologram, and deployable cover.
+* Bot players have been created for R1Delta through Wulfheart's **Pilot Bots** mod. However, if there are only 4 or fewer players/bots in the match, FO's original NPC Pilots and Titans will spawn instead. The NPC "Pilots" are essentially just re-skinned Grunts I tricked the game into treating like players, although the bots' advanced movement was never possible to program for them. They have a 15% chance to spawn along Grunts in drop pods (à la Battle of Demeter). They can also (kinda) use Pilot tacticals such as cloak, stim, hologram, and deployable cover.
 * There is also a rare chance for a squad of spec-ops variants to spawn called Ghost Pilots. They function almost identically to Sniper Spectres. The only difference is that they're even less common and will have suppressed versions of any primary, not just snipers, and will not appear on the minimap.
 
 
@@ -83,3 +79,5 @@ Good luck, have fun!
 That's an order.
 
 **Mod contributors**: ASillyNeko, Frann, 07zj, NachosChipeados, StoneCold, Wulfheart, sgtmajorjefferson, Claude (AI), Claire, ynformal, and Aphelion
+
+(Thank you to ASillyNeko and Frann for making the original Extended Attrition mod!)
