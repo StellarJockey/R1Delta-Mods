@@ -124,6 +124,7 @@ WeaponData
 	"npc_max_range_secondary" 						"3500"
 	"npc_min_burst"   								"10"
 	"npc_max_burst"   								"20"
+	"npc_vortex_block"								"1"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
 	"sway_turn_angle_factor"  						".3"
