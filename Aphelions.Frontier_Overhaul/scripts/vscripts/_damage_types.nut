@@ -143,12 +143,13 @@ enum eDamageSourceId
 	mp_titanweapon_minigun
 	mp_titanweapon_charge_cannon
 	mp_weapon_throwing_knife
-	mp_weapon_deployable_cover
-	mp_weapon_hologram
+	mp_ability_deployable_cover
+	mp_ability_hologram
 	mp_weapon_wingman_elite
 	mp_weapon_volt
 	mp_weapon_flatline
 	mp_weapon_smoke_grenade
+	mp_weapon_bow
 
 	//damageSourceId=eDamageSourceId.xxxxx
 	//fireteam
@@ -223,6 +224,8 @@ damageSourceStrings[ eDamageSourceId.mp_ability_cloak ] 				<- "Cloak"
 damageSourceStrings[ eDamageSourceId.mp_ability_emp ] 					<- "EMP"
 damageSourceStrings[ eDamageSourceId.mp_ability_sonar ] 				<- "Active Sonar Pulse"
 damageSourceStrings[ eDamageSourceId.mp_ability_heal ] 					<- "Health"
+damageSourceStrings[ eDamageSourceId.mp_ability_deployable_cover ] 		<- "Deployable Cover"
+damageSourceStrings[ eDamageSourceId.mp_ability_hologram ] 				<- "Hologram"
 
 
 damageSourceStrings[ eDamageSourceId.mp_weapon_laser_mine ]				<- "#WPN_LASER_MINE"
@@ -323,6 +326,7 @@ damageSourceStrings[ eDamageSourceId.mp_weapon_wingman_elite ] 					<- "Wingman 
 damageSourceStrings[ eDamageSourceId.mp_weapon_volt ] 					<- "M-18 Volt SMG"
 damageSourceStrings[ eDamageSourceId.mp_weapon_flatline ] 				<- "V-47 Flatline"
 damageSourceStrings[ eDamageSourceId.mp_weapon_smoke_grenade ] 			<- "Electric Smoke Grenade"
+damageSourceStrings[ eDamageSourceId.mp_weapon_bow ] 					<- "Bocek Compound Bow"
 
 //When adding new mods, they need to be added below and to persistent_player_data_version_N.pdef in r1/cfg/server.
 //Then when updating that file, save a new one and increment N.
@@ -424,6 +428,7 @@ enum eModSourceId
 	burn_mod_wingman_elite
 	burn_mod_volt
 	burn_mod_flatline
+	burn_mod_bow
 }
 
 //Attachments intentionally left off. This prevents them from displaying in kill cards.
@@ -507,3 +512,4 @@ modNameStrings[ eModSourceId.gunslinger] 					<- "Gunslinger"
 modNameStrings[ eModSourceId.burn_mod_wingman_elite] 		<- "Amped Wingman Elite"
 modNameStrings[ eModSourceId.burn_mod_volt ] 				<- "Amped Volt"
 modNameStrings[ eModSourceId.burn_mod_flatline ]			<- "Amped Flatline"
+modNameStrings[ eModSourceId.burn_mod_bow ]					<- "Amped Bocek"

@@ -4215,3 +4215,356 @@
 	}
 
 }
+
+
+///////////////
+// BOCEK BOW //
+///////////////
+
+"Weapon_Bow.Fire"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Gunfire"
+	"volumescale"		"1"
+	"flags"				"layered"
+
+	"rndwave"
+	{
+		"volume"			"4"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Wpn_Bow_1p_Fire_KaSnap_2ch_v1_01.wav"
+		"wave"				"weapons\compound_bow\Wpn_Bow_1p_Fire_KaSnap_2ch_v1_02.wav"
+		"wave"				"weapons\compound_bow\Wpn_Bow_1p_Fire_KaSnap_2ch_v1_03.wav"
+	}
+
+	"rndwave"
+	{
+		"volume"			"3.2"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Wpn_Bow_1p_Fire_DeepThump_2ch_v1_01.wav"
+		"wave"				"weapons\compound_bow\Wpn_Bow_1p_Fire_DeepThump_2ch_v1_02.wav"
+		"wave"				"weapons\compound_bow\Wpn_Bow_1p_Fire_DeepThump_2ch_v1_03.wav"
+	}
+
+	"rndwave"
+	{
+		"volume"			"2.4"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Wpn_Bow_1p_Fire_WhooshHigh_2ch_v1_01.wav"
+	}
+}
+
+"Weapon_Bow.Fire_3P"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Gunfire"
+	"volumescale"		"1"
+	"flags"				"layered"
+
+	"rndwave"
+	{
+		"volume"			"4"
+		"flags"				"spatialized"
+		"panwidth"			"45"
+		"folddownDistance"	"200"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"10"
+		"falloffEnd"		"1200"
+		"falloffCurve"		"5"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Fire_Close_3p_V1_2ch_01.wav"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Fire_Close_3p_V1_2ch_02.wav"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Fire_Close_3p_V1_2ch_03.wav"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Fire_Close_3p_V1_2ch_04.wav"
+	}
+
+	"rndwave"
+	{
+		"volume"			"3.2"
+		"flags"				"spatialized"
+		"panwidth"			"45"
+		"folddownDistance"	"200"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"10"
+		"falloffEnd"		"3000"
+		"falloffCurve"		"5"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Wpn_Bow_3p_Fire_Mid_2ch_v1_01.wav"
+		"wave"				"weapons\compound_bow\Wpn_Bow_3p_Fire_Mid_2ch_v1_02.wav"
+		"wave"				"weapons\compound_bow\Wpn_Bow_3p_Fire_Mid_2ch_v1_03.wav"
+		"wave"				"weapons\compound_bow\Wpn_Bow_3p_Fire_Mid_2ch_v1_04.wav"
+	}
+}
+
+"Weapon_Bow.Draw"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+	"flags"				"layered"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Draw_v5_01.wav"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Draw_v5_02.wav"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Draw_v5_03.wav"
+	}
+
+	"rndwave"
+	{
+		"volume"			"0.5"
+		"flags"				"spatialized"
+		"panwidth"			"45"
+		"folddownDistance"	"200"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"10"
+		"falloffEnd"		"600"
+		"falloffCurve"		"5"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Draw_v5_01.wav"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Draw_v5_02.wav"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Draw_v5_03.wav"
+	}
+}
+
+"Weapon_Bow.Dryfire"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Apex_Weapon_Bow_Dryfire_2ch_v1_01.wav"
+	}
+}
+
+"Weapon_Bow.ADS_In"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_ADS_IN_WpmFoley_V1_2ch_01.wav"
+	}
+}
+
+"Weapon_Bow.ADS_Out"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_ADS_OUT_WpnFoley_V1_2ch_01.wav"
+	}
+}
+
+"weapon_Bow_Draw_VM"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_draw_VM_V1_2ch_01.wav"
+	}
+}
+
+"weapon_Bow_Raise"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_raise_V1_2ch_01.wav"
+	}
+}
+
+"weapon_Bow_Lower"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_lower_V1_2ch_01.wav"
+	}
+}
+
+"weapon_Bow_drawfirst_Pt1"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+	"flags"				"layered"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_Drawfirst_WpnFoley_Pt1_V1_2ch_01.wav"
+	}
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_Drawfirst_Gearfoley_Pt1_V1_2ch_01.wav"
+	}
+}
+
+"weapon_Bow_drawfirst_Pt2"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+	"flags"				"layered"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_Drawfirst_WpnFoley_Pt2_V1_2ch_01.wav"
+	}
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_Drawfirst_Gearfoley_Pt2_V1_2ch_01.wav"
+	}
+}
+
+"weapon_Bow_drawfirst_Pt3"
+{
+	"mixgroup"			"weapon,SFX,SFX_Weapons,SFX_Weapons_Pilot_1P,SFX_Weapons_Pilot_1P_Foley"
+	"volumescale"		"1"
+	"flags"				"layered"
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_Drawfirst_WpnFoley_Pt3_V1_2ch_01.wav"
+	}
+
+	"rndwave"
+	{
+		"volume"			"1"
+		"startDistance"		"0"
+		"peakDistance"		"0"
+		"startCurve"		"0"
+		"falloffStart"		"100"
+		"falloffEnd"		"100"
+		"falloffCurve"		"0"
+		"clampVolume"		"0"
+		"wave"				"weapons\compound_bow\Weapons_Bow_Drawfirst_Gearfoley_Pt3_V1_2ch_01.wav"
+	}
+}

@@ -37,6 +37,9 @@ SPITFIRE:
 * Range buff
 * Added Cyclic Receiver mod (ADS and reload are slower than the Burn Card version)
 
+BOCEK BOW:
+* Added gearhead's port of the Bocek from Apex Legends
+
 V-47 FLATLINE:
 * Added the Flatline assault rifle from Titanfall 2
 

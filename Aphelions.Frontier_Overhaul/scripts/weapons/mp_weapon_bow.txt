@@ -1,0 +1,445 @@
+WeaponData
+{
+	// General
+	"printname"   									"Bocek Compound Bow"
+	"shortprintname"   								"Bocek"
+	"description" 									"Silent marksman bow"
+	"longdesc"										"The BX-70 'Bocek' is a mechanical bow used in hunting and sporting events. It has been fitted with armor penetrating arrowheads. A full draw fires the arrow faster and will silently one-shot human targets."
+	"weaponClass" 									"human"
+	"body_type"										"designated_marksman"
+	"fire_mode"   									"semi-auto"
+	"server_vscript"  								"weapons/mp_weapon_bow"
+	"client_vscript"  								"weapons/mp_weapon_bow"
+	"projectile_vscript"							"weapons/mp_projectile_weapon_bow"
+	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
+	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
+	"minimap_reveal_distance"						"1"
+
+	// Menu Stats
+	"stat_damage" 									"95"
+	"stat_range"  									"90"
+	"stat_accuracy"   								"80"
+	"stat_rof"										"15"
+
+	// Models
+	"viewmodel"   									"models/weapons/compound_bow/ptpov_compound_bow.mdl"
+	"playermodel" 									"models/weapons/compound_bow/w_compound_bow.mdl"
+	"anim_prefix" 									"ar2"
+	"projectilemodel"								"models/weapons/bullets/w_arrow_projectile.mdl"
+	// Apex's arrow tracer, made by the weapon-port pipeline (weapons/bocek.py arrow_tracer)
+	"projectile_trail_effect_0"								"P_tracer_proj_arrow"
+
+	// Effects
+	"vortex_absorb_effect"							"wpn_vortex_projectile_rifle_FP"
+	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rifle"
+	"vortex_absorb_sound"							"Vortex_Shield_AbsorbBulletLarge"
+	"adjust_to_gun_barrel"							"1"
+
+	// Sounds
+	"sound_dryfire"									"Weapon_Bow.Dryfire"
+	"fire_sound_1_player_1p"						"Weapon_Bow.Fire"
+	"fire_sound_1_player_3p"						"Weapon_Bow.Fire_3P"
+	"fire_sound_1_npc"								"Weapon_Bow.Fire_3P"
+
+	// Network
+	"net_optimize"		                            "1"
+
+	// Damage - When Used by Players
+	"damage_type" 									"bullet"
+	"damage_near_distance"							"1000"
+	"damage_far_distance" 							"2500"
+	"damage_near_value"   							"60"
+	"damage_far_value"								"60"
+	"damage_near_value_titanarmor"					"40"
+	"damage_far_value_titanarmor" 					"40"
+	"damage_rodeo" 									"300"
+
+	// The values above are an arrow loosed with no draw. A full draw deals these instead;
+	// weapons/_bow.nut scales the damage in proportion to the draw.
+	"damage_full_charge"							"160"
+	"damage_full_charge_titanarmor"					"100"
+
+	// Arrow speed with no draw and at full draw. Apex uses 10000 and 27000, but this engine
+	// refuses projectiles faster than sv_maxvelocity (12100). Both are scaled by 0.444 and
+	// gravity by 0.444 squared (Apex settles at 2.75), so an arrow drops as far over a given
+	// distance as it does in Apex and only takes longer to arrive.
+	"projectile_launch_speed"						"4450"
+	"projectile_launch_speed_full_charge"			"12000"
+	"projectile_gravity_scale"						"0.55"
+
+	// With damage_full_charge 160, headshots do 320 and chest shots do 224
+	// Ex: 160 * 1.4 = 224
+	"damage_headshot_scale"							"2.0"
+	"damage_torso_scale"							"1.4"
+	"damage_arm_scale"								"1.0"
+	"damage_leg_scale"								"1.0"
+
+	// Damage - When Used by NPCs
+	"npc_damage_near_distance"						"1000"
+	"npc_damage_far_distance" 						"2500"
+	"npc_damage_near_value"   						"160" // "40"
+	"npc_damage_far_value"							"160" // "40"
+
+	"critical_hit_damage_scale"						"2.0"
+	"critical_hit"									"1"
+
+	// Ammo
+	"ammo_stockpile_max"							"40"
+	"ammo_clip_size"   								"40"
+	"ammo_default_total"							"40"
+
+	// Behavior
+	"fire_rate"   									"2.5"
+	"zoom_time_in"									"0.5"
+	"zoom_time_out"   								"0.5"
+	"zoom_fov"										"55"
+	"holster_time"									"0.5"
+	"deploy_time" 									"0.6"
+	"lower_time"  									"0.4"
+	"raise_time"  									"0.5"
+
+	"bow_draw_time"									"0.567"
+	// The draw animation reaches full draw on frame 17 of 30 per second.
+	// The engine's charge runs far longer than the draw and only times how long the string
+	// has been held; mp_weapon_bow.nut turns that into the draw. A charge that runs out
+	// while attack is held fires only about half the time on release (measured), so the
+	// charge must not run out: the bow looses by itself after this many seconds.
+
+	"charge_time"									"20.0"
+	"charge_cooldown_time"							"0.3"
+	"charge_cooldown_delay"							"0.1"
+	"charge_end_forces_fire"						"1"
+	"bypass_semiauto_hold_protection"				"1"
+	"vortex_refire_behavior"  						"bullet"
+	"allow_empty_fire"								"0"
+	"reload_enabled"  								"0"
+	"allow_empty_click"   							"1"
+	"empty_reload_only"   							"0"
+	"trigger_snipercam"   							"0"
+	"allow_headshots" 								"1"
+	"headshot_distance" 							"11828"
+	"primary_fire_does_not_block_sprint"			"0"
+	"ads_move_speed_scale"							"0.85"
+	"aimassist_disable_hipfire"						"0"
+	"aimassist_disable_ads"							"0"
+	"aimassist_disable_hipfire_titansonly"			"1"
+	"aimassist_disable_ads_titansonly"				"1"
+	"move_speed_modifier" 							"1.00"//Bug with move speed > 1.0, temporary work around.
+
+	// Spread
+	"spread_npc"  									"1"
+
+	// View Kick
+	"viewkick_spring" 								"semisniper"
+
+	"viewkick_pitch_base" 							"-1.35"
+	"viewkick_pitch_random"   						"0.3"
+	"viewkick_pitch_softScale"						"1.4"
+	"viewkick_pitch_hardScale"						"0.65"
+
+	"viewkick_yaw_base"   							"-0.4"
+	"viewkick_yaw_random" 							"0.2"
+	"viewkick_yaw_softScale"  						"1.4"
+	"viewkick_yaw_hardScale"  						"0.3"
+
+	"viewkick_roll_base"  							"0.0"
+	"viewkick_roll_randomMin" 						"0.25"
+	"viewkick_roll_randomMax" 						"0.5"
+	"viewkick_roll_softScale" 						"0.35"
+	"viewkick_roll_hardScale" 						"1.15"
+
+	"viewkick_hipfire_weaponFraction" 				"0.3"
+	"viewkick_hipfire_weaponFraction_vmScale" 		"0.9"
+	"viewkick_ads_weaponFraction" 					"0.35"
+	"viewkick_ads_weaponFraction_vmScale" 			"0.85"
+
+	"viewkick_perm_pitch_base" 						"-0.0"
+	"viewkick_perm_pitch_random"   					"0.0"
+	"viewkick_perm_yaw_base"   						"0.0"
+	"viewkick_perm_yaw_random" 						"0.0"
+
+//	"viewkick_scale_firstshot_hipfire"				"0.0"
+	"viewkick_scale_firstshot_ads"					"1.0"
+	"viewkick_scale_min_hipfire"  					"1.0"
+	"viewkick_scale_max_hipfire"  					"1.0"
+	"viewkick_scale_min_ads"  						"1.0"
+	"viewkick_scale_max_ads"  						"1.5"
+	"viewkick_scale_valuePerShot" 					"1"
+	"viewkick_scale_valueLerpStart"   				"0"
+	"viewkick_scale_valueLerpEnd" 					"3"
+	"viewkick_scale_valueDecayDelay"  				"0.15"
+	"viewkick_scale_valueDecayRate"   				"30"
+
+	//
+	"viewmodel_shake_forward"						"0.5"
+	"viewmodel_shake_up"							"0.2"
+	"viewmodel_shake_right"							"0.0"
+
+	// Bob
+	"bob_cycle_time"  								"0.45"
+	"bob_vert_dist"   								"0.075"
+	"bob_horz_dist"   								"0.05"
+	"bob_max_speed"   								"150"
+	"bob_pitch"   									"0.75"
+	"bob_yaw" 										"1"
+	"bob_roll"										"-0.75"
+
+	// View Drift
+	"viewdrift_hipfire_stand_scale_pitch" 			"0.0" // "0.6"
+	"viewdrift_hipfire_stand_scale_yaw"   			"0.0" //"0.75"
+	"viewdrift_hipfire_crouch_scale_pitch"  		"0.0" //"0.4"
+	"viewdrift_hipfire_crouch_scale_yaw"			"0.0" //"0.55"
+	"viewdrift_hipfire_air_scale_pitch"   			"0.0" //"0.8"
+	"viewdrift_hipfire_air_scale_yaw" 				"0.0" //"1.1"
+	"viewdrift_hipfire_speed_pitch"   				"0.0" //"0.73"
+	"viewdrift_hipfire_speed_yaw" 					"0.0" //"0.9"
+
+	"viewdrift_ads_stand_scale_pitch" 				"0.4"
+	"viewdrift_ads_stand_scale_yaw"   				"0.55"
+	"viewdrift_ads_crouch_scale_pitch"  			"0.25"
+	"viewdrift_ads_crouch_scale_yaw"				"0.4"
+	"viewdrift_ads_air_scale_pitch"   				"0.7"
+	"viewdrift_ads_air_scale_yaw" 					"0.85"
+	"viewdrift_ads_speed_pitch"   					"0.65"
+	"viewdrift_ads_speed_yaw" 						"0.75"
+
+	// Rumble
+	"fire_rumble"									"pilot_singleshot_strong_fire"
+
+	// Sway
+	"sway_rotate_attach"  							"SWAY_ROTATE"
+	"sway_min_x"  									"-0.3"
+	"sway_min_y"  									"-0.5"
+	"sway_min_z"  									"-0.5"
+	"sway_max_x"  									"0.3"
+	"sway_max_y"  									"0.5"
+	"sway_max_z"  									"0.1"
+	"sway_min_pitch"  								"-3"
+	"sway_min_yaw"									"-3.5"
+	"sway_min_roll"   								"-2"
+	"sway_max_pitch"  								"3"
+	"sway_max_yaw"									"3.5"
+	"sway_max_roll"   								"3"
+	"sway_translate_gain" 							"10"
+	"sway_rotate_gain"								"12"
+	"sway_move_forward_translate_x"   				"0"
+	"sway_move_forward_translate_z"   				"-0.5"
+	"sway_move_back_translate_x"  					"-2"
+	"sway_move_back_translate_z"  					"-1"
+	"sway_move_left_translate_y"  					"-1"
+	"sway_move_left_translate_z"  					"-0.5"
+	"sway_move_left_rotate_roll"  					"-2"
+	"sway_move_right_translate_y" 					"1"
+	"sway_move_right_translate_z" 					"-0.5"
+	"sway_move_right_rotate_roll" 					"4"
+	"sway_move_up_translate_z"						"-1"
+	"sway_move_down_translate_z"  					"1"
+	"sway_turn_left_rotate_yaw"   					"-1"
+	"sway_turn_right_rotate_yaw"  					"1"
+	"sway_turn_up_rotate_pitch"   					"1"
+	"sway_turn_down_rotate_pitch" 					"-1"
+
+	// Zoomed Sway
+	"sway_rotate_attach_zoomed"						"SWAY_ROTATE_ZOOMED"
+	"sway_rotate_attach_blend_time_zoomed"			"0.2"
+	"sway_rotate_gain_zoomed"						"12"
+
+	"sway_min_yaw_zoomed"							"-0.03"
+	"sway_max_yaw_zoomed"							"0.03"
+	"sway_turn_left_rotate_yaw_zoomed"				"-0.085"
+	"sway_turn_right_rotate_yaw_zoomed"				"0.085"
+
+	"sway_min_pitch_zoomed"  						"-0.01"
+	"sway_max_pitch_zoomed"  						"0.01"
+	"sway_turn_up_rotate_pitch_zoomed"				"0.09"
+	"sway_turn_down_rotate_pitch_zoomed"			"-0.09"
+
+
+	// NPC
+	"proficiency_poor_spreadscale"					"7.0"
+	"proficiency_poor_bias"   						"0.75"
+	"proficiency_average_spreadscale" 				"5.0"
+	"proficiency_average_bias"						"0.9"
+	"proficiency_good_spreadscale"					"3.33333"
+	"proficiency_good_bias"   						"0.9"
+	"proficiency_very_good_spreadscale"   			"1.66667"
+	"proficiency_very_good_bias"  					"0.9"
+	"proficiency_perfect_spreadscale" 				"1.0"
+	"proficiency_perfect_bias"						"1.0"
+
+	"npc_min_range"   								"0"
+	"npc_max_range"   								"4000"
+	"npc_min_range_secondary" 						"0"
+	"npc_max_range_secondary" 						"2500"
+	"npc_min_burst"   								"1"
+	"npc_max_burst"   								"1"
+	"rest_time_between_bursts_min"					"0.5" // "1.0"
+	"rest_time_between_bursts_max"					"1.5"
+
+	// WeaponED Unhandled Key/Values and custom script Key/Values
+	"spread_stand_hip"								"2.2"
+	"spread_stand_hip_run"							"2.24"
+	"spread_stand_hip_sprint"                       "3.2"
+	"spread_crouch_hip"   							"1.8"
+	"spread_air_hip"  								"2.8"
+
+	"spread_stand_ads"								"0.0"
+	"spread_crouch_ads"   							"0.0"
+	"spread_air_ads"  								"2.8"
+
+	"spread_kick_on_fire_stand_hip"   				"0"
+	"spread_kick_on_fire_crouch_hip"  				"0"
+	"spread_kick_on_fire_air_hip" 					"0"
+
+	"spread_kick_on_fire_stand_ads"   				"0"
+	"spread_kick_on_fire_crouch_ads"  				"0"
+	"spread_kick_on_fire_air_ads" 					"0"
+
+	"spread_max_kick_stand_hip"   					"2.0"
+	"spread_max_kick_crouch_hip"  					"2.0"
+	"spread_max_kick_air_hip" 						"3.0"
+
+	"spread_max_kick_stand_ads"   					"2.5"
+	"spread_max_kick_crouch_ads"  					"1.5"
+	"spread_max_kick_air_ads" 						"3.0"
+
+	"spread_decay_rate"   							"30.0"
+	"spread_decay_delay"  							"0.15"
+
+	"deployfirst_time"								"2.0"
+	"is_anti_titan"  							    "0"
+
+	// Crosshair
+	"red_crosshair_range" 							"0"
+
+	// Bodygroups:
+	"bodygroup1_name"	"sight_front"
+	"bodygroup1_set"	"1"
+	"bodygroup2_name"	"sight_hcog"
+	"bodygroup2_set"	"0"
+	"bodygroup3_name"	"sight_holo"
+	"bodygroup3_set"	"0"
+	"bodygroup4_name"	"sight_aog04"
+	"bodygroup4_set"	"0"
+
+
+	Mods
+	{
+		iron_sights
+		{
+			"bodygroup1_set"	"1"
+			"zoom_fov"			"55"
+		}
+		// The stock rail sights. Each is mounted where the plain aimed pose looks through it.
+		hcog
+		{
+			"bodygroup1_set"	"0"
+			"bodygroup2_set"	"1"
+			"zoom_fov"			"45"
+		}
+		holosight
+		{
+			"bodygroup1_set"	"0"
+			"bodygroup3_set"	"1"
+			"zoom_fov"			"40"
+		}
+		aog
+		{
+			"bodygroup1_set"	"0"
+			"bodygroup4_set"	"1"
+			"zoom_fov"			"30"
+		}
+		extended_ammo
+		{
+			"ammo_stockpile_max"						"60"
+			"ammo_clip_size"   							"60"
+			"ammo_default_total"						"60"
+		}
+		stabilizer
+		{
+			"viewdrift_ads_stand_scale_pitch" 				"*0.5"
+			"viewdrift_ads_crouch_scale_pitch"				"*0.5"
+			"viewdrift_ads_air_scale_pitch"   				"*0.5"
+			"viewdrift_ads_air_scale_yaw" 					"*0.5"
+			"viewdrift_ads_stand_scale_yaw"   				"*0.5"
+			"viewdrift_ads_crouch_scale_yaw"  				"*0.5"
+			"viewdrift_ads_speed_pitch"   					"*0.5"
+			"viewdrift_ads_speed_yaw" 						"*0.5"
+		}
+		explosive_rounds
+		{
+			"tracer_effect"   								"weapon_tracers_xo16"
+			"tracer_effect_first_person"  					"weapon_tracers_xo16"
+			"impact_effect_table" 							"exp_wingman_explosive_rounds"
+
+			"damage_full_charge"							"110"
+			"damage_full_charge_titanarmor"					"200"
+
+			"explosion_inner_radius"  						"50"
+			"explosionradius" 								"100"
+			"explosion_damage"								"50"
+		}
+		burn_mod_bow // all weapon mods combined into one
+		{
+			"crosshair_index"								"1"
+			"bodygroup1_set"								"0"
+			"bodygroup4_set"								"1"
+
+			"ammo_stockpile_max"						"60"
+			"ammo_clip_size"   							"60"
+			"ammo_default_total"						"60"
+
+			"viewdrift_ads_stand_scale_pitch" 				"*0.5"
+			"viewdrift_ads_crouch_scale_pitch"				"*0.5"
+			"viewdrift_ads_air_scale_pitch"   				"*0.5"
+			"viewdrift_ads_air_scale_yaw" 					"*0.5"
+			"viewdrift_ads_stand_scale_yaw"   				"*0.5"
+			"viewdrift_ads_crouch_scale_yaw"  				"*0.5"
+			"viewdrift_ads_speed_pitch"   					"*0.5"
+			"viewdrift_ads_speed_yaw" 						"*0.5"
+
+			"tracer_effect"   								"weapon_tracers_xo16"
+			"tracer_effect_first_person"  					"weapon_tracers_xo16"
+			"impact_effect_table" 							"exp_wingman_explosive_rounds"
+
+			"damage_full_charge"							"110"
+			"damage_full_charge_titanarmor"					"200"
+
+			"explosion_inner_radius"  						"50"
+			"explosionradius" 								"100"
+			"explosion_damage"								"50"
+
+			"zoom_fov"										"30"
+			"is_burn_mod"									"1"
+		}
+	}
+
+	CrosshairData
+	{
+		BaseWeapon
+		{
+			DefaultElementBehavior
+			{
+				"rotation"					"90"
+				"size_x"					"44"
+				"size_y"					"44"
+				"scale_ads"					"0.5"
+				"fade_while_sprinting"		"1"
+				"fade_while_reloading"		"1"
+				"draw_while_ads"			"0"
+				"draw_while_hip"			"1"
+				"fade_while_zooming"		"1"
+			}
+			Element0
+			{
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus"
+			}
+			Element1
+			{
+				"type"						"spread"
+				"material"					"hud/crosshairs/standard_plus_shadow"
+			}
+		}
+	}
+}

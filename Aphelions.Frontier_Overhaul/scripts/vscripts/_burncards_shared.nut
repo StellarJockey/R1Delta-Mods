@@ -362,40 +362,55 @@ function CreateAllBurnCards()
 	const twinb_desc = "Replace Sidearm Weapon with a more lethal TWIN-B Shotgun."
 	const valk_desc = "Replace Primary Weapon with a Valkyrie Sniper that rechambers faster."
 	const wys_desc = "Replace Titan Weapon with a fully automatic WYS-0404 Shotgun."
-	const minigun_desc = "Replace Titan Weapon with an AG-8 Thunderbolt that fires instantly with no wind up."
+	const minigun_desc = "Replace Titan Weapon with a double ammo capacity AG-8 Thunderbolt."
 	const chargecannon_desc = "Charge Cannon reaches its maximum charge faster."
 	const wingman_e_desc = "Replace Sidearm Weapon with a more lethal Wingman Elite."
 	const volt_desc = "Replace Primary Weapon with a Volt SMG that fires arc rounds."
 	const flatline_desc = "Replace Primary Weapon with a more lethal V-47 Flatline."
-	// "Replace Ordnance Weapon with infinite, more leathal Electric Smoke Grenades."
+	const bow_desc = "Replace Primary Weapon with a fully kitted Bocek Compound Bow."
+
+	const throwing_knife_desc = "Replace Ordnance Weapon with infinite throwing knives."
+	const smoke_gren_desc = "Replace Ordnance Weapon with infinite, more leathal Electric Smoke Grenades."
+	const deployable_cover_desc = "Replace Pilot Tactical Ability with longer lasting Deployable Cover."
+	const hologram_desc = "Replace Pilot Tactical Ability with longer lasting Hologram and temporary Cloak."
 
 	const twinb_flavor = "\"Technically, it's only illegal if it's not registered.\""
 	const valk_flavor = "\"There are many like it, but this one is mine.\""
 	const wys_flavor = "\"We really just said 'screw it' with this one.\""
-	const minigun_flavor = "\"A threat in that direction? Solid copy. Removing that direction.\""
-	const chargecannon_flavor = "\"To avoid long-term eye damage, do not look directly into the beam.\""
 	const wingman_e_flavor = "\"One good act of vengeance deserves another.\""
 	const volt_flavor = "\"Beware of a static shock when handling.\""
-	const flatline_flavor = "\"I promised you a solution that would work... I did not say it would be pretty looking.\""
-	const smoke_gren_flavor = "\"You feel that in the air? Yeah, it's time to go.\""
+	const flatline_flavor = "\"I promised you a solution that would work. I did not say it would be aesthetically pleasing.\""
+	const bow_flavor = "\"Steady... Remember, shoot to kill. Don't let them suffer.\""
+	
+	const chargecannon_flavor = "\"To avoid long-term eye damage, do not look directly into the beam.\""
+	const minigun_flavor = "\"A threat in that direction? Solid copy. Removing that direction.\""
+	const throwing_knife_flavor = "\"We've got a surplus of counterfeit knives that can't hack anything... what else were we supposed to do?\""
+	const smoke_gren_flavor = "\"Guaranteed to get rid of fleas, ticks, and enemy Pilots.\""
+	const deployable_flavor = "\"I cast 'Circle of Protection.'\""
+	const hologram_flavor = "\"If a Pilot claims to see a deepfake outside of their HUD, refer them to a psychiatric technician.\""
 
 	const Wonyeon = "-Wonyeon Internal Memo"
 	const danforth = "-Danforth, Arms Dealer"
 	const vaughan = "-Captain Vaughan"
-	// "#BC_FLAVOR_PILOT"
 	const warninglabel = "-Warning Label"
 	const dowd = "-Dowd, retired Ghost Pilot"
 	const venkat = "-Venkat, MCOR Engineer"
+	const gus = "-Gustav, Colony G21"
 
 	CreateBurnCardWeapon( "bc_valkyrie_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SNIPER					, "burncards/amped_valkyrie",			BC_NEXTDEATH, 		"#BC_VALKYRIE_M2"				, valk_desc							, valk_flavor							, vaughan, 					"mp_weapon_sr_valkyrie",			"burn_mod_valkyrie",			"PRIMARY"			)
 	CreateBurnCardWeapon( "bc_twinb_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SMG					, "burncards/amped_twinb",				BC_NEXTDEATH, 		"#BC_TWINB_SHOTGUN_M2"			, twinb_desc						, twinb_flavor							, "#BC_FLAVOR_DANFORTH",	"mp_weapon_twinb_shotgun",			"burn_mod_twinb",				"SIDEARM"			)
-	CreateBurnCardWeapon( "bc_titan_shotgun_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_titan_shotgun", 		BC_NEXTTITANDROP, 	"#BC_TITAN_SHOTGUN_M2"			, "#BC_TITAN_SHOTGUN_M2_DESC"		, "#BC_TITAN_SHOTGUN_M2_FLAVOR"			, "#BC_FLAVOR_WONYEON",		"mp_titanweapon_shotgun",	"burn_mod_titan_shotgun", 		"TITAN_PRIMARY"		)
-	//CreateBurnCardWeapon( "bc_thunderbolt_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_thunderbolt", 		BC_NEXTTITANDROP, 	"#BC_TITAN_MINIGUN_M2"			, "#BC_TITAN_MINIGUN_M2_DESC"		, "#BC_TITAN_MINIGUN_M2_FLAVOR"			, "#BC_FLAVOR_PILOT",		"mp_titanweapon_minigun",			"burn_mod_thunderbolt", 		"TITAN_PRIMARY"		)
-	//CreateBurnCardWeapon( "bc_titan_charge_cannon_m2",			BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_TACTICAL				, "burncards/amped_charge_cannon", 		BC_NEXTTITANDROP, 	"#BC_TITAN_CHARGE_CANNON_M2"	, "#BC_TITAN_CHARGE_CANNON_M2_DESC"	, chargecannon_flavor				, warninglabel,				"mp_titanweapon_charge_cannon",			"burn_mod_titan_charge_cannon",	"TITAN_OFFHAND1"	)
+	CreateBurnCardWeapon( "bc_titan_shotgun_m2",				BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY				, "burncards/amped_titan_shotgun", 		BC_NEXTTITANDROP, 	"Amped WYS-0404"				, wys_desc							, wys_flavor							, Wonyeon,					"mp_titanweapon_shotgun",	"burn_mod_titan_shotgun", 		"TITAN_PRIMARY"		)
 	CreateBurnCardWeapon( "bc_wingman_elite_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_PISTOL					, "burncards/amped_wingman_elite", 		BC_NEXTDEATH, 		"Amped Wingman Elite"			, wingman_e_desc					, wingman_e_flavor						, dowd,						"mp_weapon_wingman_elite", 			"burn_mod_wingman_elite",       "SIDEARM"		)
 	CreateBurnCardWeapon( "bc_volt_m2",							BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SMG					, "burncards/amped_volt", 				BC_NEXTDEATH, 		"Amped Volt"					, volt_desc							, volt_flavor							, warninglabel,				"mp_weapon_volt", 			"burn_mod_volt",      			"PRIMARY"		)
 	CreateBurnCardWeapon( "bc_flatline_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_RIFLE					, "burncards/amped_flatline", 			BC_NEXTDEATH, 		"Amped Flatline"				, flatline_desc						, flatline_flavor						, venkat,					"mp_weapon_flatline", 		"burn_mod_flatline",      			"PRIMARY"		)
-	// CreateBurnCardWeapon( "bc_smoke_grenade_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_FRAG					, "burncards/amped_smoke_grenade", 		BC_NEXTDEATH, 		"Fog of War"					, smoke_gren_desc					, smoke_gren_flavor						, venkat,					"mp_weapon_smoke_grenade", 		"burn_mod_flatline",      			"OFFHAND0"		)
+	CreateBurnCardWeapon( "bc_bow_m2",							BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_SNIPER					, "burncards/amped_bow", 				BC_NEXTDEATH, 		"Amped Bocek"					, bow_desc							, bow_flavor							, gus,						"mp_weapon_bow", 			"burn_mod_bow",      			"PRIMARY"		)
+
+	// CreateBurnCardWeapon( "bc_thunderbolt_m2",					BURNCARD_RARE, 		BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_PRIMARY			, "burncards/amped_thunderbolt", 		BC_NEXTTITANDROP, 	"#BC_TITAN_MINIGUN_M2"			, "#BC_TITAN_MINIGUN_M2_DESC"		, "#BC_TITAN_MINIGUN_M2_FLAVOR"		, "#BC_FLAVOR_PILOT",		"mp_titanweapon_minigun",			"burn_mod_thunderbolt", 			"TITAN_PRIMARY"		)
+	// CreateBurnCardWeapon( "bc_titan_charge_cannon_m2",			BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_TITAN_WPN	| CT_TACTICAL			, "burncards/amped_charge_cannon", 		BC_NEXTTITANDROP, 	"#BC_TITAN_CHARGE_CANNON_M2"	, "#BC_TITAN_CHARGE_CANNON_M2_DESC"	, chargecannon_flavor				, warninglabel,				"mp_titanweapon_charge_cannon",		"burn_mod_titan_charge_cannon",		"TITAN_OFFHAND1"	)
+	// CreateBurnCardWeapon( "bc_throwing_knife_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_FRAG				, "burncards/amped_throwing_knife",		BC_NEXTDEATH, 		"Raining Knives"				, throwing_knife_desc				, throwing_knife_flavor				, "#BC_FLAVOR_BISH",		"mp_weapon_throwing_knife",			"burn_mod_throwing_knife",      	"OFFHAND0"		)
+	// CreateBurnCardWeapon( "bc_smoke_grenade_m2",					BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_WEAPON		| CT_FRAG				, "burncards/amped_smoke_grenade", 		BC_NEXTDEATH, 		"Fog of War"					, smoke_gren_desc					, smoke_gren_flavor					, danforth,					"mp_weapon_smoke_grenade", 			"burn_mod_smoke_grenade",      		"OFFHAND0"		)
+	// CreateBurnCardWeapon( "bc_deployable_cover_m2",				BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_SPECIAL								, "burncards/amped_deployable_cover", 	BC_NEXTDEATH, 		"Pilot Dome"					, deployable_cover_desc				, deployable_cover_flavor			, "#BC_FLAVOR_BISH",		"mp_ability_deployable_cover",		null,      							"OFFHAND0"		)
+	// CreateBurnCardWeapon( "bc_hologram_m2",						BURNCARD_COMMON, 	BCGROUP_WEAPON, 	CT_SPECIAL								, "burncards/amped_hologram", 			BC_NEXTDEATH, 		"Digital Warfare"				, hologram_desc						, hologram_flavor					, "#BC_FLAVOR_SPYGLASS",	"mp_ability_hologram", 				null,      		"OFFHAND0"		)
 
 	if ( IsServer() )
 	{

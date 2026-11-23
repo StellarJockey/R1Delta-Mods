@@ -764,6 +764,7 @@ function SpectreSuicideOnDamaged( spectre, damageInfo )
 		case eDamageSourceId.switchback_trap:
 		case eDamageSourceId.titanEmpField:
 		case eDamageSourceId.mp_weapon_throwing_knife:
+		case eDamageSourceId.mp_weapon_bow:
 		case eModSourceId.burn_mod_titan_xo16:
 		case eModSourceId.burn_mod_volt:
 			thread SpectreNeutralize( spectre, results )

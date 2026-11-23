@@ -14,10 +14,11 @@ weaponscripts
 	"file"	"mp_titanweapon_charge_cannon"
 	"file"	"mp_weapon_throwing_knife"
 
-	"file"  "mp_weapon_deployable_cover"
-	"file"  "mp_weapon_hologram"
+	"file"  "mp_ability_deployable_cover"
+	"file"  "mp_ability_hologram"
 	"file"  "mp_weapon_wingman_elite"
 	"file"  "mp_weapon_volt"
 	"file"  "mp_weapon_flatline"
 	"file"  "mp_weapon_smoke_grenade"
+	"file"  "mp_weapon_bow"
 }

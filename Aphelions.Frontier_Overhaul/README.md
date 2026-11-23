@@ -19,7 +19,7 @@ NPC Features:
 
 Weapon Features:
 -
-* New Pilot Primaries: M-18 Volt SMG and V-47 Flatline
+* New Pilot Primaries: M-18 Volt SMG, V-47 Flatline and Bocek Compound Bow
 * New Pilot Sidearm: Wingman Elite
 * New Pilot Ordnance: Electric Smoke Grenade and Throwing Knife
 * New Pilot Tacticals: Deployable Cover and Hologram
@@ -78,6 +78,6 @@ Good luck, have fun!
 -
 That's an order.
 
-**Mod contributors**: ASillyNeko, Frann, 07zj, NachosChipeados, StoneCold, Wulfheart, sgtmajorjefferson, Claude (AI), Claire, ynformal, and Aphelion
+**Mod contributors**: ASillyNeko, Frann, 07zj, NachosChipeados, StoneCold, Wulfheart, sgtmajorjefferson, Claude (AI), Claire, ynformal, gearhead, and Aphelion
 
 (Thank you to ASillyNeko and Frann for making the original Extended Attrition mod!)

@@ -326,6 +326,7 @@ function UpdateCategoryButtons( category )
 											eChallengeCategory.WEAPON_VALKYRIE,
 											eChallengeCategory.WEAPON_VOLT,
 											eChallengeCategory.WEAPON_FLATLINE,
+											eChallengeCategory.WEAPON_BOW,
 										 ] )
 			break
 
@@ -352,6 +353,7 @@ function UpdateCategoryButtons( category )
 											eChallengeCategory.WEAPON_PROXIMITY_MINE,
 											eChallengeCategory.WEAPON_SATCHEL,
 											// eChallengeCategory.WEAPON_THROWING_KNIFE,
+											// eChallengeCategory.WEAPON_SMOKE_GRENADE,
 										 ] )
 			break
 

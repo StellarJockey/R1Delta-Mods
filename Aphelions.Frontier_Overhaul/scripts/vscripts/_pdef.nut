@@ -166,14 +166,15 @@ function InitPersistence()
 	    mp_titanweapon_charge_cannon = 43
 	    mp_titanweapon_shoulder_turret = 44
 		mp_weapon_throwing_knife = 45
-		mp_weapon_deployable_cover = 46
-		mp_weapon_hologram = 47
+		mp_ability_deployable_cover = 46
+		mp_ability_hologram = 47
 		mp_weapon_yh803_bullet = 48 // turret
 		mp_weapon_wingman_elite = 49
 		mp_weapon_volt = 50
 		mp_weapon_flatline = 51
 		mp_weapon_yh803 = 52 // rocket turret
 		mp_weapon_smoke_grenade = 53
+		mp_weapon_bow = 54
     }
 
     AddPersistenceEnum("loadoutItems", loadoutItems)
@@ -252,6 +253,8 @@ function InitPersistence()
 		kick_switch = 70
 		burn_mod_flatline = 71
 		combat_drone_dmg = 72
+		burn_mod_bow = 73
+
     }
 
     AddPersistenceEnum("pilotMod", pilotMod)
@@ -698,6 +701,15 @@ function InitPersistence()
 		mp_weapon_flatline_burn_mod_flatline = 159,
 		mp_weapon_yh803_bullet_combat_drone_dmg = 160,
 		mp_weapon_yh803_combat_drone_dmg = 161,
+
+		mp_weapon_bow_extended_ammo = 162,
+		mp_weapon_bow_stabilizer = 163,
+		mp_weapon_bow_iron_sights = 164,
+		mp_weapon_bow_hcog = 165,
+		mp_weapon_bow_holosight = 166,
+		mp_weapon_bow_aog = 167,
+		mp_weapon_bow_burn_mod_bow = 168,
+		mp_weapon_bow_explosive_rounds = 169,
     }
 
     AddPersistenceEnum("modsCombined", modsCombined)
@@ -872,6 +884,7 @@ function InitPersistence()
 		bc_wingman_elite_m2 = 80,
 		bc_volt_m2 = 81,
 		bc_flatline_m2 = 82,
+		bc_bow_m2 = 83,
     }
 	::struct_activeBurnCardData <- {
 		cardRef = null,
@@ -1584,6 +1597,13 @@ function InitPersistence()
 	    ch_flatline_grunt_kills = 246,
 	    ch_flatline_hours_used = 247,
 	    ch_flatline_headshots = 248,
+
+		ch_bow_kills = 249,
+	    ch_bow_pilot_kills = 250,
+	    ch_bow_spectre_kills = 251,
+	    ch_bow_grunt_kills = 252,
+	    ch_bow_hours_used = 253,
+	    ch_bow_headshots = 254,
     }
 
     AddPersistenceEnum("challenge", challenge)
@@ -1855,6 +1875,12 @@ function InitPersistence()
 		ch_daily_flatline_spectre_kills = 218,
 		ch_daily_flatline_grunt_kills = 219,
 		ch_daily_flatline_headshots = 220,
+
+		ch_daily_bow_kills = 221,
+		ch_daily_bow_pilot_kills = 222,
+		ch_daily_bow_spectre_kills = 223,
+		ch_daily_bow_grunt_kills = 224,
+		ch_daily_bow_headshots = 225,
     }
 
     AddPersistenceEnum("dailychallenge", dailychallenge)

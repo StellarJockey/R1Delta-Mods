@@ -294,7 +294,7 @@ function GhostPilotThink( ghostPilot )
 
     // Script-side state tracking
     ghostPilot.s.cloaked <- true
-    SniperCloak( ghostPilot )
+    GhostCloak( ghostPilot )
 
     // Re-enforce minimap-hide in case other code tries to show them
     ghostPilot.Minimap_Hide( TEAM_IMC, null )
@@ -324,7 +324,7 @@ function GhostPilotThink( ghostPilot )
         }
         else if ( !shouldDecloak && !ghostPilot.s.cloaked )
         {
-            SniperCloak( ghostPilot )
+            GhostCloak( ghostPilot )
             ghostPilot.s.cloaked = true
 
             // re-enforce (defensive)
@@ -337,6 +337,21 @@ function GhostPilotThink( ghostPilot )
     }
 }
 
+function GhostCloak( sniper )
+{
+	if ( !IsAlive( sniper ) )
+		return
+
+	if ( !sniper.CanCloak() )
+		return
+
+	sniper.s.cloaked <- true  // Added state tracking here
+	sniper.kv.allowshoot = 1
+	sniper.SetCloakDuration( 2.0, -1, 0 )
+	sniper.Minimap_Hide( TEAM_IMC, null )
+	sniper.Minimap_Hide( TEAM_MILITIA, null )
+}
+Globalize( GhostCloak )
 
 /////////////////////////////////////////////////////////
 //////////// NPC PILOT TACTICAL ABILITIES ///////////////
@@ -555,7 +570,7 @@ function FindNPCTacRelocationPoint( npc, enemy )
 	return null
 }
 
-// Mine-less version of ProximityMineSpawnShield (mp_weapon_deployable_cover.nut): same entities,
+// Mine-less version of ProximityMineSpawnShield (mp_ability_deployable_cover.nut): same entities,
 function NPCPilotDeployCover( npc, lifetime )
 {
 	npc.EndSignal( "OnDestroy" )

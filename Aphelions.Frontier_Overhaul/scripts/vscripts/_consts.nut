@@ -2160,6 +2160,7 @@ enum eChallengeCategory
 	WEAPON_VALKYRIE,
 	WEAPON_VOLT,
 	WEAPON_FLATLINE,
+	WEAPON_BOW,
 
 	PILOT_SECONDARY,	// Only used by challenges menu
 
@@ -2654,6 +2655,7 @@ const WEAPON_WINGMAN_ELITE_NAME = "mp_weapon_wingman_elite"
 const WEAPON_VOLT_NAME = "mp_weapon_volt"
 const WEAPON_FLATLINE_NAME = "mp_weapon_flatline"
 const WEAPON_SMOKE_GRENADE = "mp_weapon_smoke_grenade"
+const WEAPON_BOW = "mp_weapon_bow"
 
 enum eUIEvent
 {
