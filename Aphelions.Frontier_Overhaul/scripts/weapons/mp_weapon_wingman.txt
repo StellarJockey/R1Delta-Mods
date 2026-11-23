@@ -323,9 +323,6 @@ WeaponData
 		{
 			//Explosive Rounds
 			//"damage_type" 								"burn"
-			"ammo_stockpile_max"							"80"
-			"ammo_clip_size"   								"6"
-			"ammo_default_total"							"80"
 			"damage_near_value"   							"0"
 			"damage_far_value"								"0"
 
