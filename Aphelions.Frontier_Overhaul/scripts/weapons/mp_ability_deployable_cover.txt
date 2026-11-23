@@ -4,12 +4,12 @@ WeaponData
 	"printname"   									"Deployable Cover"
 	"shortprintname"   								"Deployable Cover"
 	"description"   								"Portable Dome-Shield, attaches to any surface"
-	"longdesc"   									"The Deployable Cover is a miniature Dome-Shield that lasts for 8 seconds. While active, it will block all incoming and outgoing damage, protecting any entities inside - provided that no hostiles wander in."
+	"longdesc"   									"The Deployable Cover is a miniature Dome-Shield that lasts for 8 seconds. While active, it will block all incoming and outgoing damage, protecting both you and your allies - provided that no hostiles wander in."
 	"weaponClass" 									"human"
 	"fire_mode"   									"offhand"
 	"offhand_toss"									"1"
-	"server_vscript"  								"weapons/mp_weapon_deployable_cover"
-	"client_vscript"  								"weapons/mp_weapon_deployable_cover"
+	"server_vscript"  								"weapons/mp_ability_deployable_cover"
+	"client_vscript"  								"weapons/mp_ability_deployable_cover"
 
 	// Models
 	"viewmodel"   									"models/weapons/clacker_detonator/ptpov_proximity_detonator.mdl"
@@ -90,7 +90,7 @@ WeaponData
 
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
-	"projectile_vscript"	  						"weapons/mp_weapon_deployable_cover"
+	"projectile_vscript"	  						"weapons/mp_ability_deployable_cover"
 	"item_flags"  									"0"
 	"hud_icon"										"HUD/dpad_call_in_deployable_cover"
 

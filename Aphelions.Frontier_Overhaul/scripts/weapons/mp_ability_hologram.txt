@@ -7,8 +7,8 @@ WeaponData
 	"longdesc"   									"The Hologram is a real-time deepfake that infects enemy HUDs, creating a digital clone of you that lasts for 10 seconds. Upon activation, you will briefly cloak as the Hologram runs forward."
 	"weaponClass" 									"human"
 	"fire_mode"   									"offhand_instant"
-	"server_vscript"  								"weapons/mp_weapon_hologram"
-	"client_vscript"  								"weapons/mp_weapon_hologram"
+	"server_vscript"  								"weapons/mp_ability_hologram"
+	"client_vscript"  								"weapons/mp_ability_hologram"
 
 	"damage_type" 									"none"
 
