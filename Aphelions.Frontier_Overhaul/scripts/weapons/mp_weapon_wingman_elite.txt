@@ -1,4 +1,4 @@
-`WeaponData
+WeaponData
 {
 	// General
 	"printname"   									"Wingman Elite"

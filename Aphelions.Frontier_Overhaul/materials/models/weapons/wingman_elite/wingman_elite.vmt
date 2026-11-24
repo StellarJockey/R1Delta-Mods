@@ -1,11 +1,11 @@
 "VertexLitGeneric"
 {
 	"$surfaceprop" "metal"
-	"$basetexture" "models\weapons_r2\wingman_elite\wingman_elite_col"
-	"$bumpmap" "models\weapons_r2\wingman_elite\wingman_elite_nml"
+	"$basetexture" "models\weapons\wingman_elite\wingman_elite_col"
+	"$bumpmap" "models\weapons\wingman_elite\wingman_elite_nml"
 	"$envmap" "env_cubemap"
-	"$reflectiontint" "models\weapons_r2\wingman_elite\wingman_elite_spc"
-	"$reflectiontintshininess" "models\weapons_r2\wingman_elite\wingman_elite_spc"
+	"$reflectiontint" "models\weapons\wingman_elite\wingman_elite_spc"
+	"$reflectiontintshininess" "models\weapons\wingman_elite\wingman_elite_spc"
 	"$reflectiontintcolor" "1"
 	"$fresnelamount" "1"
 	"$fresnelintensity" "11"
@@ -16,5 +16,5 @@
 	"$EnvmapSharpnessBias" "0"
 	"$speculartint" "[1 1 1]"
 	"$selfillum" "1"
-	"$selfillummask" "models\weapons_r2\wingman_elite\wingman_elite_ilm"
+	"$selfillummask" "models\weapons\wingman_elite\wingman_elite_ilm"
 }
