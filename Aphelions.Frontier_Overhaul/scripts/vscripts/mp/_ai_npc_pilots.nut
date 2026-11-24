@@ -107,6 +107,7 @@ function ChoosePilotModelForWeapon( team, weapon )
         case "mp_weapon_sniper":
         case "mp_weapon_g2":
         case "mp_weapon_sr_valkyrie":
+		case "mp_weapon_bow":
             modelIndex = 2 // dm
             break
 
